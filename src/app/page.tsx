@@ -12,6 +12,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import {
   Search,
   FileText,
   Link2,
@@ -20,6 +26,7 @@ import {
   Sparkles,
   Users,
   Quote,
+  Star
 } from "lucide-react";
 import { Seo4WebLogo } from "@/components/icons/logo";
 
@@ -51,25 +58,43 @@ const features = [
 ];
 
 const testimonials = [
-  {
-    quote:
-      "Vďaka seo4web sme za 6 mesiacov zdvojnásobili organickú návštevnosť. Ich prístup je neuveriteľne analytický a efektívny.",
-    name: "Martin Novak",
-    company: "CEO, TechSolutions s.r.o.",
-  },
-  {
-    quote:
-      "Profesionálny tím, ktorý naozaj rozumie SEO. Pomohli nám dostať sa na prvú stránku na kľúčové slová, o ktorých sme si mysleli, že sú nedosiahnuteľné.",
-    name: "Jana Horáková",
-    company: "Marketing Manager, Fashio.sk",
-  },
-  {
-    quote:
-      "Najlepšia investícia do marketingu, akú sme kedy urobili. Návratnosť bola takmer okamžitá. Odporúčam všetkými desiatimi.",
-    name: "Peter Varga",
-    company: "Majiteľ, E-shop pre Domácnosť",
-  },
+    {
+        quote: "Díky SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
+        name: "Ján Malík",
+        company: "E-shop Elektro",
+        avatar: "https://placehold.co/64x64/3b82f6/FFFFFF?text=JM",
+        avatarHint: "smiling man 45 years old in a suit"
+    },
+    {
+        quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
+        name: "Katarína Muchová",
+        company: "Blog Zdravie & Wellness",
+        avatar: "https://placehold.co/64x64/10b981/FFFFFF?text=KM",
+        avatarHint: "smiling woman with blonde wavy hair 35 years old"
+    },
+    {
+        quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
+        name: "Peter Vavrinec",
+        company: "Stavebná Firma",
+        avatar: "https://placehold.co/64x64/6366f1/FFFFFF?text=PV",
+        avatarHint: "man with glasses 50 years old in a blue suit"
+    }
 ];
+
+const faqItems = [
+    {
+        question: "Ako dlho trvá vidieť výsledky SEO?",
+        answer: "Väčšinou trvá 3-6 mesiacov kým sa začnú prejavovať viditeľné výsledky SEO optimalizácie. Toto obdobie závisí od mnohých faktorov ako je súčasná pozícia vášho webu, úroveň konkurencie vo vašom odvetví a rozsah vykonávaných optimalizácií. Počiatočné zlepšenia ako zvýšenie počtu indexovaných stránok a lepšia pozícia pre menej konkurenčné kľúčové slová môžeme často vidieť už po 4-8 týždňoch."
+    },
+    {
+        question: "Prečo je SEO efektívnejšie ako PPC reklama?",
+        answer: "SEO a PPC sa navzájom nevylučujú, ale SEO prináša dlhodobé benefity. Organické výsledky majú u používateľov vyššiu dôveryhodnosť, po dosiahnutí dobrých pozícií neplatíte za kliknutia a budujete udržateľný zdroj návštevnosti. Ideálnou stratégiou je kombinácia oboch prístupov."
+    },
+    {
+        question: "Čo všetko je zahrnuté vo vašich SEO službách?",
+        answer: "Náš kompletný SEO balíček obsahuje: technický audit webu, analýzu a výber kľúčových slov, optimalizáciu obsahu, overenie štruktúry a interného prepojenia, budovanie spätných odkazov, pravidelné reportovanie výsledkov a monitorovanie konkurencie. Všetky služby sú prispôsobené konkrétnym potrebám vášho projektu."
+    }
+]
 
 
 export default function Home() {
@@ -176,30 +201,64 @@ export default function Home() {
                 Vaša spokojnosť je našou najlepšou vizitkou.
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               {testimonials.map((testimonial, index) => (
                 <Card
                   key={index}
-                  className="flex flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg animate-fade-in-up"
+                  className="flex flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg animate-fade-in-up transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
                   style={{ animationDelay: `${0.3 + index * 0.1}s` }}
                 >
                   <CardContent className="pt-6">
-                    <Quote className="h-8 w-8 text-primary/50 mb-4" />
-                    <p className="text-foreground/80 italic text-balance">
-                      {testimonial.quote}
+                    <div className="flex items-center mb-4">
+                       <Image
+                          src={testimonial.avatar}
+                          alt={`Portrét ${testimonial.name}`}
+                          width={48}
+                          height={48}
+                          className="rounded-full"
+                          data-ai-hint={testimonial.avatarHint}
+                        />
+                       <div className="ml-4">
+                            <h3 className="font-bold">{testimonial.name}</h3>
+                            <p className="text-gray-600 text-sm">{testimonial.company}</p>
+                        </div>
+                    </div>
+                    <p className="text-foreground/80 italic text-balance mb-4">
+                      "{testimonial.quote}"
                     </p>
+                     <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                           <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
+                        ))}
+                    </div>
                   </CardContent>
-                  <CardHeader className="pt-4">
-                    <CardTitle className="text-lg font-semibold">{testimonial.name}</CardTitle>
-                    <CardDescription>{testimonial.company}</CardDescription>
-                  </CardHeader>
                 </Card>
               ))}
             </div>
           </div>
         </section>
+        
+        <section id="faq" className="bg-muted/50 py-20 px-4 sm:py-32">
+            <div className="container mx-auto max-w-4xl">
+                 <div className="mb-12 text-center">
+                  <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline animate-fade-in-up">
+                    Často Kladené Otázky
+                  </h2>
+                </div>
+                 <Accordion type="single" collapsible className="w-full">
+                   {faqItems.map((item, index) => (
+                      <AccordionItem value={`item-${index+1}`} key={index}>
+                        <AccordionTrigger className="text-lg text-left">{item.question}</AccordionTrigger>
+                        <AccordionContent className="text-base text-muted-foreground">
+                         {item.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                   ))}
+                </Accordion>
+            </div>
+        </section>
 
-        <section id="about" className="bg-muted/50 py-20 px-4 sm:py-32">
+        <section id="about" className="bg-background py-20 px-4 sm:py-32">
           <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
             <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <Image

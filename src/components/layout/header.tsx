@@ -34,6 +34,12 @@ export function Header() {
             >
               Služby
             </Link>
+             <Link
+              href="/tahaky"
+              className="text-foreground/70 transition-colors hover:text-foreground"
+            >
+              SEO Ťaháky
+            </Link>
             <Link
               href="/#about"
               className="text-foreground/70 transition-colors hover:text-foreground"
