@@ -35,48 +35,48 @@ const features = [
     icon: <Search className="h-8 w-8 text-primary" />,
     title: "Keyword Research",
     description:
-      "We identify the most valuable keywords to target for your business, driving relevant traffic to your site.",
+      "Identifikujeme najcennejšie kľúčové slová pre vaše podnikanie, čím privedieme relevantnú návštevnosť na váš web.",
   },
   {
     icon: <FileText className="h-8 w-8 text-primary" />,
     title: "On-Page SEO",
     description:
-      "Optimizing your content, titles, and meta descriptions to improve rankings and click-through rates.",
+      "Optimalizujeme váš obsah, titulky a meta popisy pre zlepšenie pozícií a miery prekliku (CTR).",
   },
   {
     icon: <Link2 className="h-8 w-8 text-primary" />,
     title: "Link Building",
     description:
-      "Building high-quality backlinks to your site to increase authority and improve search engine trust.",
+      "Budujeme kvalitné spätné odkazy na váš web, aby sme zvýšili jeho autoritu a dôveru u vyhľadávačov.",
   },
   {
     icon: <Cog className="h-8 w-8 text-primary" />,
-    title: "Technical SEO",
+    title: "Technické SEO",
     description:
-      "Ensuring your site is technically sound, fast, and easy for search engines to crawl and index.",
+      "Zabezpečujeme, aby bol váš web technicky v poriadku, rýchly a ľahko čitateľný pre vyhľadávače.",
   },
 ];
 
 const testimonials = [
     {
-        quote: "Díky SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
+        quote: "Vďaka SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
         name: "Ján Malík",
         company: "E-shop Elektro",
-        avatar: "https://placehold.co/64x64/3b82f6/FFFFFF?text=JM",
+        avatar: "https://placehold.co/64x64",
         avatarHint: "smiling man 45 years old in a suit"
     },
     {
         quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
         name: "Katarína Muchová",
         company: "Blog Zdravie & Wellness",
-        avatar: "https://placehold.co/64x64/10b981/FFFFFF?text=KM",
+        avatar: "https://placehold.co/64x64",
         avatarHint: "smiling woman with blonde wavy hair 35 years old"
     },
     {
         quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
         name: "Peter Vavrinec",
         company: "Stavebná Firma",
-        avatar: "https://placehold.co/64x64/6366f1/FFFFFF?text=PV",
+        avatar: "https://placehold.co/64x64",
         avatarHint: "man with glasses 50 years old in a blue suit"
     }
 ];
@@ -154,7 +154,7 @@ export default function Home() {
               variant="outline"
               asChild
             >
-              <Link href="/contact">Cenová Ponuka</Link>
+              <Link href="/contact">Bezplatná Konzultácia</Link>
             </Button>
           </div>
         </section>
@@ -188,6 +188,14 @@ export default function Home() {
                 </Card>
               ))}
             </div>
+             <div className="mt-12 text-center">
+                <Button asChild size="lg">
+                    <Link href="/tahaky">
+                        Objavte Naše SEO Ťaháky
+                        <Sparkles className="ml-2" />
+                    </Link>
+                </Button>
+            </div>
           </div>
         </section>
 
@@ -220,7 +228,7 @@ export default function Home() {
                         />
                        <div className="ml-4">
                             <h3 className="font-bold">{testimonial.name}</h3>
-                            <p className="text-gray-600 text-sm">{testimonial.company}</p>
+                            <p className="text-muted-foreground text-sm">{testimonial.company}</p>
                         </div>
                     </div>
                     <p className="text-foreground/80 italic text-balance mb-4">
@@ -263,7 +271,7 @@ export default function Home() {
             <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <Image
                 src="https://placehold.co/600x400.png"
-                alt="About seo4web"
+                alt="Tím seo4web pri strategickom plánovaní digitálneho marketingu"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-2xl shadow-primary/10"
@@ -289,6 +297,14 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">Váš úspech je našou prioritou.</p>
                 </div>
               </div>
+               <div className="mt-8">
+                <Button asChild size="lg" variant="outline">
+                    <Link href="/contact">
+                        Napíšte Nám
+                        <ArrowRight className="ml-2" />
+                    </Link>
+                </Button>
+            </div>
             </div>
           </div>
         </section>

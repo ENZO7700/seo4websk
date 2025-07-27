@@ -1,19 +1,22 @@
 'use client';
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function TahakyPage() {
     return (
     <div className="bg-background text-foreground">
-        <header className="bg-primary/10 text-primary-foreground">
-            <div className="container mx-auto px-4 py-16 sm:py-24">
+        <header className="bg-primary/10 py-16 sm:py-24">
+            <div className="container mx-auto px-4">
                 <div className="text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground font-headline">Exkluzívne SEO Ťaháky</h1>
                     <p className="text-xl max-w-3xl mx-auto text-foreground/80 mb-8 text-balance">
                         Objavte 50+ overených techník, ktoré nám pomohli zvýšiť organický traffic našich klientov o 200-500%
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Button size="lg">Chcem Konzultáciu</Button>
-                        <Button size="lg" variant="outline">Stiahnuť PDF</Button>
+                        <Button size="lg" asChild>
+                            <Link href="/contact">Chcem Konzultáciu</Link>
+                        </Button>
+                        <Button size="lg" variant="outline">Stiahnuť PDF (Čoskoro)</Button>
                     </div>
                 </div>
             </div>
@@ -70,13 +73,15 @@ export default function TahakyPage() {
                   <li><strong>Optimalizácia Obrázkov:</strong> Vždy používajte popisné alt texty a správne názvy súborov.</li>
                   <li><strong>Transkripcie Videí:</strong> Pre videá poskytujte textové prepisy pre lepšie indexovanie.</li>
                   <li><strong>Infografiky:</strong> Vytvárajte originálne infografiky, ktoré možno zdieľať.</li>
-                  <li><strong>Interaktívny Obsah:</strong> Kvízy a kalkulačky zvyšujú čas strávený na stránke.</li>
+                  <li><strong>Interaktívny Obsah:</strong> Kvízy a <Link href="/analyzer">kalkulačky</Link> zvyšujú čas strávený na stránke.</li>
               </ul>
 
               <div className="bg-accent/20 border-l-4 border-accent p-6 rounded-md my-12">
                   <h3 className="!mt-0 text-accent-foreground font-bold">Exkluzívna Ponuka Pre Nových Klientov</h3>
                   <p className="text-accent-foreground/80">Objednajte si kompletný SEO audit vášho webu a získajte 50% zľavu na prvý mesiac spolupráce! Ponuka platí len pre nových klientov.</p>
-                  <Button className="mt-4" variant="outline">Využiť Ponuku</Button>
+                  <Button className="mt-4" variant="outline" asChild>
+                    <Link href="/contact">Využiť Ponuku</Link>
+                  </Button>
               </div>
           </article>
         </main>

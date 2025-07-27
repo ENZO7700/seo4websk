@@ -55,13 +55,13 @@ export function Header() {
                 <DropdownMenuLabel>B2B Riešenia</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="#">Korporátne SEO</Link>
+                  <Link href="/#">Korporátne SEO</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="#">E-commerce Optimalizácia</Link>
+                  <Link href="/#">E-commerce Optimalizácia</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="#">Analýza Konkurencie</Link>
+                  <Link href="/#">Analýza Konkurencie</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

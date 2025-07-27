@@ -8,9 +8,13 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Inter, Lexend_Deca } from 'next/font/google';
 
 export const metadata: Metadata = {
-  title: "seo4web - Boost Your SEO Ranking",
+  title: {
+    template: '%s | seo4web',
+    default: 'seo4web - Expertné SEO služby pre rast vášho biznisu',
+  },
   description:
-    "seo4web offers expert SEO services to improve your website's visibility and search engine rankings. Keyword research, on-page optimization, link building, and technical SEO.",
+    "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch. Špecializujeme sa na analýzu kľúčových slov, on-page SEO, link building a technické SEO.",
+  keywords: "SEO, optimalizácia pre vyhľadávače, SEO agentúra, link building, technické SEO, on-page SEO, seo4web",
 };
 
 const fontBody = Inter({

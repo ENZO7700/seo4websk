@@ -22,15 +22,15 @@ import { saveContactMessage } from "@/services/contactService";
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: "Meno musí mať aspoň 2 znaky.",
   }),
   email: z.string().email({
-    message: "Please enter a valid email address.",
+    message: "Prosím, zadajte platnú e-mailovú adresu.",
   }),
   message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
+    message: "Správa musí mať aspoň 10 znakov.",
   }).max(500, {
-    message: "Message must not be longer than 500 characters."
+    message: "Správa nesmie byť dlhšia ako 500 znakov."
   }),
 });
 
@@ -57,17 +57,17 @@ export default function ContactPage() {
       const result = await generateReply({ name: values.name });
       
       toast({
-        title: "Message Sent!",
+        title: "Správa odoslaná!",
         description: result.message,
       });
       
       form.reset();
     } catch (error) {
-      console.error("Failed to send message:", error);
+      console.error("Nepodarilo sa odoslať správu:", error);
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request. Please try again.",
+        title: "Nastala chyba!",
+        description: "Vyskytol sa problém s vašou požiadavkou. Skúste to prosím znova.",
       });
     } finally {
       setIsSubmitting(false);
@@ -79,9 +79,9 @@ export default function ContactPage() {
        <div className="flex justify-center">
         <Card className="w-full max-w-2xl bg-card/50 backdrop-blur-lg">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold tracking-tighter md:text-4xl font-headline text-center">Contact Us</CardTitle>
+            <CardTitle className="text-3xl font-bold tracking-tighter md:text-4xl font-headline text-center">Kontaktujte Nás</CardTitle>
             <CardDescription className="text-center text-balance">
-              Have a question or want a free quote? Fill out the form below.
+              Máte otázku alebo záujem o bezplatnú cenovú ponuku? Vyplňte formulár nižšie.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -92,9 +92,9 @@ export default function ContactPage() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel>Meno</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Name" {...field} />
+                        <Input placeholder="Vaše Meno" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
+                        <Input placeholder="vas.email@priklad.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -118,10 +118,10 @@ export default function ContactPage() {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Message</FormLabel>
+                      <FormLabel>Správa</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Tell us about your project or ask a question"
+                          placeholder="Povedzte nám o vašom projekte alebo položte otázku"
                           className="resize-none"
                           {...field}
                         />
@@ -131,7 +131,7 @@ export default function ContactPage() {
                   )}
                 />
                 <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? "Odosielam..." : "Odoslať Správu"}
                 </Button>
               </form>
             </Form>

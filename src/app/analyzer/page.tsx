@@ -29,8 +29,8 @@ export default function AnalyzerPage() {
     if (!headline.trim()) {
       toast({
         variant: 'destructive',
-        title: 'Input Required',
-        description: 'Please enter a headline to analyze.',
+        title: 'Vstup je povinný',
+        description: 'Prosím, zadajte titulok na analýzu.',
       });
       return;
     }
@@ -40,11 +40,11 @@ export default function AnalyzerPage() {
       const result = await analyzeHeadline({ headline });
       setAnalysisResult(result);
     } catch (error) {
-      console.error('Failed to analyze headline:', error);
+      console.error('Nepodarilo sa analyzovať titulok:', error);
       toast({
         variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: 'There was a problem with the AI. Please try again.',
+        title: 'Nastala chyba!',
+        description: 'Vyskytol sa problém s AI. Skúste to prosím znova.',
       });
     } finally {
       setIsLoading(false);
@@ -56,11 +56,11 @@ export default function AnalyzerPage() {
       <div className="flex flex-col items-center justify-center space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-            SEO Headline Analyzer
+            SEO Analyzátor Titulkov
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
-            Get instant feedback on your headlines. Our AI will analyze your
-            title for SEO effectiveness and give you actionable suggestions.
+            Získajte okamžitú spätnú väzbu na vaše titulky. Naša AI analyzuje
+            váš titulok z pohľadu SEO a poskytne vám praktické návrhy na zlepšenie.
           </p>
         </div>
 
@@ -68,10 +68,11 @@ export default function AnalyzerPage() {
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <Textarea
-                placeholder="Enter your headline here..."
+                placeholder="Zadajte váš titulok sem..."
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
                 className="min-h-[100px]"
+                aria-label="Textové pole pre zadanie titulku"
               />
               <Button
                 size="lg"
@@ -82,12 +83,12 @@ export default function AnalyzerPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="animate-spin" />
-                    Analyzing...
+                    Analyzujem...
                   </>
                 ) : (
                   <>
                     <Wand2 />
-                    Analyze Headline
+                    Analyzovať Titulok
                   </>
                 )}
               </Button>
@@ -100,16 +101,16 @@ export default function AnalyzerPage() {
             <Card className="bg-card/50 backdrop-blur-lg animate-fade-in-up">
               <CardHeader>
                 <CardTitle className="text-xl font-semibold text-center">
-                  Analysis Complete
+                  Analýza dokončená
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <p className="text-sm font-medium text-muted-foreground">SEO Score</p>
+                    <p className="text-sm font-medium text-muted-foreground">SEO Skóre</p>
                     <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
                   </div>
-                  <Progress value={analysisResult.score} />
+                  <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
                 </div>
                 <div
                   className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
