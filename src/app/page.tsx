@@ -19,9 +19,9 @@ import {
   ArrowRight,
   Sparkles,
   Users,
+  Quote,
 } from "lucide-react";
 import { Seo4WebLogo } from "@/components/icons/logo";
-import { cn } from "@/lib/utils";
 
 const features = [
   {
@@ -47,6 +47,27 @@ const features = [
     title: "Technical SEO",
     description:
       "Ensuring your site is technically sound, fast, and easy for search engines to crawl and index.",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Vďaka seo4web sme za 6 mesiacov zdvojnásobili organickú návštevnosť. Ich prístup je neuveriteľne analytický a efektívny.",
+    name: "Martin Novak",
+    company: "CEO, TechSolutions s.r.o.",
+  },
+  {
+    quote:
+      "Profesionálny tím, ktorý naozaj rozumie SEO. Pomohli nám dostať sa na prvú stránku na kľúčové slová, o ktorých sme si mysleli, že sú nedosiahnuteľné.",
+    name: "Jana Horáková",
+    company: "Marketing Manager, Fashio.sk",
+  },
+  {
+    quote:
+      "Najlepšia investícia do marketingu, akú sme kedy urobili. Návratnosť bola takmer okamžitá. Odporúčam všetkými desiatimi.",
+    name: "Peter Varga",
+    company: "Majiteľ, E-shop pre Domácnosť",
   },
 ];
 
@@ -91,7 +112,7 @@ export default function Home() {
             className="mt-4 max-w-2xl animate-fade-in-up text-lg text-foreground/80 md:text-xl text-balance"
             style={{ animationDelay: "0.4s" }}
           >
-            Boost your search engine rankings and drive organic traffic. We provide expert SEO strategies tailored for your success.
+            Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú návštevnosť. Poskytujeme expertné SEO stratégie pre váš úspech.
           </p>
           <div
             className="mt-8 flex flex-wrap justify-center gap-4 animate-fade-in-up"
@@ -99,7 +120,7 @@ export default function Home() {
           >
             <Button size="lg" asChild>
               <a href="#features">
-                Explore Services
+                Naše Služby
                 <ArrowRight className="ml-2" />
               </a>
             </Button>
@@ -108,7 +129,7 @@ export default function Home() {
               variant="outline"
               asChild
             >
-              <Link href="/contact">Get a Free Quote</Link>
+              <Link href="/contact">Cenová Ponuka</Link>
             </Button>
           </div>
         </section>
@@ -117,10 +138,10 @@ export default function Home() {
           <div className="container mx-auto">
             <div className="mb-12 text-center">
               <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline animate-fade-in-up">
-                Our Core SEO Services
+                Naše Kľúčové SEO Služby
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                We provide a comprehensive suite of SEO services to elevate your online presence from every angle.
+                Poskytujeme komplexný súbor SEO služieb, ktoré pozdvihnú vašu online prítomnosť z každého uhla.
               </p>
             </div>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -145,7 +166,40 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="bg-background py-20 px-4 sm:py-32">
+        <section id="testimonials" className="bg-background py-20 px-4 sm:py-32">
+          <div className="container mx-auto">
+            <div className="mb-12 text-center">
+              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline animate-fade-in-up">
+                Čo hovoria naši klienti
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                Vaša spokojnosť je našou najlepšou vizitkou.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {testimonials.map((testimonial, index) => (
+                <Card
+                  key={index}
+                  className="flex flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg animate-fade-in-up"
+                  style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+                >
+                  <CardContent className="pt-6">
+                    <Quote className="h-8 w-8 text-primary/50 mb-4" />
+                    <p className="text-foreground/80 italic text-balance">
+                      {testimonial.quote}
+                    </p>
+                  </CardContent>
+                  <CardHeader className="pt-4">
+                    <CardTitle className="text-lg font-semibold">{testimonial.name}</CardTitle>
+                    <CardDescription>{testimonial.company}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="bg-muted/50 py-20 px-4 sm:py-32">
           <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
             <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <Image
@@ -159,21 +213,21 @@ export default function Home() {
             </div>
             <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                Results-Driven SEO Experts
+                SEO Experti Zameraní na Výsledky
               </h2>
               <p className="mt-4 text-lg text-foreground/70 text-balance">
-                seo4web was founded on the principle of delivering measurable results. We combine data-driven strategies with proven SEO techniques to help your business grow. We believe in building partnerships and are committed to your success.
+                seo4web bolo založené na princípe prinášania merateľných výsledkov. Kombinujeme dátami podložené stratégie s overenými SEO technikami, aby sme pomohli vášmu biznisu rásť. Veríme v budovanie partnerstiev a sme odhodlaní pre váš úspech.
               </p>
               <div className="mt-6 flex gap-8">
                 <div>
                   <Sparkles className="h-6 w-6 text-primary" />
-                  <h3 className="mt-2 text-lg font-bold">Data-Driven</h3>
-                  <p className="text-sm text-muted-foreground">Decisions backed by data and analytics.</p>
+                  <h3 className="mt-2 text-lg font-bold">Dátami riadené</h3>
+                  <p className="text-sm text-muted-foreground">Rozhodnutia podložené dátami a analytikou.</p>
                 </div>
                 <div>
                   <Users className="h-6 w-6 text-primary" />
-                  <h3 className="mt-2 text-lg font-bold">Client-Focused</h3>
-                  <p className="text-sm text-muted-foreground">Your success is our top priority.</p>
+                  <h3 className="mt-2 text-lg font-bold">Zamerané na klienta</h3>
+                  <p className="text-sm text-muted-foreground">Váš úspech je našou prioritou.</p>
                 </div>
               </div>
             </div>

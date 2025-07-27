@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 export function Header() {
   return (
@@ -23,31 +32,50 @@ export function Header() {
               href="/#features"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              Services
+              Služby
             </Link>
             <Link
               href="/#about"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              About
+              O nás
             </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
+                Pre firmy
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>B2B Riešenia</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="#">Korporátne SEO</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="#">E-commerce Optimalizácia</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="#">Analýza Konkurencie</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
              <Link
               href="/analyzer"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              Analyzer
+              Analyzátor
             </Link>
             <Link
               href="/contact"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              Contact
+              Kontakt
             </Link>
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <Button asChild>
-              <Link href="/contact">Get Quote</Link>
+              <Link href="/contact">Cenová Ponuka</Link>
             </Button>
           </div>
         </div>
