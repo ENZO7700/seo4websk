@@ -14,10 +14,8 @@ export function Seo4WebLogo(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <title>seo4web Logo</title>
-      <path d="M15 3h6v6" className="text-primary" />
-      <path d="M9 21H3v-6" className="text-accent" />
-      <path d="M21 3l-7 7" className="text-primary" />
-      <path d="M3 21l7-7" className="text-accent" />
+      <path d="M3 17l6-6 4 4 8-8" className="text-primary" />
+      <path d="M17 7h4v4" className="text-primary" />
     </svg>
   );
 }
