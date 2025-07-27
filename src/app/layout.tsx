@@ -5,12 +5,26 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Inter, Lexend_Deca } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: "seo4web - Boost Your SEO Ranking",
   description:
     "seo4web offers expert SEO services to improve your website's visibility and search engine rankings. Keyword research, on-page optimization, link building, and technical SEO.",
 };
+
+const fontBody = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+});
+
+const fontHeadline = Lexend_Deca({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-headline',
+});
+
 
 export default function RootLayout({
   children,
@@ -19,19 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={cn("font-body antialiased")}>
+      <body className={cn("antialiased", fontBody.variable, fontHeadline.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
