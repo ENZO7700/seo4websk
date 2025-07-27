@@ -79,7 +79,7 @@ export default function TahakyPage() {
               <div className="bg-accent/20 border-l-4 border-accent p-6 rounded-md my-12">
                   <h3 className="!mt-0 text-accent-foreground font-bold">Exkluzívna Ponuka Pre Nových Klientov</h3>
                   <p className="text-accent-foreground/80">Objednajte si kompletný SEO audit vášho webu a získajte 50% zľavu na prvý mesiac spolupráce! Ponuka platí len pre nových klientov.</p>
-                  <Button className="mt-4" variant="outline" asChild>
+                  <Button className="mt-4" variant="default" asChild>
                     <Link href="/contact">Využiť Ponuku</Link>
                   </Button>
               </div>
