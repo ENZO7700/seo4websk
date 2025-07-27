@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AetherFlowLogo } from "@/components/icons/logo";
+import { Seo4WebLogo } from "@/components/icons/logo";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -13,11 +13,11 @@ export function Footer() {
               href="/"
               className="mb-2 flex items-center gap-2 text-lg font-bold"
             >
-              <AetherFlowLogo className="h-7 w-7" />
-              <span className="font-headline">AetherFlow</span>
+              <Seo4WebLogo className="h-7 w-7" />
+              <span className="font-headline">seo4web</span>
             </Link>
             <p className="max-w-sm text-center text-sm text-muted-foreground md:text-left">
-              A futuristic digital experience built for tomorrow.
+              Expert SEO services for growing businesses.
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -33,7 +33,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} AetherFlow. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} seo4web. All rights reserved.</p>
         </div>
       </div>
     </footer>

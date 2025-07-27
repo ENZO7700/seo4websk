@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview An AI flow to generate a creative reply for the contact form.
+ * @fileOverview An AI flow to generate a professional reply for the contact form.
  *
  * - generateReply - A function that handles the reply generation process.
  * - GenerateReplyInput - The input type for the generateReply function.
@@ -16,7 +16,7 @@ const GenerateReplyInputSchema = z.object({
 export type GenerateReplyInput = z.infer<typeof GenerateReplyInputSchema>;
 
 const GenerateReplyOutputSchema = z.object({
-  message: z.string().describe("The creatively generated thank you message."),
+  message: z.string().describe("The professionally generated thank you message."),
 });
 export type GenerateReplyOutput = z.infer<typeof GenerateReplyOutputSchema>;
 
@@ -28,11 +28,11 @@ const prompt = ai.definePrompt({
   name: 'generateReplyPrompt',
   input: {schema: GenerateReplyInputSchema},
   output: {schema: GenerateReplyOutputSchema},
-  prompt: `You are the voice of AetherFlow, a futuristic and cutting-edge web experience.
+  prompt: `You are the voice of seo4web, a professional SEO services company.
 Someone named {{{name}}} just sent a message through the contact form.
-Generate a short, creative, and slightly futuristic thank you message for them.
+Generate a short, professional, and friendly thank you message.
 Acknowledge them by name. Keep it under 25 words.
-Example: "Greetings, {{{name}}}. Your transmission has been received. We'll connect with you across the digital aether shortly."
+Example: "Thank you for your inquiry, {{{name}}}. Our team has received your message and will be in touch shortly."
 `,
 });
 

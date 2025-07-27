@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AetherFlowLogo } from "@/components/icons/logo";
+import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -14,8 +14,8 @@ export function Header() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-          <AetherFlowLogo className="h-7 w-7" />
-          <span className="font-headline">AetherFlow</span>
+          <Seo4WebLogo className="h-7 w-7" />
+          <span className="font-headline">seo4web</span>
         </Link>
         <div className="flex items-center gap-4">
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
@@ -23,7 +23,7 @@ export function Header() {
               href="/#features"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              Features
+              Services
             </Link>
             <Link
               href="/#about"
@@ -32,10 +32,10 @@ export function Header() {
               About
             </Link>
              <Link
-              href="/ideas"
+              href="/analyzer"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              Ideas
+              Analyzer
             </Link>
             <Link
               href="/contact"
@@ -47,7 +47,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <Button asChild>
-              <Link href="/contact">Get Started</Link>
+              <Link href="/contact">Get Quote</Link>
             </Button>
           </div>
         </div>

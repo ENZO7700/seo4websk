@@ -7,9 +7,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "AetherFlow",
+  title: "seo4web - Boost Your SEO Ranking",
   description:
-    "Experience the future of web. AetherFlow combines cutting-edge technology with breathtaking design to create a seamless, futuristic digital experience.",
+    "seo4web offers expert SEO services to improve your website's visibility and search engine rankings. Keyword research, on-page optimization, link building, and technical SEO.",
 };
 
 export default function RootLayout({

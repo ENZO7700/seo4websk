@@ -82,7 +82,7 @@ export default function ContactPage() {
           <CardHeader>
             <CardTitle className="text-3xl font-bold tracking-tighter md:text-4xl font-headline text-center">Contact Us</CardTitle>
             <CardDescription className="text-center text-balance">
-              Have a question or want to work together? Fill out the form below.
+              Have a question or want a free quote? Fill out the form below.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -122,7 +122,7 @@ export default function ContactPage() {
                       <FormLabel>Message</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Tell us how we can help"
+                          placeholder="Tell us about your project or ask a question"
                           className="resize-none"
                           {...field}
                         />
