@@ -19,6 +19,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useState } from "react";
 import { generateReply } from "@/ai/flows/generate-reply-flow";
 import { saveContactMessage } from "@/services/contactService";
+import { db } from "@/lib/firebase-config";
+import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -37,6 +40,7 @@ const formSchema = z.object({
 export default function ContactPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isFirebaseConfigured = !!db;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,56 +89,66 @@ export default function ContactPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Meno</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Vaše Meno" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="vas.email@priklad.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Správa</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Povedzte nám o vašom projekte alebo položte otázku"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                  {isSubmitting ? "Odosielam..." : "Odoslať Správu"}
-                </Button>
-              </form>
-            </Form>
+            {!isFirebaseConfigured ? (
+               <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Konfigurácia Chýba</AlertTitle>
+                  <AlertDescription>
+                    Kontaktný formulár je dočasne mimo prevádzky z dôvodu chýbajúcej konfigurácie. Prosím, skúste to neskôr.
+                  </AlertDescription>
+                </Alert>
+            ) : (
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Meno</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Vaše Meno" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="vas.email@priklad.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Správa</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Povedzte nám o vašom projekte alebo položte otázku"
+                            className="resize-none"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                    {isSubmitting ? "Odosielam..." : "Odoslať Správu"}
+                  </Button>
+                </form>
+              </Form>
+            )}
           </CardContent>
         </Card>
       </div>

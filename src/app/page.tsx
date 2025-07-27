@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -25,10 +24,8 @@ import {
   ArrowRight,
   Sparkles,
   Users,
-  Quote,
   Star
 } from "lucide-react";
-import { Seo4WebLogo } from "@/components/icons/logo";
 
 const features = [
   {
@@ -98,28 +95,6 @@ const faqItems = [
 
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); 
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-        <div className="animate-pulse">
-          <Seo4WebLogo className="h-24 w-24" />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="overflow-x-hidden">
       <main className="relative z-10">
