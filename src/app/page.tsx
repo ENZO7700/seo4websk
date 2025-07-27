@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,6 +16,9 @@ import {
   TabletSmartphone,
   Layers,
   ArrowRight,
+  Sparkles,
+  Users,
+  Feather,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { AetherFlowLogo } from "@/components/icons/logo";
@@ -91,7 +95,7 @@ export default function Home() {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1500); // Shortened splash screen time
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -134,12 +138,15 @@ export default function Home() {
           className="flex min-h-screen flex-col items-center justify-center px-4 text-center"
         >
           <div className="absolute inset-0 -z-10 bg-background/50 backdrop-blur-sm"></div>
-          <h1 className="animate-fade-in-up bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl font-headline">
+          <h1
+            className="animate-fade-in-up bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl font-headline"
+            style={{ animationDelay: "0.2s" }}
+          >
             AetherFlow
           </h1>
           <p
             className="mt-4 max-w-2xl animate-fade-in-up text-lg text-foreground/80 md:text-xl text-balance"
-            style={{ animationDelay: "0.2s" }}
+            style={{ animationDelay: "0.4s" }}
           >
             Experience the future of web. AetherFlow combines cutting-edge
             technology with breathtaking design to create a seamless,
@@ -147,7 +154,7 @@ export default function Home() {
           </p>
           <div
             className="mt-8 flex flex-wrap justify-center gap-4 animate-fade-in-up"
-            style={{ animationDelay: "0.4s" }}
+            style={{ animationDelay: "0.6s" }}
           >
             <Button size="lg" asChild>
               <a href="#features">
@@ -171,13 +178,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="features" className="bg-background py-20 px-4 sm:py-32">
+        <section id="features" className="bg-background/80 backdrop-blur-lg py-20 px-4 sm:py-32">
           <div className="container mx-auto">
             <div className="mb-12 text-center">
-              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline animate-fade-in-up">
                 Built for the Future
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+              <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                 Our platform is packed with features designed to provide a
                 modern, interactive, and visually stunning user experience.
               </p>
@@ -186,7 +193,8 @@ export default function Home() {
               {features.map((feature, index) => (
                 <Card
                   key={index}
-                  className="transform border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
+                  className="transform border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:-translate-y-2 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 animate-fade-in-up"
+                   style={{ animationDelay: `${0.3 + index * 0.1}s` }}
                 >
                   <CardHeader>
                     {feature.icon}
@@ -202,9 +210,42 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <section id="about" className="bg-background py-20 px-4 sm:py-32">
+          <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <Image
+                src="https://placehold.co/600x400.png"
+                alt="About AetherFlow"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-2xl shadow-primary/10"
+                data-ai-hint="abstract technology"
+              />
+            </div>
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+                Crafted with Passion
+              </h2>
+              <p className="mt-4 text-lg text-foreground/70 text-balance">
+                AetherFlow was born from a desire to blend art with technology, creating web experiences that are not only functional but also deeply engaging and memorable. We believe in the power of great design to tell a story and connect with users on an emotional level.
+              </p>
+              <div className="mt-6 flex gap-8">
+                <div>
+                  <Sparkles className="h-6 w-6 text-primary" />
+                  <h3 className="mt-2 text-lg font-bold">Innovation</h3>
+                  <p className="text-sm text-muted-foreground">Pushing boundaries of what's possible.</p>
+                </div>
+                <div>
+                  <Users className="h-6 w-6 text-primary" />
+                  <h3 className="mt-2 text-lg font-bold">User-Centric</h3>
+                  <p className="text-sm text-muted-foreground">Intuitive and accessible for everyone.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
 }
-
-    
