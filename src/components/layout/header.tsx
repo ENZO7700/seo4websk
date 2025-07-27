@@ -31,6 +31,12 @@ export function Header() {
             >
               About
             </Link>
+             <Link
+              href="/ideas"
+              className="text-foreground/70 transition-colors hover:text-foreground"
+            >
+              Ideas
+            </Link>
             <Link
               href="/contact"
               className="text-foreground/70 transition-colors hover:text-foreground"
