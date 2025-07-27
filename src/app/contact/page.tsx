@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { generateReply } from "@/ai/flows/generate-reply-flow";
 import { saveContactMessage } from "@/services/contactService";
@@ -132,17 +131,7 @@ export default function ContactPage() {
                   )}
                 />
                 <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send />
-                    </>
-                  )}
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </Form>
