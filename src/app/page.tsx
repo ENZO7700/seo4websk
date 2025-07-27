@@ -16,6 +16,9 @@ import {
   Layers,
   ArrowRight,
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { AetherFlowLogo } from "@/components/icons/logo";
+import { cn } from "@/lib/utils";
 
 const features = [
   {
@@ -76,6 +79,8 @@ const Shape2 = ({ style }: { style: React.CSSProperties }) => (
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,10 +89,25 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timer);
     };
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
+        <div className="animate-pulse">
+          <AetherFlowLogo className="h-24 w-24" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-x-hidden">
@@ -135,7 +155,17 @@ export default function Home() {
                 <ArrowRight className="ml-2" />
               </a>
             </Button>
-            <Button size="lg" variant="outline">
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => {
+                toast({
+                  title: "Let's Get Started!",
+                  description:
+                    "Welcome to AetherFlow. We're excited to have you.",
+                });
+              }}
+            >
               Get Started
             </Button>
           </div>
@@ -176,3 +206,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

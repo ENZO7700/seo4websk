@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AetherFlowLogo } from "@/components/icons/logo";
 import { Github, Twitter, Linkedin } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   return (
@@ -21,13 +22,13 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-4">
             <Link href="#" aria-label="Twitter">
-              <Twitter className="h-6 w-6 text-muted-foreground transition-colors hover:text-primary" />
+              <Twitter className="h-6 w-6 text-muted-foreground transition-all hover:text-primary hover:scale-110 active:scale-95" />
             </Link>
             <Link href="#" aria-label="GitHub">
-              <Github className="h-6 w-6 text-muted-foreground transition-colors hover:text-primary" />
+              <Github className="h-6 w-6 text-muted-foreground transition-all hover:text-primary hover:scale-110 active:scale-95" />
             </Link>
             <Link href="#" aria-label="LinkedIn">
-              <Linkedin className="h-6 w-6 text-muted-foreground transition-colors hover:text-primary" />
+              <Linkedin className="h-6 w-6 text-muted-foreground transition-all hover:text-primary hover:scale-110 active:scale-95" />
             </Link>
           </div>
         </div>
@@ -38,3 +39,5 @@ export function Footer() {
     </footer>
   );
 }
+
+    
