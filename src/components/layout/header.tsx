@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AetherFlowLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   return (
@@ -16,27 +17,32 @@ export function Header() {
           <AetherFlowLogo className="h-7 w-7" />
           <span className="font-headline">AetherFlow</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-          <Link
-            href="#features"
-            className="text-foreground/70 transition-colors hover:text-foreground"
-          >
-            Features
-          </Link>
-          <Link
-            href="#about"
-            className="text-foreground/70 transition-colors hover:text-foreground"
-          >
-            About
-          </Link>
-          <Link
-            href="#contact"
-            className="text-foreground/70 transition-colors hover:text-foreground"
-          >
-            Contact
-          </Link>
-        </nav>
-        <Button>Get Started</Button>
+        <div className="flex items-center gap-4">
+          <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
+            <Link
+              href="#features"
+              className="text-foreground/70 transition-colors hover:text-foreground"
+            >
+              Features
+            </Link>
+            <Link
+              href="#about"
+              className="text-foreground/70 transition-colors hover:text-foreground"
+            >
+              About
+            </Link>
+            <Link
+              href="#contact"
+              className="text-foreground/70 transition-colors hover:text-foreground"
+            >
+              Contact
+            </Link>
+          </nav>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button>Get Started</Button>
+          </div>
+        </div>
       </div>
     </header>
   );
