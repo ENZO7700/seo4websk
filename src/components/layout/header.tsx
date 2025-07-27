@@ -47,31 +47,12 @@ export function Header() {
               Cenník
             </Link>
             <Link
-              href="/#about"
+              href="/dashboard"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
-              O nás
+              Dashboard
             </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
-                Pre firmy
-                <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>B2B Riešenia</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/#">Korporátne SEO</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/#">E-commerce Optimalizácia</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/#">Analýza Konkurencie</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-             <Link
+            <Link
               href="/analyzer"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
