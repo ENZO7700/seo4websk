@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,7 +19,6 @@ import {
   ArrowRight,
   Sparkles,
   Users,
-  Feather,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { AetherFlowLogo } from "@/components/icons/logo";
@@ -165,15 +165,9 @@ export default function Home() {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => {
-                toast({
-                  title: "Let's Get Started!",
-                  description:
-                    "Welcome to AetherFlow. We're excited to have you.",
-                });
-              }}
+              asChild
             >
-              Get Started
+              <Link href="/contact">Get Started</Link>
             </Button>
           </div>
         </section>

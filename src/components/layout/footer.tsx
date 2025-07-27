@@ -21,14 +21,14 @@ export function Footer() {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="#" aria-label="Twitter">
-              <Twitter className="h-6 w-6 text-muted-foreground transition-all hover:text-primary hover:scale-110 active:scale-95" />
+            <Link href="#" aria-label="Twitter" className="transition-transform hover:scale-110 active:scale-95">
+              <Twitter className="h-6 w-6 text-muted-foreground transition-colors hover:text-primary" />
             </Link>
-            <Link href="#" aria-label="GitHub">
-              <Github className="h-6 w-6 text-muted-foreground transition-all hover:text-primary hover:scale-110 active:scale-95" />
+            <Link href="#" aria-label="GitHub" className="transition-transform hover:scale-110 active:scale-95">
+              <Github className="h-6 w-6 text-muted-foreground transition-colors hover:text-primary" />
             </Link>
-            <Link href="#" aria-label="LinkedIn">
-              <Linkedin className="h-6 w-6 text-muted-foreground transition-all hover:text-primary hover:scale-110 active:scale-95" />
+            <Link href="#" aria-label="LinkedIn" className="transition-transform hover:scale-110 active:scale-95">
+              <Linkedin className="h-6 w-6 text-muted-foreground transition-colors hover:text-primary" />
             </Link>
           </div>
         </div>
@@ -39,5 +39,3 @@ export function Footer() {
     </footer>
   );
 }
-
-    

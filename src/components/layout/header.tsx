@@ -20,19 +20,19 @@ export function Header() {
         <div className="flex items-center gap-4">
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
             <Link
-              href="#features"
+              href="/#features"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
               Features
             </Link>
             <Link
-              href="#about"
+              href="/#about"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
               About
             </Link>
             <Link
-              href="#contact"
+              href="/contact"
               className="text-foreground/70 transition-colors hover:text-foreground"
             >
               Contact
@@ -40,7 +40,9 @@ export function Header() {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button>Get Started</Button>
+            <Button asChild>
+              <Link href="/contact">Get Started</Link>
+            </Button>
           </div>
         </div>
       </div>
