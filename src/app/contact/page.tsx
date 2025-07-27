@@ -19,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { generateReply } from "@/ai/flows/generate-reply-flow";
+import { saveContactMessage } from "@/services/contactService";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -50,14 +51,20 @@ export default function ContactPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     try {
+      // First, save the message to Firestore
+      await saveContactMessage(values);
+      
+      // Then, generate the AI reply
       const result = await generateReply({ name: values.name });
+      
       toast({
         title: "Message Sent!",
         description: result.message,
       });
+      
       form.reset();
     } catch (error) {
-      console.error("AI reply generation failed:", error);
+      console.error("Failed to send message:", error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
