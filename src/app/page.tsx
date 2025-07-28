@@ -94,6 +94,34 @@ const faqItems = [
     {
         question: "Čo všetko je zahrnuté vo vašich SEO službách?",
         answer: "Náš kompletný SEO balíček obsahuje: technický audit webu, analýzu a výber kľúčových slov, optimalizáciu obsahu, overenie štruktúry a interného prepojenia, budovanie spätných odkazov, pravidelné reportovanie výsledkov a monitorovanie konkurencie. Všetky služby sú prispôsobené konkrétnym potrebám vášho projektu."
+    },
+    {
+        question: "Koľko stojí SEO optimalizácia na Slovensku?",
+        answer: "Cena SEO sa líši v závislosti od rozsahu projektu, konkurencie a cieľov. Menšie projekty môžu začať od 200 € mesačne, zatiaľ čo komplexné stratégie pre veľké e-shopy môžu stáť niekoľko tisíc eur. Pre transparentný prehľad našich cien si pozrite náš <a href='/pricing' class='text-primary underline'>cenník</a>, alebo nás kontaktujte pre cenovú ponuku na mieru."
+    },
+    {
+        question: "Aký je rozdiel medzi on-page a off-page SEO?",
+        answer: "On-page SEO zahŕňa všetky optimalizácie, ktoré robíte priamo na vašom webe – napríklad optimalizácia obsahu, titulkov, rýchlosti načítania a štruktúry. Na druhej strane, off-page SEO sa týka aktivít mimo vášho webu, predovšetkým budovania kvalitných spätných odkazov (link building), ktoré zvyšujú autoritu a dôveryhodnosť vašej stránky."
+    },
+    {
+        question: "Je SEO vhodné aj pre môj e-shop?",
+        answer: "Absolútne. Pre e-shopy je SEO kľúčové. Pomáha vám získať viditeľnosť pre konkrétne produkty, kategórie a značky, čím priamo zvyšuje organickú návštevnosť a predaj. Zameriavame sa na produktové SEO, optimalizáciu kategórií a technické aspekty špecifické pre e-commerce platformy."
+    },
+    {
+        question: "Čo je to lokálne SEO a potrebujem ho?",
+        answer: "Lokálne SEO je optimalizácia pre vyhľadávanie v konkrétnej geografickej oblasti (napr. 'oprava mobilov Bratislava'). Ak máte kamennú prevádzku alebo poskytujete služby v určitom meste či regióne, lokálne SEO je pre vás nevyhnutné. Pomôže vám získať zákazníkov, ktorí hľadajú vaše služby vo svojom okolí, najmä cez Google Mapy."
+    },
+    {
+        question: "Môžem si robiť SEO sám?",
+        answer: "Áno, základy SEO sa dajú naučiť. Avšak, SEO je komplexná a neustále sa meniaca disciplína. Spolupráca s agentúrou vám ušetrí čas, prinesie prístup k profesionálnym nástrojom a zabezpečí, že vaša stratégia bude postavená na skúsenostiach a dátach, čo vedie k rýchlejším a lepším výsledkom."
+    },
+    {
+        question: "Zaručujete prvé miesto na Google?",
+        answer: "Žiadna seriózna SEO agentúra nemôže zaručiť prvé miesto, pretože algoritmy Google sú zložité a neustále sa menia. Garantujeme však použitie najlepších a overených postupov, maximálne úsilie a transparentné reportovanie, aby sme dosiahli čo najlepšie možné pozície pre vaše kľúčové slová."
+    },
+    {
+        question: "Čo sú to spätné odkazy (backlinks) a prečo sú dôležité?",
+        answer: "Spätný odkaz je link z inej webovej stránky na tú vašu. Pre Google je to ako 'odporúčanie'. Čím viac kvalitných a relevantných stránok na vás odkazuje, tým väčšiu autoritu a dôveryhodnosť má váš web v očiach vyhľadávačov, čo vedie k lepším pozíciám vo výsledkoch vyhľadávania."
     }
 ]
 
@@ -248,9 +276,10 @@ export default function Home() {
                    {faqItems.map((item, index) => (
                       <AccordionItem value={`item-${index+1}`} key={index}>
                         <AccordionTrigger className="text-lg text-left">{item.question}</AccordionTrigger>
-                        <AccordionContent className="text-base text-muted-foreground">
-                         {item.answer}
-                        </AccordionContent>
+                        <AccordionContent 
+                          className="text-base text-muted-foreground"
+                          dangerouslySetInnerHTML={{ __html: item.answer }}
+                        />
                       </AccordionItem>
                    ))}
                 </Accordion>
@@ -303,3 +332,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
