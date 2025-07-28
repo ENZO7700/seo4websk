@@ -27,6 +27,9 @@ import {
   Users,
   Star
 } from "lucide-react";
+import { GridPattern } from "@/components/ui/grid-pattern";
+import { cn } from "@/lib/utils";
+
 
 const features = [
   {
@@ -98,10 +101,20 @@ const faqItems = [
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
+      <GridPattern
+          width={40}
+          height={40}
+          x={-1}
+          y={-1}
+          className={cn(
+            "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
+            "absolute inset-0 z-0 h-full w-full stroke-gray-400/30",
+          )}
+        />
       <main className="relative z-10">
         <section
           id="hero"
-          className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-background/50 backdrop-blur-sm"
+          className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
         >
           <div className="group flex cursor-pointer items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <h1
