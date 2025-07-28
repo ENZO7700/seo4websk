@@ -27,6 +27,13 @@ const services = [
         href: '/sluzby/ecommerce-pwa',
         image: 'https://placehold.co/600x400.png',
         imageHint: 'online shopping cart'
+    },
+    {
+        title: 'Konzultácie v oblasti digitálnej transformácie',
+        description: 'Navigujeme vašu firmu procesom digitálnej transformácie. Od počiatočnej analýzy až po implementáciu moderných technologických riešení.',
+        href: '/sluzby/digitalna-transformacia',
+        image: 'https://placehold.co/600x400.png',
+        imageHint: 'business meeting strategy'
     }
     // Tu môžeme v budúcnosti pridať ďalšie služby
 ]

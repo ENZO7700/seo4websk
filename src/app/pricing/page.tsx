@@ -147,6 +147,21 @@ const pwaTiers = [
         ],
         isPopular: false,
         href: '/sluzby/ecommerce-pwa'
+    },
+    {
+        name: 'Konzultácie v oblasti digitálnej transformácie',
+        price: 'od 79 €',
+        priceSuffix: '/hodina',
+        description: 'Pomôžeme vám zorientovať sa v digitálnom svete a nastaviť správnu stratégiu.',
+        features: [
+            'Analýza súčasného stavu',
+            'Návrh digitálnej stratégie',
+            'Výber vhodných technológií',
+            'Roadmapa implementácie',
+            'Optimalizácia procesov',
+        ],
+        isPopular: false,
+        href: '/sluzby/digitalna-transformacia'
     }
 ]
 
@@ -167,7 +182,7 @@ export default function PricingPage() {
             <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
                Nové: PWA & Aplikačné Služby
             </h2>
-             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                  {pwaTiers.map((tier) => (
                       <Card
                         key={tier.name}
