@@ -11,7 +11,8 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const navLinks = [
-    { href: "/#features", label: "Služby" },
+    { href: "/#features", label: "SEO Služby" },
+    { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
     { href: "/dashboard", label: "Dashboard" },

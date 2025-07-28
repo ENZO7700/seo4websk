@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -9,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Check } from 'lucide-react';
+import { Check, Rocket } from 'lucide-react';
 import Link from 'next/link';
 
 const individualTiers = [
@@ -101,6 +102,54 @@ const businessTiers = [
   },
 ];
 
+const pwaTiers = [
+    {
+        name: 'Vývoj PWA pre malé podniky',
+        price: 'od 1,999 €',
+        priceSuffix: '',
+        description: 'Transformujte svoj biznis s modernou Progresívnou Webovou Aplikáciou.',
+        features: [
+            'Offline funkcionalita',
+            'Push notifikácie',
+            'Inštalácia na plochu',
+            'Rýchle načítanie',
+            'Základná SEO optimalizácia',
+        ],
+        isPopular: true,
+        href: '/sluzby/pwa-pre-male-podniky'
+    },
+    {
+        name: 'SEO pre PWA',
+        price: 'od 499 €',
+        priceSuffix: '/mesiac',
+        description: 'Zabezpečte, aby bola vaša PWA viditeľná vo vyhľadávačoch.',
+        features: [
+            'Audit PWA z pohľadu SEO',
+            'Optimalizácia pre mobilné indexovanie',
+            'Štruktúrované dáta',
+            'JavaScript SEO',
+            'Pravidelný monitoring a reporting',
+        ],
+        isPopular: false,
+        href: '/sluzby/seo-pre-pwa'
+    },
+    {
+        name: 'E-commerce platformy (PWA)',
+        price: 'Na mieru',
+        priceSuffix: '',
+        description: 'Robustné e-commerce riešenie postavené na PWA technológii pre maximálny výkon.',
+        features: [
+            'Kompletný vývoj na mieru',
+            'Integrácia platobných brán',
+            'Správa produktov a objednávok',
+            'Personalizácia pre zákazníkov',
+            'Pokročilá analytika',
+        ],
+        isPopular: false,
+        href: '/sluzby/ecommerce-pwa'
+    }
+]
+
 export default function PricingPage() {
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
@@ -113,10 +162,50 @@ export default function PricingPage() {
             Vyberte si balík, ktorý najlepšie vyhovuje vašim cieľom. Investujte do rastu, ktorý uvidíte v číslach.
           </p>
         </div>
+        
+        <section id="pwa-services" className="w-full py-12">
+            <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
+               Nové: PWA & Aplikačné Služby
+            </h2>
+             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                 {pwaTiers.map((tier) => (
+                      <Card
+                        key={tier.name}
+                        className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
+                      >
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2"><Rocket className="text-primary"/>{tier.name}</CardTitle>
+                          <CardDescription>{tier.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-4">
+                           <div className="flex items-baseline">
+                            <span className="text-4xl font-bold">{tier.price}</span>
+                             {tier.priceSuffix && (
+                              <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
+                            )}
+                          </div>
+                          <ul className="space-y-2">
+                            {tier.features.map((feature) => (
+                              <li key={feature} className="flex items-center gap-2">
+                                <Check className="h-5 w-5 text-primary" />
+                                 <span className="text-sm text-muted-foreground">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                        <CardFooter>
+                           <Button asChild className="w-full" variant={tier.isPopular ? 'default' : 'outline'}>
+                            <Link href={tier.href}>Zistiť Viac</Link>
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    ))}
+             </div>
+        </section>
 
-        <section id="individual" className="w-full py-12">
+        <section id="seo-individual" className="w-full py-12">
           <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
-            Pre jednotlivcov a freelancerov
+            SEO pre jednotlivcov a freelancerov
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {individualTiers.map((tier) => (
@@ -154,9 +243,9 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section id="business" className="w-full py-12">
+        <section id="seo-business" className="w-full py-12">
           <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
-            Pre firmy a E-shopy
+            SEO pre firmy a E-shopy
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {businessTiers.map((tier) => (
