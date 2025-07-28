@@ -103,13 +103,13 @@ export default function Home() {
           id="hero"
           className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-background/50 backdrop-blur-sm"
         >
-          <div className="flex items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <div className="group flex cursor-pointer items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <h1
               className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl font-headline"
             >
               seo4web
             </h1>
-             <Search className="h-12 w-12 md:h-20 md:w-20 text-primary/40 transition-transform duration-300 group-hover:scale-110 group-hover:text-accent" />
+             <Search className="h-10 w-10 md:h-16 md:w-16 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent" />
           </div>
           <p
             className="mt-4 max-w-2xl animate-fade-in-up text-lg text-foreground/80 md:text-xl text-balance"
