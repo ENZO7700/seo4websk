@@ -7,15 +7,20 @@ import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-const navLinks = [
+const mainNavLinks = [
     { href: "/#features", label: "SEO Služby" },
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
     { href: "/dashboard", label: "Dashboard" },
+    { href: "/contact", label: "Kontakt" },
+];
+
+const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
     { href: "/doplnky", label: "Doplnky" },
@@ -23,11 +28,11 @@ const navLinks = [
     { href: "/partnersky-program", label: "Partnerský program" },
     { href: "/zadarmo-vs-pro", label: "Zadarmo vs. PRO" },
     { href: "/porovnajte-alternativy", label: "Porovnajte alternatívy" },
-    { href: "/contact", label: "Kontakt" },
 ];
 
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const allLinks = [...mainNavLinks, ...resourcesLinks];
 
   return (
     <header
@@ -43,7 +48,7 @@ export function Header() {
         </Link>
         <div className="flex items-center gap-4">
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex flex-wrap">
-             {navLinks.map((link) => (
+             {mainNavLinks.map((link) => (
                <Link
                 key={link.href}
                 href={link.href}
@@ -52,6 +57,19 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
+                Nástroje a Zdroje
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {resourcesLinks.map((link) => (
+                    <DropdownMenuItem key={link.href} asChild>
+                        <Link href={link.href}>{link.label}</Link>
+                    </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -81,7 +99,7 @@ export function Header() {
                                 </SheetTrigger>
                            </div>
                             <nav className="flex flex-col gap-6 text-lg font-medium mt-8">
-                               {navLinks.map((link) => (
+                               {allLinks.map((link) => (
                                    <Link
                                     key={link.href}
                                     href={link.href}
