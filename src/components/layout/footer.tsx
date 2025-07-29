@@ -7,11 +7,7 @@ import { cn } from "@/lib/utils";
 const footerLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
-    { href: "/doplnky", label: "Doplnky" },
-    { href: "/kompatibilne-produkty", label: "Kompatibilné produkty" },
     { href: "/partnersky-program", label: "Partnerský program" },
-    { href: "/zadarmo-vs-pro", label: "Zadarmo vs. PRO" },
-    { href: "/porovnajte-alternativy", label: "Porovnajte alternatívy" },
     { href: "/contact", label: "Kontakt" },
 ];
 
