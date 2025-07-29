@@ -63,21 +63,21 @@ const testimonials = [
         quote: "Vďaka SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
         name: "Ján Malík",
         company: "E-shop Elektro",
-        avatar: "https://placehold.co/64x64",
+        avatar: "https://placehold.co/64x64.png",
         avatarHint: "smiling man 45 years old in a suit"
     },
     {
         quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
         name: "Katarína Muchová",
         company: "Blog Zdravie & Wellness",
-        avatar: "https://placehold.co/64x64",
+        avatar: "https://placehold.co/64x64.png",
         avatarHint: "smiling woman with blonde wavy hair 35 years old"
     },
     {
         quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
         name: "Peter Vavrinec",
         company: "Stavebná Firma",
-        avatar: "https://placehold.co/64x64",
+        avatar: "https://placehold.co/64x64.png",
         avatarHint: "man with glasses 50 years old in a blue suit"
     }
 ];
