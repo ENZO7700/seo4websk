@@ -28,8 +28,8 @@ export function Footer() {
                 <Seo4WebLogo className="h-7 w-7" />
                 <span className="font-headline">seo4web</span>
               </Link>
-              <p className="max-w-sm text-center text-sm text-muted-foreground md:text-left">
-                Expert SEO services for growing businesses. Let's grow together.
+              <p className="max-w-sm text-center text-sm text-muted-foreground md:text-left text-balance">
+                seo4web je váš strategický partner pre digitálny rast. Poskytujeme komplexné SEO služby a vývoj moderných Progresívnych Webových Aplikácií (PWA), ktoré posunú vaše podnikanie na novú úroveň. Naším cieľom sú merateľné výsledky a váš úspech.
               </p>
             </div>
            
