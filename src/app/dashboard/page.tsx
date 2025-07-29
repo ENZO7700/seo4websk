@@ -85,28 +85,33 @@ interface KpiCardProps {
   icon: React.ReactNode;
 }
 
-const topPagesData = [
-    { page: '/tahaky', views: 845, conversion: '12.5%' },
-    { page: '/pricing', views: 612, conversion: '8.2%' },
-    { page: '/', views: 578, conversion: '5.1%' },
-    { page: '/sluzby/pwa-pre-male-podniky', views: 321, conversion: '15.8%' },
-    { page: '/contact', views: 256, conversion: '25.0%' },
-];
+// Helper function to generate random data
+const generateRandomData = () => {
+  const topPagesData = [
+    { page: '/tahaky', views: Math.floor(Math.random() * 500) + 500, conversion: `${(Math.random() * 10 + 5).toFixed(1)}%` },
+    { page: '/pricing', views: Math.floor(Math.random() * 400) + 400, conversion: `${(Math.random() * 8 + 4).toFixed(1)}%` },
+    { page: '/', views: Math.floor(Math.random() * 300) + 300, conversion: `${(Math.random() * 5 + 2).toFixed(1)}%` },
+    { page: '/sluzby/pwa-pre-male-podniky', views: Math.floor(Math.random() * 200) + 200, conversion: `${(Math.random() * 15 + 10).toFixed(1)}%` },
+    { page: '/contact', views: Math.floor(Math.random() * 150) + 150, conversion: `${(Math.random() * 20 + 15).toFixed(1)}%` },
+  ];
 
-const keywordData = [
-  { keyword: 'seo optimalizacia', position: 3, change: 1 },
-  { keyword: 'pwa aplikacie', position: 5, change: -1 },
-  { keyword: 'cena seo', position: 8, change: 0 },
-  { keyword: 'seo analyza', position: 12, change: 3 },
-  { keyword: 'link building slovensko', position: 15, change: -2 },
-];
+  const keywordData = [
+    { keyword: 'seo optimalizacia', position: Math.floor(Math.random() * 3) + 1, change: Math.floor(Math.random() * 5) - 2 },
+    { keyword: 'pwa aplikacie', position: Math.floor(Math.random() * 5) + 3, change: Math.floor(Math.random() * 5) - 2 },
+    { keyword: 'cena seo', position: Math.floor(Math.random() * 7) + 5, change: Math.floor(Math.random() * 5) - 2 },
+    { keyword: 'seo analyza', position: Math.floor(Math.random() * 10) + 8, change: Math.floor(Math.random() * 5) - 2 },
+    { keyword: 'link building slovensko', position: Math.floor(Math.random() * 10) + 10, change: Math.floor(Math.random() * 5) - 2 },
+  ];
 
+  const deviceData = [
+      { name: 'Desktop', value: Math.floor(Math.random() * 200) + 300, icon: Monitor },
+      { name: 'Mobil', value: Math.floor(Math.random() * 200) + 250, icon: Smartphone },
+      { name: 'Tablet', value: Math.floor(Math.random() * 100) + 50, icon: Tablet },
+  ];
+  
+  return { topPagesData, keywordData, deviceData };
+};
 
-const deviceData = [
-    { name: 'Desktop', value: 400, icon: Monitor },
-    { name: 'Mobil', value: 300, icon: Smartphone },
-    { name: 'Tablet', value: 100, icon: Tablet },
-];
 const COLORS = ['hsl(var(--primary))', 'hsl(var(--accent))', 'hsl(var(--secondary))'];
 
 
@@ -222,6 +227,8 @@ function DashboardContent() {
   const [error, setError] = useState<string | null>(null);
   const isFirebaseConfigured = !!db;
 
+  const { topPagesData, keywordData, deviceData } = useMemo(() => generateRandomData(), []);
+
   useEffect(() => {
     if (!isFirebaseConfigured) {
       setIsLoading(false);
@@ -290,7 +297,7 @@ function DashboardContent() {
         <Legend iconType="circle" />
       </PieChart>
     </ResponsiveContainer>
-  ), []);
+  ), [deviceData]);
 
   const kpiCards = kpiData ? [
     { title: 'Návštevnosť', value: formatNumber(kpiData.traffic.value), change: `${kpiData.traffic.change > 0 ? '+' : ''}${kpiData.traffic.change}%`, changeType: kpiData.traffic.change > 0 ? 'increase' : 'decrease', icon: <Users /> },
@@ -348,7 +355,7 @@ function DashboardContent() {
                                 {topPagesData.map((page, index) => (
                                     <TableRow key={index}>
                                         <TableCell className="font-medium text-primary hover:underline cursor-pointer">{page.page}</TableCell>
-                                        <TableCell>{page.views.toLocaleString()}</TableCell>
+                                        <TableCell>{formatNumber(page.views)}</TableCell>
                                         <TableCell>{page.conversion}</TableCell>
                                     </TableRow>
                                 ))}
@@ -416,9 +423,21 @@ function DashboardContent() {
             <CardContent>
               {isLoading && messages.length === 0 ? (
                 <div className="space-y-4">
-                  <Skeleton className="h-12 w-full" />
-                  <Skeleton className="h-12 w-full" />
-                  <Skeleton className="h-12 w-full" />
+                   {!isFirebaseConfigured ? (
+                     <Alert variant="destructive">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertTitle>Konfigurácia Chýba</AlertTitle>
+                        <AlertDescription>
+                            Pre zobrazenie správ je potrebné nakonfigurovať Firebase.
+                        </AlertDescription>
+                    </Alert>
+                   ) : (
+                    <>
+                      <Skeleton className="h-12 w-full" />
+                      <Skeleton className="h-12 w-full" />
+                      <Skeleton className="h-12 w-full" />
+                    </>
+                   )}
                 </div>
               ) : (
                 <Table>

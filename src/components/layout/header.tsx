@@ -9,13 +9,13 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
 
-const mainNavLinks = [
+const baseMainNavLinks = [
     { href: "/#features", label: "SEO Služby" },
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
@@ -34,6 +34,25 @@ export function Header() {
   const { user, signOut } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const [mainNavLinks, setMainNavLinks] = useState(baseMainNavLinks);
+
+  useEffect(() => {
+    const newLinks = [...baseMainNavLinks];
+    const dashboardLink = { href: "/dashboard", label: "Dashboard" };
+    const dashboardIndex = newLinks.findIndex(l => l.href === '/dashboard');
+
+    if (user) {
+      if (dashboardIndex === -1) {
+        newLinks.splice(4, 0, dashboardLink);
+      }
+    } else {
+      if (dashboardIndex > -1) {
+        newLinks.splice(dashboardIndex, 1);
+      }
+    }
+    setMainNavLinks(newLinks);
+  }, [user]);
+
 
   const handleLogout = async () => {
     const success = await signOut();
@@ -44,21 +63,7 @@ export function Header() {
   };
 
   const allLinks = [...mainNavLinks, ...resourcesLinks];
-  if(user) {
-    const dashboardLink = { href: "/dashboard", label: "Dashboard" };
-    // Add dashboard link if it doesn't exist
-    if(!mainNavLinks.find(l => l.href === '/dashboard')) {
-        mainNavLinks.splice(4, 0, dashboardLink);
-    }
-  } else {
-    // Remove dashboard link if user is not logged in
-    const dashboardIndex = mainNavLinks.findIndex(l => l.href === '/dashboard');
-    if (dashboardIndex > -1) {
-        mainNavLinks.splice(dashboardIndex, 1);
-    }
-  }
-
-
+  
   return (
     <header
       className={cn(

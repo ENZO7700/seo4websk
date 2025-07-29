@@ -19,7 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useState } from "react";
 import { generateReply } from "@/ai/flows/generate-reply-flow";
 import { saveContactMessage } from "@/services/contactService";
-import { db } from "@/lib/firebase-config";
+import { isFirebaseConfigured } from "@/lib/firebase-config";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -40,7 +40,7 @@ const formSchema = z.object({
 export default function ContactPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isFirebaseConfigured = !!db;
+  const firebaseConfigured = isFirebaseConfigured();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -89,7 +89,7 @@ export default function ContactPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {!isFirebaseConfigured ? (
+            {!firebaseConfigured ? (
                <Alert variant="destructive">
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Konfigurácia Chýba</AlertTitle>
