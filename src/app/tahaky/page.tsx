@@ -69,7 +69,7 @@ export default function TahakyPage() {
                   <li><strong>Optimalizácia Nadpisov:</strong> Používajte logickú štruktúru nadpisov (H1, H2, H3...). V podnadpisoch používajte sekundárne kľúčové slová.</li>
                   <li><strong>Interné Prelinkovanie:</strong> Odkazujte z nových článkov na staršie relevantné články a naopak. Používajte popisné kotviace texty (anchor text).</li>
                   <li><strong>Optimalizácia Obrázkov:</strong> Vždy používajte popisné alt texty a názvy súborov pre obrázky. Zahrňte do nich kľúčové slová.</li>
-                  <li><strong>Interaktívny Obsah:</strong> Zvýšte angažovanosť a čas strávený na stránke pomocou kvízov, ankiet alebo nástrojov ako je náš <Link href="/analyzer">Analyzátor titulkov</Link> alebo <Link href="/seo-analyzer">hĺbkový SEO Analyzátor</Link>.</li>
+                  <li><strong>Interaktívny Obsah:</strong> Zvýšte angažovanosť a čas strávený na stránke pomocou kvízov, ankiet alebo nástrojov ako je náš <a href="/analyzer">Analyzátor titulkov</a> alebo <a href="/seo-analyzer">hĺbkový SEO Analyzátor</a>.</li>
               </ul>
 
               <h2>Link Building (Budovanie Odkazov)</h2>
@@ -100,5 +100,3 @@ export default function TahakyPage() {
     </div>
     )
 }
-
-    
