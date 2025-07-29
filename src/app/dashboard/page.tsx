@@ -70,6 +70,8 @@ import {
   AnalyzeHeadlineOutput,
 } from '@/ai/flows/analyze-headline-flow';
 import { Progress } from '@/components/ui/progress';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
 
 interface Message {
   id: string;
@@ -220,7 +222,7 @@ function HeadlineAnalyzerWidget() {
 }
 
 
-export default function DashboardPage() {
+function DashboardContent() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -461,5 +463,23 @@ export default function DashboardPage() {
   );
 }
 
+export default function DashboardPage() {
+    const { user, loading } = useAuth();
+    const router = useRouter();
 
-    
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login');
+        }
+    }, [user, loading, router]);
+
+    if (loading || !user) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    return <DashboardContent />;
+}

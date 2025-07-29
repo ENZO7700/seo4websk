@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp, FirebaseOptions } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -22,13 +23,18 @@ const isFirebaseConfigValid =
     firebaseConfig.messagingSenderId &&
     firebaseConfig.appId;
 
-if (isFirebaseConfigValid) {
+if (isFirebaseConfigured() && typeof window !== 'undefined') {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     db = getFirestore(app);
+    getAuth(app);
 } else {
     if (process.env.NODE_ENV !== 'production') {
-        console.warn("Firebase configuration is incomplete. Firebase services will be disabled. Please check your .env file.");
+        console.warn("Firebase configuration is incomplete or running on the server. Firebase client services will be disabled. Please check your .env file.");
     }
+}
+
+export function isFirebaseConfigured() {
+    return isFirebaseConfigValid;
 }
 
 

@@ -8,15 +8,18 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+
 
 const mainNavLinks = [
     { href: "/#features", label: "SEO Služby" },
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
-    { href: "/dashboard", label: "Dashboard" },
     { href: "/contact", label: "Kontakt" },
 ];
 
@@ -32,7 +35,33 @@ const resourcesLinks = [
 
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    const success = await signOut();
+    if (success) {
+      toast({ title: 'Boli ste úspešne odhlásený.' });
+      router.push('/');
+    }
+  };
+
   const allLinks = [...mainNavLinks, ...resourcesLinks];
+  if(user) {
+    const dashboardLink = { href: "/dashboard", label: "Dashboard" };
+    // Add dashboard link if it doesn't exist
+    if(!mainNavLinks.find(l => l.href === '/dashboard')) {
+        mainNavLinks.splice(4, 0, dashboardLink);
+    }
+  } else {
+    // Remove dashboard link if user is not logged in
+    const dashboardIndex = mainNavLinks.findIndex(l => l.href === '/dashboard');
+    if (dashboardIndex > -1) {
+        mainNavLinks.splice(dashboardIndex, 1);
+    }
+  }
+
 
   return (
     <header
@@ -73,6 +102,16 @@ export function Header() {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+             {user ? (
+                <Button onClick={handleLogout} variant="outline" size="sm">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Odhlásiť sa
+                </Button>
+            ) : (
+                <Button asChild className="hidden md:flex" variant="ghost">
+                    <Link href="/login">Prihlásiť sa</Link>
+                </Button>
+            )}
              <Button asChild className="hidden md:flex">
               <Link href="/contact">Cenová Ponuka</Link>
             </Button>
@@ -110,8 +149,18 @@ export function Header() {
                                     </Link>
                                 ))}
                             </nav>
-                             <div className="mt-auto pt-8">
-                                <Button asChild size="lg" className="w-full">
+                             <div className="mt-auto pt-8 space-y-4">
+                                {user ? (
+                                    <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full">
+                                        <LogOut className="mr-2" />
+                                        Odhlásiť sa
+                                    </Button>
+                                ) : (
+                                    <Button asChild size="lg" className="w-full">
+                                        <Link href="/login" onClick={() => setIsSheetOpen(false)}>Prihlásiť sa</Link>
+                                    </Button>
+                                )}
+                                <Button asChild size="lg" className="w-full" variant="outline">
                                     <Link href="/contact" onClick={() => setIsSheetOpen(false)}>Získať Cenovú Ponuku</Link>
                                 </Button>
                             </div>
