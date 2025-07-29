@@ -16,7 +16,8 @@ const navLinks = [
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/analyzer", label: "Analyzátor" },
+    { href: "/analyzer", label: "Headline Analyzátor" },
+    { href: "/seo-analyzer", label: "SEO Analyzátor" },
     { href: "/contact", label: "Kontakt" },
 ];
 
