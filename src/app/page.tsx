@@ -97,7 +97,7 @@ const faqItems = [
     },
     {
         question: "Koľko stojí SEO optimalizácia na Slovensku?",
-        answer: <>Cena SEO sa líši v závislosti od rozsahu projektu, konkurencie a cieľov. Menšie projekty môžu začať od 200 € mesačne, zatiaľ čo komplexné stratégie pre veľké e-shopy môžu stáť niekoľko tisíc eur. Pre transparentný prehľad našich cien si pozrite náš <Link href='/pricing' className='text-primary underline'>cenník</Link>, alebo nás kontaktujte pre cenovú ponuku na mieru.</>
+        answer: "Cena SEO sa líši v závislosti od rozsahu projektu, konkurencie a cieľov. Menšie projekty môžu začať od 200 € mesačne, zatiaľ čo komplexné stratégie pre veľké e-shopy môžu stáť niekoľko tisíc eur. Pre transparentný prehľad našich cien si pozrite náš <a href='/pricing' class='text-primary underline'>cenník</a>, alebo nás kontaktujte pre cenovú ponuku na mieru."
     },
     {
         question: "Aký je rozdiel medzi on-page a off-page SEO?",
@@ -276,8 +276,8 @@ export default function Home() {
                    {faqItems.map((item, index) => (
                       <AccordionItem value={`item-${index+1}`} key={index}>
                         <AccordionTrigger className="text-lg text-left">{item.question}</AccordionTrigger>
-                        <AccordionContent className="text-base text-muted-foreground">
-                          {item.answer}
+                        <AccordionContent>
+                           <div className="text-base text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.answer }}/>
                         </AccordionContent>
                       </AccordionItem>
                    ))}
@@ -331,3 +331,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

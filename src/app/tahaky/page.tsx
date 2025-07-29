@@ -1,5 +1,7 @@
+
 'use client';
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from "next/link";
 
 export default function TahakyPage() {
@@ -67,7 +69,7 @@ export default function TahakyPage() {
                   <li><strong>Optimalizácia Nadpisov:</strong> Používajte logickú štruktúru nadpisov (H1, H2, H3...). V podnadpisoch používajte sekundárne kľúčové slová.</li>
                   <li><strong>Interné Prelinkovanie:</strong> Odkazujte z nových článkov na staršie relevantné články a naopak. Používajte popisné kotviace texty (anchor text).</li>
                   <li><strong>Optimalizácia Obrázkov:</strong> Vždy používajte popisné alt texty a názvy súborov pre obrázky. Zahrňte do nich kľúčové slová.</li>
-                  <li><strong>Interaktívny Obsah:</strong> Zvýšte angažovanosť a čas strávený na stránke pomocou kvízov, ankiet alebo nástrojov ako je náš <Link href="/analyzer">SEO Analyzátor</Link>.</li>
+                  <li><strong>Interaktívny Obsah:</strong> Zvýšte angažovanosť a čas strávený na stránke pomocou kvízov, ankiet alebo nástrojov ako je náš <Link href="/analyzer">Analyzátor titulkov</Link> alebo <Link href="/seo-analyzer">hĺbkový SEO Analyzátor</Link>.</li>
               </ul>
 
               <h2>Link Building (Budovanie Odkazov)</h2>
@@ -86,9 +88,9 @@ export default function TahakyPage() {
                   <li><strong>Lokálne Orientovaný Obsah:</strong> Píšte články alebo vytvárajte podstránky zamerané na vaše mesto alebo región (napr. "Najlepšie SEO v Bratislave").</li>
               </ul>
 
-              <div className="bg-accent/20 border-l-4 border-accent p-6 rounded-md my-12">
-                  <h3 className="!mt-0 text-accent-foreground font-bold">Exkluzívna Ponuka Pre Nových Klientov</h3>
-                  <p className="text-accent-foreground/80">Objednajte si kompletný SEO audit vášho webu a získajte 50% zľavu na prvý mesiac spolupráce! Ponuka platí len pre nových klientov.</p>
+              <div className="bg-accent/20 border-l-4 border-accent p-6 rounded-md my-12 not-prose">
+                  <h3 className="!mt-0 text-accent-foreground font-bold">Ste pripravení posunúť vaše SEO na ďalšiu úroveň?</h3>
+                  <p className="text-accent-foreground/80">Tieto ťaháky sú skvelý začiatok, ale skutočné výsledky prichádzajú s personalizovanou stratégiou a hĺbkovým auditom. Objednajte si ho u nás a získajte 50% zľavu na prvý mesiac spolupráce!</p>
                   <Button className="mt-4" variant="default" asChild>
                     <Link href="/contact">Využiť Ponuku</Link>
                   </Button>
@@ -98,3 +100,5 @@ export default function TahakyPage() {
     </div>
     )
 }
+
+    
