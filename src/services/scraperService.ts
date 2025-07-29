@@ -1,14 +1,32 @@
 'use server';
 
-// A simple server-side function to fetch URL content.
-// In a real-world scenario, you would use a more robust library like Cheerio for parsing.
-export async function getPageContent(url: string): Promise<string> {
+import * as cheerio from 'cheerio';
+import { z } from 'zod';
+
+// Define the schema for the structured SEO data we want to extract.
+export const PageSeoData = z.object({
+  title: z.string().describe('The title of the page.'),
+  description: z.string().describe('The meta description of the page.'),
+  headings: z.array(z.object({
+    level: z.enum(['H1', 'H2', 'H3', 'H4', 'H5', 'H6']),
+    text: z.string(),
+  })).describe('The heading structure of the page.'),
+});
+export type PageSeoData = z.infer<typeof PageSeoData>;
+
+/**
+ * Fetches the HTML content of a URL.
+ * @param url The URL to fetch.
+ * @returns The HTML content as a string.
+ */
+async function getPageContent(url: string): Promise<string> {
     try {
         const response = await fetch(url, {
             headers: {
-                // Some websites might block requests without a user-agent.
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-            }
+            },
+             // It's good practice to follow redirects.
+            redirect: 'follow',
         });
 
         if (!response.ok) {
@@ -21,4 +39,45 @@ export async function getPageContent(url: string): Promise<string> {
         console.error('Error fetching page content:', error);
         throw new Error('Could not retrieve content from the provided URL. It might be down or blocking requests.');
     }
+}
+
+
+/**
+ * Fetches a webpage and extracts key SEO data using Cheerio.
+ * @param url The URL of the webpage to analyze.
+ * @returns A structured object with SEO data, or null if an error occurs.
+ */
+export async function getPageSeoData(url: string): Promise<PageSeoData> {
+  try {
+    const html = await getPageContent(url);
+    const $ = cheerio.load(html);
+
+    const title = $('title').first().text() || $('h1').first().text();
+    const description = $('meta[name="description"]').attr('content') || '';
+
+    const headings: { level: 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6'; text: string }[] = [];
+    $('h1, h2, h3, h4, h5, h6').each((i, el) => {
+        const tagName = $(el).prop('tagName');
+        const text = $(el).text().trim();
+        if(text) {
+             headings.push({
+                level: tagName as 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6',
+                text: text
+            });
+        }
+    });
+
+    const seoData: PageSeoData = {
+      title,
+      description,
+      headings,
+    };
+    
+    // Validate the extracted data against our schema
+    return PageSeoData.parse(seoData);
+
+  } catch (error) {
+    console.error('Error parsing page SEO data:', error);
+    throw new Error('Could not parse SEO data from the provided URL.');
+  }
 }

@@ -9,13 +9,14 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { getPageContent } from '@/services/scraperService';
+import { getPageSeoData, PageSeoData } from '@/services/scraperService';
 
 const AnalyzeSeoInputSchema = z.object({
   url: z.string().url().describe('The URL of the webpage to analyze.'),
 });
 export type AnalyzeSeoInput = z.infer<typeof AnalyzeSeoInputSchema>;
 
+// The output now includes the extracted data directly, which will be passed through from the scraper.
 const AnalyzeSeoOutputSchema = z.object({
   title: z.string().describe('The title of the page.'),
   description: z.string().describe('The meta description of the page.'),
@@ -35,24 +36,28 @@ export async function analyzeSeo(input: AnalyzeSeoInput): Promise<AnalyzeSeoOutp
 
 const prompt = ai.definePrompt({
   name: 'analyzeSeoPrompt',
-  input: { schema: z.object({ pageContent: z.string() }) },
-  output: { schema: AnalyzeSeoOutputSchema },
+  // The prompt input is now the structured SEO data, not the full HTML.
+  input: { schema: PageSeoData },
+  // The output schema for the analysis part.
+  output: { schema: z.object({
+      analysis: z.string().describe("A concise analysis of the page's on-page SEO, including strengths, weaknesses, and suggestions for improvement. Use markdown for formatting, like lists and bold text."),
+      score: z.number().min(0).max(100).describe("An overall SEO score for the page, from 0 to 100."),
+  })},
   prompt: `You are an expert SEO auditor.
-Analyze the following HTML content of a webpage and provide a detailed on-page SEO analysis.
+Analyze the following on-page SEO data from a webpage.
 
-HTML Content:
-\`\`\`html
-{{{pageContent}}}
-\`\`\`
+- **Page Title**: "{{{title}}}"
+- **Meta Description**: "{{{description}}}"
+- **Heading Structure**:
+{{#each headings}}
+  - {{this.level}}: {{this.text}}
+{{/each}}
 
-Based on the content, provide the following:
-1.  **Page Title**: Extract the content of the <title> tag.
-2.  **Meta Description**: Extract the content of the <meta name="description"> tag.
-3.  **Headings**: Analyze the heading structure (H1, H2, H3, etc.). List the text of each heading.
-4.  **Analysis**: Provide a concise but detailed analysis covering the strengths and weaknesses of the on-page SEO. Include suggestions for improvement. Use markdown for formatting.
-5.  **Score**: Give an overall SEO score from 0 to 100, where 100 is perfectly optimized.
+Based on this data, provide the following:
+1.  **Analysis**: Provide a concise but detailed analysis covering the strengths and weaknesses of the on-page SEO. Include suggestions for improvement. Use markdown for formatting.
+2.  **Score**: Give an overall SEO score from 0 to 100, where 100 is perfectly optimized.
 
-Focus on on-page elements like title, meta description, heading structure, and keyword opportunities based on the visible text. Do not comment on off-page factors like backlinks or domain authority.
+Focus on the provided on-page elements. Do not comment on off-page factors like backlinks or domain authority.
 `,
 });
 
@@ -64,11 +69,25 @@ const analyzeSeoFlow = ai.defineFlow(
     outputSchema: AnalyzeSeoOutputSchema,
   },
   async (input) => {
-    const pageContent = await getPageContent(input.url);
-    if (!pageContent) {
-      throw new Error('Could not fetch content from the provided URL.');
+    // 1. Scrape the structured SEO data from the URL.
+    const pageSeoData = await getPageSeoData(input.url);
+    if (!pageSeoData) {
+      throw new Error('Could not fetch and parse content from the provided URL.');
     }
-    const { output } = await prompt({ pageContent });
-    return output!;
+    
+    // 2. Send the structured data to the AI for analysis.
+    const { output } = await prompt(pageSeoData);
+    if (!output) {
+        throw new Error('The AI failed to produce an analysis.');
+    }
+
+    // 3. Combine the scraped data with the AI analysis to form the final result.
+    return {
+        title: pageSeoData.title,
+        description: pageSeoData.description,
+        headings: pageSeoData.headings,
+        analysis: output.analysis,
+        score: output.score,
+    };
   }
 );
