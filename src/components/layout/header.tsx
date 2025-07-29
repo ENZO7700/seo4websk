@@ -18,6 +18,11 @@ const navLinks = [
     { href: "/dashboard", label: "Dashboard" },
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
+    { href: "/doplnky", label: "Doplnky" },
+    { href: "/kompatibilne-produkty", label: "Kompatibilné produkty" },
+    { href: "/partnersky-program", label: "Partnerský program" },
+    { href: "/zadarmo-vs-pro", label: "Zadarmo vs. PRO" },
+    { href: "/porovnajte-alternativy", label: "Porovnajte alternatívy" },
     { href: "/contact", label: "Kontakt" },
 ];
 
@@ -37,7 +42,7 @@ export function Header() {
           <span className="font-headline">seo4web</span>
         </Link>
         <div className="flex items-center gap-4">
-          <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
+          <nav className="hidden items-center gap-6 text-sm font-medium md:flex flex-wrap">
              {navLinks.map((link) => (
                <Link
                 key={link.href}
