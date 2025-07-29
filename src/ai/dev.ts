@@ -2,3 +2,4 @@
 import './flows/generate-reply-flow';
 import './flows/analyze-headline-flow';
 import './flows/analyze-seo-flow';
+import './flows/generate-kpi-data-flow';

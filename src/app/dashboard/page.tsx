@@ -11,19 +11,12 @@ import {
   limit,
 } from 'firebase/firestore';
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-  LineChart,
-  Line,
-  Legend,
   PieChart,
   Pie,
   Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
 } from 'recharts';
 import {
   Card,
@@ -41,8 +34,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import {
-  ChartContainer,
-  ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -69,9 +60,14 @@ import {
   analyzeHeadline,
   AnalyzeHeadlineOutput,
 } from '@/ai/flows/analyze-headline-flow';
+import {
+    generateKpiData,
+    GenerateKpiDataOutput,
+} from '@/ai/flows/generate-kpi-data-flow';
 import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
+import { formatNumber } from '@/lib/utils';
 
 interface Message {
   id: string;
@@ -81,36 +77,13 @@ interface Message {
   createdAt: string;
 }
 
-const kpiData = [
-  {
-    title: 'Návštevnosť',
-    value: '2,420',
-    change: '+12.5%',
-    changeType: 'increase',
-    icon: <Users />,
-  },
-  {
-    title: 'Bounce Rate',
-    value: '45.2%',
-    change: '-5.2%',
-    changeType: 'decrease',
-    icon: <Zap />,
-  },
-  {
-    title: 'Dĺžka Návštevy',
-    value: '3m 15s',
-    change: '+2m',
-    changeType: 'increase',
-    icon: <Clock />,
-  },
-  {
-    title: 'Konverzie',
-    value: '128',
-    change: '+15',
-    changeType: 'increase',
-    icon: <CheckCircle />,
-  },
-];
+interface KpiCardProps {
+  title: string;
+  value: string;
+  change: string;
+  changeType: 'increase' | 'decrease' | 'neutral';
+  icon: React.ReactNode;
+}
 
 const topPagesData = [
     { page: '/tahaky', views: 845, conversion: '12.5%' },
@@ -211,7 +184,7 @@ function HeadlineAnalyzerWidget() {
             <div
               className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2"
               dangerouslySetInnerHTML={{
-                __html: analysisResult.analysis.replace(/\n/g, '<br />'),
+                __html: analysisResult.analysis.replace(/\\n/g, '<br />'),
               }}
             />
           </div>
@@ -222,8 +195,29 @@ function HeadlineAnalyzerWidget() {
 }
 
 
+function KpiCard({ title, value, change, changeType, icon }: KpiCardProps) {
+  const isIncrease = changeType === 'increase';
+  const changeColor = isIncrease ? 'text-green-500' : 'text-red-500';
+
+  return (
+     <Card>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <div className="text-muted-foreground">{icon}</div>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold">{value}</div>
+        <p className={`text-xs ${changeColor}`}>
+          {change} oproti minulému mesiacu
+        </p>
+      </CardContent>
+    </Card>
+  )
+}
+
 function DashboardContent() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [kpiData, setKpiData] = useState<GenerateKpiDataOutput | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const isFirebaseConfigured = !!db;
@@ -234,7 +228,7 @@ function DashboardContent() {
       return;
     }
 
-    const fetchMessages = async () => {
+    async function fetchData() {
       try {
         const messagesCollection = collection(db, 'messages');
         const q = query(
@@ -242,7 +236,14 @@ function DashboardContent() {
           orderBy('createdAt', 'desc'),
           limit(5)
         );
-        const messagesSnapshot = await getDocs(q);
+        
+        const [kpiResult, messagesSnapshot] = await Promise.all([
+            generateKpiData(),
+            getDocs(q),
+        ]);
+
+        setKpiData(kpiResult);
+        
         const messagesList = messagesSnapshot.docs.map((doc) => {
           const data = doc.data();
           return {
@@ -256,15 +257,16 @@ function DashboardContent() {
           };
         });
         setMessages(messagesList);
+
       } catch (err) {
-        console.error('Error fetching messages: ', err);
-        setError('Nepodarilo sa načítať správy z databázy.');
+        console.error('Error fetching data: ', err);
+        setError('Nepodarilo sa načítať dáta pre dashboard.');
       } finally {
         setIsLoading(false);
       }
-    };
+    }
 
-    fetchMessages();
+    fetchData();
   }, [isFirebaseConfigured]);
   
   const memoizedDeviceChart = useMemo(() => (
@@ -290,6 +292,13 @@ function DashboardContent() {
     </ResponsiveContainer>
   ), []);
 
+  const kpiCards = kpiData ? [
+    { title: 'Návštevnosť', value: formatNumber(kpiData.traffic.value), change: `${kpiData.traffic.change > 0 ? '+' : ''}${kpiData.traffic.change}%`, changeType: kpiData.traffic.change > 0 ? 'increase' : 'decrease', icon: <Users /> },
+    { title: 'Bounce Rate', value: `${kpiData.bounceRate.value.toFixed(1)}%`, change: `${kpiData.bounceRate.change > 0 ? '+' : ''}${kpiData.bounceRate.change.toFixed(1)}%`, changeType: kpiData.bounceRate.change > 0 ? 'decrease' : 'increase', icon: <Zap /> },
+    { title: 'Dĺžka Návštevy', value: `${kpiData.visitDuration.minutes}m ${kpiData.visitDuration.seconds}s`, change: `${kpiData.visitDuration.change > 0 ? '+' : ''}${Math.floor(kpiData.visitDuration.change / 60)}m ${kpiData.visitDuration.change % 60}s`, changeType: kpiData.visitDuration.change > 0 ? 'increase' : 'decrease', icon: <Clock /> },
+    { title: 'Konverzie', value: formatNumber(kpiData.conversions.value), change: `${kpiData.conversions.change > 0 ? '+' : ''}${kpiData.conversions.change}`, changeType: kpiData.conversions.change > 0 ? 'increase' : 'decrease', icon: <CheckCircle /> },
+  ] : [];
+
 
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
@@ -303,45 +312,30 @@ function DashboardContent() {
           </p>
         </div>
 
-        {!isFirebaseConfigured ? (
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Konfigurácia Chýba</AlertTitle>
-            <AlertDescription>
-              Dashboard je dočasne mimo prevádzky z dôvodu chýbajúcej Firebase
-              konfigurácie.
-            </AlertDescription>
-          </Alert>
-        ) : (
-          <>
-            <section id="kpi-cards" className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {kpiData.map((kpi, index) => (
-                <Card key={index}>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      {kpi.title}
-                    </CardTitle>
-                    <div className="text-muted-foreground">{kpi.icon}</div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{kpi.value}</div>
-                    <p
-                      className={`text-xs ${kpi.changeType === 'increase' ? 'text-green-500' : 'text-red-500'}`}
-                    >
-                      {kpi.change} oproti minulému mesiacu
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </section>
-            
-            <section id="main-grid" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-               <Card className="lg:col-span-2">
-                    <CardHeader>
-                        <CardTitle>Najvýkonnejšie Stránky</CardTitle>
-                        <CardDescription>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
+        {error && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Chyba pri načítaní dát</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+        )}
+        
+        <section id="kpi-cards" className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {isLoading || !kpiData ? (
+            Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-[126px]" />)
+          ) : (
+            kpiCards.map((kpi, index) => <KpiCard key={index} {...kpi} />)
+          )}
+        </section>
+        
+        <section id="main-grid" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+           <Card className="lg:col-span-2">
+                <CardHeader>
+                    <CardTitle>Najvýkonnejšie Stránky</CardTitle>
+                    <CardDescription>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                     {isLoading ? <Skeleton className="h-[240px]" /> : (
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -360,26 +354,28 @@ function DashboardContent() {
                                 ))}
                             </TableBody>
                         </Table>
-                    </CardContent>
-               </Card>
-               <Card>
-                 <CardHeader>
-                    <CardTitle>Rozdelenie Zariadení</CardTitle>
-                     <CardDescription>Návštevnosť podľa typu zariadenia.</CardDescription>
-                 </CardHeader>
-                 <CardContent className="flex items-center justify-center">
-                    {memoizedDeviceChart}
-                 </CardContent>
-               </Card>
-            </section>
+                    )}
+                </CardContent>
+           </Card>
+           <Card>
+             <CardHeader>
+                <CardTitle>Rozdelenie Zariadení</CardTitle>
+                 <CardDescription>Návštevnosť podľa typu zariadenia.</CardDescription>
+             </CardHeader>
+             <CardContent className="flex items-center justify-center">
+                {isLoading ? <Skeleton className="h-[250px] w-full" /> : memoizedDeviceChart}
+             </CardContent>
+           </Card>
+        </section>
 
-             <section id="secondary-grid" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                 <Card className="lg:col-span-2">
-                    <CardHeader>
-                        <CardTitle>Výkonnosť Kľúčových Slov</CardTitle>
-                        <CardDescription>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
-                    </CardHeader>
-                     <CardContent>
+         <section id="secondary-grid" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+             <Card className="lg:col-span-2">
+                <CardHeader>
+                    <CardTitle>Výkonnosť Kľúčových Slov</CardTitle>
+                    <CardDescription>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
+                </CardHeader>
+                 <CardContent>
+                     {isLoading ? <Skeleton className="h-[260px]" /> : (
                          <Table>
                              <TableHeader>
                                  <TableRow>
@@ -403,61 +399,54 @@ function DashboardContent() {
                                  ))}
                              </TableBody>
                          </Table>
-                     </CardContent>
-                 </Card>
-                 <HeadlineAnalyzerWidget />
-             </section>
+                    )}
+                 </CardContent>
+             </Card>
+             <HeadlineAnalyzerWidget />
+         </section>
 
-            <section id="contact-messages">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Posledné Správy z Kontaktného Formulára</CardTitle>
-                  <CardDescription>
-                    Prehľad 5 najnovších správ odoslaných cez kontaktný formulár.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {isLoading ? (
-                    <div className="space-y-4">
-                      <Skeleton className="h-12 w-full" />
-                      <Skeleton className="h-12 w-full" />
-                      <Skeleton className="h-12 w-full" />
-                    </div>
-                  ) : error ? (
-                    <Alert variant="destructive">
-                      <AlertCircle className="h-4 w-4" />
-                      <AlertTitle>Chyba pri načítaní</AlertTitle>
-                      <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                  ) : (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Dátum</TableHead>
-                          <TableHead>Meno</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead>Správa</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {messages.map((msg) => (
-                          <TableRow key={msg.id}>
-                            <TableCell className="font-medium">
-                              {msg.createdAt}
-                            </TableCell>
-                            <TableCell>{msg.name}</TableCell>
-                            <TableCell>{msg.email}</TableCell>
-                            <TableCell className="truncate max-w-[200px]">{msg.message}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  )}
-                </CardContent>
-              </Card>
-            </section>
-          </>
-        )}
+        <section id="contact-messages">
+          <Card>
+            <CardHeader>
+              <CardTitle>Posledné Správy z Kontaktného Formulára</CardTitle>
+              <CardDescription>
+                Prehľad 5 najnovších správ odoslaných cez kontaktný formulár.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoading && messages.length === 0 ? (
+                <div className="space-y-4">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Dátum</TableHead>
+                      <TableHead>Meno</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Správa</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {messages.map((msg) => (
+                      <TableRow key={msg.id}>
+                        <TableCell className="font-medium">
+                          {msg.createdAt}
+                        </TableCell>
+                        <TableCell>{msg.name}</TableCell>
+                        <TableCell>{msg.email}</TableCell>
+                        <TableCell className="truncate max-w-[200px]">{msg.message}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
+        </section>
       </div>
     </main>
   );
