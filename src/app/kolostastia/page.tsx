@@ -43,7 +43,7 @@ export default function WheelOfFortunePage() {
     const randomAngleWithinSegment = Math.random() * segmentAngle;
     
     // Add multiple full rotations for visual effect
-    const fullRotations = 5 * 360;
+    const fullRotations = 10 * 360;
     const targetRotation =
       fullRotations + (360 - (randomSegment * segmentAngle + randomAngleWithinSegment));
 
@@ -53,7 +53,7 @@ export default function WheelOfFortunePage() {
       setIsSpinning(false);
       setResult(segments[randomSegment]);
       setIsModalOpen(true);
-    }, 4000); // Corresponds to the transition duration
+    }, 8000); // Corresponds to the transition duration
   };
 
   return (
@@ -76,7 +76,7 @@ export default function WheelOfFortunePage() {
 
             {/* Wheel */}
             <div
-                className="relative h-80 w-80 rounded-full border-8 border-primary/50 shadow-2xl transition-transform duration-[4000ms] ease-out"
+                className="relative h-80 w-80 rounded-full border-8 border-primary/50 shadow-2xl transition-transform duration-[8000ms] ease-out"
                 style={{ transform: `rotate(${rotation}deg)` }}
             >
                 {segments.map((segment, index) => {
