@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -33,25 +33,14 @@ export function Header() {
   const { user, signOut } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
-  const [mainNavLinks, setMainNavLinks] = useState(baseMainNavLinks);
-
-  useEffect(() => {
+  
+  const mainNavLinks = useMemo(() => {
     const newLinks = [...baseMainNavLinks];
-    const dashboardLink = { href: "/dashboard", label: "Dashboard" };
-    const dashboardIndex = newLinks.findIndex(l => l.href === '/dashboard');
-
     if (user) {
-      if (dashboardIndex === -1) {
-        newLinks.push(dashboardLink);
-      }
-    } else {
-      if (dashboardIndex > -1) {
-        newLinks.splice(dashboardIndex, 1);
-      }
+        newLinks.push({ href: "/dashboard", label: "Dashboard" });
     }
-    setMainNavLinks(newLinks);
+    return newLinks;
   }, [user]);
-
 
   const handleLogout = async () => {
     const success = await signOut();
@@ -124,21 +113,21 @@ export function Header() {
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right">
-                      <SheetTitle className="sr-only">Menu</SheetTitle>
-                      <SheetDescription className="sr-only">Navigácia pre mobilné zariadenia</SheetDescription>
+                        <SheetHeader className="border-b pb-4 flex-row justify-between items-center">
+                            <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
+                                <Seo4WebLogo className="h-7 w-7" />
+                                <span className="font-headline">seo4web</span>
+                            </Link>
+                            <SheetTitle className="sr-only">Menu</SheetTitle>
+                            <SheetDescription className="sr-only">Navigácia pre mobilné zariadenia</SheetDescription>
+                             <SheetClose asChild>
+                                <Button variant="ghost" size="icon">
+                                    <X className="h-5 w-5" />
+                                    <span className="sr-only">Zatvoriť menu</span>
+                                </Button>
+                            </SheetClose>
+                        </SheetHeader>
                        <div className="flex flex-col h-full">
-                           <div className="flex justify-between items-center border-b pb-4">
-                                <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
-                                    <Seo4WebLogo className="h-7 w-7" />
-                                    <span className="font-headline">seo4web</span>
-                                </Link>
-                                <SheetTrigger asChild>
-                                    <Button variant="ghost" size="icon">
-                                        <X className="h-5 w-5" />
-                                        <span className="sr-only">Zatvoriť menu</span>
-                                    </Button>
-                                </SheetTrigger>
-                           </div>
                             <nav className="flex flex-col gap-6 text-lg font-medium mt-8">
                                {allLinks.map((link) => (
                                    <Link
@@ -176,5 +165,3 @@ export function Header() {
     </header>
   );
 }
-
-    

@@ -68,6 +68,7 @@ import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { formatNumber } from '@/lib/utils';
+import { isFirebaseConfigured } from '@/lib/firebase-config';
 
 interface Message {
   id: string;
@@ -225,45 +226,50 @@ function DashboardContent() {
   const [kpiData, setKpiData] = useState<GenerateKpiDataOutput | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const isFirebaseConfigured = !!db;
+  const firebaseConfigured = isFirebaseConfigured();
 
   const { topPagesData, keywordData, deviceData } = useMemo(() => generateRandomData(), []);
 
   useEffect(() => {
-    if (!isFirebaseConfigured) {
-      setIsLoading(false);
-      return;
-    }
-
     async function fetchData() {
+      setIsLoading(true);
+      setError(null);
       try {
-        const messagesCollection = collection(db, 'messages');
-        const q = query(
-          messagesCollection,
-          orderBy('createdAt', 'desc'),
-          limit(5)
-        );
+        const kpiPromise = generateKpiData();
+        
+        let messagesPromise: Promise<any> = Promise.resolve(null);
+        if (firebaseConfigured) {
+          const messagesCollection = collection(db!, 'messages');
+          const q = query(
+            messagesCollection,
+            orderBy('createdAt', 'desc'),
+            limit(5)
+          );
+          messagesPromise = getDocs(q);
+        }
         
         const [kpiResult, messagesSnapshot] = await Promise.all([
-            generateKpiData(),
-            getDocs(q),
+            kpiPromise,
+            messagesPromise,
         ]);
 
         setKpiData(kpiResult);
         
-        const messagesList = messagesSnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            name: data.name,
-            email: data.email,
-            message: data.message,
-            createdAt:
-              data.createdAt?.toDate().toLocaleDateString('sk-SK') ||
-              'Neznámy dátum',
-          };
-        });
-        setMessages(messagesList);
+        if (messagesSnapshot) {
+            const messagesList = messagesSnapshot.docs.map((doc: any) => {
+              const data = doc.data();
+              return {
+                id: doc.id,
+                name: data.name,
+                email: data.email,
+                message: data.message,
+                createdAt:
+                  data.createdAt?.toDate().toLocaleDateString('sk-SK') ||
+                  'Neznámy dátum',
+              };
+            });
+            setMessages(messagesList);
+        }
 
       } catch (err) {
         console.error('Error fetching data: ', err);
@@ -274,7 +280,7 @@ function DashboardContent() {
     }
 
     fetchData();
-  }, [isFirebaseConfigured]);
+  }, [firebaseConfigured]);
   
   const memoizedDeviceChart = useMemo(() => (
     <ResponsiveContainer width="100%" height={250}>
@@ -423,7 +429,7 @@ function DashboardContent() {
             <CardContent>
               {isLoading && messages.length === 0 ? (
                 <div className="space-y-4">
-                   {!isFirebaseConfigured ? (
+                   {!firebaseConfigured ? (
                      <Alert variant="destructive">
                         <AlertCircle className="h-4 w-4" />
                         <AlertTitle>Konfigurácia Chýba</AlertTitle>
@@ -439,7 +445,7 @@ function DashboardContent() {
                     </>
                    )}
                 </div>
-              ) : (
+              ) : messages.length > 0 ? (
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -462,6 +468,8 @@ function DashboardContent() {
                     ))}
                   </TableBody>
                 </Table>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-4">Zatiaľ žiadne správy.</p>
               )}
             </CardContent>
           </Card>
