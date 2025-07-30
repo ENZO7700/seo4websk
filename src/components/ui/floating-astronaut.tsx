@@ -2,117 +2,69 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function FloatingAstronaut() {
   const controls = useAnimation();
-  const [isBouncing, setIsBouncing] = useState(false);
   const astronautRef = useRef<HTMLDivElement>(null);
-  const velocityRef = useRef({ x: 0, y: 0 });
+  // Use a ref to store the position to avoid re-renders on animation updates
   const positionRef = useRef({ x: 0, y: 0 });
-  const rotationRef = useRef(-15);
 
-  // Set initial position once on mount
-  useEffect(() => {
-    if (astronautRef.current) {
-        const { innerWidth, innerHeight } = window;
-        positionRef.current = {
-            x: innerWidth / 4,
-            y: innerHeight / 4,
-        };
-        controls.set({
-            x: positionRef.current.x,
-            y: positionRef.current.y,
-            rotate: rotationRef.current
-        });
-    }
-  }, [controls]);
-  
-  // Handle animation logic
-  useEffect(() => {
-    let animationFrameId: number;
-
-    const animate = () => {
-      if (isBouncing) {
-        // Bouncing logic
-        if (astronautRef.current) {
-          const { innerWidth, innerHeight } = window;
-          const astronautSize = 192; // 12rem = 192px
-
-          positionRef.current.x += velocityRef.current.x;
-          positionRef.current.y += velocityRef.current.y;
-          
-          // Bounce off walls
-          if (positionRef.current.x <= 0 || positionRef.current.x >= innerWidth - astronautSize) {
-            velocityRef.current.x *= -1;
-            rotationRef.current += 30 * Math.sign(velocityRef.current.x);
-          }
-          if (positionRef.current.y <= 0 || positionRef.current.y >= innerHeight - astronautSize) {
-            velocityRef.current.y *= -1;
-            rotationRef.current -= 30 * Math.sign(velocityRef.current.y);
-          }
-
-          controls.start({
-            x: positionRef.current.x,
-            y: positionRef.current.y,
-            rotate: rotationRef.current,
-            transition: { type: 'spring', stiffness: 200, damping: 25, mass: 1 }
-          });
-        }
-      } 
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    
-    if (isBouncing) {
-        animationFrameId = requestAnimationFrame(animate);
-    } else {
-       // Gentle floating animation
-        controls.start({
-            y: [positionRef.current.y, positionRef.current.y + 20, positionRef.current.y],
-            rotate: [-15, 15, -15],
-            x: [positionRef.current.x, positionRef.current.x + 10, positionRef.current.x],
-            transition: {
-                duration: 25,
-                repeat: Infinity,
-                repeatType: 'mirror',
-                ease: 'easeInOut'
-            }
-        });
-    }
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isBouncing, controls]);
-
-
-  const startBouncing = () => {
-    if (isBouncing) return;
-    
-    controls.stop();
-    
-    // Set initial position from the last known animated value
-    if(astronautRef.current) {
-        const computedStyle = window.getComputedStyle(astronautRef.current);
-        const matrix = new DOMMatrix(computedStyle.transform);
-        positionRef.current = { x: matrix.e, y: matrix.f };
-    }
-
-    velocityRef.current = {
-      x: (Math.random() - 0.5) * 15,
-      y: (Math.random() - 0.5) * 15,
-    };
-    
-    setIsBouncing(true);
+  const startFloatingAnimation = (x: number, y: number) => {
+    controls.start({
+      x: [x, x + 10, x - 10, x],
+      y: [y, y + 20, y - 20, y],
+      rotate: [-15, 10, -10, 15, -15],
+      transition: {
+        duration: 25,
+        repeat: Infinity,
+        repeatType: 'mirror',
+        ease: 'easeInOut',
+      },
+    });
   };
 
+  // Set initial position and start floating
+  useEffect(() => {
+    const { innerWidth, innerHeight } = window;
+    positionRef.current = {
+      x: innerWidth / 4,
+      y: innerHeight / 4,
+    };
+    startFloatingAnimation(positionRef.current.x, positionRef.current.y);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
+
+  const handleJump = () => {
+    controls.stop(); // Stop the current floating animation
+
+    const { innerWidth, innerHeight } = window;
+    const astronautSize = 192; // 12rem = 192px
+
+    const newX = Math.random() * (innerWidth - astronautSize);
+    const newY = Math.random() * (innerHeight - astronautSize);
+    
+    // Update the ref for the new base position
+    positionRef.current = { x: newX, y: newY };
+
+    // Start the jump animation
+    controls.start({
+        x: newX,
+        y: newY,
+        rotate: Math.random() * 360 - 180, // A wild rotation for the jump
+        transition: { type: 'spring', stiffness: 150, damping: 20 },
+    }).then(() => {
+        // Once the jump is complete, resume floating at the new position
+        startFloatingAnimation(positionRef.current.x, positionRef.current.y);
+    });
+  };
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
         <motion.div
          ref={astronautRef}
          className="absolute top-0 left-0 h-48 w-48 cursor-pointer pointer-events-auto"
-         onClick={startBouncing}
+         onClick={handleJump}
          animate={controls}
          initial={{ rotate: -15 }}
         >
