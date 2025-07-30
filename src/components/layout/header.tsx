@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -125,6 +125,8 @@ export function Header() {
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right">
+                      <SheetTitle className="sr-only">Menu</SheetTitle>
+                      <SheetDescription className="sr-only">Navigácia pre mobilné zariadenia</SheetDescription>
                        <div className="flex flex-col h-full">
                            <div className="flex justify-between items-center border-b pb-4">
                                 <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
