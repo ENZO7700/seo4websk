@@ -69,7 +69,7 @@ export default function PwaECommercePage() {
                  <section id="benefits" className="grid items-center gap-12 md:grid-cols-2 mb-20">
                      <div>
                          <Image
-                            src="https://placehold.co/600x400.png"
+                            src="/images/services/ecommerce-pwa.png"
                             alt="Ukážka responzívneho e-commerce PWA na rôznych zariadeniach"
                             width={600}
                             height={400}

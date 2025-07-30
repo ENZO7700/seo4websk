@@ -95,7 +95,7 @@ export default function SeoForPwaPage() {
                     </div>
                     <div>
                          <Image
-                            src="https://placehold.co/600x400.png"
+                            src="/images/services/pwa-seo.png"
                             alt="Graf znázorňujúci organickú návštevnosť po SEO optimalizácii PWA"
                             width={600}
                             height={400}

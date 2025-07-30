@@ -69,7 +69,7 @@ export default function DigitalTransformationPage() {
                  <section id="benefits" className="grid items-center gap-12 md:grid-cols-2 mb-20">
                      <div>
                          <Image
-                            src="https://placehold.co/600x400.png"
+                            src="/images/services/digital-transformation.png"
                             alt="Tím expertov analyzuje dáta a plánuje digitálnu stratégiu"
                             width={600}
                             height={400}

@@ -11,31 +11,30 @@ const services = [
         title: 'Vývoj PWA pre malé podniky',
         description: 'Vytvoríme pre vás modernú Progresívnu Webovú Aplikáciu (PWA), ktorá kombinuje to najlepšie z webu a mobilných aplikácií. Získajte offline prístup, push notifikácie a bleskovú rýchlosť.',
         href: '/sluzby/pwa-pre-male-podniky',
-        image: 'https://placehold.co/600x400.png',
+        image: '/images/services/pwa-development.png',
         imageHint: 'modern application on laptop'
     },
     {
         title: 'SEO pre PWA',
         description: 'Špecializovaná optimalizácia pre vyhľadávače určená pre Progresívne Webové Aplikácie. Zabezpečíme, aby vaša PWA dosiahla maximálnu viditeľnosť a organickú návštevnosť.',
         href: '/sluzby/seo-pre-pwa',
-        image: 'https://placehold.co/600x400.png',
+        image: '/images/services/pwa-seo.png',
         imageHint: 'seo analytics graph'
     },
     {
         title: 'E-commerce platformy (PWA)',
         description: 'Vybudujeme pre vás vysoko výkonnú e-commerce platformu postavenú na technológii PWA. Poskytnite svojim zákazníkom zážitok z nakupovania na úrovni natívnej aplikácie priamo v prehliadači.',
         href: '/sluzby/ecommerce-pwa',
-        image: 'https://placehold.co/600x400.png',
+        image: '/images/services/ecommerce-pwa.png',
         imageHint: 'online shopping cart'
     },
     {
         title: 'Konzultácie v oblasti digitálnej transformácie',
         description: 'Navigujeme vašu firmu procesom digitálnej transformácie. Od počiatočnej analýzy až po implementáciu moderných technologických riešení.',
         href: '/sluzby/digitalna-transformacia',
-        image: 'https://placehold.co/600x400.png',
+        image: '/images/services/digital-transformation.png',
         imageHint: 'business meeting strategy'
     }
-    // Tu môžeme v budúcnosti pridať ďalšie služby
 ]
 
 export default function ServicesPage() {
@@ -68,7 +67,6 @@ export default function ServicesPage() {
                                  width={600}
                                  height={400}
                                  className="rounded-lg object-cover"
-                                 data-ai-hint={service.imageHint}
                                />
                             </CardContent>
                             <CardFooter>
