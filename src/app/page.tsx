@@ -154,7 +154,7 @@ export default function Home() {
    const heroRef = useRef(null);
    
   return (
-    <div className="overflow-x-hidden">
+    <div>
       <SpaceBackground ref={heroRef} />
       <FloatingAstronaut />
       <main className="relative z-10">

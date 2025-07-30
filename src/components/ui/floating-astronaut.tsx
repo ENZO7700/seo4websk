@@ -1,14 +1,25 @@
 
 'use client';
 
-import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+
+const quotes = [
+    "Houston, máme... ďalšieho návštevníka!",
+    "Jeden malý klik pre človeka, jeden veľký skok pre mňa.",
+    "Pozor, môj jetpack je trochu náladový.",
+    "Som expert na SEO... Space Exploration Officer.",
+    "Vidím odtiaľto vašu pozíciu na Google. Treba ju vylepšiť!",
+    "Vo vesmíre nikto nepočuje váš krik... ale moje vtipy áno.",
+    "Smerujem ku hviezdam, alebo len k ďalšiemu okraju obrazovky?",
+    "Toto je lepšie ako ranná káva."
+];
+
 
 export function FloatingAstronaut() {
   const controls = useAnimation();
-  const astronautRef = useRef<HTMLDivElement>(null);
-  // Use a ref to store the position to avoid re-renders on animation updates
-  const positionRef = useRef({ x: 0, y: 0 });
+  const [currentQuote, setCurrentQuote] = useState<string | null>(null);
+  const quoteTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const startFloatingAnimation = (x: number, y: number) => {
     controls.start({
@@ -24,54 +35,73 @@ export function FloatingAstronaut() {
     });
   };
 
-  // Set initial position and start floating
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
-    positionRef.current = {
-      x: innerWidth / 4,
-      y: innerHeight / 4,
-    };
-    startFloatingAnimation(positionRef.current.x, positionRef.current.y);
+    const initialX = innerWidth / 4;
+    const initialY = innerHeight / 4;
+    startFloatingAnimation(initialX, initialY);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); 
 
   const handleJump = () => {
-    controls.stop(); // Stop the current floating animation
+    controls.stop(); 
+
+    if (quoteTimeoutRef.current) {
+        clearTimeout(quoteTimeoutRef.current);
+    }
+    
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    setCurrentQuote(randomQuote);
+
+    quoteTimeoutRef.current = setTimeout(() => {
+        setCurrentQuote(null);
+    }, 5000);
+
 
     const { innerWidth, innerHeight } = window;
-    const astronautSize = 192; // 12rem = 192px
+    const astronautSize = 192; 
 
     const newX = Math.random() * (innerWidth - astronautSize);
     const newY = Math.random() * (innerHeight - astronautSize);
     
-    // Update the ref for the new base position
-    positionRef.current = { x: newX, y: newY };
-
-    // Start the jump animation
     controls.start({
         x: newX,
         y: newY,
-        rotate: Math.random() * 360 - 180, // A wild rotation for the jump
+        rotate: Math.random() * 360 - 180,
         transition: { type: 'spring', stiffness: 150, damping: 20 },
     }).then(() => {
-        // Once the jump is complete, resume floating at the new position
-        startFloatingAnimation(positionRef.current.x, positionRef.current.y);
+        startFloatingAnimation(newX, newY);
     });
   };
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 z-20">
         <motion.div
-         ref={astronautRef}
          className="absolute top-0 left-0 h-48 w-48 cursor-pointer pointer-events-auto"
          onClick={handleJump}
          animate={controls}
          initial={{ rotate: -15 }}
+         whileHover={{ scale: 1.1 }}
+         whileTap={{ scale: 0.9 }}
         >
+        <AnimatePresence>
+            {currentQuote && (
+                <motion.div
+                    initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 20, scale: 0.8 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-48 bg-background/80 backdrop-blur-sm border text-foreground rounded-lg p-2 text-center text-sm shadow-xl"
+                >
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-[-8px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-border" />
+                    {currentQuote}
+                </motion.div>
+            )}
+        </AnimatePresence>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
-            className="h-full w-full"
+            className="h-full w-full drop-shadow-2xl"
             aria-hidden="true"
         >
             <g transform="translate(10, 10)">
