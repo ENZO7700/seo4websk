@@ -99,13 +99,19 @@ export default {
         'move-stars': {
             '0%': { transform: 'translateY(0)' },
             '100%': { transform: 'translateY(-2000px)' },
-        }
+        },
+        'border-spin': {
+            '100%': {
+                transform: 'rotate(360deg)',
+            },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
         'move-stars': 'move-stars 200s linear infinite',
+        'border-spin': 'border-spin 7s linear infinite',
       },
     },
   },

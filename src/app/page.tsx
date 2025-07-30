@@ -32,6 +32,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { FloatingAstronaut } from "@/components/ui/floating-astronaut";
+import { GridPattern } from "@/components/ui/grid-pattern";
 
 
 const features = [
@@ -40,24 +41,28 @@ const features = [
     title: "Keyword Research",
     description:
       "Identifikujeme najcennejšie kľúčové slová pre vaše podnikanie, čím privedieme relevantnú návštevnosť na váš web.",
+    gradient: "from-[#007cf0] to-[#00dfd8]",
   },
   {
     icon: <FileText className="h-8 w-8 text-primary" />,
     title: "On-Page SEO",
     description:
       "Optimalizujeme váš obsah, titulky a meta popisy pre zlepšenie pozícií a miery prekliku (CTR).",
+    gradient: "from-[#7928ca] to-[#ff0080]",
   },
   {
     icon: <Link2 className="h-8 w-8 text-primary" />,
     title: "Link Building",
     description:
       "Budujeme kvalitné spätné odkazy na váš web, aby sme zvýšili jeho autoritu a dôveru u vyhľadávačov.",
+    gradient: "from-[#ff4d4d] to-[#f9cb28]",
   },
   {
     icon: <Cog className="h-8 w-8 text-primary" />,
     title: "Technické SEO",
     description:
       "Zabezpečujeme, aby bol váš web technicky v poriadku, rýchly a ľahko čitateľný pre vyhľadávače.",
+    gradient: "from-[#43e97b] to-[#38f9d7]",
   },
 ];
 
@@ -222,33 +227,38 @@ export default function Home() {
                 Poskytujeme komplexný súbor SEO služieb, ktoré pozdvihnú vašu online prítomnosť z každého uhla.
               </motion.p>
             </motion.div>
-            <motion.div 
+             <motion.div 
               className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               variants={containerVariants}
             >
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                >
-                  <Card
-                    className="h-full border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
-                  >
-                    <CardHeader>
-                      {feature.icon}
-                      <CardTitle className="mt-4 text-xl font-semibold">
-                        {feature.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription>{feature.description}</CardDescription>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                {features.map((feature, index) => (
+                    <motion.div
+                        key={index}
+                        variants={itemVariants}
+                        className={cn(
+                        "group relative rounded-2xl p-[2px] transition-all duration-300",
+                        `bg-gradient-to-r ${feature.gradient}`
+                        )}
+                    >
+                        <div className="relative z-10 h-full rounded-[14px] bg-background p-6">
+                            <GridPattern className="absolute inset-0 z-0 h-full w-full fill-black/5 stroke-white/10 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]" />
+                            <motion.div 
+                                className="relative z-10 transition-transform duration-300 group-hover:scale-110"
+                                whileHover={{ scale: 1.1, rotate: -5 }}
+                            >
+                                {feature.icon}
+                            </motion.div>
+                            <h3 className="mt-4 text-xl font-semibold text-foreground">
+                                {feature.title}
+                            </h3>
+                            <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                        </div>
+                         <div className="absolute inset-0 z-0 animate-border-spin rounded-2xl bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    </motion.div>
+                ))}
             </motion.div>
              <motion.div 
                 className="mt-12 text-center"

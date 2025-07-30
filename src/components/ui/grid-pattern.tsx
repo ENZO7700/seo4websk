@@ -34,35 +34,19 @@ export function GridPattern({
 
   return (
     <div
+      onMouseMove={onMouseMove}
       className={cn(
-        "pointer-events-none absolute inset-0 z-0",
+        "pointer-events-none absolute inset-0 z-0 transition-opacity duration-500 group-hover:opacity-100",
         className
       )}
+      {...props}
     >
-        <div onMouseMove={onMouseMove} className="absolute inset-0 z-10">
-            <motion.div
-                className="absolute inset-0 z-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
-                style={{
-                background: useMotionTemplate`
-                    radial-gradient(
-                    250px circle at ${mouseX}px ${mouseY}px,
-                    hsl(var(--primary) / 0.1),
-                    transparent 80%
-                    )
-                `,
-                }}
-            />
-        </div>
       <svg
-        className={cn(
-          "h-full w-full",
-          "fill-gray-400/30 stroke-gray-400/30",
-          "z-0"
-        )}
+        className="absolute inset-0 h-full w-full stroke-neutral-400/30"
       >
         <defs>
           <pattern
-            id="grid"
+            id="grid-pattern"
             width={width}
             height={height}
             patternUnits="userSpaceOnUse"
@@ -72,8 +56,20 @@ export function GridPattern({
             <path d={`M.5 ${height}V.5H${width}`} fill="none" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" strokeWidth={0} fill="url(#grid)" />
+        <rect width="100%" height="100%" strokeWidth={0} fill="url(#grid-pattern)" />
       </svg>
+      <motion.div
+        className="absolute inset-0 z-0 bg-gradient-to-b from-white/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          maskImage: useMotionTemplate`
+            radial-gradient(
+              200px 200px at ${mouseX}px ${mouseY}px,
+              black,
+              transparent
+            )
+          `,
+        }}
+      />
     </div>
   );
 }
