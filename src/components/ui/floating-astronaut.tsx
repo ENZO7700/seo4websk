@@ -25,7 +25,7 @@ export function FloatingAstronaut() {
     controls.start({
       x: [x, x + 10, x - 10, x],
       y: [y, y + 20, y - 20, y],
-      rotate: [-15, 10, -10, 15, -15],
+      rotate: [-15, 15],
       transition: {
         duration: 25,
         repeat: Infinity,
@@ -75,7 +75,7 @@ export function FloatingAstronaut() {
   };
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-20">
+    <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden">
         <motion.div
          className="absolute top-0 left-0 h-48 w-48 cursor-pointer pointer-events-auto"
          onClick={handleJump}
@@ -91,7 +91,7 @@ export function FloatingAstronaut() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.8 }}
                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-48 bg-background/80 backdrop-blur-sm border text-foreground rounded-lg p-2 text-center text-sm shadow-xl"
+                    className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-48 bg-background border text-foreground rounded-lg p-2 text-center text-sm shadow-xl"
                 >
                     <div className="absolute left-1/2 -translate-x-1/2 bottom-[-8px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-border" />
                     {currentQuote}
