@@ -192,8 +192,6 @@ export default function Home() {
             animate="visible"
           >
             <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-blue-500 to-teal-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50">
-              <div className="absolute inset-0 z-10 h-full w-full rounded-[14px] bg-background" />
-              <div className="absolute inset-0 z-0 h-full w-full animate-border-spin rounded-[16px] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
               <Button size="lg" asChild variant="premium" className="relative z-20 w-full">
                   <a href="#features">
                     Naše Služby
@@ -202,8 +200,6 @@ export default function Home() {
                 </Button>
             </div>
              <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/50">
-               <div className="absolute inset-0 z-10 h-full w-full rounded-[14px] bg-background" />
-               <div className="absolute inset-0 z-0 h-full w-full animate-border-spin rounded-[16px] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                <Button
                   size="lg"
                   variant="premium"
