@@ -31,7 +31,6 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { GridPattern } from "@/components/ui/grid-pattern";
-import AdvancedParallax from "@/components/ui/advanced-parallax";
 
 
 const features = [
@@ -40,28 +39,28 @@ const features = [
     title: "Keyword Research",
     description:
       "Identifikujeme najcennejšie kľúčové slová pre vaše podnikanie, čím privedieme relevantnú návštevnosť na váš web.",
-    gradient: "from-[#007cf0] to-[#00dfd8]",
+    gradient: "from-blue-500 to-teal-400",
   },
   {
     icon: <FileText className="h-8 w-8 text-primary" />,
     title: "On-Page SEO",
     description:
       "Optimalizujeme váš obsah, titulky a meta popisy pre zlepšenie pozícií a miery prekliku (CTR).",
-    gradient: "from-[#7928ca] to-[#ff0080]",
+    gradient: "from-green-400 to-teal-500",
   },
   {
     icon: <Link2 className="h-8 w-8 text-primary" />,
     title: "Link Building",
     description:
       "Budujeme kvalitné spätné odkazy na váš web, aby sme zvýšili jeho autoritu a dôveru u vyhľadávačov.",
-    gradient: "from-[#ff4d4d] to-[#f9cb28]",
+    gradient: "from-purple-500 to-pink-500",
   },
   {
     icon: <Cog className="h-8 w-8 text-primary" />,
     title: "Technické SEO",
     description:
       "Zabezpečujeme, aby bol váš web technicky v poriadku, rýchly a ľahko čitateľný pre vyhľadávače.",
-    gradient: "from-[#43e97b] to-[#38f9d7]",
+    gradient: "from-orange-500 to-yellow-500",
   },
 ];
 
@@ -159,7 +158,6 @@ export default function Home() {
    
   return (
     <div>
-      <AdvancedParallax />
       <main className="relative z-10">
         <section
           id="hero"
@@ -194,7 +192,9 @@ export default function Home() {
             animate="visible"
           >
             <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-blue-500 to-teal-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50">
-                <Button size="lg" asChild variant="premium" className="w-full">
+              <div className="absolute inset-0 z-10 h-full w-full rounded-[14px] bg-background" />
+              <div className="absolute inset-0 z-0 h-full w-full animate-border-spin rounded-[16px] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+              <Button size="lg" asChild variant="premium" className="relative z-20 w-full">
                   <a href="#features">
                     Naše Služby
                     <ArrowRight className="ml-2" />
@@ -202,11 +202,13 @@ export default function Home() {
                 </Button>
             </div>
              <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/50">
-                <Button
+               <div className="absolute inset-0 z-10 h-full w-full rounded-[14px] bg-background" />
+               <div className="absolute inset-0 z-0 h-full w-full animate-border-spin rounded-[16px] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+               <Button
                   size="lg"
                   variant="premium"
                   asChild
-                  className="w-full"
+                  className="relative z-20 w-full"
                 >
                   <Link href="/contact">Bezplatná Konzultácia</Link>
                 </Button>
@@ -238,18 +240,21 @@ export default function Home() {
               variants={containerVariants}
             >
                 {features.map((feature, index) => (
-                    <motion.div
+                     <motion.div
                         key={index}
                         variants={itemVariants}
-                        className={cn(
-                        "group relative rounded-2xl p-[2px] transition-all duration-300",
-                        `bg-gradient-to-r ${feature.gradient}`
-                        )}
-                    >
-                        <div className="relative z-10 h-full rounded-[14px] bg-background p-6 overflow-hidden">
+                        className="group relative"
+                      >
+                         <div
+                          className={cn(
+                            "absolute -inset-0.5 rounded-xl opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200",
+                            `bg-gradient-to-r ${feature.gradient}`
+                          )}
+                        />
+                        <div className="relative z-10 h-full rounded-xl bg-background p-6 overflow-hidden">
                             <GridPattern className="absolute inset-0 z-0 h-full w-full fill-black/5 stroke-white/10 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]" />
                             <motion.div 
-                                className="relative z-10 transition-transform duration-300 group-hover:scale-110"
+                                className="relative z-10"
                                 whileHover={{ scale: 1.1, rotate: -5 }}
                             >
                                 {feature.icon}
