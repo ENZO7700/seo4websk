@@ -27,9 +27,9 @@ import {
   Users,
   Star
 } from "lucide-react";
-import { GridPattern } from "@/components/ui/grid-pattern";
+import { SpaceBackground } from "@/components/ui/space-background";
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 
@@ -65,21 +65,21 @@ const testimonials = [
         quote: "Vďaka SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
         name: "Ján Malík",
         company: "E-shop Elektro",
-        avatar: "/images/testimonial-1.png",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-1.png?alt=media&token=8544e432-8418-4720-a61d-a32870e6e768",
         avatarHint: "smiling man 45 years old in a suit"
     },
     {
         quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
         name: "Katarína Muchová",
         company: "Blog Zdravie & Wellness",
-        avatar: "/images/testimonial-2.png",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-2.png?alt=media&token=8b65287e-e4a8-449e-8c3b-5582c0356c1d",
         avatarHint: "smiling woman with blonde wavy hair 35 years old"
     },
     {
         quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
         name: "Peter Vavrinec",
         company: "Stavebná Firma",
-        avatar: "/images/testimonial-3.png",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-3.png?alt=media&token=96a77d13-0a75-4c07-b37a-42c235c59367",
         avatarHint: "man with glasses 50 years old in a blue suit"
     }
 ];
@@ -151,26 +151,10 @@ const itemVariants = {
 
 export default function Home() {
    const heroRef = useRef(null);
-   const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-
+   
   return (
     <div className="overflow-x-hidden">
-       <motion.div style={{ y }}>
-          <GridPattern
-            width={40}
-            height={40}
-            x={-1}
-            y={-1}
-            className={cn(
-              "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]",
-              "absolute inset-0 z-0 h-full w-full stroke-gray-400/30",
-            )}
-          />
-      </motion.div>
+       <SpaceBackground ref={heroRef} />
       <main className="relative z-10">
         <section
           id="hero"
@@ -249,7 +233,7 @@ export default function Home() {
                   variants={itemVariants}
                 >
                   <Card
-                    className="h-full border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10"
+                    className="h-full border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
                   >
                     <CardHeader>
                       {feature.icon}
@@ -310,7 +294,7 @@ export default function Home() {
                   variants={itemVariants}
                 >
                 <Card
-                  className="flex h-full flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10"
+                  className="flex h-full flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
                 >
                   <CardContent className="pt-6">
                     <div className="flex items-center mb-4">
@@ -367,7 +351,7 @@ export default function Home() {
           <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
             <div>
               <Image
-                src="/images/about-us.png"
+                src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fabout-us.png?alt=media&token=80997184-7a71-426a-93a8-42245b736b47"
                 alt="Tím seo4web pri strategickom plánovaní digitálneho marketingu"
                 width={600}
                 height={400}
