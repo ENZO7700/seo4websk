@@ -27,11 +27,9 @@ import {
   Users,
   Star
 } from "lucide-react";
-import { SpaceBackground } from "@/components/ui/space-background";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { FloatingAstronaut } from "@/components/ui/floating-astronaut";
 import { GridPattern } from "@/components/ui/grid-pattern";
 import AdvancedParallax from "@/components/ui/advanced-parallax";
 
@@ -161,8 +159,6 @@ export default function Home() {
    
   return (
     <div>
-      {/* <SpaceBackground ref={heroRef} />
-      <FloatingAstronaut /> */}
       <AdvancedParallax />
       <main className="relative z-10">
         <section
