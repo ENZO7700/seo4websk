@@ -10,13 +10,14 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
   analyzeHeadline,
   AnalyzeHeadlineOutput,
 } from '@/ai/flows/analyze-headline-flow';
 import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function AnalyzerPage() {
   const { toast } = useToast();
@@ -24,6 +25,7 @@ export default function AnalyzerPage() {
   const [headline, setHeadline] = useState('');
   const [analysisResult, setAnalysisResult] =
     useState<AnalyzeHeadlineOutput | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
     if (!headline.trim()) {
@@ -36,15 +38,17 @@ export default function AnalyzerPage() {
     }
     setIsLoading(true);
     setAnalysisResult(null);
+    setError(null);
     try {
       const result = await analyzeHeadline({ headline });
       setAnalysisResult(result);
-    } catch (error) {
-      console.error('Nepodarilo sa analyzovať titulok:', error);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Vyskytol sa neznámy problém s AI. Skúste to prosím znova.';
+      setError(errorMessage);
       toast({
         variant: 'destructive',
         title: 'Nastala chyba!',
-        description: 'Vyskytol sa problém s AI. Skúste to prosím znova.',
+        description: errorMessage,
       });
     } finally {
       setIsLoading(false);
@@ -97,6 +101,13 @@ export default function AnalyzerPage() {
         </Card>
 
         <div className="w-full max-w-2xl min-h-[150px]">
+          {error && (
+             <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Chyba Analýzy</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
           {analysisResult && (
             <Card className="bg-card/50 backdrop-blur-lg animate-fade-in-up">
               <CardHeader>

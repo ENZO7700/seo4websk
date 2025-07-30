@@ -69,6 +69,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { formatNumber } from '@/lib/utils';
 import { isFirebaseConfigured } from '@/lib/firebase-config';
+import { motion } from 'framer-motion';
 
 interface Message {
   id: string;
@@ -86,7 +87,6 @@ interface KpiCardProps {
   icon: React.ReactNode;
 }
 
-// Helper function to generate random data
 const generateRandomData = () => {
   const topPagesData = [
     { page: '/tahaky', views: Math.floor(Math.random() * 500) + 500, conversion: `${(Math.random() * 10 + 5).toFixed(1)}%` },
@@ -177,7 +177,12 @@ function HeadlineAnalyzerWidget() {
           </Button>
         </div>
         {analysisResult && (
-          <div className="mt-4 space-y-2 animate-fade-in-up">
+          <motion.div 
+            className="mt-4 space-y-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="flex justify-between items-center">
               <p className="text-sm font-medium text-muted-foreground">
                 SEO Skóre
@@ -193,7 +198,7 @@ function HeadlineAnalyzerWidget() {
                 __html: analysisResult.analysis.replace(/\\n/g, '<br />'),
               }}
             />
-          </div>
+          </motion.div>
         )}
       </CardContent>
     </Card>
@@ -427,10 +432,10 @@ function DashboardContent() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {isLoading && messages.length === 0 ? (
+              {isLoading ? (
                 <div className="space-y-4">
                    {!firebaseConfigured ? (
-                     <Alert variant="destructive">
+                     <Alert variant="default">
                         <AlertCircle className="h-4 w-4" />
                         <AlertTitle>Konfigurácia Chýba</AlertTitle>
                         <AlertDescription>

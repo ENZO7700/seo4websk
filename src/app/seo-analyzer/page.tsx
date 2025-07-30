@@ -10,7 +10,7 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, Search, Wand2 } from 'lucide-react';
+import { Loader2, Search, Wand2, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
   analyzeSeo,
@@ -18,7 +18,6 @@ import {
 } from '@/ai/flows/analyze-seo-flow';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
 
 export default function SeoAnalyzerPage() {
   const { toast } = useToast();
