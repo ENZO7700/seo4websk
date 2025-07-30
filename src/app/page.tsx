@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -32,6 +33,7 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { FloatingAstronaut } from "@/components/ui/floating-astronaut";
 import { GridPattern } from "@/components/ui/grid-pattern";
+import AdvancedParallax from "@/components/ui/advanced-parallax";
 
 
 const features = [
@@ -159,8 +161,9 @@ export default function Home() {
    
   return (
     <div>
-      <SpaceBackground ref={heroRef} />
-      <FloatingAstronaut />
+      {/* <SpaceBackground ref={heroRef} />
+      <FloatingAstronaut /> */}
+      <AdvancedParallax />
       <main className="relative z-10">
         <section
           id="hero"
