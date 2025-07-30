@@ -27,6 +27,7 @@ const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov"},
+    { href: "/kolostastia", label: "Koleso Šťastia" },
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
 
