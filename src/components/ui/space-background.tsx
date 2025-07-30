@@ -9,9 +9,9 @@ export const SpaceBackground = forwardRef<HTMLDivElement>((props, ref) => {
     offset: ["start start", "end start"],
   });
 
-  const yStars1 = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const yStars2 = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const yStars3 = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const yStars1 = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yStars2 = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const yStars3 = useTransform(scrollYProgress, [0, 1], ["0%", "120%"]);
 
   return (
     <div className="space-bg">
