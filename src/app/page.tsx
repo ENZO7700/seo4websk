@@ -195,14 +195,13 @@ export default function Home() {
             initial="hidden"
             animate="visible"
           >
-            <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-blue-500 to-teal-400 transition-all duration-300 hover:shadow-2xl hover:shadow-teal-400/50">
+            <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-blue-500 to-teal-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50">
                 <Button size="lg" asChild variant="premium" className="w-full">
                   <a href="#features">
                     Naše Služby
                     <ArrowRight className="ml-2" />
                   </a>
                 </Button>
-                <div className="absolute inset-0 -z-10 animate-border-spin rounded-lg bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
              <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/50">
                 <Button
@@ -213,7 +212,6 @@ export default function Home() {
                 >
                   <Link href="/contact">Bezplatná Konzultácia</Link>
                 </Button>
-                 <div className="absolute inset-0 -z-10 animate-border-spin rounded-lg bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
           </motion.div>
         </section>
@@ -263,7 +261,6 @@ export default function Home() {
                             </h3>
                             <p className="mt-2 text-muted-foreground">{feature.description}</p>
                         </div>
-                         <div className="absolute inset-0 -z-10 animate-border-spin rounded-2xl bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     </motion.div>
                 ))}
             </motion.div>
@@ -412,3 +409,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
