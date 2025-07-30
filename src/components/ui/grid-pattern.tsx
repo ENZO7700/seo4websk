@@ -38,24 +38,26 @@ export function GridPattern({
         "pointer-events-none absolute inset-0 z-0",
         className
       )}
-      onMouseMove={onMouseMove}
     >
-      <motion.div
-        className="absolute inset-0 z-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              250px circle at ${mouseX}px ${mouseY}px,
-              hsl(var(--primary) / 0.1),
-              transparent 80%
-            )
-          `,
-        }}
-      />
+        <div onMouseMove={onMouseMove} className="absolute inset-0 z-10">
+            <motion.div
+                className="absolute inset-0 z-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
+                style={{
+                background: useMotionTemplate`
+                    radial-gradient(
+                    250px circle at ${mouseX}px ${mouseY}px,
+                    hsl(var(--primary) / 0.1),
+                    transparent 80%
+                    )
+                `,
+                }}
+            />
+        </div>
       <svg
         className={cn(
           "h-full w-full",
           "fill-gray-400/30 stroke-gray-400/30",
+          "z-0"
         )}
       >
         <defs>

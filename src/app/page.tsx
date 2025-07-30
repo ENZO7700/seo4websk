@@ -31,6 +31,7 @@ import { SpaceBackground } from "@/components/ui/space-background";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import { FloatingAstronaut } from "@/components/ui/floating-astronaut";
 
 
 const features = [
@@ -154,7 +155,8 @@ export default function Home() {
    
   return (
     <div className="overflow-x-hidden">
-       <SpaceBackground ref={heroRef} />
+      <SpaceBackground ref={heroRef} />
+      <FloatingAstronaut />
       <main className="relative z-10">
         <section
           id="hero"

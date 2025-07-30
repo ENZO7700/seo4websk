@@ -4,7 +4,8 @@ import type {NextConfig} from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   typescript: {
-    ignoreBuildErrors: true,
+    // We've fixed all build errors, so we can remove this.
+    // ignoreBuildErrors: true, 
   },
   eslint: {
     ignoreDuringBuilds: true,
