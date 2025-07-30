@@ -11,28 +11,28 @@ const services = [
         title: 'Vývoj PWA pre malé podniky',
         description: 'Vytvoríme pre vás modernú Progresívnu Webovú Aplikáciu (PWA), ktorá kombinuje to najlepšie z webu a mobilných aplikácií. Získajte offline prístup, push notifikácie a bleskovú rýchlosť.',
         href: '/sluzby/pwa-pre-male-podniky',
-        image: '/images/services/pwa-development.png',
+        image: 'https://placehold.co/600x400.png',
         imageHint: 'modern application on laptop'
     },
     {
         title: 'SEO pre PWA',
         description: 'Špecializovaná optimalizácia pre vyhľadávače určená pre Progresívne Webové Aplikácie. Zabezpečíme, aby vaša PWA dosiahla maximálnu viditeľnosť a organickú návštevnosť.',
         href: '/sluzby/seo-pre-pwa',
-        image: '/images/services/pwa-seo.png',
+        image: 'https://placehold.co/600x400.png',
         imageHint: 'seo analytics graph'
     },
     {
         title: 'E-commerce platformy (PWA)',
         description: 'Vybudujeme pre vás vysoko výkonnú e-commerce platformu postavenú na technológii PWA. Poskytnite svojim zákazníkom zážitok z nakupovania na úrovni natívnej aplikácie priamo v prehliadači.',
         href: '/sluzby/ecommerce-pwa',
-        image: '/images/services/ecommerce-pwa.png',
+        image: 'https://placehold.co/600x400.png',
         imageHint: 'online shopping cart'
     },
     {
         title: 'Konzultácie v oblasti digitálnej transformácie',
         description: 'Navigujeme vašu firmu procesom digitálnej transformácie. Od počiatočnej analýzy až po implementáciu moderných technologických riešení.',
         href: '/sluzby/digitalna-transformacia',
-        image: '/images/services/digital-transformation.png',
+        image: 'https://placehold.co/600x400.png',
         imageHint: 'business meeting strategy'
     }
 ]
@@ -67,6 +67,7 @@ export default function ServicesPage() {
                                  width={600}
                                  height={400}
                                  className="rounded-lg object-cover"
+                                 data-ai-hint={service.imageHint}
                                />
                             </CardContent>
                             <CardFooter>
@@ -84,3 +85,5 @@ export default function ServicesPage() {
         </main>
     )
 }
+
+    

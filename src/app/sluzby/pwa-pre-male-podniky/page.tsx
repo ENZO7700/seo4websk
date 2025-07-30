@@ -95,7 +95,7 @@ export default function PwaForBusinessPage() {
                     </div>
                     <div>
                          <Image
-                            src="/images/services/pwa-conversion.png"
+                            src="https://placehold.co/600x400.png"
                             alt="Graf zobrazujúci rast konverzií po implementácii PWA"
                             width={600}
                             height={400}
@@ -122,3 +122,5 @@ export default function PwaForBusinessPage() {
         </div>
     )
 }
+
+    

@@ -20,7 +20,6 @@ const baseMainNavLinks = [
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
-    { href: "/contact", label: "Kontakt" },
 ];
 
 const resourcesLinks = [
@@ -43,7 +42,7 @@ export function Header() {
 
     if (user) {
       if (dashboardIndex === -1) {
-        newLinks.splice(4, 0, dashboardLink);
+        newLinks.push(dashboardLink);
       }
     } else {
       if (dashboardIndex > -1) {
@@ -177,3 +176,5 @@ export function Header() {
     </header>
   );
 }
+
+    

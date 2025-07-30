@@ -63,21 +63,21 @@ const testimonials = [
         quote: "Vďaka SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
         name: "Ján Malík",
         company: "E-shop Elektro",
-        avatar: "/images/testimonials/avatar-1.png",
+        avatar: "https://placehold.co/64x64.png",
         avatarHint: "smiling man 45 years old in a suit"
     },
     {
         quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
         name: "Katarína Muchová",
         company: "Blog Zdravie & Wellness",
-        avatar: "/images/testimonials/avatar-2.png",
+        avatar: "https://placehold.co/64x64.png",
         avatarHint: "smiling woman with blonde wavy hair 35 years old"
     },
     {
         quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
         name: "Peter Vavrinec",
         company: "Stavebná Firma",
-        avatar: "/images/testimonials/avatar-3.png",
+        avatar: "https://placehold.co/64x64.png",
         avatarHint: "man with glasses 50 years old in a blue suit"
     }
 ];
@@ -243,6 +243,7 @@ export default function Home() {
                           width={48}
                           height={48}
                           className="rounded-full"
+                          data-ai-hint={testimonial.avatarHint}
                         />
                        <div className="ml-4">
                             <h3 className="font-bold">{testimonial.name}</h3>
@@ -288,7 +289,7 @@ export default function Home() {
           <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
             <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <Image
-                src="/images/about/team.png"
+                src="https://placehold.co/600x400.png"
                 alt="Tím seo4web pri strategickom plánovaní digitálneho marketingu"
                 width={600}
                 height={400}
@@ -330,3 +331,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
