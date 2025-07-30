@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
     },
     {
+      url: `${baseUrl}/image-generator`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
@@ -99,5 +105,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return staticPages;
 }
-
-    

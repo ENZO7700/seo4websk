@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose, SheetDescription } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -26,6 +26,7 @@ const baseMainNavLinks = [
 const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
+    { href: "/image-generator", label: "AI Generátor Obrázkov"},
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
 
@@ -136,6 +137,8 @@ export function Header() {
                     </SheetTrigger>
                     <SheetContent side="right">
                         <SheetHeader className="border-b pb-4 flex-row justify-between items-center">
+                            <SheetTitle className="sr-only">Menu</SheetTitle>
+                            <SheetDescription className="sr-only">Hlavná navigácia pre mobilné zariadenia</SheetDescription>
                             <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
                                 <Seo4WebLogo className="h-7 w-7" />
                                 <span className="font-headline">seo4web</span>

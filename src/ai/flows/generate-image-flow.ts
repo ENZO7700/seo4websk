@@ -16,7 +16,7 @@ const GenerateImageInputSchema = z.object({
 export type GenerateImageInput = z.infer<typeof GenerateImageInputSchema>;
 
 const GenerateImageOutputSchema = z.object({
-  imageUrl: z.string().url().describe("The data URI of the generated image. Expected format: 'data:image/png;base64,<encoded_data>'."),
+  imageDataUri: z.string().url().describe("The data URI of the generated image. Expected format: 'data:image/png;base64,<encoded_data>'."),
 });
 export type GenerateImageOutput = z.infer<typeof GenerateImageOutputSchema>;
 
@@ -45,6 +45,6 @@ const generateImageFlow = ai.defineFlow(
     }
     
     console.log('Image generated successfully.');
-    return { imageUrl: media.url };
+    return { imageDataUri: media.url };
   }
 );
