@@ -5,3 +5,4 @@ import './flows/analyze-headline-flow';
 import './flows/analyze-seo-flow';
 import './flows/generate-kpi-data-flow';
 import './flows/generate-image-flow';
+import './flows/generate-audio-flow';

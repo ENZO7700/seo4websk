@@ -10,12 +10,13 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Wand2, AlertCircle } from 'lucide-react';
+import { Loader2, Wand2, AlertCircle, Ear } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
   analyzeHeadline,
   AnalyzeHeadlineOutput,
 } from '@/ai/flows/analyze-headline-flow';
+import { generateAudio } from '@/ai/flows/generate-audio-flow';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
@@ -25,6 +26,8 @@ export default function AnalyzerPage() {
   const [headline, setHeadline] = useState('');
   const [analysisResult, setAnalysisResult] =
     useState<AnalyzeHeadlineOutput | null>(null);
+  const [audioDataUri, setAudioDataUri] = useState<string | null>(null);
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
@@ -38,10 +41,29 @@ export default function AnalyzerPage() {
     }
     setIsLoading(true);
     setAnalysisResult(null);
+    setAudioDataUri(null);
     setError(null);
     try {
       const result = await analyzeHeadline({ headline });
       setAnalysisResult(result);
+      
+      // Once analysis is done, generate audio
+      setIsAudioLoading(true);
+      try {
+          const audioResult = await generateAudio({ text: result.analysis });
+          setAudioDataUri(audioResult.audioDataUri);
+      } catch (audioErr) {
+          console.error("Audio generation failed:", audioErr);
+          // Non-critical error, so we just log it and don't show a blocking error
+          toast({
+            variant: 'default',
+            title: 'Audio sa nepodarilo vygenerovať',
+            description: 'Analýza je dostupná v textovej podobe.',
+          });
+      } finally {
+        setIsAudioLoading(false);
+      }
+
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Vyskytol sa neznámy problém s AI. Skúste to prosím znova.';
       setError(errorMessage);
@@ -123,6 +145,25 @@ export default function AnalyzerPage() {
                   </div>
                   <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
                 </div>
+
+                {(isAudioLoading || audioDataUri) && (
+                  <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
+                    {isAudioLoading ? (
+                      <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Generujem audio...</span>
+                      </div>
+                    ) : audioDataUri ? (
+                        <div className="flex items-center gap-3 w-full">
+                           <Ear className="h-5 w-5 text-primary"/>
+                           <audio controls src={audioDataUri} className="w-full h-10">
+                            Váš prehliadač nepodporuje audio element.
+                           </audio>
+                        </div>
+                    ) : null}
+                  </div>
+                )}
+
                 <div
                   className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
                   dangerouslySetInnerHTML={{

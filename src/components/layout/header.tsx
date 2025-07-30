@@ -6,13 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
 
 
 const baseMainNavLinks = [
@@ -27,6 +28,27 @@ const resourcesLinks = [
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
+
+const navContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const navItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      ease: "anticipate",
+      duration: 0.5,
+    },
+  },
+};
 
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -118,9 +140,7 @@ export function Header() {
                                 <Seo4WebLogo className="h-7 w-7" />
                                 <span className="font-headline">seo4web</span>
                             </Link>
-                            <SheetTitle className="sr-only">Menu</SheetTitle>
-                            <SheetDescription className="sr-only">Navigácia pre mobilné zariadenia</SheetDescription>
-                             <SheetClose asChild>
+                            <SheetClose asChild>
                                 <Button variant="ghost" size="icon">
                                     <X className="h-5 w-5" />
                                     <span className="sr-only">Zatvoriť menu</span>
@@ -128,18 +148,24 @@ export function Header() {
                             </SheetClose>
                         </SheetHeader>
                        <div className="flex flex-col h-full">
-                            <nav className="flex flex-col gap-6 text-lg font-medium mt-8">
+                            <motion.nav 
+                                className="flex flex-col gap-6 text-lg font-medium mt-8"
+                                initial="hidden"
+                                animate="visible"
+                                variants={navContainerVariants}
+                            >
                                {allLinks.map((link) => (
-                                   <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className="text-foreground/80 transition-colors hover:text-foreground"
-                                    onClick={() => setIsSheetOpen(false)}
-                                    >
-                                    {link.label}
-                                    </Link>
+                                   <motion.div key={link.href} variants={navItemVariants}>
+                                       <Link
+                                        href={link.href}
+                                        className="text-foreground/80 transition-colors hover:text-foreground block"
+                                        onClick={() => setIsSheetOpen(false)}
+                                        >
+                                        {link.label}
+                                        </Link>
+                                   </motion.div>
                                 ))}
-                            </nav>
+                            </motion.nav>
                              <div className="mt-auto pt-8 space-y-4">
                                 {user ? (
                                     <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full">
