@@ -21,13 +21,13 @@ const baseMainNavLinks = [
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
+    { href: "/seo-audit-akcia", label: "Akcia: SEO Audit" },
 ];
 
 const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov"},
-    { href: "/kolostastia", label: "Koleso Šťastia" },
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
 
@@ -94,7 +94,10 @@ export function Header() {
                <Link
                 key={link.href}
                 href={link.href}
-                className="text-foreground/70 transition-colors hover:text-foreground"
+                className={cn(
+                  "text-foreground/70 transition-colors hover:text-foreground",
+                   link.href === '/seo-audit-akcia' && 'text-primary font-bold hover:text-primary/90'
+                )}
               >
                 {link.label}
               </Link>
@@ -162,7 +165,10 @@ export function Header() {
                                    <motion.div key={link.href} variants={navItemVariants}>
                                        <Link
                                         href={link.href}
-                                        className="text-foreground/80 transition-colors hover:text-foreground block"
+                                        className={cn(
+                                          "text-foreground/80 transition-colors hover:text-foreground block",
+                                          link.href === '/seo-audit-akcia' && 'text-primary font-bold'
+                                        )}
                                         onClick={() => setIsSheetOpen(false)}
                                         >
                                         {link.label}
