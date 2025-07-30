@@ -195,19 +195,26 @@ export default function Home() {
             initial="hidden"
             animate="visible"
           >
-            <Button size="lg" asChild>
-              <a href="#features">
-                Naše Služby
-                <ArrowRight className="ml-2" />
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-            >
-              <Link href="/contact">Bezplatná Konzultácia</Link>
-            </Button>
+            <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-blue-500 to-teal-400">
+                <Button size="lg" asChild variant="premium" className="w-full">
+                  <a href="#features">
+                    Naše Služby
+                    <ArrowRight className="ml-2" />
+                  </a>
+                </Button>
+                <div className="absolute inset-0 z-0 animate-border-spin rounded-lg bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            </div>
+             <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-purple-500 to-pink-500">
+                <Button
+                  size="lg"
+                  variant="premium"
+                  asChild
+                  className="w-full"
+                >
+                  <Link href="/contact">Bezplatná Konzultácia</Link>
+                </Button>
+                 <div className="absolute inset-0 z-0 animate-border-spin rounded-lg bg-gradient-to-r from-transparent via-white/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            </div>
           </motion.div>
         </section>
 
