@@ -89,6 +89,7 @@ export default function WheelOfFortunePage() {
                     {segments.map((segment, index) => {
                         const angle = (360 / segments.length) * index;
                         const skewY = 90 - (360 / segments.length);
+                        const segmentAngle = 360 / segments.length;
                         return (
                             <div
                                 key={index}
