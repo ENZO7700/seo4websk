@@ -57,7 +57,7 @@ export default function PwaECommercePage() {
                                     <CardTitle className="mt-4 text-xl font-semibold">
                                         {feature.title}
                                     </CardTitle>
-                                </CardHeader>
+                                </Header>
                                 <CardContent>
                                     <p className="text-muted-foreground">{feature.description}</p>
                                 </CardContent>
@@ -69,10 +69,10 @@ export default function PwaECommercePage() {
                  <section id="benefits" className="grid items-center gap-12 md:grid-cols-2 mb-20">
                      <div>
                          <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fbenefit-ecommerce.png?alt=media&token=d1f11e92-3c35-42d4-9d55-66795f543e41"
+                            src="https://img.freepik.com/free-vector/mobile-optimization-concept-illustration_114360-3576.jpg?w=600"
                             alt="Ukážka responzívneho e-commerce PWA na rôznych zariadeniach"
                             width={600}
-                            height={400}
+                            height={600}
                             className="rounded-lg shadow-2xl shadow-primary/10"
                             data-ai-hint="ecommerce responsive devices"
                         />
@@ -121,5 +121,3 @@ export default function PwaECommercePage() {
         </div>
     )
 }
-
-    

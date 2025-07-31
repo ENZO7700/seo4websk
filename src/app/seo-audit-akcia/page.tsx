@@ -90,10 +90,10 @@ export default function SeoAuditPage() {
                  <section id="process" className="grid items-center gap-12 md:grid-cols-2 mb-20">
                     <div>
                          <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fseo-audit.png?alt=media&token=d14e1a1e-8438-4665-9854-32f2f7556f87"
+                            src="https://img.freepik.com/free-vector/seo-analytics-teamwork-concept-illustration_114360-9398.jpg?w=600"
                             alt="Detailný report zo SEO auditu zobrazený na laptope"
                             width={600}
-                            height={400}
+                            height={600}
                             className="rounded-lg shadow-2xl shadow-primary/10"
                             data-ai-hint="seo audit report"
                         />

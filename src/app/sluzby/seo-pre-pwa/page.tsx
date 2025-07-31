@@ -57,7 +57,7 @@ export default function SeoForPwaPage() {
                                     <CardTitle className="mt-4 text-xl font-semibold">
                                         {feature.title}
                                     </CardTitle>
-                                </CardHeader>
+                                </Header>
                                 <CardContent>
                                     <p className="text-muted-foreground">{feature.description}</p>
                                 </CardContent>
@@ -95,9 +95,9 @@ export default function SeoForPwaPage() {
                     </div>
                     <div>
                          <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fbenefit-organic-traffic.png?alt=media&token=40424564-9a3c-4f7f-a035-154a32338953"
+                            src="https://img.freepik.com/free-vector/code-typing-concept-illustration_114360-3805.jpg?w=400"
                             alt="Graf znázorňujúci organickú návštevnosť po SEO optimalizácii PWA"
-                            width={600}
+                            width={400}
                             height={400}
                             className="rounded-lg shadow-2xl shadow-primary/10"
                             data-ai-hint="organic traffic graph"
@@ -122,5 +122,3 @@ export default function SeoForPwaPage() {
         </div>
     )
 }
-
-    

@@ -57,7 +57,7 @@ export default function PwaForBusinessPage() {
                                     <CardTitle className="mt-4 text-xl font-semibold">
                                         {feature.title}
                                     </CardTitle>
-                                </CardHeader>
+                                </Header>
                                 <CardContent>
                                     <p className="text-muted-foreground">{feature.description}</p>
                                 </CardContent>
@@ -95,10 +95,10 @@ export default function PwaForBusinessPage() {
                     </div>
                     <div>
                          <Image
-                            src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fbenefit-conversion.png?alt=media&token=c5d01323-289e-4e43-8512-a72f0e0f3910"
+                            src="https://img.freepik.com/free-vector/keyword-research-concept-illustration_114360-3415.jpg?w=600"
                             alt="Graf zobrazujúci rast konverzií po implementácii PWA"
                             width={600}
-                            height={400}
+                            height={600}
                             className="rounded-lg shadow-2xl shadow-primary/10"
                             data-ai-hint="conversion rate graph"
                         />
@@ -122,5 +122,3 @@ export default function PwaForBusinessPage() {
         </div>
     )
 }
-
-    

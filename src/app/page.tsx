@@ -353,10 +353,10 @@ export default function Home() {
         <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
           <div>
             <Image
-              src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fabout-us.png?alt=media&token=80997184-7a71-426a-93a8-42245b736b47"
+              src="https://img.freepik.com/free-vector/content-marketing-strategy-concept-illustration_114360-7482.jpg?w=600"
               alt="Tím seo4web pri strategickom plánovaní digitálneho marketingu"
               width={600}
-              height={400}
+              height={600}
               className="rounded-lg shadow-2xl shadow-primary/10"
               data-ai-hint="digital marketing team"
             />
