@@ -110,64 +110,64 @@ const businessTiers = [
 
 const pwaTiers = [
     {
-        name: 'Vývoj PWA pre malé podniky',
-        price: 'od 1,999 €',
-        priceSuffix: '',
-        description: 'Transformujte svoj biznis s modernou Progresívnou Webovou Aplikáciou.',
+        name: 'PWA Vizitka',
+        price: 'od 999 €',
+        priceSuffix: 'jednorazovo',
+        description: 'Moderná online vizitka alebo portfólio postavené na PWA technológii.',
         features: [
-            'Offline funkcionalita',
-            'Push notifikácie',
-            'Inštalácia na plochu',
-            'Rýchle načítanie',
+            'Do 5 podstránok',
+            'Responzívny dizajn',
+            'Kontaktný formulár',
             'Základná SEO optimalizácia',
+            'Inštalácia na plochu',
         ],
-        isPopular: true,
+        isPopular: false,
         href: '/sluzby/pwa-pre-male-podniky'
     },
     {
-        name: 'SEO pre PWA',
-        price: 'od 499 €',
-        priceSuffix: '/mesiac',
-        description: 'Zabezpečte, aby bola vaša PWA viditeľná vo vyhľadávačoch.',
+        name: 'PWA Business',
+        price: 'od 2,499 €',
+        priceSuffix: 'jednorazovo',
+        description: 'Komplexné riešenie pre firmy vrátane blogu a marketingových nástrojov.',
         features: [
-            'Audit PWA z pohľadu SEO',
-            'Optimalizácia pre mobilné indexovanie',
-            'Štruktúrované dáta',
-            'JavaScript SEO',
-            'Pravidelný monitoring a reporting',
+            'Neobmedzený počet stránok',
+            'Blogovací systém (CMS)',
+            'Push notifikácie',
+            'Pokročilá SEO optimalizácia',
+            'Analytické nástroje',
         ],
-        isPopular: false,
-        href: '/sluzby/seo-pre-pwa'
+        isPopular: true,
+        href: '/contact'
     },
     {
-        name: 'E-commerce platformy (PWA)',
-        price: 'Na mieru',
-        priceSuffix: '',
-        description: 'Robustné e-commerce riešenie postavené na PWA technológii pre maximálny výkon.',
+        name: 'PWA E-shop',
+        price: 'od 4,999 €',
+        priceSuffix: 'jednorazovo',
+        description: 'Plnohodnotný e-commerce systém s platobnou bránou a správou produktov.',
         features: [
-            'Kompletný vývoj na mieru',
+            'Kompletný e-shop',
             'Integrácia platobných brán',
             'Správa produktov a objednávok',
-            'Personalizácia pre zákazníkov',
-            'Pokročilá analytika',
+            'Zákaznícke účty',
+            'Optimalizovaný nákupný košík',
         ],
         isPopular: false,
         href: '/sluzby/ecommerce-pwa'
     },
     {
-        name: 'Konzultácie v oblasti digitálnej transformácie',
-        price: 'od 79 €',
-        priceSuffix: '/hodina',
-        description: 'Pomôžeme vám zorientovať sa v digitálnom svete a nastaviť správnu stratégiu.',
+        name: 'Enterprise PWA',
+        price: 'Na mieru',
+        priceSuffix: '',
+        description: 'Vysoko škálovateľné riešenie na mieru pre špecifické potreby vášho podnikania.',
         features: [
-            'Analýza súčasného stavu',
-            'Návrh digitálnej stratégie',
-            'Výber vhodných technológií',
-            'Roadmapa implementácie',
-            'Optimalizácia procesov',
+            'Riešenie na kľúč',
+            'Integrácie s externými systémami (API)',
+            'Pokročilá bezpečnosť',
+            'Dedikovaná podpora',
+            'Prioritný vývoj',
         ],
         isPopular: false,
-        href: '/sluzby/digitalna-transformacia'
+        href: '/contact'
     }
 ]
 
@@ -177,7 +177,7 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
   >
     <CardHeader>
       <CardTitle className="flex items-center gap-2">
-        {tier.name === 'Vývoj PWA pre malé podniky' && <Rocket className="text-primary" />}
+        {tier.isPopular && <Rocket className="text-primary" />}
         {tier.name}
       </CardTitle>
       <CardDescription>{tier.description}</CardDescription>
@@ -224,7 +224,7 @@ export default function PricingPage() {
         
         <section id="pwa-services" className="w-full py-12">
             <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
-               Nové: PWA & Aplikačné Služby
+               Vývoj Progresívnych Webových Aplikácií (PWA)
             </h2>
              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                  {pwaTiers.map((tier) => (
@@ -258,5 +258,3 @@ export default function PricingPage() {
     </main>
   );
 }
-
-    
