@@ -9,6 +9,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription
 } from "@/components/ui/card";
 import {
   Accordion,
@@ -67,22 +68,16 @@ const testimonials = [
         quote: "Vďaka SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
         name: "Ján Malík",
         company: "E-shop Elektro",
-        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-man-1.png?alt=media&token=e93751a7-55c3-41c3-bb2b-8a7e58814a51",
-        avatarHint: "smiling man 45 years old in a suit"
     },
     {
         quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
         name: "Katarína Muchová",
         company: "Blog Zdravie & Wellness",
-        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-woman-1.png?alt=media&token=c1a35d88-b619-488f-a36c-2f960f8f4a13",
-        avatarHint: "smiling woman with blonde wavy hair 35 years old"
     },
     {
         quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
         name: "Peter Vavrinec",
         company: "Stavebná Firma",
-        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-man-2.png?alt=media&token=9d0a6a2e-4b2a-4f5c-8946-4c7b65e9215c",
-        avatarHint: "man with glasses 50 years old in a blue suit"
     }
 ];
 
@@ -305,29 +300,23 @@ export default function Home() {
               <Card
                 className="flex h-full flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
               >
-                <CardContent className="pt-6">
-                  <div className="flex items-center mb-4">
-                     <Image
-                        src={testimonial.avatar}
-                        alt={`Portrét ${testimonial.name}`}
-                        width={48}
-                        height={48}
-                        className="rounded-full"
-                        data-ai-hint={testimonial.avatarHint}
-                      />
-                     <div className="ml-4">
-                          <h3 className="font-bold">{testimonial.name}</h3>
-                          <p className="text-muted-foreground text-sm">{testimonial.company}</p>
-                      </div>
-                  </div>
-                  <p className="text-foreground/80 italic text-balance mb-4">
+                <CardHeader>
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <CardTitle className="text-xl">{testimonial.name}</CardTitle>
+                            <CardDescription>{testimonial.company}</CardDescription>
+                        </div>
+                        <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
+                            ))}
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-foreground/80 italic text-balance">
                     "{testimonial.quote}"
                   </p>
-                   <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                         <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
-                      ))}
-                  </div>
                 </CardContent>
               </Card>
               </motion.div>
@@ -402,3 +391,5 @@ export default function Home() {
     </main>
   );
 }
+
+    
