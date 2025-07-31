@@ -35,6 +35,7 @@ export default function WheelOfFortunePage() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // This ensures the component only renders on the client, preventing hydration mismatches.
     setIsClient(true);
   }, []);
 
@@ -43,22 +44,31 @@ export default function WheelOfFortunePage() {
     setIsSpinning(true);
     setResult(null);
 
+    // This logic is now safely on the client side
     const randomSegment = Math.floor(Math.random() * segments.length);
     const segmentAngle = 360 / segments.length;
-    const randomAngleWithinSegment = Math.random() * (segmentAngle - 10) + 5; // To avoid landing on lines
+    // Add a bit of randomness to where it lands within the segment
+    const randomAngleWithinSegment = Math.random() * (segmentAngle - 10) + 5; 
     
-    const fullRotations = 10 * 360;
+    // Add multiple full rotations for a better spinning effect
+    const fullRotations = 10 * 360; 
     const targetRotation =
       fullRotations + (360 - (randomSegment * segmentAngle + randomAngleWithinSegment));
 
     setRotation(targetRotation);
 
+    // Wait for the animation to finish before showing the result
     setTimeout(() => {
       setIsSpinning(false);
       setResult(segments[randomSegment]);
       setIsModalOpen(true);
-    }, 8000); // Corresponds to the transition duration
+    }, 8000); // This duration should match the CSS transition duration
   };
+  
+  if (!isClient) {
+    // Render nothing or a placeholder on the server
+    return null;
+  }
 
   return (
     <>
@@ -102,14 +112,14 @@ export default function WheelOfFortunePage() {
                                 }}
                             >
                                 <div 
-                                    className="flex flex-col items-center justify-center text-white text-xs font-bold transform -skew-y-[-${skewY}deg] rotate-${360/segments.length/2} translate-y-4 text-center"
+                                    className="flex flex-col items-center justify-center text-white text-xs font-bold text-center"
                                     style={{
                                       transform: `skewY(${skewY}deg) rotate(${segmentAngle / 2}deg)`,
                                       position: 'absolute',
                                       top: '20px',
                                       left: '20px',
                                       textAlign: 'center',
-                                      width: '100px', // Fixed width for better text wrapping
+                                      width: '100px',
                                       display: 'flex',
                                       flexDirection: 'column',
                                       alignItems: 'center',
