@@ -31,6 +31,35 @@ const itemVariants = {
   },
 };
 
+const animatedTextVariants = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: i * 0.1 },
+    }),
+};
+
+const animatedCharVariants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: 'spring',
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+};
+
 export function HeroSection() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -42,6 +71,8 @@ export function HeroSection() {
   const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.8]);
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const yGrid = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
+
+  const heroText = "seo4web";
 
   return (
     <motion.section
@@ -75,12 +106,14 @@ export function HeroSection() {
           animate="visible"
           variants={containerVariants}
         >
-          <motion.h1
-            variants={itemVariants}
-            className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl font-headline"
-          >
-            seo4web
-          </motion.h1>
+            <motion.h1
+                variants={animatedTextVariants}
+                className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl font-headline"
+            >
+                {heroText.split("").map((char, i) => (
+                    <motion.span key={i} variants={animatedCharVariants}>{char}</motion.span>
+                ))}
+            </motion.h1>
           <motion.div variants={itemVariants}>
             <Search className="h-10 w-10 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent md:h-16 md:w-16" />
           </motion.div>
