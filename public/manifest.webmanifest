@@ -1,0 +1,24 @@
+{
+  "name": "seo4web",
+  "short_name": "seo4web",
+  "description": "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch.",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#22223B",
+  "background_color": "#22223B",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description:
     "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch. Špecializujeme sa na analýzu kľúčových slov, on-page SEO, link building a technické SEO.",
   keywords: "SEO, optimalizácia pre vyhľadávače, SEO agentúra, link building, technické SEO, on-page SEO, seo4web",
+  manifest: "/manifest.webmanifest",
+  themeColor: "#22223B",
 };
 
 const fontBody = Inter({
