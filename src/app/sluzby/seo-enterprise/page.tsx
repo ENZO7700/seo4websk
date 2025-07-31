@@ -37,7 +37,7 @@ export default function SeoEnterprisePage() {
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Partnerstvo bez Kompromisov</h2>
                         <p className="text-lg text-muted-foreground mb-6 text-balance">
-                           Enterprise riešenie znamená, že vaše ciele sa stávajú našimi. Poskytneme vám dedikovaného SEO manažéra a tím špecialistov, ktorí budú úzko spolupracovať s vaším marketingovým a vývojovým oddelením. Navrhneme stratégiu presne na mieru, či už ide o expanziu na nové trhy, riešenie komplexných technických výziev alebo o obranu pozícií pred najväčšími hráčmi.
+                           Enterprise riešenie znamená, že vaše ciele sa stávajú našimi. Poskytneme vám dedikovaného SEO manažéra a tím špecialistov, ktorí budú úzko spolupracovať s vaším marketingovým a vývojovým oddelením. Navrhneme stratégiu presne na mieru, či už ide o expanziu na nové trhy, riešenie komplexných technických výziev alebo o obranu pozícií pred najväčšími hráčmi na trhu.
                         </p>
                     </div>
                  </section>
@@ -45,7 +45,7 @@ export default function SeoEnterprisePage() {
                  <section className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Pre koho je Enterprise riešenie?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        Pre medzinárodné korporácie, technologické firmy a lídrov na trhu, ktorí vyžadujú maximálnu flexibilitu, proaktivitu a partnera, ktorý rozumie ich komplexnému biznisu. Ak štandardné balíky nespĺňajú vaše požiadavky, Enterprise riešenie vám dáva voľnosť a expertízu, ktorú potrebujete.
+                        Pre medzinárodné korporácie, technologické firmy a lídrov na trhu, ktorí vyžadujú maximálnu flexibilitu, proaktivitu a partnera, ktorý rozumie ich komplexnému biznisu. Ak štandardné balíky nespĺňajú vaše požiadavky na rozsah, flexibilitu alebo hĺbku expertízy, Enterprise riešenie vám dáva voľnosť a zdroje, ktoré potrebujete na dosiahnutie výnimočných výsledkov.
                     </p>
                 </section>
 
@@ -54,51 +54,78 @@ export default function SeoEnterprisePage() {
                         <CardHeader>
                             <CardTitle className="text-2xl md:text-3xl font-bold text-center">Neobmedzené možnosti s Enterprise</CardTitle>
                         </CardHeader>
-                        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg">
+                        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg pt-6">
                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Všetko z balíka Korporát</h3>
-                                    <p className="text-sm text-muted-foreground">Absolútne komplexný servis ako východiskový bod.</p>
+                                    <p className="text-sm text-muted-foreground">Absolútne komplexný servis ako východiskový bod, ktorý ďalej prispôsobujeme a rozširujeme podľa vašich potrieb.</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Medzinárodné SEO</h3>
-                                    <p className="text-sm text-muted-foreground">Stratégia a exekúcia pre expanziu na zahraničné trhy (hreflang, geo-targeting a i.).</p>
+                                    <p className="text-sm text-muted-foreground">Kompletná stratégia a exekúcia pre expanziu na zahraničné trhy (analýza trhu, hreflang, geo-targeting, lokalizácia obsahu a i.).</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Dedikovaný SEO manažér a tím</h3>
-                                    <p className="text-sm text-muted-foreground">Váš vlastný tím expertov, ktorý pozná váš biznis do hĺbky.</p>
+                                    <p className="text-sm text-muted-foreground">Váš vlastný tím expertov, ktorý pozná váš biznis do hĺbky a je vám plne k dispozícii pre operatívne aj strategické potreby.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Školenia pre váš tím</h3>
-                                    <p className="text-sm text-muted-foreground">Zvýšime SEO znalosti vášho interného marketingového alebo obsahového tímu.</p>
+                                    <p className="text-sm text-muted-foreground">Zvýšime SEO znalosti vášho interného marketingového, obsahového alebo vývojového tímu prostredníctvom workshopov na mieru.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Kompletné prepojenie s biznis cieľmi</h3>
-                                    <p className="text-sm text-muted-foreground">Reportujeme priamo na KPI, ktoré sú dôležité pre váš manažment (PNO, ROI, LTV).</p>
+                                    <p className="text-sm text-muted-foreground">Reportujeme priamo na kľúčové biznis metriky, ktoré sú dôležité pre váš manažment (PNO, ROI, LTV, Market Share).</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Cena</h3>
-                                    <p className="text-sm text-muted-foreground">Na mieru</p>
+                                    <p className="text-sm text-muted-foreground font-bold text-lg">Na mieru</p>
                                 </div>
                             </div>
                         </CardContent>
                      </Card>
+                </section>
+                
+                <section className="max-w-4xl mx-auto mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center font-headline">Náš Proces Spolupráce</h2>
+                    <ol className="relative border-l border-gray-200 dark:border-gray-700">                  
+                        <li className="mb-10 ml-6">            
+                            <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                <span className='font-bold text-primary'>1</span>
+                            </span>
+                            <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">Strategické partnerstvo a R&D</h3>
+                            <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">Stávame sa vaším výskumným a vývojovým oddelením pre digitálny rast. Neustále analyzujeme trh, testujeme nové hypotézy a hľadáme inovatívne cesty k úspechu.</p>
+                        </li>
+                        <li className="mb-10 ml-6">
+                            <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                 <span className='font-bold text-primary'>2</span>
+                            </span>
+                            <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Plná integrácia s vašimi tímami</h3>
+                            <p className="text-base font-normal text-gray-500 dark:text-gray-400">Náš dedikovaný manažér zabezpečuje bezproblémovú komunikáciu a spoluprácu s vašimi internými oddeleniami (marketing, IT, produkt, predaj).</p>
+                        </li>
+                        <li className="ml-6">
+                            <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                 <span className='font-bold text-primary'>3</span>
+                            </span>
+                            <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Reporting pre manažment a Board</h3>
+                            <p className="text-base font-normal text-gray-500 dark:text-gray-400">Pravidelne pripravujeme a prezentujeme strategické reporty pre vedenie spoločnosti, ktoré jasne preukazujú prínos a návratnosť investícií do SEO.</p>
+                        </li>
+                    </ol>
                 </section>
 
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">

@@ -26,20 +26,20 @@ export default function DigitalTransformationPage() {
                 <section id="about-digital-transformation" className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Čo je Digitálna Transformácia a Prečo je Dôležitá?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        Digitálna transformácia nie je len o nasadení nových technológií. Je to o zásadnej zmene v tom, ako vaša firma funguje, komunikuje a prináša hodnotu zákazníkom. Zahŕňa zmeny v podnikovej kultúre, procesoch a biznis modeloch, poháňané novými digitálnymi možnosťami. V dnešnom svete je kľúčom k udržaniu konkurencieschopnosti, inováciám a dlhodobému rastu. Pomôžeme vám nielen prežiť, ale prosperovať.
+                        Digitálna transformácia nie je len o nasadení nových technológií. Je to o zásadnej zmene v tom, ako vaša firma funguje, komunikuje a prináša hodnotu zákazníkom. Zahŕňa zmeny v podnikovej kultúre, procesoch a biznis modeloch, poháňané novými digitálnymi možnosťami. V dnešnom svete je kľúčom k udržaniu konkurencieschopnosti, inováciám a dlhodobému rastu. Pomôžeme vám nielen prežiť, ale prosperovať a stať sa lídrom vo vašom odvetví.
                     </p>
                 </section>
 
                 <section id="features" className="mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Naše Oblasti Expertízy</h2>
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
                             <CardHeader className="items-center">
                                 <TrendingUp className="h-8 w-8 text-primary" />
                                 <CardTitle className="mt-4 text-xl font-semibold">Stratégia pre Rast</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground">Vytvárame jasné a merateľné stratégie, ktoré prepoja vaše obchodné ciele s digitálnymi aktivitami a pomôžu vašej firme rásť.</p>
+                                <p className="text-muted-foreground">Vytvárame jasné, dátovo podložené a merateľné stratégie, ktoré prepoja vaše obchodné ciele s digitálnymi aktivitami a pomôžu vašej firme rásť a expandovať na nové trhy.</p>
                             </CardContent>
                         </Card>
                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
@@ -48,7 +48,7 @@ export default function DigitalTransformationPage() {
                                 <CardTitle className="mt-4 text-xl font-semibold">Inovácie a Technológie</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground">Identifikujeme a pomáhame implementovať najnovšie technológie (vrátane AI a PWA), ktoré sú relevantné pre váš biznis a prinesú vám konkurenčnú výhodu.</p>
+                                <p className="text-muted-foreground">Identifikujeme a pomáhame implementovať najnovšie technológie (vrátane AI, PWA, IoT), ktoré sú relevantné pre váš biznis a prinesú vám skutočnú konkurenčnú výhodu.</p>
                             </CardContent>
                         </Card>
                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
@@ -57,7 +57,7 @@ export default function DigitalTransformationPage() {
                                 <CardTitle className="mt-4 text-xl font-semibold">Optimalizácia Procesov</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground">Pomáhame automatizovať a zefektívniť vaše interné a zákaznícke procesy, čím šetríme váš čas, peniaze a zvyšujeme spokojnosť.</p>
+                                <p className="text-muted-foreground">Pomáhame automatizovať a zefektívniť vaše interné a zákaznícke procesy, čím šetríme váš čas, peniaze a zvyšujeme spokojnosť zákazníkov aj zamestnancov.</p>
                             </CardContent>
                         </Card>
                     </div>
@@ -81,21 +81,21 @@ export default function DigitalTransformationPage() {
                                 <GitBranch className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">1. Hĺbková Analýza a Workshop</h3>
-                                    <p className="text-muted-foreground">Začíname sériou stretnutí, kde sa snažíme do hĺbky pochopiť váš biznis, ciele, procesy, zákazníkov a aktuálne výzvy.</p>
+                                    <p className="text-muted-foreground">Začíname sériou stretnutí a workshopov, kde sa snažíme do hĺbky pochopiť váš biznis, ciele, procesy, zákazníkov a aktuálne technologické aj trhové výzvy.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <GitBranch className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">2. Návrh Stratégie a Roadmapy</h3>
-                                    <p className="text-muted-foreground">Na základe analýzy vytvoríme detailný a realizovateľný plán digitálnej transformácie s konkrétnymi krokmi, prioritami a časovým harmonogramom.</p>
+                                    <p className="text-muted-foreground">Na základe analýzy vytvoríme detailný a realizovateľný plán digitálnej transformácie s konkrétnymi krokmi, prioritami, odhadovaným rozpočtom a časovým harmonogramom.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">3. Implementácia a Podpora</h3>
-                                    <p className="text-muted-foreground">Nezostávame len pri papieri. Aktívne vám pomôžeme s výberom dodávateľov, dohľadom nad implementáciou technológií a poskytneme priebežnú podporu a poradenstvo.</p>
+                                    <p className="text-muted-foreground">Nezostávame len pri papieri. Aktívne vám pomôžeme s výberom dodávateľov, dohľadom nad implementáciou technológií, riadením projektov a poskytneme priebežnú podporu a poradenstvo.</p>
                                 </div>
                             </li>
                         </ul>
@@ -105,7 +105,7 @@ export default function DigitalTransformationPage() {
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
                      <h2 className="text-3xl font-bold mb-4 font-headline">Pripravení na zmenu?</h2>
                      <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
-                         Urobte prvý krok k efektívnejšej a modernejšej firme. Poďme sa porozprávať o tom, ako môžeme naštartovať vašu digitálnu transformáciu.
+                         Urobte prvý krok k efektívnejšej a modernejšej firme. Poďme sa porozprávať o tom, ako môžeme naštartovať vašu digitálnu transformáciu a odomknúť plný potenciál vášho podnikania.
                      </p>
                       <Button size="lg" asChild>
                         <Link href="/contact">

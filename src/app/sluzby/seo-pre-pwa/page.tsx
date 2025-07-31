@@ -26,13 +26,13 @@ export default function SeoForPwaPage() {
                 <section id="about-pwa-seo" className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Prečo PWA potrebuje špeciálnu SEO starostlivosť?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        Progresívne Webové Aplikácie (PWA) prinášajú úžasný používateľský zážitok, no ich technická povaha, najmä spoliehanie sa na JavaScript pri vykresľovaní obsahu, predstavuje unikátne výzvy pre vyhľadávače. Klasické SEO postupy často nestačia. My rozumieme týmto nuansám a vieme, ako optimalizovať vašu PWA pre najlepšie výsledky a zabezpečiť, aby Google a ostatné vyhľadávače videli a indexovali všetok váš dôležitý obsah.
+                        Progresívne Webové Aplikácie (PWA) prinášajú úžasný používateľský zážitok, no ich technická povaha, najmä spoliehanie sa na JavaScript pri vykresľovaní obsahu, predstavuje unikátne výzvy pre vyhľadávače. Klasické SEO postupy často nestačia. Ak sa optimalizácia neurobí správne, Google nemusí byť schopný vidieť a zaindexovať váš obsah, čo vedie k nulovej organickej návštevnosti. My rozumieme týmto nuansám a vieme, ako optimalizovať vašu PWA pre najlepšie výsledky.
                     </p>
                 </section>
 
                 <section id="features" className="mb-20">
                      <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Naše Kľúčové Oblasti Zamerania</h2>
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                          <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
                             <CardHeader className="items-center">
                                 <Smartphone className="h-8 w-8 text-primary" />
@@ -48,7 +48,7 @@ export default function SeoForPwaPage() {
                                 <CardTitle className="mt-4 text-xl font-semibold">JavaScript SEO</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground">Zabezpečíme, aby bol váš dynamicky generovaný obsah plne viditeľný a indexovateľný pre vyhľadávače pomocou techník ako SSR alebo dynamické renderovanie.</p>
+                                <p className="text-muted-foreground">Zabezpečíme, aby bol váš dynamicky generovaný obsah plne viditeľný a indexovateľný pre vyhľadávače pomocou techník ako Server-Side Rendering (SSR) alebo dynamické renderovanie.</p>
                             </CardContent>
                          </Card>
                          <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
@@ -85,7 +85,14 @@ export default function SeoForPwaPage() {
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Optimalizácia pre Crawl Budget</h3>
-                                    <p className="text-muted-foreground">Zabezpečíme, aby vyhľadávače neplytvali svojimi zdrojmi na ne-dôležitých častiach vašej PWA a zamerali sa na kľúčový obsah, ktorý prináša výsledky.</p>
+                                    <p className="text-muted-foreground">Zabezpečíme, aby vyhľadávače neplytvali svojimi zdrojmi na nedôležitých častiach vašej PWA a zamerali sa na kľúčový obsah, ktorý prináša výsledky.</p>
+                                </div>
+                            </li>
+                             <li className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">App Shell Model a Service Workers</h3>
+                                    <p className="text-muted-foreground">Správne nakonfigurujeme Service Workery a App Shell, aby sme zabezpečili bleskové načítanie a offline funkčnosť bez negatívneho dopadu na SEO.</p>
                                 </div>
                             </li>
                         </ul>
