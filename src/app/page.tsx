@@ -9,7 +9,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription
+  CardDescription,
+  CardFooter
 } from "@/components/ui/card";
 import {
   Accordion,
@@ -29,6 +30,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { HeroSection } from "@/components/layout/hero-section";
 
 const features = [
   {
@@ -149,60 +151,8 @@ export default function Home() {
    
   return (
     <>
-      <main className="overflow-x-hidden bg-background">
-        <section
-          id="hero"
-          className="flex min-h-screen flex-col items-center justify-center px-4 text-center"
-        >
-          <motion.div 
-            className="group flex cursor-pointer items-center justify-center gap-4"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-          >
-            <motion.h1
-              variants={itemVariants}
-              className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl font-headline"
-            >
-              seo4web
-            </motion.h1>
-              <motion.div variants={itemVariants}>
-                <Search className="h-10 w-10 md:h-16 md:w-16 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent" />
-              </motion.div>
-          </motion.div>
-          <motion.p
-            className="mt-4 max-w-2xl text-lg text-foreground/80 md:text-xl text-balance"
-            initial="hidden"
-            animate="visible"
-            variants={itemVariants}
-          >
-            Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú návštevnosť. Poskytujeme expertné SEO stratégie pre váš úspech.
-          </motion.p>
-          <motion.div
-            className="mt-8 flex flex-wrap justify-center gap-4"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
-          >
-            <motion.div variants={itemVariants}>
-              <Button size="lg" asChild>
-                <a href="#features">
-                  Naše Služby
-                  <ArrowRight className="ml-2" />
-                </a>
-              </Button>
-            </motion.div>
-            <motion.div variants={itemVariants}>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-              >
-                <Link href="/contact">Bezplatná Konzultácia</Link>
-              </Button>
-            </motion.div>
-          </motion.div>
-        </section>
+      <main className="overflow-x-hidden">
+        <HeroSection />
 
         <section id="features" className="bg-muted/50 py-20 px-4 sm:py-32">
           <div className="container mx-auto">
@@ -387,5 +337,3 @@ export default function Home() {
     </>
   );
 }
-
-    
