@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { ArrowRight, Rocket } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import LottiePlayer from '@/components/ui/lottie-player';
 
 const services = [
     {
@@ -25,7 +26,7 @@ const services = [
         title: 'E-commerce platformy (PWA)',
         description: 'Vybudujeme pre vás vysoko výkonnú e-commerce platformu postavenú na technológii PWA. Poskytnite svojim zákazníkom zážitok z nakupovania na úrovni natívnej aplikácie priamo v prehliadači.',
         href: '/sluzby/ecommerce-pwa',
-        image: 'https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fservice-ecommerce.png?alt=media&token=96d5e15f-519c-4861-a083-5c74383a15c8',
+        animationUrl: 'https://lottie.host/b65f5859-2996-415d-ab9b-35b818f9bd8a/l8w2MDB3P9.json',
         imageHint: 'online shopping cart'
     },
     {
@@ -60,15 +61,19 @@ export default function ServicesPage() {
                                 </div>
                                 <CardDescription className="pt-2 text-balance">{service.description}</CardDescription>
                             </CardHeader>
-                            <CardContent className="flex-grow">
-                               <Image 
-                                 src={service.image}
-                                 alt={`Ilustračný obrázok pre službu ${service.title}`}
-                                 width={600}
-                                 height={400}
-                                 className="rounded-lg object-cover"
-                                 data-ai-hint={service.imageHint}
-                               />
+                            <CardContent className="flex-grow flex items-center justify-center">
+                               { 'animationUrl' in service ? (
+                                    <LottiePlayer src={service.animationUrl} />
+                               ) : 'image' in service && service.image ? (
+                                   <Image 
+                                     src={service.image}
+                                     alt={`Ilustračný obrázok pre službu ${service.title}`}
+                                     width={600}
+                                     height={400}
+                                     className="rounded-lg object-cover"
+                                     data-ai-hint={service.imageHint}
+                                   />
+                               ) : null}
                             </CardContent>
                             <CardFooter>
                                 <Button asChild className="w-full">
