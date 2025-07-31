@@ -25,6 +25,16 @@ const GridPattern = ({
     },
     visible: {
         opacity: 1,
+        transition: {
+            duration: 0.5,
+        }
+    },
+    hover: {
+        opacity: 1,
+        scale: 1.1,
+        transition: {
+            duration: 0.3,
+        }
     }
   }
 
@@ -32,13 +42,13 @@ const GridPattern = ({
     <motion.svg
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 h-full w-full fill-primary/5 stroke-primary/10",
+        "pointer-events-none absolute inset-0 h-full w-full fill-primary/10 stroke-primary/20",
         className
       )}
       variants={aniamtionVariants}
       initial="hidden"
-      whileInView="visible"
-      whileHover="visible"
+      animate="visible"
+      whileHover="hover"
       viewport={{ once: true }}
       {...props}
     >
