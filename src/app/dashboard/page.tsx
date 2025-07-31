@@ -177,7 +177,7 @@ function HeadlineAnalyzerWidget() {
           </Button>
         </div>
         {analysisResult && (
-          <motion.div 
+          <motion.div
             className="mt-4 space-y-2"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

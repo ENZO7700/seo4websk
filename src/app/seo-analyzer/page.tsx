@@ -20,6 +20,7 @@ import {
 import { generateAudio } from '@/ai/flows/generate-audio-flow';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { motion } from 'framer-motion';
 
 export default function SeoAnalyzerPage() {
   const { toast } = useToast();
@@ -149,72 +150,78 @@ export default function SeoAnalyzerPage() {
             </Alert>
           )}
           {analysisResult && (
-            <Card className="bg-card/50 backdrop-blur-lg animate-fade-in-up">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-center">
-                  Výsledky SEO Analýzy
-                </CardTitle>
-                 <CardDescription className="text-center truncate">
-                    Pre: {url}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <p className="text-sm font-medium text-muted-foreground">Celkové SEO Skóre</p>
-                    <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
-                  </div>
-                  <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
-                </div>
-                
-                 {(isAudioLoading || audioDataUri) && (
-                  <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
-                    {isAudioLoading ? (
-                      <div className='flex items-center gap-2 text-sm text-muted-foreground'>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Generujem audio...</span>
-                      </div>
-                    ) : audioDataUri ? (
-                        <div className="flex items-center gap-3 w-full">
-                           <Ear className="h-5 w-5 text-primary"/>
-                           <audio controls src={audioDataUri} className="w-full h-10">
-                            Váš prehliadač nepodporuje audio element.
-                           </audio>
-                        </div>
-                    ) : null}
-                  </div>
-                )}
-
-                <div className="space-y-4 text-left">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Card className="bg-card/50 backdrop-blur-lg">
+                <CardHeader>
+                    <CardTitle className="text-xl font-semibold text-center">
+                    Výsledky SEO Analýzy
+                    </CardTitle>
+                    <CardDescription className="text-center truncate">
+                        Pre: {url}
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Titulok stránky</h3>
-                        <p className="text-muted-foreground p-3 bg-muted rounded-md">{analysisResult.title}</p>
+                    <div className="flex justify-between items-center mb-2">
+                        <p className="text-sm font-medium text-muted-foreground">Celkové SEO Skóre</p>
+                        <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
                     </div>
-                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Meta Popis</h3>
-                        <p className="text-muted-foreground p-3 bg-muted rounded-md">{analysisResult.description || "Žiadny meta popis nebol nájdený."}</p>
+                    <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
                     </div>
-                     <div>
-                        <h3 className="font-semibold text-lg mb-2">Štruktúra Nadpisov</h3>
-                        <div className="p-3 bg-muted rounded-md space-y-2">
-                            {analysisResult.headings.length > 0 ? analysisResult.headings.map((h, i) => (
-                                <div key={i} className="flex items-baseline">
-                                    <span className="font-bold text-primary w-8">{h.level}:</span>
-                                    <p className="text-muted-foreground">{h.text}</p>
-                                </div>
-                            )) : <p className="text-muted-foreground">Žiadne nadpisy neboli nájdené.</p>}
+                    
+                    {(isAudioLoading || audioDataUri) && (
+                    <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
+                        {isAudioLoading ? (
+                        <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <span>Generujem audio...</span>
+                        </div>
+                        ) : audioDataUri ? (
+                            <div className="flex items-center gap-3 w-full">
+                            <Ear className="h-5 w-5 text-primary"/>
+                            <audio controls src={audioDataUri} className="w-full h-10">
+                                Váš prehliadač nepodporuje audio element.
+                            </audio>
+                            </div>
+                        ) : null}
+                    </div>
+                    )}
+
+                    <div className="space-y-4 text-left">
+                        <div>
+                            <h3 className="font-semibold text-lg mb-2">Titulok stránky</h3>
+                            <p className="text-muted-foreground p-3 bg-muted rounded-md">{analysisResult.title}</p>
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-lg mb-2">Meta Popis</h3>
+                            <p className="text-muted-foreground p-3 bg-muted rounded-md">{analysisResult.description || "Žiadny meta popis nebol nájdený."}</p>
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-lg mb-2">Štruktúra Nadpisov</h3>
+                            <div className="p-3 bg-muted rounded-md space-y-2">
+                                {analysisResult.headings.length > 0 ? analysisResult.headings.map((h, i) => (
+                                    <div key={i} className="flex items-baseline">
+                                        <span className="font-bold text-primary w-8">{h.level}:</span>
+                                        <p className="text-muted-foreground">{h.text}</p>
+                                    </div>
+                                )) : <p className="text-muted-foreground">Žiadne nadpisy neboli nájdené.</p>}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div
-                  className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
-                  dangerouslySetInnerHTML={{
-                    __html: analysisResult.analysis.replace(/\n/g, '<br />'),
-                  }}
-                />
-              </CardContent>
-            </Card>
+                    <div
+                    className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
+                    dangerouslySetInnerHTML={{
+                        __html: analysisResult.analysis.replace(/\n/g, '<br />'),
+                    }}
+                    />
+                </CardContent>
+                </Card>
+            </motion.div>
           )}
         </div>
       </div>

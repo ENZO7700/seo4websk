@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -19,6 +20,7 @@ import {
 import { generateAudio } from '@/ai/flows/generate-audio-flow';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { motion } from 'framer-motion';
 
 export default function AnalyzerPage() {
   const { toast } = useToast();
@@ -131,47 +133,53 @@ export default function AnalyzerPage() {
             </Alert>
           )}
           {analysisResult && (
-            <Card className="bg-card/50 backdrop-blur-lg animate-fade-in-up">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-center">
-                  Analýza dokončená
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <div className="flex justify-between items-center mb-2">
-                    <p className="text-sm font-medium text-muted-foreground">SEO Skóre</p>
-                    <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
-                  </div>
-                  <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
-                </div>
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Card className="bg-card/50 backdrop-blur-lg">
+                <CardHeader>
+                    <CardTitle className="text-xl font-semibold text-center">
+                    Analýza dokončená
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div>
+                    <div className="flex justify-between items-center mb-2">
+                        <p className="text-sm font-medium text-muted-foreground">SEO Skóre</p>
+                        <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
+                    </div>
+                    <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
+                    </div>
 
-                {(isAudioLoading || audioDataUri) && (
-                  <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
-                    {isAudioLoading ? (
-                      <div className='flex items-center gap-2 text-sm text-muted-foreground'>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Generujem audio...</span>
-                      </div>
-                    ) : audioDataUri ? (
-                        <div className="flex items-center gap-3 w-full">
-                           <Ear className="h-5 w-5 text-primary"/>
-                           <audio controls src={audioDataUri} className="w-full h-10">
-                            Váš prehliadač nepodporuje audio element.
-                           </audio>
+                    {(isAudioLoading || audioDataUri) && (
+                    <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
+                        {isAudioLoading ? (
+                        <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <span>Generujem audio...</span>
                         </div>
-                    ) : null}
-                  </div>
-                )}
+                        ) : audioDataUri ? (
+                            <div className="flex items-center gap-3 w-full">
+                            <Ear className="h-5 w-5 text-primary"/>
+                            <audio controls src={audioDataUri} className="w-full h-10">
+                                Váš prehliadač nepodporuje audio element.
+                            </audio>
+                            </div>
+                        ) : null}
+                    </div>
+                    )}
 
-                <div
-                  className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
-                  dangerouslySetInnerHTML={{
-                    __html: analysisResult.analysis.replace(/\n/g, '<br />'),
-                  }}
-                />
-              </CardContent>
-            </Card>
+                    <div
+                    className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
+                    dangerouslySetInnerHTML={{
+                        __html: analysisResult.analysis.replace(/\n/g, '<br />'),
+                    }}
+                    />
+                </CardContent>
+                </Card>
+            </motion.div>
           )}
         </div>
       </div>

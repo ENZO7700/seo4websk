@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { generateImage } from '@/ai/flows/generate-image-flow';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function ImageGeneratorPage() {
   const { toast } = useToast();
@@ -112,29 +113,35 @@ export default function ImageGeneratorPage() {
               </div>
            )}
           {imageDataUri && (
-            <Card className="bg-card/50 backdrop-blur-lg animate-fade-in-up overflow-hidden">
-              <CardHeader>
-                <CardTitle className="text-xl font-semibold text-center">
-                  Váš obrázok je hotový!
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                 <div className="aspect-video relative w-full rounded-md overflow-hidden border">
-                    <Image 
-                        src={imageDataUri}
-                        alt={prompt}
-                        fill
-                        className="object-contain"
-                    />
-                 </div>
-                 <Button asChild size="lg" className="w-full">
-                     <a href={imageDataUri} download={`ai-image-${Date.now()}.png`}>
-                        <Download />
-                        Stiahnuť Obrázok
-                     </a>
-                 </Button>
-              </CardContent>
-            </Card>
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+            >
+                <Card className="bg-card/50 backdrop-blur-lg overflow-hidden">
+                <CardHeader>
+                    <CardTitle className="text-xl font-semibold text-center">
+                    Váš obrázok je hotový!
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="aspect-video relative w-full rounded-md overflow-hidden border">
+                        <Image 
+                            src={imageDataUri}
+                            alt={prompt}
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                    <Button asChild size="lg" className="w-full">
+                        <a href={imageDataUri} download={`ai-image-${Date.now()}.png`}>
+                            <Download />
+                            Stiahnuť Obrázok
+                        </a>
+                    </Button>
+                </CardContent>
+                </Card>
+            </motion.div>
           )}
           {!isLoading && !imageDataUri && !error && (
             <div className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg">
