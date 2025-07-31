@@ -62,8 +62,8 @@ export default function ServicesPage() {
                                 </div>
                                 <CardDescription className="pt-2 text-balance">{service.description}</CardDescription>
                             </CardHeader>
-                            <CardContent className="flex-grow flex items-center justify-center">
-                               { 'animationData' in service ? (
+                            <CardContent className="flex-grow">
+                               { 'animationData' in service && service.animationData ? (
                                     <LottiePlayer animationData={service.animationData} />
                                ) : 'image' in service && service.image ? (
                                    <Image 
@@ -91,5 +91,3 @@ export default function ServicesPage() {
         </main>
     )
 }
-
-    
