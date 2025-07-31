@@ -1,11 +1,10 @@
-
 {
-    "name": "seo4web - Expertné SEO služby",
+    "name": "seo4web",
     "short_name": "seo4web",
     "description": "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#12111A",
+    "background_color": "#ffffff",
     "theme_color": "#4338ca",
     "icons": [
         {
@@ -16,8 +15,7 @@
         {
             "src": "/icons/icon-512x512.png",
             "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
+            "type": "image/png"
         }
     ]
 }
