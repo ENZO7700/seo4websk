@@ -26,7 +26,7 @@ const individualTiers = [
       'Mesačný report',
     ],
     isPopular: false,
-    href: '/contact',
+    href: '/sluzby/seo-start',
   },
   {
     name: 'Rast',
@@ -41,7 +41,7 @@ const individualTiers = [
       'Google My Business optimalizácia',
     ],
     isPopular: true,
-    href: '/contact',
+    href: '/sluzby/seo-rast',
   },
   {
     name: 'Líder',
@@ -56,7 +56,7 @@ const individualTiers = [
       'Prioritná podpora',
     ],
     isPopular: false,
-    href: '/contact',
+    href: '/sluzby/seo-lider',
   },
 ];
 
@@ -74,7 +74,7 @@ const businessTiers = [
       'Konzultácie (2 hod/mesiac)',
     ],
     isPopular: false,
-    href: '/contact',
+    href: '/sluzby/seo-business',
   },
   {
     name: 'Korporát',
@@ -89,7 +89,7 @@ const businessTiers = [
       'Pravidelné strategické stretnutia',
     ],
     isPopular: true,
-    href: '/contact',
+    href: '/sluzby/seo-korporat',
   },
   {
     name: 'Enterprise',
@@ -104,7 +104,7 @@ const businessTiers = [
       'Kompletné prepojenie s biznis cieľmi',
     ],
     isPopular: false,
-    href: '/contact',
+    href: '/sluzby/seo-enterprise',
   },
 ];
 
@@ -122,7 +122,7 @@ const pwaTiers = [
             'Inštalácia na plochu',
         ],
         isPopular: false,
-        href: '/sluzby/pwa-pre-male-podniky'
+        href: '/sluzby/pwa-vizitka'
     },
     {
         name: 'PWA Business',
@@ -137,7 +137,7 @@ const pwaTiers = [
             'Analytické nástroje',
         ],
         isPopular: true,
-        href: '/contact'
+        href: '/sluzby/pwa-business'
     },
     {
         name: 'PWA E-shop',
@@ -167,7 +167,7 @@ const pwaTiers = [
             'Prioritný vývoj',
         ],
         isPopular: false,
-        href: '/contact'
+        href: '/sluzby/pwa-enterprise'
     }
 ]
 
@@ -201,7 +201,7 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
     <CardFooter>
       <Button asChild className="w-full" variant={tier.isPopular ? 'default' : 'outline'}>
         <Link href={tier.href}>
-            {tier.price === 'Na mieru' ? 'Kontaktujte nás' : tier.href === '/contact' ? 'Zvoliť balík' : 'Zistiť Viac'}
+            {tier.price === 'Na mieru' ? 'Kontaktujte nás' : 'Zistiť Viac'}
         </Link>
       </Button>
     </CardFooter>
