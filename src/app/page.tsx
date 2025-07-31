@@ -235,19 +235,12 @@ export default function Home() {
               variants={containerVariants}
             >
                 {features.map((feature, index) => (
-                     <motion.div
+                    <motion.div
                         key={index}
                         variants={itemVariants}
-                        className="group relative"
-                      >
-                         <div
-                          className={cn(
-                            "absolute -inset-0.5 rounded-xl opacity-75 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200",
-                            `bg-gradient-to-r ${feature.gradient}`
-                          )}
-                        />
-                        <Card className="relative z-10 h-full rounded-xl bg-background p-6 overflow-hidden">
-                            <motion.div 
+                    >
+                        <Card className="h-full rounded-xl bg-card p-6 overflow-hidden border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
+                             <motion.div 
                                 className="relative z-10"
                                 whileHover={{ scale: 1.1, rotate: -5 }}
                             >
@@ -406,5 +399,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
