@@ -29,6 +29,9 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
+import SpaceBackground from "@/components/ui/space-background";
+import FloatingAstronaut from "@/components/ui/floating-astronaut";
+import GridPattern from "@/components/ui/grid-pattern";
 
 
 const features = [
@@ -155,12 +158,15 @@ export default function Home() {
    const heroRef = useRef(null);
    
   return (
-    <main className="relative z-10">
+    <main className="relative z-10 overflow-x-hidden">
+        <SpaceBackground />
+        <div className="relative z-10">
       <section
         id="hero"
         ref={heroRef}
         className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
       >
+        <FloatingAstronaut />
         <motion.div 
           className="group flex cursor-pointer items-center justify-center gap-4"
           variants={itemVariants}
@@ -232,18 +238,19 @@ export default function Home() {
                       key={index}
                       variants={itemVariants}
                   >
-                      <Card className="h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
-                          <div className={cn("mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
+                      <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 overflow-hidden">
+                        <GridPattern />
+                          <div className={cn("relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
                               <motion.div 
                                   whileHover={{ scale: 1.2, rotate: -10 }}
                               >
                                   {feature.icon}
                               </motion.div>
                           </div>
-                          <h3 className="mt-4 text-xl font-semibold text-foreground">
+                          <h3 className="relative z-10 mt-4 text-xl font-semibold text-foreground">
                               {feature.title}
                           </h3>
-                          <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                          <p className="relative z-10 mt-2 text-muted-foreground">{feature.description}</p>
                       </Card>
                   </motion.div>
               ))}
@@ -389,8 +396,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </div>
     </main>
   );
 }
-
-    

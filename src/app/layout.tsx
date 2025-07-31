@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Inter, Lexend_Deca } from 'next/font/google';
 import { AuthProvider } from "@/components/auth/auth-provider";
+import SpaceBackground from "@/components/ui/space-background";
+import FloatingAstronaut from "@/components/ui/floating-astronaut";
 
 export const metadata: Metadata = {
   title: {
@@ -56,5 +58,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    
