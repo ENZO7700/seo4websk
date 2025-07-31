@@ -28,7 +28,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useRef } from "react";
 import GridPattern from "@/components/ui/grid-pattern";
 
 
@@ -153,7 +152,6 @@ const itemVariants = {
 
 
 export default function Home() {
-   const heroRef = useRef(null);
    
   return (
     <main className="relative z-10 overflow-x-hidden">
@@ -161,7 +159,6 @@ export default function Home() {
         <div className="relative z-10">
       <section
         id="hero"
-        ref={heroRef}
         className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
       >
         
