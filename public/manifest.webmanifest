@@ -1,24 +1,21 @@
 {
-  "name": "seo4web",
+  "name": "seo4web - Expertné SEO služby",
   "short_name": "seo4web",
-  "description": "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch.",
+  "description": "seo4web ponúka komplexné SEO služby a vývoj moderných Progresívnych Webových Aplikácií (PWA) na zlepšenie viditeľnosti vašej webstránky.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#18181b",
+  "theme_color": "#4338ca",
   "icons": [
     {
       "src": "/icons/icon-192x192.svg",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "type": "image/svg+xml"
     },
     {
       "src": "/icons/icon-512x512.svg",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
+      "type": "image/svg+xml"
     }
-  ],
-  "theme_color": "#22223B",
-  "background_color": "#22223B",
-  "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait"
+  ]
 }

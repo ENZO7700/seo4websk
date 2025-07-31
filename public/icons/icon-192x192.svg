@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" fill="none">
-  <rect width="192" height="192" rx="32" fill="#4A4E69"/>
-  <circle cx="96" cy="96" r="64" stroke="#9A8C98" stroke-width="12"/>
-  <path d="m72 96 20 20 40-40" stroke="#F2E9E4" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <line x1="168" y1="168" x2="132" y2="132" stroke="#9A8C98" stroke-width="12" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+    <title>seo4web Icon 192x192</title>
+    <rect width="192" height="192" fill="#18181b" rx="24" ry="24" />
+    <g fill="none" stroke="#4338ca" stroke-width="12">
+        <circle cx="90" cy="90" r="60" />
+        <line x1="170" y1="170" x2="135" y2="135" />
+    </g>
+    <path d="M65 90 L85 110 L125 70" stroke="#a5b4fc" stroke-width="15" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

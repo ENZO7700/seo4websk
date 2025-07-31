@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://placehold.co https://img.freepik.com; font-src 'self'; connect-src 'self' https://*.googleapis.com",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://placehold.co https://img.freepik.com; font-src 'self'; connect-src 'self' https://*.googleapis.com; manifest-src 'self'; style-src-elem 'self' 'unsafe-inline'; frame-src 'self' https://*.google.com;",
           },
           {
             key: 'X-Content-Type-Options',
