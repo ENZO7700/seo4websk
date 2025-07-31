@@ -9,7 +9,8 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { getPageSeoData, PageSeoData } from '@/services/scraperService';
+import { getPageSeoData } from '@/services/scraperService';
+import { PageSeoData } from '@/types/seo';
 
 const AnalyzeSeoInputSchema = z.object({
   url: z.string().url().describe('The URL of the webpage to analyze.'),
