@@ -19,7 +19,7 @@ const GridPattern = ({
   className?: string;
   [key: string]: any;
 }) => {
-  const aniamtionVariants = {
+  const animationVariants = {
     hidden: {
         opacity: 0,
     },
@@ -45,7 +45,7 @@ const GridPattern = ({
         "pointer-events-none absolute inset-0 h-full w-full fill-primary/10 stroke-primary/20",
         className
       )}
-      variants={aniamtionVariants}
+      variants={animationVariants}
       initial="hidden"
       animate="visible"
       whileHover="hover"
