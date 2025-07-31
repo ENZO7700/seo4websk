@@ -38,28 +38,28 @@ const features = [
     title: "Keyword Research",
     description:
       "Identifikujeme najcennejšie kľúčové slová pre vaše podnikanie, čím privedieme relevantnú návštevnosť na váš web.",
-    gradient: "from-blue-500 to-teal-400",
+    gradient: "from-blue-500/20 to-teal-400/20",
   },
   {
     icon: <FileText className="h-8 w-8 text-primary" />,
     title: "On-Page SEO",
     description:
       "Optimalizujeme váš obsah, titulky a meta popisy pre zlepšenie pozícií a miery prekliku (CTR).",
-    gradient: "from-green-400 to-teal-500",
+    gradient: "from-green-400/20 to-teal-500/20",
   },
   {
     icon: <Link2 className="h-8 w-8 text-primary" />,
     title: "Link Building",
     description:
       "Budujeme kvalitné spätné odkazy na váš web, aby sme zvýšili jeho autoritu a dôveru u vyhľadávačov.",
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-purple-500/20 to-pink-500/20",
   },
   {
     icon: <Cog className="h-8 w-8 text-primary" />,
     title: "Technické SEO",
     description:
       "Zabezpečujeme, aby bol váš web technicky v poriadku, rýchly a ľahko čitateľný pre vyhľadávače.",
-    gradient: "from-orange-500 to-yellow-500",
+    gradient: "from-orange-500/20 to-yellow-500/20",
   },
 ];
 
@@ -157,6 +157,11 @@ export default function Home() {
    
   return (
     <div>
+      <div className="space-bg">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+      </div>
       <main className="relative z-10">
         <section
           id="hero"
@@ -239,13 +244,14 @@ export default function Home() {
                         key={index}
                         variants={itemVariants}
                     >
-                        <Card className="h-full rounded-xl bg-card p-6 overflow-hidden border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
-                             <motion.div 
-                                className="relative z-10"
-                                whileHover={{ scale: 1.1, rotate: -5 }}
-                            >
-                                {feature.icon}
-                            </motion.div>
+                        <Card className="h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
+                            <div className={cn("mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br", feature.gradient)}>
+                                <motion.div 
+                                    whileHover={{ scale: 1.2, rotate: -10 }}
+                                >
+                                    {feature.icon}
+                                </motion.div>
+                            </div>
                             <h3 className="mt-4 text-xl font-semibold text-foreground">
                                 {feature.title}
                             </h3>
@@ -399,3 +405,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
