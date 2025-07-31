@@ -65,7 +65,8 @@ export default function SignUpPage() {
     }
   };
 
-  if (loading) {
+  // This loader is for the case where the component is rendered while auth state is still being determined.
+  if (loading && !error) {
     return (
         <div className="flex justify-center items-center min-h-screen">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
@@ -145,10 +146,10 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          <Button variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={loading}>
+          <Button variant="outline" className="w-full group" onClick={handleGoogleSignIn} disabled={loading}>
              {loading ? <Loader2 className="animate-spin" /> : (
                 <>
-                <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 126 21.2 173.4 58.2l-67.2 67.2c-24.3-23.6-56.6-38.3-92.2-38.3-70.5 0-128.8 57.3-128.8 128.8s58.3 128.8 128.8 128.8c78.8 0 112.3-52.8 115.8-78.8h-116v-91.2h212.3c2.6 12.2 4.4 25.1 4.4 39.3z"></path></svg>
+                <svg className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 126 21.2 173.4 58.2l-67.2 67.2c-24.3-23.6-56.6-38.3-92.2-38.3-70.5 0-128.8 57.3-128.8 128.8s58.3 128.8 128.8 128.8c78.8 0 112.3-52.8 115.8-78.8h-116v-91.2h212.3c2.6 12.2 4.4 25.1 4.4 39.3z"></path></svg>
                 Google
                 </>
              )}
@@ -165,3 +166,5 @@ export default function SignUpPage() {
     </main>
   );
 }
+
+    

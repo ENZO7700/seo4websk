@@ -13,7 +13,7 @@ import {
   signInWithPopup,
   AuthError,
 } from 'firebase/auth';
-import { app, db } from '@/lib/firebase-config';
+import { app, db, isFirebaseConfigured } from '@/lib/firebase-config';
 import { AuthContextType } from '@/hooks/use-auth';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,21 +34,21 @@ const getFriendlyErrorMessage = (error: AuthError): string => {
             return 'Proces prihlásenia bol zrušený.';
         case 'auth/cancelled-popup-request':
             return 'Bol otvorený ďalší proces prihlásenia. Dokončite ho prosím.';
+        case 'auth/operation-not-allowed':
+             return 'Tento spôsob prihlásenia nie je povolený. Kontaktujte podporu.';
         default:
+            console.error("Firebase Auth Error:", error.code, error.message);
             return 'Vyskytla sa neznáma chyba. Skúste to prosím neskôr.';
     }
 }
-
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  const isFirebaseConfigured = !!db;
-
   useEffect(() => {
-    if (!isFirebaseConfigured) {
+    if (!isFirebaseConfigured()) {
       setLoading(false);
       return;
     }
@@ -59,10 +59,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
 
     return () => unsubscribe();
-  }, [isFirebaseConfigured]);
+  }, []);
 
   const signUpWithEmail = async (email: string, password: string): Promise<boolean> => {
-    if (!isFirebaseConfigured) {
+    if (!isFirebaseConfigured()) {
         setError("Firebase nie je nakonfigurovaný.");
         return false;
     }
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signInWithEmail = async (email: string, password: string): Promise<boolean> => {
-    if (!isFirebaseConfigured) {
+    if (!isFirebaseConfigured()) {
         setError("Firebase nie je nakonfigurovaný.");
         return false;
     }
@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signInWithGoogle = async (): Promise<boolean> => {
-    if (!isFirebaseConfigured) {
+    if (!isFirebaseConfigured()) {
         setError("Firebase nie je nakonfigurovaný.");
         return false;
     }
@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signOut = async (): Promise<boolean> => {
-    if (!isFirebaseConfigured) {
+    if (!isFirebaseConfigured()) {
         setError("Firebase nie je nakonfigurovaný.");
         return false;
     }
@@ -142,3 +142,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+    
