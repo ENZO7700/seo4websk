@@ -30,7 +30,6 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { GridPattern } from "@/components/ui/grid-pattern";
 
 
 const features = [
@@ -247,8 +246,7 @@ export default function Home() {
                             `bg-gradient-to-r ${feature.gradient}`
                           )}
                         />
-                        <div className="relative z-10 h-full rounded-xl bg-background p-6 overflow-hidden">
-                            <GridPattern className="absolute inset-0 z-0 h-full w-full fill-black/5 stroke-white/10 [mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)]" />
+                        <Card className="relative z-10 h-full rounded-xl bg-background p-6 overflow-hidden">
                             <motion.div 
                                 className="relative z-10"
                                 whileHover={{ scale: 1.1, rotate: -5 }}
@@ -259,7 +257,7 @@ export default function Home() {
                                 {feature.title}
                             </h3>
                             <p className="mt-2 text-muted-foreground">{feature.description}</p>
-                        </div>
+                        </Card>
                     </motion.div>
                 ))}
             </motion.div>
@@ -408,3 +406,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
