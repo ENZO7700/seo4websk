@@ -1,9 +1,6 @@
 
 'use client';
 
-// This is a placeholder file for the new service page.
-// We can populate it with content in the next step.
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, ArrowRight } from 'lucide-react';
