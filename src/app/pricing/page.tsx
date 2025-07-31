@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Check, Rocket } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const individualTiers = [
   {
@@ -42,6 +43,21 @@ const individualTiers = [
     ],
     isPopular: true,
     href: '/sluzby/seo-rast',
+  },
+  {
+    name: 'Expert',
+    price: '449 €',
+    priceSuffix: '/mesiac',
+    description: 'Pre špecialistov a expertov, ktorí chcú budovať osobnú značku.',
+    features: [
+        'Všetko v balíku Rast',
+        'Komplexná analýza kľúčových slov (do 100)',
+        'Budovanie 5 spätných odkazov/mesiac',
+        'Konzultácie (1 hod/mesiac)',
+        'Základná optimalizácia sociálnych sietí',
+    ],
+    isPopular: false,
+    href: '/sluzby/seo-expert',
   },
   {
     name: 'Líder',
@@ -171,6 +187,29 @@ const pwaTiers = [
     }
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: "anticipate",
+    },
+  },
+};
+
+
 const PricingTierCard = ({ tier }: { tier: any }) => (
   <Card
     className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
@@ -213,47 +252,79 @@ export default function PricingPage() {
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
       <div className="flex flex-col items-center justify-center space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+        <motion.div 
+            className="text-center"
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+        >
+          <motion.h1 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
             Transparentný cenník, merateľné výsledky
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+          </motion.h1>
+          <motion.p variants={itemVariants} className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
             Vyberte si balík, ktorý najlepšie vyhovuje vašim cieľom. Investujte do rastu, ktorý uvidíte v číslach.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         
-        <section id="pwa-services" className="w-full py-12">
-            <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
+        <motion.section 
+            id="pwa-services" 
+            className="w-full py-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+        >
+            <motion.h2 variants={itemVariants} className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
                Vývoj Progresívnych Webových Aplikácií (PWA)
-            </h2>
+            </motion.h2>
              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                  {pwaTiers.map((tier) => (
-                      <PricingTierCard key={tier.name} tier={tier} />
+                      <motion.div key={tier.name} variants={itemVariants}>
+                        <PricingTierCard tier={tier} />
+                      </motion.div>
                     ))}
              </div>
-        </section>
+        </motion.section>
 
-        <section id="seo-individual" className="w-full py-12">
-          <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
+        <motion.section 
+            id="seo-individual" 
+            className="w-full py-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+        >
+          <motion.h2 variants={itemVariants} className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
             SEO pre jednotlivcov a freelancerov
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          </motion.h2>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {individualTiers.map((tier) => (
-              <PricingTierCard key={tier.name} tier={tier} />
+              <motion.div key={tier.name} variants={itemVariants}>
+                <PricingTierCard tier={tier} />
+              </motion.div>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section id="seo-business" className="w-full py-12">
-          <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
+        <motion.section 
+            id="seo-business" 
+            className="w-full py-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+        >
+          <motion.h2 variants={itemVariants} className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
             SEO pre firmy a E-shopy
-          </h2>
+          </motion.h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {businessTiers.map((tier) => (
-              <PricingTierCard key={tier.name} tier={tier} />
+              <motion.div key={tier.name} variants={itemVariants}>
+                <PricingTierCard tier={tier} />
+              </motion.div>
             ))}
           </div>
-        </section>
+        </motion.section>
       </div>
     </main>
   );
