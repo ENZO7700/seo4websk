@@ -6,6 +6,7 @@ import { ArrowRight, Rocket } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import LottiePlayer from '@/components/ui/lottie-player';
+import rippleLoadingAnimation from '@/animations/ripple-loading.json';
 
 const services = [
     {
@@ -26,7 +27,7 @@ const services = [
         title: 'E-commerce platformy (PWA)',
         description: 'Vybudujeme pre vás vysoko výkonnú e-commerce platformu postavenú na technológii PWA. Poskytnite svojim zákazníkom zážitok z nakupovania na úrovni natívnej aplikácie priamo v prehliadači.',
         href: '/sluzby/ecommerce-pwa',
-        animationUrl: 'https://lottie.host/b65f5859-2996-415d-ab9b-35b818f9bd8a/l8w2MDB3P9.json',
+        animationData: rippleLoadingAnimation,
         imageHint: 'online shopping cart'
     },
     {
@@ -62,8 +63,8 @@ export default function ServicesPage() {
                                 <CardDescription className="pt-2 text-balance">{service.description}</CardDescription>
                             </CardHeader>
                             <CardContent className="flex-grow flex items-center justify-center">
-                               { 'animationUrl' in service ? (
-                                    <LottiePlayer src={service.animationUrl} />
+                               { 'animationData' in service ? (
+                                    <LottiePlayer animationData={service.animationData} />
                                ) : 'image' in service && service.image ? (
                                    <Image 
                                      src={service.image}
