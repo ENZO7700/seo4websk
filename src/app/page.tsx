@@ -164,16 +164,19 @@ export default function Home() {
         
         <motion.div 
           className="group flex cursor-pointer items-center justify-center gap-4"
-          variants={itemVariants}
           initial="hidden"
           animate="visible"
+          variants={containerVariants}
         >
-          <h1
+          <motion.h1
+            variants={itemVariants}
             className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl font-headline"
           >
             seo4web
-          </h1>
-            <Search className="h-10 w-10 md:h-16 md:w-16 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent" />
+          </motion.h1>
+            <motion.div variants={itemVariants}>
+              <Search className="h-10 w-10 md:h-16 md:w-16 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent" />
+            </motion.div>
         </motion.div>
         <motion.p
           className="mt-4 max-w-2xl text-lg text-foreground/80 md:text-xl text-balance"
@@ -185,23 +188,27 @@ export default function Home() {
         </motion.p>
         <motion.div
           className="mt-8 flex flex-wrap justify-center gap-4"
-          variants={itemVariants}
           initial="hidden"
           animate="visible"
+          variants={containerVariants}
         >
-          <Button size="lg" asChild>
-            <a href="#features">
-              Naše Služby
-              <ArrowRight className="ml-2" />
-            </a>
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            asChild
-          >
-            <Link href="/contact">Bezplatná Konzultácia</Link>
-          </Button>
+          <motion.div variants={itemVariants}>
+            <Button size="lg" asChild>
+              <a href="#features">
+                Naše Služby
+                <ArrowRight className="ml-2" />
+              </a>
+            </Button>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+            >
+              <Link href="/contact">Bezplatná Konzultácia</Link>
+            </Button>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -233,7 +240,7 @@ export default function Home() {
                       key={index}
                       variants={itemVariants}
                   >
-                      <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 overflow-hidden">
+                      <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 overflow-hidden hover:-translate-y-2">
                         <GridPattern />
                           <div className={cn("relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
                               <motion.div 

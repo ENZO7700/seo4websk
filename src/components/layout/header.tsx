@@ -7,9 +7,9 @@ import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose, SheetDescription } from "@/components/ui/sheet";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -21,13 +21,15 @@ const baseMainNavLinks = [
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
-    { href: "/seo-audit-akcia", label: "Akcia: SEO Audit" },
 ];
 
 const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/seo-analyzer", label: "SEO Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov"},
+    { href: "/kolostastia", label: "Koleso Šťastia"},
+    { separator: true },
+    { href: "/seo-audit-akcia", label: "Akčná Ponuka: SEO Audit", isHot: true },
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
 
@@ -95,8 +97,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-foreground/70 transition-colors hover:text-foreground",
-                   link.href === '/seo-audit-akcia' && 'text-primary font-bold hover:text-primary/90'
+                  "text-foreground/70 transition-colors hover:text-foreground"
                 )}
               >
                 {link.label}
@@ -104,12 +105,13 @@ export function Header() {
             ))}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
-                Nástroje a Zdroje
+                Zdroje
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                {resourcesLinks.map((link) => (
-                    <DropdownMenuItem key={link.href} asChild>
+                {resourcesLinks.map((link, index) => (
+                    link.separator ? <DropdownMenuSeparator key={`sep-${index}`} /> :
+                    <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-primary font-bold focus:text-primary')}>
                         <Link href={link.href}>{link.label}</Link>
                     </DropdownMenuItem>
                 ))}
@@ -163,12 +165,13 @@ export function Header() {
                                 variants={navContainerVariants}
                             >
                                {allLinks.map((link) => (
+                                   !link.separator && 
                                    <motion.div key={link.href} variants={navItemVariants}>
                                        <Link
-                                        href={link.href}
+                                        href={link.href!}
                                         className={cn(
                                           "text-foreground/80 transition-colors hover:text-foreground block",
-                                          link.href === '/seo-audit-akcia' && 'text-primary font-bold'
+                                          link.isHot && 'text-primary font-bold'
                                         )}
                                         onClick={() => setIsSheetOpen(false)}
                                         >

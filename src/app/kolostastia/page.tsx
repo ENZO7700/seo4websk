@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
@@ -30,19 +30,23 @@ const segments = [
 export default function WheelOfFortunePage() {
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
-  const [result, setResult] = useState<typeof segments[0] | null>(null);
+  const [result, setResult] = useState<(typeof segments)[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const spinWheel = () => {
-    if (isSpinning) return;
+    if (isSpinning || !isClient) return;
     setIsSpinning(true);
     setResult(null);
 
     const randomSegment = Math.floor(Math.random() * segments.length);
     const segmentAngle = 360 / segments.length;
-    const randomAngleWithinSegment = Math.random() * segmentAngle;
+    const randomAngleWithinSegment = Math.random() * (segmentAngle - 10) + 5; // To avoid landing on lines
     
-    // Add multiple full rotations for visual effect
     const fullRotations = 10 * 360;
     const targetRotation =
       fullRotations + (360 - (randomSegment * segmentAngle + randomAngleWithinSegment));
@@ -68,49 +72,66 @@ export default function WheelOfFortunePage() {
             </p>
         </div>
 
-        <div className="relative flex flex-col items-center justify-center">
+        <div className="relative flex flex-col items-center justify-center select-none">
             {/* Pointer */}
-             <div className="absolute -top-4 z-10 h-8 w-8">
-                 <div className="h-0 w-0 border-x-8 border-x-transparent border-t-[16px] border-t-primary transform-gpu"></div>
+             <div className="absolute -top-4 z-20 h-8 w-8 drop-shadow-lg">
+                 <div style={{
+                    clipPath: 'polygon(50% 100%, 0 0, 100% 0)',
+                 }} className="h-8 w-8 bg-primary transform-gpu"></div>
             </div>
 
             {/* Wheel */}
             <div
-                className="relative h-80 w-80 rounded-full border-8 border-primary/50 shadow-2xl transition-transform duration-[8000ms] ease-out"
+                className="relative h-80 w-80 rounded-full border-8 border-primary/50 shadow-2xl transition-transform duration-[8000ms] ease-in-out"
                 style={{ transform: `rotate(${rotation}deg)` }}
             >
-                {segments.map((segment, index) => {
-                    const angle = (360 / segments.length) * index;
-                    return (
-                        <div
-                            key={index}
-                            className={cn(
-                                "absolute h-1/2 w-1/2 origin-bottom-right transform-gpu flex items-center justify-center",
-                                segment.color
-                            )}
-                            style={{
-                                transform: `rotate(${angle}deg)`,
-                                clipPath: `polygon(0 0, 100% 0, 100% 100%, 0 0)`
-                            }}
-                        >
-                             <div className="flex flex-col items-center justify-center text-white text-xs font-bold transform -rotate-45 -translate-y-4 text-center">
-                                {segment.icon}
-                                <span className="mt-1 block w-20">{segment.text}</span>
+                <div className="absolute inset-0 h-full w-full rounded-full overflow-hidden">
+                    {segments.map((segment, index) => {
+                        const angle = (360 / segments.length) * index;
+                        const skewY = 90 - (360 / segments.length);
+                        return (
+                            <div
+                                key={index}
+                                className={cn(
+                                    "absolute h-1/2 w-1/2 origin-bottom-right",
+                                    segment.color
+                                )}
+                                style={{
+                                    transform: `rotate(${angle}deg) skewY(-${skewY}deg)`,
+                                }}
+                            >
+                                <div 
+                                    className="flex flex-col items-center justify-center text-white text-xs font-bold transform -skew-y-[-${skewY}deg] rotate-${360/segments.length/2} translate-y-4 text-center"
+                                    style={{
+                                      transform: `skewY(${skewY}deg) rotate(${segmentAngle / 2}deg)`,
+                                      position: 'absolute',
+                                      top: '20px',
+                                      left: '20px',
+                                      textAlign: 'center',
+                                      width: '100px', // Fixed width for better text wrapping
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      alignItems: 'center',
+                                      gap: '4px',
+                                    }}
+                                >
+                                    {segment.icon}
+                                    <span className="block">{segment.text}</span>
+                                </div>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
             
             {/* Spin Button */}
-            <Button
-                size="lg"
+            <button
                 onClick={spinWheel}
                 disabled={isSpinning}
-                className="mt-12 w-48 h-16 rounded-full text-xl font-bold shadow-lg"
+                className="absolute z-10 flex items-center justify-center h-24 w-24 rounded-full bg-background border-4 border-primary text-primary font-bold text-xl uppercase tracking-wider shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-                {isSpinning ? 'Točí sa...' : 'ZATOČIŤ'}
-            </Button>
+                {isSpinning ? '...' : 'Točiť'}
+            </button>
         </div>
 
       </main>
@@ -125,7 +146,7 @@ export default function WheelOfFortunePage() {
                     <span className="font-bold text-primary block mt-2 text-xl">{result.text}</span>
                 </AlertDialogDescription>
                 </AlertDialogHeader>
-                <AlertDialogFooter>
+                <AlertDialogFooter className="sm:justify-center">
                     <Button variant="outline" onClick={() => setIsModalOpen(false)}>Zatočiť znova</Button>
                      <Button asChild>
                         <Link href="/contact">Uplatniť Výhru</Link>
