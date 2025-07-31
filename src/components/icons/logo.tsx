@@ -1,3 +1,4 @@
+
 import type { SVGProps } from "react";
 import { cn } from "@/lib/utils";
 
@@ -14,15 +15,9 @@ export function Seo4WebLogo(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <title>seo4web Logo</title>
-      <path d="M10.5 19.5A9 9 0 1 0 5.24 7.24" className="text-primary/70"></path>
-      <path d="M16 12a4 4 0 0 1-8 0" className="text-primary/70"></path>
-      <path d="m21 21-4.35-4.35"></path>
-      <path d="M12 8V5" className="text-accent stroke-[2.5px]"></path>
-      <path d="M12 19v-3" className="text-accent stroke-[2.5px]"></path>
-      <path d="M9 12H6" className="text-accent stroke-[2.5px]"></path>
-      <path d="M18 12h-3" className="text-accent stroke-[2.5px]"></path>
+      <circle cx="11" cy="11" r="8" className="text-primary/70"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      <path d="m8 11 2 2 4-4" className="text-accent stroke-[2.5px]"></path>
     </svg>
   );
 }
-
-    
