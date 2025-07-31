@@ -28,13 +28,6 @@ const GridPattern = ({
         transition: {
             duration: 0.5,
         }
-    },
-    hover: {
-        opacity: 1,
-        scale: 1.1,
-        transition: {
-            duration: 0.3,
-        }
     }
   }
 
@@ -48,7 +41,6 @@ const GridPattern = ({
       variants={animationVariants}
       initial="hidden"
       animate="visible"
-      whileHover="hover"
       viewport={{ once: true }}
       {...props}
     >

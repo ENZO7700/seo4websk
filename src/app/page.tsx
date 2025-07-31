@@ -29,8 +29,9 @@ import {
   Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { HeroSection } from "@/components/layout/hero-section";
+import type { MouseEvent } from 'react';
 
 const features = [
   {
@@ -148,11 +149,19 @@ const itemVariants = {
 
 
 export default function Home() {
+   const mouseX = useMotionValue(0);
+   const mouseY = useMotionValue(0);
+
+   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
+       const { left, top } = currentTarget.getBoundingClientRect();
+       mouseX.set(clientX - left);
+       mouseY.set(clientY - top);
+   }
    
   return (
     <>
-      <main className="overflow-x-hidden">
-        <HeroSection />
+      <main className="overflow-x-hidden" onMouseMove={handleMouseMove}>
+        <HeroSection mouseX={mouseX} mouseY={mouseY} />
 
         <section id="features" className="bg-muted/50 py-20 px-4 sm:py-32">
           <div className="container mx-auto">

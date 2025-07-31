@@ -2,7 +2,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { Search, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -60,7 +60,13 @@ const animatedCharVariants = {
     },
 };
 
-export function HeroSection() {
+interface HeroSectionProps {
+    mouseX: MotionValue,
+    mouseY: MotionValue,
+}
+
+
+export function HeroSection({ mouseX, mouseY }: HeroSectionProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -69,8 +75,21 @@ export function HeroSection() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.8]);
+  
+  // Scroll-based transforms
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
   const yGrid = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
+
+  // Mouse-based transforms for 4D effect
+  const rotateX = useTransform(mouseY, [0, 500], [10, -10]);
+  const rotateY = useTransform(mouseX, [0, 500], [-10, 10]);
+  
+  const textTransformX = useTransform(mouseX, [0, 500], [-15, 15]);
+  const textTransformY = useTransform(mouseY, [0, 500], [-10, 10]);
+
+  const gridTransformX = useTransform(mouseX, [0, 500], [20, -20]);
+  const gridTransformY = useTransform(mouseY, [0, 500], [20, -20]);
+
 
   const heroText = "seo4web";
 
@@ -78,11 +97,11 @@ export function HeroSection() {
     <motion.section
       id="hero"
       ref={targetRef}
-      style={{ opacity }}
+      style={{ opacity, perspective: '1000px' }}
       className="relative flex h-screen flex-col items-center justify-center px-4 text-center"
     >
       <motion.div
-        style={{ y: yGrid, scale }}
+        style={{ y: yGrid, scale, x: gridTransformX, y: gridTransformY, rotateX, rotateY }}
         className="absolute inset-0 -z-20"
       >
         <GridPattern
@@ -94,10 +113,10 @@ export function HeroSection() {
         />
       </motion.div>
 
-      <FloatingAstronaut scrollYProgress={scrollYProgress} />
+      <FloatingAstronaut scrollYProgress={scrollYProgress} mouseX={mouseX} mouseY={mouseY} />
 
       <motion.div
-        style={{ y, scale }}
+        style={{ y, scale, x: textTransformX, y: textTransformY, rotateX, rotateY }}
         className="relative z-10 flex flex-col items-center"
       >
         <motion.div
