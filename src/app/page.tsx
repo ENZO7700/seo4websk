@@ -67,21 +67,21 @@ const testimonials = [
         quote: "Vďaka SEO optimalizácii od SEO4WEB sme po 6 mesiacoch zdvojnásobili organický traffic a zvýšili tržby o 180%. Sme nadšení!",
         name: "Ján Malík",
         company: "E-shop Elektro",
-        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-1.png?alt=media&token=8544e432-8418-4720-a61d-a32870e6e768",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-man-1.png?alt=media&token=e93751a7-55c3-41c3-bb2b-8a7e58814a51",
         avatarHint: "smiling man 45 years old in a suit"
     },
     {
         quote: "Sme malý blog s veľkými ambíciami. SEO4WEB nás posunul na prvú stránku Google za 4 mesiace. Návštevnosť 300% hore, reklama 70% dole.",
         name: "Katarína Muchová",
         company: "Blog Zdravie & Wellness",
-        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-2.png?alt=media&token=8b65287e-e4a8-449e-8c3b-5582c0356c1d",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-woman-1.png?alt=media&token=c1a35d88-b619-488f-a36c-2f960f8f4a13",
         avatarHint: "smiling woman with blonde wavy hair 35 years old"
     },
     {
         quote: "Za 8 rokov sme vyskúšali 5 SEO agentúr. Až SEO4WEB nám priniesol výsledky ktoré sme očakávali. 3x viac kvalitných leads za polovičnú cenu.",
         name: "Peter Vavrinec",
         company: "Stavebná Firma",
-        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-3.png?alt=media&token=96a77d13-0a75-4c07-b37a-42c235c59367",
+        avatar: "https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Ftestimonial-man-2.png?alt=media&token=9d0a6a2e-4b2a-4f5c-8946-4c7b65e9215c",
         avatarHint: "man with glasses 50 years old in a blue suit"
     }
 ];
