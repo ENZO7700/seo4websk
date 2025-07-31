@@ -29,8 +29,6 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import SpaceBackground from "@/components/ui/space-background";
-import FloatingAstronaut from "@/components/ui/floating-astronaut";
 import GridPattern from "@/components/ui/grid-pattern";
 
 
@@ -159,14 +157,14 @@ export default function Home() {
    
   return (
     <main className="relative z-10 overflow-x-hidden">
-        <SpaceBackground />
+        
         <div className="relative z-10">
       <section
         id="hero"
         ref={heroRef}
         className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
       >
-        <FloatingAstronaut />
+        
         <motion.div 
           className="group flex cursor-pointer items-center justify-center gap-4"
           variants={itemVariants}
