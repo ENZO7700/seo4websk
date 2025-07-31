@@ -95,7 +95,7 @@ export default function SeoForPwaPage() {
                     </div>
                     <div>
                          <Image
-                            src="https://placehold.co/600x400.png"
+                            src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fbenefit-organic-traffic.png?alt=media&token=40424564-9a3c-4f7f-a035-154a32338953"
                             alt="Graf znázorňujúci organickú návštevnosť po SEO optimalizácii PWA"
                             width={600}
                             height={400}

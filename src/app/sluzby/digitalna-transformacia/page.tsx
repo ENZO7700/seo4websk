@@ -69,7 +69,7 @@ export default function DigitalTransformationPage() {
                  <section id="benefits" className="grid items-center gap-12 md:grid-cols-2 mb-20">
                      <div>
                          <Image
-                            src="https://placehold.co/600x400.png"
+                            src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fbenefit-digital-transformation.png?alt=media&token=c1a3297a-9669-4254-9464-e4075f8f5339"
                             alt="Tím expertov analyzuje dáta a plánuje digitálnu stratégiu"
                             width={600}
                             height={400}
