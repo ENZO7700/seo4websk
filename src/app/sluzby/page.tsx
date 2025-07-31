@@ -66,14 +66,15 @@ export default function ServicesPage() {
                                { 'animationData' in service && service.animationData ? (
                                     <LottiePlayer animationData={service.animationData} />
                                ) : 'image' in service && service.image ? (
-                                   <Image 
-                                     src={service.image}
-                                     alt={`Ilustračný obrázok pre službu ${service.title}`}
-                                     width={600}
-                                     height={400}
-                                     className="rounded-lg object-cover"
-                                     data-ai-hint={service.imageHint}
-                                   />
+                                   <div className="aspect-video relative w-full rounded-md overflow-hidden border">
+                                       <Image 
+                                         src={service.image}
+                                         alt={`Ilustračný obrázok pre službu ${service.title}`}
+                                         fill
+                                         className="object-cover"
+                                         data-ai-hint={service.imageHint}
+                                       />
+                                   </div>
                                ) : null}
                             </CardContent>
                             <CardFooter>
@@ -91,3 +92,5 @@ export default function ServicesPage() {
         </main>
     )
 }
+
+    

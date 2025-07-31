@@ -26,6 +26,7 @@ const individualTiers = [
       'Mesačný report',
     ],
     isPopular: false,
+    href: '/contact',
   },
   {
     name: 'Rast',
@@ -40,6 +41,7 @@ const individualTiers = [
       'Google My Business optimalizácia',
     ],
     isPopular: true,
+    href: '/contact',
   },
   {
     name: 'Líder',
@@ -54,6 +56,7 @@ const individualTiers = [
       'Prioritná podpora',
     ],
     isPopular: false,
+    href: '/contact',
   },
 ];
 
@@ -71,6 +74,7 @@ const businessTiers = [
       'Konzultácie (2 hod/mesiac)',
     ],
     isPopular: false,
+    href: '/contact',
   },
   {
     name: 'Korporát',
@@ -85,6 +89,7 @@ const businessTiers = [
       'Pravidelné strategické stretnutia',
     ],
     isPopular: true,
+    href: '/contact',
   },
   {
     name: 'Enterprise',
@@ -99,6 +104,7 @@ const businessTiers = [
       'Kompletné prepojenie s biznis cieľmi',
     ],
     isPopular: false,
+    href: '/contact',
   },
 ];
 
@@ -165,6 +171,44 @@ const pwaTiers = [
     }
 ]
 
+const PricingTierCard = ({ tier }: { tier: any }) => (
+  <Card
+    className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
+  >
+    <CardHeader>
+      <CardTitle className="flex items-center gap-2">
+        {tier.name === 'Vývoj PWA pre malé podniky' && <Rocket className="text-primary" />}
+        {tier.name}
+      </CardTitle>
+      <CardDescription>{tier.description}</CardDescription>
+    </CardHeader>
+    <CardContent className="flex-grow space-y-4">
+      <div className="flex items-baseline">
+        <span className="text-3xl font-bold">{tier.price}</span>
+        {tier.priceSuffix && (
+          <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
+        )}
+      </div>
+      <ul className="space-y-2">
+        {tier.features.map((feature: string) => (
+          <li key={feature} className="flex items-start gap-2">
+            <Check className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+            <span className="text-sm text-muted-foreground">{feature}</span>
+          </li>
+        ))}
+      </ul>
+    </CardContent>
+    <CardFooter>
+      <Button asChild className="w-full" variant={tier.isPopular ? 'default' : 'outline'}>
+        <Link href={tier.href}>
+            {tier.price === 'Na mieru' ? 'Kontaktujte nás' : tier.href === '/contact' ? 'Zvoliť balík' : 'Zistiť Viac'}
+        </Link>
+      </Button>
+    </CardFooter>
+  </Card>
+);
+
+
 export default function PricingPage() {
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
@@ -184,36 +228,7 @@ export default function PricingPage() {
             </h2>
              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                  {pwaTiers.map((tier) => (
-                      <Card
-                        key={tier.name}
-                        className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
-                      >
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2"><Rocket className="text-primary"/>{tier.name}</CardTitle>
-                          <CardDescription>{tier.description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="flex-grow space-y-4">
-                           <div className="flex items-baseline">
-                            <span className="text-3xl font-bold">{tier.price}</span>
-                             {tier.priceSuffix && (
-                              <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
-                            )}
-                          </div>
-                          <ul className="space-y-2">
-                            {tier.features.map((feature) => (
-                              <li key={feature} className="flex items-center gap-2">
-                                <Check className="h-5 w-5 text-primary" />
-                                 <span className="text-sm text-muted-foreground">{feature}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </CardContent>
-                        <CardFooter>
-                           <Button asChild className="w-full" variant={tier.isPopular ? 'default' : 'outline'}>
-                            <Link href={tier.href}>Zistiť Viac</Link>
-                          </Button>
-                        </CardFooter>
-                      </Card>
+                      <PricingTierCard key={tier.name} tier={tier} />
                     ))}
              </div>
         </section>
@@ -224,36 +239,7 @@ export default function PricingPage() {
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {individualTiers.map((tier) => (
-              <Card
-                key={tier.name}
-                className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
-              >
-                <CardHeader>
-                  <CardTitle>{tier.name}</CardTitle>
-                  <CardDescription>{tier.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow space-y-4">
-                  <div className="flex items-baseline">
-                    <span className="text-3xl font-bold">{tier.price}</span>
-                    {tier.priceSuffix && (
-                      <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
-                    )}
-                  </div>
-                  <ul className="space-y-2">
-                    {tier.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-primary" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full" variant={tier.isPopular ? 'default' : 'outline'}>
-                    <Link href="/contact">Zvoliť balík</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
+              <PricingTierCard key={tier.name} tier={tier} />
             ))}
           </div>
         </section>
@@ -264,36 +250,7 @@ export default function PricingPage() {
           </h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {businessTiers.map((tier) => (
-              <Card
-                key={tier.name}
-                className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
-              >
-                <CardHeader>
-                  <CardTitle>{tier.name}</CardTitle>
-                  <CardDescription>{tier.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow space-y-4">
-                   <div className="flex items-baseline">
-                    <span className="text-3xl font-bold">{tier.price}</span>
-                     {tier.priceSuffix && (
-                      <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
-                    )}
-                  </div>
-                  <ul className="space-y-2">
-                    {tier.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 text-primary" />
-                         <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                   <Button asChild className="w-full" variant={tier.isPopular ? 'default' : 'outline'}>
-                    <Link href="/contact">Kontaktujte nás</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
+              <PricingTierCard key={tier.name} tier={tier} />
             ))}
           </div>
         </section>
@@ -301,3 +258,5 @@ export default function PricingPage() {
     </main>
   );
 }
+
+    
