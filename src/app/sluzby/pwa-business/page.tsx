@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Bot, BarChart2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ export default function PwaBusinessPage() {
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">PWA Business</h1>
                     <p className="text-xl max-w-3xl mx-auto text-foreground/80 mb-8 text-balance">
-                        Komplexné PWA riešenie pre firmy vrátane blogu a marketingových nástrojov.
+                        Komplexné PWA riešenie pre firmy vrátane blogu, marketingových nástrojov a automatizácie.
                     </p>
                     <Button size="lg" asChild>
                         <Link href="/contact">Získať Cenovú Ponuku</Link>
@@ -37,28 +37,75 @@ export default function PwaBusinessPage() {
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Aplikácia, Ktorá Podporuje Váš Rast</h2>
                         <p className="text-lg text-muted-foreground mb-6 text-balance">
-                           Balík PWA Business je navrhnutý pre firmy, ktoré chcú aktívne komunikovať so svojimi zákazníkmi a využívať web na maximum. Získate nielen špičkovú webovú prezentáciu, ale aj výkonné nástroje na tvorbu obsahu a marketing.
+                           Balík PWA Business je navrhnutý pre firmy, ktoré chcú aktívne komunikovať so svojimi zákazníkmi a využívať web na maximum. Získate nielen špičkovú webovú prezentáciu, ale aj výkonné nástroje na tvorbu obsahu, marketing a získavanie cenných dát pre ďalší rozvoj vášho podnikania.
                         </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-start gap-3">
+                    </div>
+                </section>
+
+                 <section className="max-w-4xl mx-auto text-center mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Pre koho je PWA Business určený?</h2>
+                    <p className="text-lg text-muted-foreground text-balance">
+                        Toto riešenie je ideálne pre malé a stredné firmy, ktoré potrebujú dynamický web, chcú publikovať obsah (blog, novinky), budovať komunitu a využívať moderné marketingové kanály ako push notifikácie. Je to perfektná voľba pre servisné firmy, konzultačné spoločnosti, reštaurácie alebo lokálne podniky.
+                    </p>
+                </section>
+                
+                 <section className="mb-20">
+                     <Card className="bg-muted/50 border-border/50">
+                        <CardHeader>
+                            <CardTitle className="text-2xl md:text-3xl font-bold text-center">Detailné Funkcie Balíka</CardTitle>
+                        </CardHeader>
+                        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg">
+                            <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Balík obsahuje:</h3>
-                                    <p className="text-muted-foreground">Neobmedzený počet stránok, blogovací systém (CMS), push notifikácie, pokročilú SEO optimalizáciu a analytické nástroje.</p>
+                                    <h3 className="font-bold">Neobmedzený počet stránok</h3>
+                                    <p className="text-sm text-muted-foreground">Plná flexibilita pre rast vášho obsahu bez obmedzení.</p>
                                 </div>
-                            </li>
-                             <li className="flex items-start gap-3">
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Blogovací systém (CMS)</h3>
+                                    <p className="text-sm text-muted-foreground">Jednoducho spravujte a publikujte články, novinky a prípadové štúdie.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Bot className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Push notifikácie</h3>
+                                    <p className="text-sm text-muted-foreground">Oslovte zákazníkov priamo na ich zariadeniach s novinkami a akciami.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Pokročilá SEO optimalizácia</h3>
+                                    <p className="text-sm text-muted-foreground">Zabezpečíme, aby vaša nová aplikácia bola od začiatku miláčikom vyhľadávačov.</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-3">
+                                <BarChart2 className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Analytické nástroje</h3>
+                                    <p className="text-sm text-muted-foreground">Integrácia nástrojov na sledovanie návštevnosti a správania používateľov.</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Cena</h3>
-                                    <p className="text-muted-foreground">od 2,499 € (jednorazovo)</p>
+                                    <p className="text-sm text-muted-foreground">od 2,499 € (jednorazovo)</p>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                 </section>
+                            </div>
+                        </CardContent>
+                     </Card>
+                </section>
+                
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
                      <h2 className="text-3xl font-bold mb-4 font-headline">Chcete naštartovať Váš online biznis?</h2>
+                     <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
+                         Investujte do platformy, ktorá porastie spolu s vami. Kontaktujte nás pre nezáväznú konzultáciu a cenovú ponuku.
+                     </p>
                       <Button size="lg" asChild>
                         <Link href="/contact">
                             Objednať PWA Business

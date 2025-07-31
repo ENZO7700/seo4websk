@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Zap, Shield, Infinity } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ export default function PwaEnterprisePage() {
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">Enterprise PWA</h1>
                     <p className="text-xl max-w-3xl mx-auto text-foreground/80 mb-8 text-balance">
-                        Vysoko škálovateľné PWA riešenie na mieru pre špecifické potreby vášho podnikania.
+                        Vysoko škálovateľné PWA riešenie na mieru pre špecifické potreby vášho podnikania a najnáročnejšie požiadavky.
                     </p>
                     <Button size="lg" asChild>
                         <Link href="/contact">Dohodnúť si Konzultáciu</Link>
@@ -37,28 +37,75 @@ export default function PwaEnterprisePage() {
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Neobmedzené Možnosti pre Váš Biznis</h2>
                         <p className="text-lg text-muted-foreground mb-6 text-balance">
-                          Pre klientov s najvyššími nárokmi ponúkame Enterprise riešenia. Či už potrebujete komplexnú integráciu s vašimi internými systémami, pokročilé bezpečnostné funkcie alebo špecifickú funkcionalitu, náš tím expertov je pripravený navrhnúť a vyvinúť riešenie presne na mieru.
+                          Pre klientov s najvyššími nárokmi ponúkame Enterprise riešenia. Či už potrebujete komplexnú integráciu s vašimi internými systémami (ERP, CRM), pokročilé bezpečnostné funkcie, špecifickú biznis logiku alebo aplikáciu schopnú zvládnuť milióny používateľov, náš tím expertov je pripravený navrhnúť a vyvinúť riešenie presne na mieru.
                         </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-start gap-3">
+                    </div>
+                </section>
+
+                <section className="max-w-4xl mx-auto text-center mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Pre koho je Enterprise riešenie?</h2>
+                    <p className="text-lg text-muted-foreground text-balance">
+                       Tento balík je určený pre veľké spoločnosti, korporácie, startupy s vysokým rastovým potenciálom a organizácie so špecifickými požiadavkami, ktoré presahujú rámec bežných riešení. Ak hľadáte technologického partnera pre dlhodobú a komplexnú spoluprácu, ste na správnom mieste.
+                    </p>
+                </section>
+
+                <section className="mb-20">
+                     <Card className="bg-muted/50 border-border/50">
+                        <CardHeader>
+                            <CardTitle className="text-2xl md:text-3xl font-bold text-center">Čo môžete očakávať?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg">
+                            <div className="flex items-start gap-3">
+                                <Zap className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Riešenie na kľúč</h3>
+                                    <p className="text-sm text-muted-foreground">Kompletný cyklus od analýzy, dizajnu, vývoja, testovania až po nasadenie a údržbu.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Balík obsahuje:</h3>
-                                    <p className="text-muted-foreground">Riešenie na kľúč, integrácie s externými systémami (API), pokročilú bezpečnosť, dedikovanú podporu a prioritný vývoj.</p>
+                                    <h3 className="font-bold">Integrácie s externými systémami (API)</h3>
+                                    <p className="text-sm text-muted-foreground">Prepojíme vašu PWA s akýmkoľvek softvérom, ktorý používate.</p>
                                 </div>
-                            </li>
-                             <li className="flex items-start gap-3">
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Shield className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Pokročilá bezpečnosť</h3>
+                                    <p className="text-sm text-muted-foreground">Implementácia najvyšších bezpečnostných štandardov a ochrana dát.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Dedikovaná podpora</h3>
+                                    <p className="text-sm text-muted-foreground">Pridelený projektový manažér a tím, ktorý je vám k dispozícii.</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-3">
+                                <Infinity className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Prioritný vývoj a škálovateľnosť</h3>
+                                    <p className="text-sm text-muted-foreground">Architektúra navrhnutá pre vysokú záťaž a budúci rast.</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Cena</h3>
-                                    <p className="text-muted-foreground">Na mieru</p>
+                                    <p className="text-sm text-muted-foreground">Na mieru podľa rozsahu projektu</p>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                 </section>
+                            </div>
+                        </CardContent>
+                     </Card>
+                </section>
+
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
                      <h2 className="text-3xl font-bold mb-4 font-headline">Máte veľkú víziu? My ju zrealizujeme.</h2>
+                      <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
+                         Poďme sa porozprávať o vašich cieľoch a požiadavkách. Spoločne navrhneme riešenie, ktoré posunie vaše podnikanie ďaleko pred konkurenciu.
+                     </p>
                       <Button size="lg" asChild>
                         <Link href="/contact">
                             Kontaktujte Nás

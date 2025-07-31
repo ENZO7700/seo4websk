@@ -3,27 +3,9 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, ArrowRight, Smartphone, Globe, Shield } from 'lucide-react';
+import { Check, ArrowRight, Smartphone, Globe, Shield, Zap } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const features = [
-    {
-        icon: <Smartphone className="h-8 w-8 text-primary" />,
-        title: 'Návykový zážitok',
-        description: 'PWA poskytuje používateľský zážitok podobný natívnej aplikácii priamo v prehliadači.',
-    },
-    {
-        icon: <Globe className="h-8 w-8 text-primary" />,
-        title: 'Nezávislosť od pripojenia',
-        description: 'Aplikácia funguje spoľahlivo aj pri slabom alebo žiadnom internetovom pripojení.',
-    },
-    {
-        icon: <Shield className="h-8 w-8 text-primary" />,
-        title: 'Bezpečnosť a rýchlosť',
-        description: 'Vždy doručované cez HTTPS. PWA sú navrhnuté pre bleskové načítanie a plynulý chod.',
-    },
-]
 
 export default function PwaForBusinessPage() {
     return (
@@ -44,25 +26,40 @@ export default function PwaForBusinessPage() {
                 <section id="about-pwa" className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Čo je to Progresívna Webová Aplikácia (PWA)?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        PWA je typ aplikačného softvéru dodávaného prostredníctvom webu, postaveného pomocou bežných webových technológií vrátane HTML, CSS a JavaScriptu. Je určená na prácu na akejkoľvek platforme, ktorá používa prehliadač vyhovujúci štandardom. Kombinuje najlepšie vlastnosti webových stránok a mobilných aplikácií.
+                        PWA je typ aplikačného softvéru dodávaného prostredníctvom webu, postaveného pomocou bežných webových technológií vrátane HTML, CSS a JavaScriptu. Je určená na prácu na akejkoľvek platforme, ktorá používa prehliadač vyhovujúci štandardom. V skratke, PWA kombinuje to najlepšie z webových stránok (dostupnosť, indexovateľnosť) a mobilných aplikácií (rýchlosť, offline funkčnosť, push notifikácie).
                     </p>
                 </section>
 
                 <section id="features" className="mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Tri piliere PWA</h2>
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        {features.map((feature, index) => (
-                             <Card key={index} className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
-                                <CardHeader className="items-center">
-                                    {feature.icon}
-                                    <CardTitle className="mt-4 text-xl font-semibold">
-                                        {feature.title}
-                                    </CardTitle>
-                                </Header>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{feature.description}</p>
-                                </CardContent>
-                             </Card>
-                        ))}
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Zap className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Rýchlosť</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">PWA sú navrhnuté pre bleskové načítanie a plynulý chod, čo dramaticky zlepšuje používateľský zážitok a znižuje mieru odchodov.</p>
+                            </CardContent>
+                         </Card>
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Globe className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Spoľahlivosť</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Aplikácia funguje spoľahlivo aj pri slabom alebo žiadnom internetovom pripojení vďaka inteligentnému cachovaniu.</p>
+                            </CardContent>
+                         </Card>
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Smartphone className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Pútavosť</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Poskytuje používateľský zážitok podobný natívnej aplikácii, vrátane možnosti inštalácie na plochu a push notifikácií.</p>
+                            </CardContent>
+                         </Card>
                     </div>
                 </section>
                 
@@ -73,22 +70,22 @@ export default function PwaForBusinessPage() {
                             <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Zvýšená angažovanosť</h3>
-                                    <p className="text-muted-foreground">Push notifikácie umožňujú efektívne osloviť zákazníkov a udržať ich v kontakte s vašou značkou.</p>
+                                    <h3 className="font-bold">Zvýšená angažovanosť a udržanie zákazníkov</h3>
+                                    <p className="text-muted-foreground">Push notifikácie umožňujú efektívne osloviť zákazníkov s novinkami, akciami alebo pripomienkami, a udržať ich tak v kontakte s vašou značkou.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Lepšia konverzia</h3>
-                                    <p className="text-muted-foreground">Rýchlejšie načítanie a plynulejší zážitok vedú k vyššej miere konverzie.</p>
+                                    <h3 className="font-bold">Lepšia konverzia a vyššie tržby</h3>
+                                    <p className="text-muted-foreground">Rýchlejšie načítanie a plynulejší používateľský zážitok priamo vedú k vyššej miere konverzie, či už ide o odoslanie dopytu alebo nákup.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Nižšie náklady na vývoj</h3>
-                                    <p className="text-muted-foreground">Jedna aplikácia pre všetky platformy (iOS, Android, web) znamená výraznú úsporu nákladov oproti natívnemu vývoju.</p>
+                                    <h3 className="font-bold">Nižšie náklady na vývoj a údržbu</h3>
+                                    <p className="text-muted-foreground">Jedna aplikácia pre všetky platformy (iOS, Android, web) znamená výraznú úsporu nákladov oproti vývoju a údržbe samostatných natívnych aplikácií.</p>
                                 </div>
                             </li>
                         </ul>
@@ -108,7 +105,7 @@ export default function PwaForBusinessPage() {
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
                      <h2 className="text-3xl font-bold mb-4 font-headline">Ste pripravení na budúcnosť webu?</h2>
                      <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
-                         Nechajte si od nás vypracovať nezáväznú ponuku a zistite, ako môže PWA transformovať vaše podnikanie.
+                         Nechajte si od nás vypracovať nezáväznú ponuku a zistite, ako môže PWA transformovať vaše podnikanie a zabezpečiť vám náskok pred konkurenciou.
                      </p>
                       <Button size="lg" asChild>
                         <Link href="/contact">

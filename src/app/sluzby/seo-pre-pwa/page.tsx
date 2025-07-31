@@ -3,27 +3,9 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, ArrowRight, Search, Code, Smartphone } from 'lucide-react';
+import { Check, ArrowRight, Search, Code, Smartphone, Zap } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const features = [
-    {
-        icon: <Smartphone className="h-8 w-8 text-primary" />,
-        title: 'Mobile-First Indexing',
-        description: 'Optimalizujeme vašu PWA pre mobilné indexovanie, čo je kľúčové pre Google a spokojnosť používateľov.',
-    },
-    {
-        icon: <Code className="h-8 w-8 text-primary" />,
-        title: 'JavaScript SEO',
-        description: 'Zabezpečíme, aby bol váš dynamicky generovaný obsah plne viditeľný a indexovateľný pre vyhľadávače.',
-    },
-    {
-        icon: <Search className="h-8 w-8 text-primary" />,
-        title: 'Technický Audit',
-        description: 'Vykonáme hĺbkový audit a odstránime všetky technické prekážky, ktoré bránia vašej PWA v top pozíciách.',
-    },
-]
 
 export default function SeoForPwaPage() {
     return (
@@ -44,25 +26,40 @@ export default function SeoForPwaPage() {
                 <section id="about-pwa-seo" className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Prečo PWA potrebuje špeciálnu SEO starostlivosť?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        Progresívne Webové Aplikácie (PWA) prinášajú úžasný používateľský zážitok, no ich technická povaha, najmä spoliehanie sa na JavaScript, predstavuje unikátne výzvy pre vyhľadávače. Klasické SEO postupy nestačia. My rozumieme týmto nuansám a vieme, ako optimalizovať vašu PWA pre najlepšie výsledky.
+                        Progresívne Webové Aplikácie (PWA) prinášajú úžasný používateľský zážitok, no ich technická povaha, najmä spoliehanie sa na JavaScript pri vykresľovaní obsahu, predstavuje unikátne výzvy pre vyhľadávače. Klasické SEO postupy často nestačia. My rozumieme týmto nuansám a vieme, ako optimalizovať vašu PWA pre najlepšie výsledky a zabezpečiť, aby Google a ostatné vyhľadávače videli a indexovali všetok váš dôležitý obsah.
                     </p>
                 </section>
 
                 <section id="features" className="mb-20">
+                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Naše Kľúčové Oblasti Zamerania</h2>
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        {features.map((feature, index) => (
-                             <Card key={index} className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
-                                <CardHeader className="items-center">
-                                    {feature.icon}
-                                    <CardTitle className="mt-4 text-xl font-semibold">
-                                        {feature.title}
-                                    </CardTitle>
-                                </Header>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{feature.description}</p>
-                                </CardContent>
-                             </Card>
-                        ))}
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Smartphone className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Mobile-First Indexing</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Optimalizujeme vašu PWA pre mobilné indexovanie, čo je absolútne kľúčové pre Google a spokojnosť rastúceho počtu mobilných používateľov.</p>
+                            </CardContent>
+                         </Card>
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Code className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">JavaScript SEO</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Zabezpečíme, aby bol váš dynamicky generovaný obsah plne viditeľný a indexovateľný pre vyhľadávače pomocou techník ako SSR alebo dynamické renderovanie.</p>
+                            </CardContent>
+                         </Card>
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Zap className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Rýchlosť a Výkon</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Vykonáme hĺbkový audit a odstránime všetky technické prekážky, ktoré bránia vašej PWA v top pozíciách, vrátane optimalizácie Core Web Vitals.</p>
+                            </CardContent>
+                         </Card>
                     </div>
                 </section>
                 
@@ -74,21 +71,21 @@ export default function SeoForPwaPage() {
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Renderovanie na strane servera (SSR)</h3>
-                                    <p className="text-muted-foreground">Zabezpečíme, aby vyhľadávače dostali plne renderovaný HTML kód, čo dramaticky zlepší rýchlosť indexácie.</p>
+                                    <p className="text-muted-foreground">Implementujeme Server-Side Rendering (SSR) alebo Dynamic Rendering, aby vyhľadávače dostali plne vykreslený HTML kód, čo dramaticky zlepší rýchlosť a spoľahlivosť indexácie.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Implementácia štruktúrovaných dát</h3>
-                                    <p className="text-muted-foreground">Pomôžeme vyhľadávačom lepšie pochopiť obsah vašej PWA a získať tak výhodu vo výsledkoch vyhľadávania (rich snippets).</p>
+                                    <p className="text-muted-foreground">Pomôžeme vyhľadávačom lepšie pochopiť obsah vašej PWA (produkty, články, recenzie) a získať tak výhodu vo výsledkoch vyhľadávania vo forme rich snippets.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Optimalizácia rýchlosti a výkonu</h3>
-                                    <p className="text-muted-foreground">Rýchlosť je kľúčový faktor pre SEO aj pre UX. Optimalizujeme každý aspekt vašej PWA pre maximálny výkon.</p>
+                                    <h3 className="font-bold">Optimalizácia pre Crawl Budget</h3>
+                                    <p className="text-muted-foreground">Zabezpečíme, aby vyhľadávače neplytvali svojimi zdrojmi na ne-dôležitých častiach vašej PWA a zamerali sa na kľúčový obsah, ktorý prináša výsledky.</p>
                                 </div>
                             </li>
                         </ul>

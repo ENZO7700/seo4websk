@@ -3,27 +3,9 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, ArrowRight, TrendingUp, Lightbulb, Bot } from 'lucide-react';
+import { Check, ArrowRight, TrendingUp, Lightbulb, Bot, GitBranch } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-const features = [
-    {
-        icon: <TrendingUp className="h-8 w-8 text-primary" />,
-        title: 'Stratégia pre Rast',
-        description: 'Vytvárame jasné a merateľné stratégie, ktoré pomôžu vašej firme rásť v digitálnom prostredí.',
-    },
-    {
-        icon: <Lightbulb className="h-8 w-8 text-primary" />,
-        title: 'Inovácie a Technológie',
-        description: 'Identifikujeme a implementujeme najnovšie technológie (vrátane AI), ktoré sú relevantné pre váš biznis.',
-    },
-    {
-        icon: <Bot className="h-8 w-8 text-primary" />,
-        title: 'Optimalizácia Procesov',
-        description: 'Pomáhame automatizovať a zefektívniť vaše interné procesy, čím šetríme váš čas a peniaze.',
-    },
-]
 
 export default function DigitalTransformationPage() {
     return (
@@ -44,25 +26,40 @@ export default function DigitalTransformationPage() {
                 <section id="about-digital-transformation" className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Čo je Digitálna Transformácia a Prečo je Dôležitá?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        Digitálna transformácia nie je len o nasadení nových technológií. Je to o zásadnej zmene v tom, ako vaša firma funguje a prináša hodnotu zákazníkom. V dnešnom svete je kľúčom k udržaniu konkurencieschopnosti, inováciám a rastu. Pomôžeme vám nielen prežiť, ale prosperovať.
+                        Digitálna transformácia nie je len o nasadení nových technológií. Je to o zásadnej zmene v tom, ako vaša firma funguje, komunikuje a prináša hodnotu zákazníkom. Zahŕňa zmeny v podnikovej kultúre, procesoch a biznis modeloch, poháňané novými digitálnymi možnosťami. V dnešnom svete je kľúčom k udržaniu konkurencieschopnosti, inováciám a dlhodobému rastu. Pomôžeme vám nielen prežiť, ale prosperovať.
                     </p>
                 </section>
 
                 <section id="features" className="mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Naše Oblasti Expertízy</h2>
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        {features.map((feature, index) => (
-                             <Card key={index} className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
-                                <CardHeader className="items-center">
-                                    {feature.icon}
-                                    <CardTitle className="mt-4 text-xl font-semibold">
-                                        {feature.title}
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{feature.description}</p>
-                                </CardContent>
-                             </Card>
-                        ))}
+                        <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <TrendingUp className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Stratégia pre Rast</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Vytvárame jasné a merateľné stratégie, ktoré prepoja vaše obchodné ciele s digitálnymi aktivitami a pomôžu vašej firme rásť.</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Lightbulb className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Inovácie a Technológie</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Identifikujeme a pomáhame implementovať najnovšie technológie (vrátane AI a PWA), ktoré sú relevantné pre váš biznis a prinesú vám konkurenčnú výhodu.</p>
+                            </CardContent>
+                        </Card>
+                        <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Bot className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Optimalizácia Procesov</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Pomáhame automatizovať a zefektívniť vaše interné a zákaznícke procesy, čím šetríme váš čas, peniaze a zvyšujeme spokojnosť.</p>
+                            </CardContent>
+                        </Card>
                     </div>
                 </section>
                 
@@ -81,24 +78,24 @@ export default function DigitalTransformationPage() {
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Ako Vám Pomôžeme? Náš Proces</h2>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <GitBranch className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">1. Hĺbková Analýza</h3>
-                                    <p className="text-muted-foreground">Začíname pochopením vášho biznisu, cieľov, procesov a aktuálnych výziev.</p>
+                                    <h3 className="font-bold">1. Hĺbková Analýza a Workshop</h3>
+                                    <p className="text-muted-foreground">Začíname sériou stretnutí, kde sa snažíme do hĺbky pochopiť váš biznis, ciele, procesy, zákazníkov a aktuálne výzvy.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <GitBranch className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">2. Návrh Stratégie a Roadmapy</h3>
-                                    <p className="text-muted-foreground">Vytvoríme detailný plán digitálnej transformácie s konkrétnymi krokmi a časovým harmonogramom.</p>
+                                    <p className="text-muted-foreground">Na základe analýzy vytvoríme detailný a realizovateľný plán digitálnej transformácie s konkrétnymi krokmi, prioritami a časovým harmonogramom.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">3. Implementácia a Podpora</h3>
-                                    <p className="text-muted-foreground">Pomôžeme vám s výberom dodávateľov a zavedením technológií, a poskytneme priebežnú podporu.</p>
+                                    <p className="text-muted-foreground">Nezostávame len pri papieri. Aktívne vám pomôžeme s výberom dodávateľov, dohľadom nad implementáciou technológií a poskytneme priebežnú podporu a poradenstvo.</p>
                                 </div>
                             </li>
                         </ul>

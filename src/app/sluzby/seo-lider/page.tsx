@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SeoLiderPage() {
     return (
@@ -13,7 +14,7 @@ export default function SeoLiderPage() {
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">SEO Balík: Líder</h1>
                     <p className="text-xl max-w-3xl mx-auto text-foreground/80 mb-8 text-balance">
-                        Pre etablované projekty a firmy, ktorých cieľom je dominovať vo svojom segmente.
+                        Pre etablované projekty a firmy, ktorých cieľom je dominovať vo svojom segmente a stať sa autoritou na trhu.
                     </p>
                     <Button size="lg" asChild>
                         <Link href="/contact">Objednať Balík Líder</Link>
@@ -36,26 +37,70 @@ export default function SeoLiderPage() {
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Staňte sa Lídrom na Trhu</h2>
                         <p className="text-lg text-muted-foreground mb-6 text-balance">
-                           Balík Líder je naša najkomplexnejšia ponuka pre individuálnych klientov. Zameriavame sa na agresívne budovanie odkazov, tvorbu obsahovej stratégie a detailné sledovanie konkurencie, aby sme vás dostali na absolútnu špičku.
+                           Balík Líder je naša najkomplexnejšia ponuka pre individuálnych klientov a menšie firmy s veľkými ambíciami. Zameriavame sa na agresívne budovanie odkazov, tvorbu obsahovej stratégie, ktorá vás odlíši, a detailné sledovanie konkurencie, aby sme vás dostali na absolútnu špičku vo výsledkoch vyhľadávania.
                         </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-start gap-3">
+                    </div>
+                 </section>
+
+                  <section className="max-w-4xl mx-auto text-center mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Pre koho je balík Líder?</h2>
+                    <p className="text-lg text-muted-foreground text-balance">
+                       Pre ambiciózne firmy, e-shopy a profesionálov, ktorí sa neuspokoja s priemerom. Ak chcete byť vnímaní ako autorita vo svojom odbore, potrebujete strategický prístup, ktorý kombinuje technickú excelentnosť s kvalitným obsahom a silným odkazovým profilom.
+                    </p>
+                </section>
+
+                 <section className="mb-20">
+                     <Card className="bg-muted/50 border-border/50">
+                        <CardHeader>
+                            <CardTitle className="text-2xl md:text-3xl font-bold text-center">Čo získate s balíkom Líder?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg">
+                            <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Balík obsahuje:</h3>
-                                    <p className="text-muted-foreground">Všetko z balíka Rast, plus komplexnú obsahovú stratégiu, budovanie 7 spätných odkazov mesačne, monitoring konkurencie a prioritnú podporu.</p>
+                                    <h3 className="font-bold">Všetko z balíka Rast</h3>
+                                    <p className="text-sm text-muted-foreground">Staviame na pevných základoch a pridávame pokročilé stratégie.</p>
                                 </div>
-                            </li>
-                             <li className="flex items-start gap-3">
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Komplexná obsahová stratégia</h3>
+                                    <p className="text-sm text-muted-foreground">Navrhneme témy a formáty obsahu, ktoré prilákajú a udržia vašu cieľovú skupinu.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Budovanie 7 spätných odkazov/mesiac</h3>
+                                    <p className="text-sm text-muted-foreground">Intenzívnejší link building pre rýchlejšie budovanie autority a lepšie pozície.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Monitoring konkurencie</h3>
+                                    <p className="text-sm text-muted-foreground">Sledujeme aktivity vašich konkurentov a hľadáme príležitosti, ako ich predbehnúť.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Prioritná podpora</h3>
+                                    <p className="text-sm text-muted-foreground">Vaše požiadavky a otázky budú mať vždy najvyššiu prioritu.</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Cena</h3>
-                                    <p className="text-muted-foreground">599 € / mesiac</p>
+                                    <p className="text-sm text-muted-foreground">599 € / mesiac</p>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                 </section>
+                            </div>
+                        </CardContent>
+                     </Card>
+                </section>
+
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
                      <h2 className="text-3xl font-bold mb-4 font-headline">Chcete byť číslom jedna? Poďme na to.</h2>
                       <Button size="lg" asChild>

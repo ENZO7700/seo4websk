@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Check } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SeoEnterprisePage() {
     return (
@@ -36,28 +37,75 @@ export default function SeoEnterprisePage() {
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Partnerstvo bez Kompromisov</h2>
                         <p className="text-lg text-muted-foreground mb-6 text-balance">
-                           Enterprise riešenie znamená, že vaše ciele sa stávajú našimi. Poskytneme vám dedikovaného SEO manažéra, ktorý bude úzko spolupracovať s vaším tímom. Navrhneme stratégiu presne na mieru, či už ide o expanziu na nové trhy, alebo o riešenie komplexných technických výziev.
+                           Enterprise riešenie znamená, že vaše ciele sa stávajú našimi. Poskytneme vám dedikovaného SEO manažéra a tím špecialistov, ktorí budú úzko spolupracovať s vaším marketingovým a vývojovým oddelením. Navrhneme stratégiu presne na mieru, či už ide o expanziu na nové trhy, riešenie komplexných technických výziev alebo o obranu pozícií pred najväčšími hráčmi.
                         </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-start gap-3">
+                    </div>
+                 </section>
+
+                 <section className="max-w-4xl mx-auto text-center mb-20">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Pre koho je Enterprise riešenie?</h2>
+                    <p className="text-lg text-muted-foreground text-balance">
+                        Pre medzinárodné korporácie, technologické firmy a lídrov na trhu, ktorí vyžadujú maximálnu flexibilitu, proaktivitu a partnera, ktorý rozumie ich komplexnému biznisu. Ak štandardné balíky nespĺňajú vaše požiadavky, Enterprise riešenie vám dáva voľnosť a expertízu, ktorú potrebujete.
+                    </p>
+                </section>
+
+                <section className="mb-20">
+                     <Card className="bg-muted/50 border-border/50">
+                        <CardHeader>
+                            <CardTitle className="text-2xl md:text-3xl font-bold text-center">Neobmedzené možnosti s Enterprise</CardTitle>
+                        </CardHeader>
+                        <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg">
+                            <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Balík obsahuje:</h3>
-                                    <p className="text-muted-foreground">Všetko z balíka Korporát, plus medzinárodné SEO, dedikovaný SEO manažér, školenia pre váš tím a kompletné prepojenie s vašimi biznis cieľmi.</p>
+                                    <h3 className="font-bold">Všetko z balíka Korporát</h3>
+                                    <p className="text-sm text-muted-foreground">Absolútne komplexný servis ako východiskový bod.</p>
                                 </div>
-                            </li>
-                             <li className="flex items-start gap-3">
+                            </div>
+                             <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Medzinárodné SEO</h3>
+                                    <p className="text-sm text-muted-foreground">Stratégia a exekúcia pre expanziu na zahraničné trhy (hreflang, geo-targeting a i.).</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Dedikovaný SEO manažér a tím</h3>
+                                    <p className="text-sm text-muted-foreground">Váš vlastný tím expertov, ktorý pozná váš biznis do hĺbky.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Školenia pre váš tím</h3>
+                                    <p className="text-sm text-muted-foreground">Zvýšime SEO znalosti vášho interného marketingového alebo obsahového tímu.</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">Kompletné prepojenie s biznis cieľmi</h3>
+                                    <p className="text-sm text-muted-foreground">Reportujeme priamo na KPI, ktoré sú dôležité pre váš manažment (PNO, ROI, LTV).</p>
+                                </div>
+                            </div>
+                             <div className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Cena</h3>
-                                    <p className="text-muted-foreground">Na mieru</p>
+                                    <p className="text-sm text-muted-foreground">Na mieru</p>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                 </section>
+                            </div>
+                        </CardContent>
+                     </Card>
+                </section>
+
                  <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
                      <h2 className="text-3xl font-bold mb-4 font-headline">Poďme spoločne definovať budúcnosť vášho úspechu.</h2>
+                      <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
+                         Kontaktujte nás a dohodnite si stretnutie, kde preberieme vaše najambicióznejšie ciele a navrhneme stratégiu na ich dosiahnutie.
+                     </p>
                       <Button size="lg" asChild>
                         <Link href="/contact">
                             Kontaktujte Nás

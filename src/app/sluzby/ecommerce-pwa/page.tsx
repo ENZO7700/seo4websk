@@ -7,24 +7,6 @@ import { Check, ArrowRight, ShoppingCart, Zap, BarChart2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const features = [
-    {
-        icon: <Zap className="h-8 w-8 text-primary" />,
-        title: 'Blesková Rýchlosť',
-        description: 'Okamžité načítanie a plynulé prechádzanie produktov zvyšuje spokojnosť zákazníkov a konverzie.',
-    },
-    {
-        icon: <ShoppingCart className="h-8 w-8 text-primary" />,
-        title: 'Zážitok Natívnej Aplikácie',
-        description: 'Zákazníci si môžu vašu aplikáciu pridať na plochu a nakupovať offline rovnako pohodlne ako v natívnej aplikácii.',
-    },
-    {
-        icon: <BarChart2 className="h-8 w-8 text-primary" />,
-        title: 'Vyššie Konverzie',
-        description: 'Zjednodušený nákupný proces, push notifikácie a personalizácia vedú k výraznému nárastu konverzií.',
-    },
-]
-
 export default function PwaECommercePage() {
     return (
         <div className="bg-background text-foreground">
@@ -44,25 +26,39 @@ export default function PwaECommercePage() {
                 <section id="about-ecommerce-pwa" className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Prečo je PWA budúcnosťou E-commerce?</h2>
                     <p className="text-lg text-muted-foreground text-balance">
-                        E-commerce PWA (Progresívna Webová Aplikácia) kombinuje dostupnosť webu s funkcionalitou natívnej mobilnej aplikácie. Pre vašich zákazníkov to znamená bezkonkurenčný zážitok z nakupovania priamo v prehliadači, bez nutnosti inštalácie z App Store alebo Google Play. Pre vás to znamená vyššiu angažovanosť a lepšie obchodné výsledky.
+                        E-commerce PWA (Progresívna Webová Aplikácia) kombinuje dostupnosť webu s funkcionalitou natívnej mobilnej aplikácie. Pre vašich zákazníkov to znamená bezkonkurenčný zážitok z nakupovania priamo v prehliadači, bez nutnosti inštalácie z App Store alebo Google Play. Pre vás to znamená vyššiu angažovanosť, lepšie konverzie a v konečnom dôsledku vyšší zisk.
                     </p>
                 </section>
 
                 <section id="features" className="mb-20">
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                        {features.map((feature, index) => (
-                             <Card key={index} className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
-                                <CardHeader className="items-center">
-                                    {feature.icon}
-                                    <CardTitle className="mt-4 text-xl font-semibold">
-                                        {feature.title}
-                                    </CardTitle>
-                                </Header>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{feature.description}</p>
-                                </CardContent>
-                             </Card>
-                        ))}
+                        <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <Zap className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Blesková Rýchlosť</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Okamžité načítanie a plynulé prechádzanie produktov zvyšuje spokojnosť zákazníkov a priamo znižuje mieru opustenia košíka.</p>
+                            </CardContent>
+                        </Card>
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <ShoppingCart className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Zážitok Natívnej Aplikácie</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Zákazníci si môžu váš e-shop pridať na plochu, nakupovať offline a dostávať push notifikácie o zľavách alebo stave objednávky.</p>
+                            </CardContent>
+                        </Card>
+                         <Card className="border-primary/20 bg-card/50 backdrop-blur-lg text-center">
+                            <CardHeader className="items-center">
+                                <BarChart2 className="h-8 w-8 text-primary" />
+                                <CardTitle className="mt-4 text-xl font-semibold">Vyššie Konverzie</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">Zjednodušený nákupný proces, personalizácia a efektívny remarketing vedú k výraznému nárastu konverzného pomeru.</p>
+                            </CardContent>
+                        </Card>
                     </div>
                 </section>
                 
@@ -84,21 +80,28 @@ export default function PwaECommercePage() {
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
                                     <h3 className="font-bold">Dizajn a Vývoj na Mieru</h3>
-                                    <p className="text-muted-foreground">Vytvoríme unikátny dizajn a architektúru presne podľa potrieb vášho biznisu a značky.</p>
+                                    <p className="text-muted-foreground">Vytvoríme unikátny dizajn a architektúru presne podľa potrieb vášho biznisu a značky. Žiadne šablónové riešenia.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Integrácia Platobných Brán</h3>
-                                    <p className="text-muted-foreground">Bezproblémovo integrujeme všetky populárne platobné metódy pre pohodlie vašich zákazníkov.</p>
+                                    <h3 className="font-bold">Integrácia Platobných Brán a Dopravy</h3>
+                                    <p className="text-muted-foreground">Bezproblémovo integrujeme všetky populárne platobné a dopravné metódy pre maximálne pohodlie vašich zákazníkov.</p>
                                 </div>
                             </li>
                              <li className="flex items-start gap-3">
                                 <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold">Pokročilá Správa Produktov</h3>
-                                    <p className="text-muted-foreground">Intuitívny systém pre správu produktov, zásob, objednávok a zákazníckych dát.</p>
+                                    <h3 className="font-bold">Pokročilá Správa Produktov a Zákazníkov</h3>
+                                    <p className="text-muted-foreground">Intuitívny systém pre správu produktov, variantov, zásob, objednávok a zákazníckych dát.</p>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <Check className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
+                                <div>
+                                    <h3 className="font-bold">SEO pre E-commerce</h3>
+                                    <p className="text-muted-foreground">Naše riešenie je od základu postavené s dôrazom na najlepšie SEO praktiky pre e-shopy, vrátane štruktúrovaných dát.</p>
                                 </div>
                             </li>
                         </ul>
