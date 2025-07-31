@@ -48,7 +48,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Header />
-            <div className="relative z-10">{children}</div>
+            <div className="relative">{children}</div>
             <Footer />
             <Toaster />
           </ThemeProvider>
