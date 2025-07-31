@@ -119,7 +119,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
              {user ? (
-                <Button onClick={handleLogout} variant="outline" size="sm">
+                <Button onClick={handleLogout} variant="outline" size="sm" className="hidden md:flex">
                   <LogOut className="mr-2 h-4 w-4" />
                   Odhlásiť sa
                 </Button>
@@ -128,7 +128,7 @@ export function Header() {
                     <Link href="/login">Prihlásiť sa</Link>
                 </Button>
             )}
-             <Button asChild className="hidden md:flex">
+             <Button asChild className="hidden lg:flex">
               <Link href="/contact">Cenová Ponuka</Link>
             </Button>
             <div className="md:hidden">
@@ -139,14 +139,15 @@ export function Header() {
                             <span className="sr-only">Otvoriť menu</span>
                         </Button>
                     </SheetTrigger>
-                    <SheetContent side="right">
+                    <SheetContent side="right" className="flex flex-col">
                         <SheetHeader className="border-b pb-4 flex-row justify-between items-center">
-                            <SheetTitle className="sr-only">Menu</SheetTitle>
+                            <SheetTitle>
+                               <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
+                                    <Seo4WebLogo className="h-7 w-7" />
+                                    <span className="font-headline">seo4web</span>
+                                </Link>
+                            </SheetTitle>
                             <SheetDescription className="sr-only">Hlavná navigácia pre mobilné zariadenia</SheetDescription>
-                            <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
-                                <Seo4WebLogo className="h-7 w-7" />
-                                <span className="font-headline">seo4web</span>
-                            </Link>
                             <SheetClose asChild>
                                 <Button variant="ghost" size="icon">
                                     <X className="h-5 w-5" />
@@ -154,9 +155,9 @@ export function Header() {
                                 </Button>
                             </SheetClose>
                         </SheetHeader>
-                       <div className="flex flex-col h-full">
+                       <div className="flex flex-col h-full py-6">
                             <motion.nav 
-                                className="flex flex-col gap-6 text-lg font-medium mt-8"
+                                className="flex flex-col gap-6 text-lg font-medium"
                                 initial="hidden"
                                 animate="visible"
                                 variants={navContainerVariants}
@@ -183,11 +184,11 @@ export function Header() {
                                         Odhlásiť sa
                                     </Button>
                                 ) : (
-                                    <Button asChild size="lg" className="w-full">
+                                     <Button asChild size="lg" className="w-full" variant="ghost">
                                         <Link href="/login" onClick={() => setIsSheetOpen(false)}>Prihlásiť sa</Link>
                                     </Button>
                                 )}
-                                <Button asChild size="lg" className="w-full" variant="outline">
+                                <Button asChild size="lg" className="w-full">
                                     <Link href="/contact" onClick={() => setIsSheetOpen(false)}>Získať Cenovú Ponuku</Link>
                                 </Button>
                             </div>

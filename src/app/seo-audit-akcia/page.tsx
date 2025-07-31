@@ -42,15 +42,15 @@ export default function SeoAuditPage() {
                         transition={{ duration: 0.5 }}
                     >
                         <p className="mb-2 text-lg font-semibold text-primary">Časovo Obmedzená Ponuka</p>
-                        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">Hĺbkový SEO Audit</h1>
-                        <div className="inline-flex items-baseline justify-center gap-4">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-foreground font-headline">Hĺbkový SEO Audit</h1>
+                        <div className="inline-flex items-baseline justify-center gap-2 md:gap-4">
                              <span className="text-3xl md:text-5xl font-bold text-muted-foreground line-through">249 €</span>
                              <span className="text-5xl md:text-7xl font-bold text-primary">99 €</span>
                         </div>
-                        <p className="text-xl max-w-3xl mx-auto text-foreground/80 my-8 text-balance">
+                        <p className="text-lg md:text-xl max-w-3xl mx-auto text-foreground/80 my-8 text-balance">
                             Získajte kompletný prehľad o zdraví vášho webu a konkrétny akčný plán na zlepšenie pozícií vo vyhľadávačoch.
                         </p>
-                        <Button size="lg" asChild className="h-14 text-lg">
+                        <Button size="lg" asChild className="h-12 md:h-14 text-lg">
                             <Link href="/contact">Objednať Audit za 99 €</Link>
                         </Button>
                     </motion.div>
@@ -60,7 +60,7 @@ export default function SeoAuditPage() {
             <main className="container mx-auto py-16 px-4">
                 <section id="what-you-get" className="max-w-5xl mx-auto mb-20">
                      <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Čo Získate v Rámci Auditu?</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         {auditFeatures.map((feature, index) => (
                              <motion.div
                                 key={index}
@@ -71,7 +71,9 @@ export default function SeoAuditPage() {
                              >
                                 <Card className="border-primary/20 bg-card/50 backdrop-blur-lg h-full">
                                     <CardHeader className="items-center text-center">
-                                        {feature.icon}
+                                        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-lg">
+                                            {feature.icon}
+                                        </div>
                                         <CardTitle className="mt-4 text-xl font-semibold">
                                             {feature.title}
                                         </CardTitle>
@@ -98,7 +100,7 @@ export default function SeoAuditPage() {
                     </div>
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Výstup, Ktorému Budete Rozumieť</h2>
-                        <p className="text-lg text-muted-foreground mb-6">
+                        <p className="text-lg text-muted-foreground mb-6 text-balance">
                             Naším cieľom nie je zahltiť vás technickým žargónom. Dostanete prehľadný report s konkrétnymi, prioritizovanými odporúčaniami, ktoré môžete okamžite začať implementovať.
                         </p>
                         <ul className="space-y-4">
@@ -127,8 +129,8 @@ export default function SeoAuditPage() {
                     </div>
                  </section>
 
-                 <section id="cta" className="bg-primary/10 rounded-lg p-12 text-center">
-                     <h2 className="text-3xl font-bold mb-4 font-headline">Nečakajte, Kým Vás Predbehne Konkurencia</h2>
+                 <section id="cta" className="bg-primary/10 rounded-lg p-8 md:p-12 text-center">
+                     <h2 className="text-2xl md:text-3xl font-bold mb-4 font-headline">Nečakajte, Kým Vás Predbehne Konkurencia</h2>
                      <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
                          Táto špeciálna cena platí len na obmedzený čas. Investujte do budúcnosti vášho webu ešte dnes.
                      </p>

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -156,254 +155,240 @@ export default function Home() {
    const heroRef = useRef(null);
    
   return (
-    <div>
-      <div className="space-bg">
-        <div id="stars"></div>
-        <div id="stars2"></div>
-        <div id="stars3"></div>
-      </div>
-      <main className="relative z-10">
-        <section
-          id="hero"
-          ref={heroRef}
-          className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
+    <main className="relative z-10">
+      <section
+        id="hero"
+        ref={heroRef}
+        className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
+      >
+        <motion.div 
+          className="group flex cursor-pointer items-center justify-center gap-4"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
         >
+          <h1
+            className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl font-headline"
+          >
+            seo4web
+          </h1>
+            <Search className="h-10 w-10 md:h-16 md:w-16 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent" />
+        </motion.div>
+        <motion.p
+          className="mt-4 max-w-2xl text-lg text-foreground/80 md:text-xl text-balance"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú návštevnosť. Poskytujeme expertné SEO stratégie pre váš úspech.
+        </motion.p>
+        <motion.div
+          className="mt-8 flex flex-wrap justify-center gap-4"
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <Button size="lg" asChild>
+            <a href="#features">
+              Naše Služby
+              <ArrowRight className="ml-2" />
+            </a>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            asChild
+          >
+            <Link href="/contact">Bezplatná Konzultácia</Link>
+          </Button>
+        </motion.div>
+      </section>
+
+      <section id="features" className="bg-background/80 backdrop-blur-lg py-20 px-4 sm:py-32">
+        <div className="container mx-auto">
           <motion.div 
-            className="group flex cursor-pointer items-center justify-center gap-4"
-            variants={itemVariants}
+            className="mb-12 text-center"
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
           >
-            <h1
-              className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl font-headline"
-            >
-              seo4web
-            </h1>
-             <Search className="h-10 w-10 md:h-16 md:w-16 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent" />
+            <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+              Naše Kľúčové SEO Služby
+            </motion.h2>
+            <motion.p variants={itemVariants} className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+              Poskytujeme komplexný súbor SEO služieb, ktoré pozdvihnú vašu online prítomnosť z každého uhla.
+            </motion.p>
           </motion.div>
-          <motion.p
-            className="mt-4 max-w-2xl text-lg text-foreground/80 md:text-xl text-balance"
-            variants={itemVariants}
+           <motion.div 
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
           >
-            Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú návštevnosť. Poskytujeme expertné SEO stratégie pre váš úspech.
-          </motion.p>
-          <motion.div
-            className="mt-8 flex flex-wrap justify-center gap-4"
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-blue-500 to-teal-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/50">
-              <Button size="lg" asChild variant="premium" className="relative z-20 w-full">
-                  <a href="#features">
-                    Naše Služby
-                    <ArrowRight className="ml-2" />
-                  </a>
-                </Button>
-            </div>
-             <div className="group relative rounded-lg p-[2px] bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/50">
-               <Button
-                  size="lg"
-                  variant="premium"
-                  asChild
-                  className="relative z-20 w-full"
-                >
-                  <Link href="/contact">Bezplatná Konzultácia</Link>
-                </Button>
-            </div>
-          </motion.div>
-        </section>
-
-        <section id="features" className="bg-background/80 backdrop-blur-lg py-20 px-4 sm:py-32">
-          <div className="container mx-auto">
-            <motion.div 
-              className="mb-12 text-center"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={containerVariants}
-            >
-              <motion.h2 variants={itemVariants} className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                Naše Kľúčové SEO Služby
-              </motion.h2>
-              <motion.p variants={itemVariants} className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
-                Poskytujeme komplexný súbor SEO služieb, ktoré pozdvihnú vašu online prítomnosť z každého uhla.
-              </motion.p>
-            </motion.div>
-             <motion.div 
-              className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={containerVariants}
-            >
-                {features.map((feature, index) => (
-                    <motion.div
-                        key={index}
-                        variants={itemVariants}
-                    >
-                        <Card className="h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
-                            <div className={cn("mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br", feature.gradient)}>
-                                <motion.div 
-                                    whileHover={{ scale: 1.2, rotate: -10 }}
-                                >
-                                    {feature.icon}
-                                </motion.div>
-                            </div>
-                            <h3 className="mt-4 text-xl font-semibold text-foreground">
-                                {feature.title}
-                            </h3>
-                            <p className="mt-2 text-muted-foreground">{feature.description}</p>
-                        </Card>
-                    </motion.div>
-                ))}
-            </motion.div>
-             <motion.div 
-                className="mt-12 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <Button asChild size="lg">
-                    <Link href="/tahaky">
-                        Objavte Naše SEO Ťaháky
-                        <Sparkles className="ml-2" />
-                    </Link>
-                </Button>
-            </motion.div>
-          </div>
-        </section>
-
-        <section id="testimonials" className="bg-background py-20 px-4 sm:py-32">
-          <div className="container mx-auto">
-            <motion.div 
-              className="mb-12 text-center"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={containerVariants}
-            >
-              <motion.h2 variants={itemVariants} className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                Čo hovoria naši klienti
-              </motion.h2>
-              <motion.p variants={itemVariants} className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
-                Vaša spokojnosť je našou najlepšou vizitkou.
-              </motion.p>
-            </motion.div>
-            <motion.div 
-              className="grid grid-cols-1 gap-8 md:grid-cols-3"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={containerVariants}
-            >
-              {testimonials.map((testimonial, index) => (
-                 <motion.div
-                  key={index}
-                  variants={itemVariants}
-                >
-                <Card
-                  className="flex h-full flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
-                >
-                  <CardContent className="pt-6">
-                    <div className="flex items-center mb-4">
-                       <Image
-                          src={testimonial.avatar}
-                          alt={`Portrét ${testimonial.name}`}
-                          width={48}
-                          height={48}
-                          className="rounded-full"
-                          data-ai-hint={testimonial.avatarHint}
-                        />
-                       <div className="ml-4">
-                            <h3 className="font-bold">{testimonial.name}</h3>
-                            <p className="text-muted-foreground text-sm">{testimonial.company}</p>
-                        </div>
-                    </div>
-                    <p className="text-foreground/80 italic text-balance mb-4">
-                      "{testimonial.quote}"
-                    </p>
-                     <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                           <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
-                        ))}
-                    </div>
-                  </CardContent>
-                </Card>
-                </motion.div>
+              {features.map((feature, index) => (
+                  <motion.div
+                      key={index}
+                      variants={itemVariants}
+                  >
+                      <Card className="h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
+                          <div className={cn("mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
+                              <motion.div 
+                                  whileHover={{ scale: 1.2, rotate: -10 }}
+                              >
+                                  {feature.icon}
+                              </motion.div>
+                          </div>
+                          <h3 className="mt-4 text-xl font-semibold text-foreground">
+                              {feature.title}
+                          </h3>
+                          <p className="mt-2 text-muted-foreground">{feature.description}</p>
+                      </Card>
+                  </motion.div>
               ))}
-            </motion.div>
-          </div>
-        </section>
-        
-        <section id="faq" className="bg-muted/50 py-20 px-4 sm:py-32">
-            <div className="container mx-auto max-w-4xl">
-                 <div className="mb-12 text-center">
-                  <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                    Často Kladené Otázky
-                  </h2>
-                </div>
-                 <Accordion type="single" collapsible className="w-full">
-                   {faqItems.map((item, index) => (
-                      <AccordionItem value={`item-${index+1}`} key={index}>
-                        <AccordionTrigger className="text-lg text-left">{item.question}</AccordionTrigger>
-                        <AccordionContent>
-                           <div className="text-base text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.answer }}/>
-                        </AccordionContent>
-                      </AccordionItem>
-                   ))}
-                </Accordion>
-            </div>
-        </section>
+          </motion.div>
+           <motion.div 
+              className="mt-12 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <Button asChild size="lg">
+                  <Link href="/tahaky">
+                      Objavte Naše SEO Ťaháky
+                      <Sparkles className="ml-2" />
+                  </Link>
+              </Button>
+          </motion.div>
+        </div>
+      </section>
 
-        <section id="about" className="bg-background py-20 px-4 sm:py-32">
-          <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
-            <div>
-              <Image
-                src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fabout-us.png?alt=media&token=80997184-7a71-426a-93a8-42245b736b47"
-                alt="Tím seo4web pri strategickom plánovaní digitálneho marketingu"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-2xl shadow-primary/10"
-                data-ai-hint="digital marketing team"
-              />
-            </div>
-            <div>
-              <h2 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                SEO Experti Zameraní na Výsledky
-              </h2>
-              <p className="mt-4 text-lg text-foreground/70 text-balance">
-                seo4web bolo založené na princípe prinášania merateľných výsledkov. Kombinujeme dátami podložené stratégie s overenými SEO technikami, aby sme pomohli vášmu biznisu rásť. Veríme v budovanie partnerstiev a sme odhodlaní pre váš úspech.
-              </p>
-              <div className="mt-6 flex gap-8">
-                <div>
-                  <Sparkles className="h-6 w-6 text-primary" />
-                  <h3 className="mt-2 text-lg font-bold">Dátami riadené</h3>
-                  <p className="text-sm text-muted-foreground">Rozhodnutia podložené dátami a analytikou.</p>
-                </div>
-                <div>
-                  <Users className="h-6 w-6 text-primary" />
-                  <h3 className="mt-2 text-lg font-bold">Zamerané na klienta</h3>
-                  <p className="text-sm text-muted-foreground">Váš úspech je našou prioritou.</p>
-                </div>
+      <section id="testimonials" className="bg-background py-20 px-4 sm:py-32">
+        <div className="container mx-auto">
+          <motion.div 
+            className="mb-12 text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+          >
+            <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+              Čo hovoria naši klienti
+            </motion.h2>
+            <motion.p variants={itemVariants} className="mx-auto mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+              Vaša spokojnosť je našou najlepšou vizitkou.
+            </motion.p>
+          </motion.div>
+          <motion.div 
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+          >
+            {testimonials.map((testimonial, index) => (
+               <motion.div
+                key={index}
+                variants={itemVariants}
+              >
+              <Card
+                className="flex h-full flex-col justify-between border-primary/20 bg-card/50 backdrop-blur-lg transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
+              >
+                <CardContent className="pt-6">
+                  <div className="flex items-center mb-4">
+                     <Image
+                        src={testimonial.avatar}
+                        alt={`Portrét ${testimonial.name}`}
+                        width={48}
+                        height={48}
+                        className="rounded-full"
+                        data-ai-hint={testimonial.avatarHint}
+                      />
+                     <div className="ml-4">
+                          <h3 className="font-bold">{testimonial.name}</h3>
+                          <p className="text-muted-foreground text-sm">{testimonial.company}</p>
+                      </div>
+                  </div>
+                  <p className="text-foreground/80 italic text-balance mb-4">
+                    "{testimonial.quote}"
+                  </p>
+                   <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                         <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
+                      ))}
+                  </div>
+                </CardContent>
+              </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      
+      <section id="faq" className="bg-muted/50 py-20 px-4 sm:py-32">
+          <div className="container mx-auto max-w-4xl">
+               <div className="mb-12 text-center">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+                  Často Kladené Otázky
+                </h2>
               </div>
-               <div className="mt-8">
-                <Button asChild size="lg" variant="outline">
-                    <Link href="/contact">
-                        Napíšte Nám
-                        <ArrowRight className="ml-2" />
-                    </Link>
-                </Button>
-            </div>
-            </div>
+               <Accordion type="single" collapsible className="w-full">
+                 {faqItems.map((item, index) => (
+                    <AccordionItem value={`item-${index+1}`} key={index}>
+                      <AccordionTrigger className="text-lg text-left">{item.question}</AccordionTrigger>
+                      <AccordionContent>
+                         <div className="text-base text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.answer }}/>
+                      </AccordionContent>
+                    </AccordionItem>
+                 ))}
+              </Accordion>
           </div>
-        </section>
-      </main>
-    </div>
+      </section>
+
+      <section id="about" className="bg-background py-20 px-4 sm:py-32">
+        <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
+          <div>
+            <Image
+              src="https://firebasestorage.googleapis.com/v0/b/aetherflow-6gd9p.appspot.com/o/images%2Fabout-us.png?alt=media&token=80997184-7a71-426a-93a8-42245b736b47"
+              alt="Tím seo4web pri strategickom plánovaní digitálneho marketingu"
+              width={600}
+              height={400}
+              className="rounded-lg shadow-2xl shadow-primary/10"
+              data-ai-hint="digital marketing team"
+            />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+              SEO Experti Zameraní na Výsledky
+            </h2>
+            <p className="mt-4 text-lg text-foreground/70 text-balance">
+              seo4web bolo založené na princípe prinášania merateľných výsledkov. Kombinujeme dátami podložené stratégie s overenými SEO technikami, aby sme pomohli vášmu biznisu rásť. Veríme v budovanie partnerstiev a sme odhodlaní pre váš úspech.
+            </p>
+            <div className="mt-6 flex flex-col sm:flex-row gap-8">
+              <div>
+                <Sparkles className="h-6 w-6 text-primary" />
+                <h3 className="mt-2 text-lg font-bold">Dátami riadené</h3>
+                <p className="text-sm text-muted-foreground">Rozhodnutia podložené dátami a analytikou.</p>
+              </div>
+              <div>
+                <Users className="h-6 w-6 text-primary" />
+                <h3 className="mt-2 text-lg font-bold">Zamerané na klienta</h3>
+                <p className="text-sm text-muted-foreground">Váš úspech je našou prioritou.</p>
+              </div>
+            </div>
+             <div className="mt-8">
+              <Button asChild size="lg" variant="outline">
+                  <Link href="/contact">
+                      Napíšte Nám
+                      <ArrowRight className="ml-2" />
+                  </Link>
+              </Button>
+          </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
-
-    

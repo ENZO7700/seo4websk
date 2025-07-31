@@ -152,7 +152,7 @@ function HeadlineAnalyzerWidget() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-xl md:text-2xl">
           <Wand2 />
           Rýchly Analyzátor Titulkov
         </CardTitle>
@@ -322,7 +322,7 @@ function DashboardContent() {
     <main className="container mx-auto px-4 py-24 sm:py-32">
       <div className="space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
             Hlavný Dashboard
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70 text-balance">
@@ -338,7 +338,7 @@ function DashboardContent() {
             </Alert>
         )}
         
-        <section id="kpi-cards" className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <section id="kpi-cards" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {isLoading || !kpiData ? (
             Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-[126px]" />)
           ) : (
@@ -346,7 +346,7 @@ function DashboardContent() {
           )}
         </section>
         
-        <section id="main-grid" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <section id="main-grid" className="grid gap-4 lg:grid-cols-3">
            <Card className="lg:col-span-2">
                 <CardHeader>
                     <CardTitle>Najvýkonnejšie Stránky</CardTitle>
@@ -354,6 +354,7 @@ function DashboardContent() {
                 </CardHeader>
                 <CardContent>
                      {isLoading ? <Skeleton className="h-[240px]" /> : (
+                        <div className="overflow-x-auto">
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -372,6 +373,7 @@ function DashboardContent() {
                                 ))}
                             </TableBody>
                         </Table>
+                        </div>
                     )}
                 </CardContent>
            </Card>
@@ -380,13 +382,13 @@ function DashboardContent() {
                 <CardTitle>Rozdelenie Zariadení</CardTitle>
                  <CardDescription>Návštevnosť podľa typu zariadenia.</CardDescription>
              </CardHeader>
-             <CardContent className="flex items-center justify-center">
+             <CardContent className="flex items-center justify-center pt-6">
                 {isLoading ? <Skeleton className="h-[250px] w-full" /> : memoizedDeviceChart}
              </CardContent>
            </Card>
         </section>
 
-         <section id="secondary-grid" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+         <section id="secondary-grid" className="grid gap-4 lg:grid-cols-3">
              <Card className="lg:col-span-2">
                 <CardHeader>
                     <CardTitle>Výkonnosť Kľúčových Slov</CardTitle>
@@ -394,6 +396,7 @@ function DashboardContent() {
                 </CardHeader>
                  <CardContent>
                      {isLoading ? <Skeleton className="h-[260px]" /> : (
+                        <div className="overflow-x-auto">
                          <Table>
                              <TableHeader>
                                  <TableRow>
@@ -417,6 +420,7 @@ function DashboardContent() {
                                  ))}
                              </TableBody>
                          </Table>
+                         </div>
                     )}
                  </CardContent>
              </Card>
@@ -426,7 +430,7 @@ function DashboardContent() {
         <section id="contact-messages">
           <Card>
             <CardHeader>
-              <CardTitle>Posledné Správy z Kontaktného Formulára</CardTitle>
+              <CardTitle>Posledné Správy</CardTitle>
               <CardDescription>
                 Prehľad 5 najnovších správ odoslaných cez kontaktný formulár.
               </CardDescription>
@@ -451,6 +455,7 @@ function DashboardContent() {
                    )}
                 </div>
               ) : messages.length > 0 ? (
+                <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -473,6 +478,7 @@ function DashboardContent() {
                     ))}
                   </TableBody>
                 </Table>
+                </div>
               ) : (
                 <p className="text-sm text-muted-foreground text-center py-4">Zatiaľ žiadne správy.</p>
               )}

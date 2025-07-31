@@ -170,7 +170,7 @@ export default function PricingPage() {
     <main className="container mx-auto px-4 py-24 sm:py-32">
       <div className="flex flex-col items-center justify-center space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
             Transparentný cenník, merateľné výsledky
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
@@ -179,7 +179,7 @@ export default function PricingPage() {
         </div>
         
         <section id="pwa-services" className="w-full py-12">
-            <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
+            <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
                Nové: PWA & Aplikačné Služby
             </h2>
              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -194,7 +194,7 @@ export default function PricingPage() {
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
                            <div className="flex items-baseline">
-                            <span className="text-4xl font-bold">{tier.price}</span>
+                            <span className="text-3xl font-bold">{tier.price}</span>
                              {tier.priceSuffix && (
                               <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
                             )}
@@ -219,10 +219,10 @@ export default function PricingPage() {
         </section>
 
         <section id="seo-individual" className="w-full py-12">
-          <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
+          <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
             SEO pre jednotlivcov a freelancerov
           </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {individualTiers.map((tier) => (
               <Card
                 key={tier.name}
@@ -234,7 +234,7 @@ export default function PricingPage() {
                 </CardHeader>
                 <CardContent className="flex-grow space-y-4">
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-bold">{tier.price}</span>
+                    <span className="text-3xl font-bold">{tier.price}</span>
                     {tier.priceSuffix && (
                       <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
                     )}
@@ -259,10 +259,10 @@ export default function PricingPage() {
         </section>
 
         <section id="seo-business" className="w-full py-12">
-          <h2 className="mb-8 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
+          <h2 className="mb-8 text-center text-2xl font-bold tracking-tighter md:text-4xl font-headline">
             SEO pre firmy a E-shopy
           </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {businessTiers.map((tier) => (
               <Card
                 key={tier.name}
@@ -274,7 +274,7 @@ export default function PricingPage() {
                 </CardHeader>
                 <CardContent className="flex-grow space-y-4">
                    <div className="flex items-baseline">
-                    <span className="text-4xl font-bold">{tier.price}</span>
+                    <span className="text-3xl font-bold">{tier.price}</span>
                      {tier.priceSuffix && (
                       <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
                     )}
