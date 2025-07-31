@@ -11,11 +11,34 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  AuthError,
 } from 'firebase/auth';
-import { app, db } from '@/lib/firebase-config'; // Use db to check if firebase is configured
+import { app, db } from '@/lib/firebase-config';
 import { AuthContextType } from '@/hooks/use-auth';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+const getFriendlyErrorMessage = (error: AuthError): string => {
+    switch (error.code) {
+        case 'auth/email-already-in-use':
+            return 'Táto e-mailová adresa je už zaregistrovaná. Prosím, prihláste sa alebo použite inú adresu.';
+        case 'auth/invalid-email':
+            return 'Zadaná e-mailová adresa nie je platná.';
+        case 'auth/weak-password':
+            return 'Heslo je príliš slabé. Musí mať aspoň 6 znakov.';
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+        case 'auth/invalid-credential':
+            return 'Nesprávna e-mailová adresa alebo heslo. Skúste to znova.';
+        case 'auth/popup-closed-by-user':
+            return 'Proces prihlásenia bol zrušený.';
+        case 'auth/cancelled-popup-request':
+            return 'Bol otvorený ďalší proces prihlásenia. Dokončite ho prosím.';
+        default:
+            return 'Vyskytla sa neznáma chyba. Skúste to prosím neskôr.';
+    }
+}
+
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -50,7 +73,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       return true;
     } catch (e: any) {
-      setError(e.message);
+      setError(getFriendlyErrorMessage(e));
       return false;
     } finally {
       setLoading(false);
@@ -69,7 +92,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await signInWithEmailAndPassword(auth, email, password);
       return true;
     } catch (e: any) {
-      setError(e.message);
+      setError(getFriendlyErrorMessage(e));
       return false;
     } finally {
       setLoading(false);
@@ -89,7 +112,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         await signInWithPopup(auth, provider);
         return true;
     } catch(e: any) {
-        setError(e.message);
+        setError(getFriendlyErrorMessage(e));
         return false;
     } finally {
         setLoading(false);
@@ -108,7 +131,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await firebaseSignOut(auth);
       return true;
     } catch (e: any) {
-      setError(e.message);
+      setError(getFriendlyErrorMessage(e));
       return false;
     } finally {
       setLoading(false);
@@ -119,3 +142,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+    

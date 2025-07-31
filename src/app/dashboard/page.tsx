@@ -226,16 +226,26 @@ function KpiCard({ title, value, change, changeType, icon }: KpiCardProps) {
   )
 }
 
-function DashboardContent() {
+function DashboardPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [kpiData, setKpiData] = useState<GenerateKpiDataOutput | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const firebaseConfigured = isFirebaseConfigured();
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
 
   const { topPagesData, keywordData, deviceData } = useMemo(() => generateRandomData(), []);
 
   useEffect(() => {
+    if (!authLoading && !user) {
+        router.push('/login');
+    }
+  }, [user, authLoading, router]);
+
+  useEffect(() => {
+    if (!user) return; // Don't fetch data if user is not authenticated
+
     async function fetchData() {
       setIsLoading(true);
       setError(null);
@@ -285,7 +295,7 @@ function DashboardContent() {
     }
 
     fetchData();
-  }, [firebaseConfigured]);
+  }, [user, firebaseConfigured]);
   
   const memoizedDeviceChart = useMemo(() => (
     <ResponsiveContainer width="100%" height={250}>
@@ -316,6 +326,14 @@ function DashboardContent() {
     { title: 'Dĺžka Návštevy', value: `${kpiData.visitDuration.minutes}m ${kpiData.visitDuration.seconds}s`, change: `${kpiData.visitDuration.change > 0 ? '+' : ''}${Math.floor(kpiData.visitDuration.change / 60)}m ${kpiData.visitDuration.change % 60}s`, changeType: kpiData.visitDuration.change > 0 ? 'increase' : 'decrease', icon: <Clock /> },
     { title: 'Konverzie', value: formatNumber(kpiData.conversions.value), change: `${kpiData.conversions.change > 0 ? '+' : ''}${kpiData.conversions.change}`, changeType: kpiData.conversions.change > 0 ? 'increase' : 'decrease', icon: <CheckCircle /> },
   ] : [];
+
+  if (authLoading || !user) {
+    return (
+        <div className="flex justify-center items-center min-h-screen">
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        </div>
+    );
+  }
 
 
   return (
@@ -490,23 +508,6 @@ function DashboardContent() {
   );
 }
 
-export default function DashboardPage() {
-    const { user, loading } = useAuth();
-    const router = useRouter();
+export default DashboardPage;
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-    }, [user, loading, router]);
-
-    if (loading || !user) {
-        return (
-            <div className="flex justify-center items-center min-h-screen">
-                <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            </div>
-        );
-    }
-
-    return <DashboardContent />;
-}
+    
