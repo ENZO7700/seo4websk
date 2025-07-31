@@ -29,7 +29,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import GridPattern from "@/components/ui/grid-pattern";
+import SpaceBackground from "@/components/ui/space-background";
+import FloatingAstronaut from "@/components/ui/floating-astronaut";
 
 
 const features = [
@@ -141,6 +142,7 @@ const itemVariants = {
     opacity: 1,
     transition: {
       duration: 0.5,
+      ease: "anticipate",
     },
   },
 };
@@ -156,9 +158,11 @@ export default function Home() {
         id="hero"
         className="flex min-h-screen flex-col items-center justify-center px-4 text-center bg-transparent"
       >
+        <SpaceBackground />
+        <FloatingAstronaut />
         
         <motion.div 
-          className="group flex cursor-pointer items-center justify-center gap-4"
+          className="group flex cursor-pointer items-center justify-center gap-4 relative z-10"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
@@ -174,15 +178,15 @@ export default function Home() {
             </motion.div>
         </motion.div>
         <motion.p
-          className="mt-4 max-w-2xl text-lg text-foreground/80 md:text-xl text-balance"
-          variants={itemVariants}
+          className="mt-4 max-w-2xl text-lg text-foreground/80 md:text-xl text-balance relative z-10"
           initial="hidden"
           animate="visible"
+          variants={itemVariants}
         >
           Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú návštevnosť. Poskytujeme expertné SEO stratégie pre váš úspech.
         </motion.p>
         <motion.div
-          className="mt-8 flex flex-wrap justify-center gap-4"
+          className="mt-8 flex flex-wrap justify-center gap-4 relative z-10"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
@@ -236,7 +240,6 @@ export default function Home() {
                       variants={itemVariants}
                   >
                       <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 overflow-hidden hover:-translate-y-2">
-                        <GridPattern />
                           <div className={cn("relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
                               <motion.div 
                                   whileHover={{ scale: 1.2, rotate: -10 }}
@@ -391,5 +394,3 @@ export default function Home() {
     </main>
   );
 }
-
-    
