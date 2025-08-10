@@ -53,7 +53,7 @@ export default function TahakyPage() {
                             <li><strong>Responzívny dizajn:</strong> Stránka sa musí dokonale zobrazovať na všetkých zariadeniach – mobiloch, tabletoch aj desktopoch.</li>
                             <li><strong>SSL certifikát (HTTPS):</strong> Bezpečnosť je dnes štandard a Google weby bez HTTPS penalizuje.</li>
                             <li><strong>Sitemap.xml a Robots.txt:</strong> Tieto súbory dávajú vyhľadávačom mapu vášho webu a inštrukcie, čo (ne)majú indexovať.</li>
-                             <li><strong>Štruktúrované dáta (Schema Markup):</strong> Pomôžte Googlu pochopiť kontext vášho obsahu (recenzie, produkty, udalosti) a získajte tzv. rich snippets vo výsledkoch vyhľadávania.</li>
+                             <li><strong>Štruktúrované dáta (Schema Markup):</strong> Pomôžte Googlu pochopiť kontext vášho obsahu (recenzie, produkty, udalosti) a získajte tak výhodu vo výsledkoch vyhľadávania vo forme rich snippets.</li>
                         </ul>
                     </section>
                     
@@ -79,7 +79,7 @@ export default function TahakyPage() {
                     </section>
                 </article>
 
-                <Card className="mt-16 bg-primary/10 border-primary/20">
+                <Card className="mt-16 bg-primary/10">
                     <CardContent className="p-8">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                             <div className="text-center md:text-left">

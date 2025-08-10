@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -5,12 +6,14 @@ import { useState, useEffect } from 'react';
 // Define the gradient color schemes
 const dayGradient = {
   '--glow-color-from': '#fde047', // yellow-300
-  '--glow-color-to': '#f97316',   // orange-500
+  '--glow-color-mid': '#f97316',   // orange-500
+  '--glow-color-to': '#ec4899',   // pink-500
 };
 
 const nightGradient = {
   '--glow-color-from': '#818cf8', // indigo-400
-  '--glow-color-to': '#d946ef',   // fuchsia-500
+  '--glow-color-mid': '#d946ef',   // fuchsia-500
+  '--glow-color-to': '#0ea5e9',   // sky-500
 };
 
 export function useTimeBasedGradient() {

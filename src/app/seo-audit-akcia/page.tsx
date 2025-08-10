@@ -69,7 +69,7 @@ export default function SeoAuditPage() {
                                 viewport={{ once: true, amount: 0.5 }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
                              >
-                                <Card className="border-primary/20 bg-card/50 backdrop-blur-lg h-full">
+                                <Card className="h-full">
                                     <CardHeader className="items-center text-center">
                                         <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-lg">
                                             {feature.icon}

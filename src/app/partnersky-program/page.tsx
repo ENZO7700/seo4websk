@@ -79,7 +79,7 @@ export default function PartnerProgramPage() {
                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Štedré Provízie pre Vás</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {commissionTiers.map((tier) => (
-                            <Card key={tier.name} className="flex flex-col items-center text-center p-6 border-primary/20 bg-card/50 backdrop-blur-lg">
+                            <Card key={tier.name} className="flex flex-col items-center text-center p-6">
                                 <CardHeader className="items-center">
                                     {tier.icon}
                                     <CardTitle className="mt-4 text-2xl font-bold">{tier.name}</CardTitle>

@@ -90,7 +90,7 @@ export default function ServicesPage() {
                 >
                    {services.map((service) => (
                        <motion.div key={service.title} variants={itemVariants}>
-                            <Card className="flex flex-col overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 h-full">
+                            <Card className="flex flex-col overflow-hidden transition-all duration-300 h-full">
                                 <CardHeader>
                                     <div className="flex items-center gap-3">
                                         <Rocket className="h-6 w-6 text-primary flex-shrink-0"/>

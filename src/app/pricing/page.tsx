@@ -212,7 +212,7 @@ const itemVariants = {
 
 const PricingTierCard = ({ tier }: { tier: any }) => (
   <Card
-    className={`flex flex-col ${tier.isPopular ? 'border-primary shadow-2xl shadow-primary/10' : ''}`}
+    className={`flex flex-col ${tier.isPopular ? 'border-primary' : ''}`}
   >
     <CardHeader>
       <CardTitle className="flex items-center gap-2">
