@@ -133,6 +133,18 @@
   .prose li {
       @apply my-1;
   }
+  .animate-glow {
+    animation: glow 4s linear infinite;
+  }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 4px var(--glow-color-from), 0 0 6px var(--glow-color-to);
+    }
+    50% {
+        box-shadow: 0 0 8px var(--glow-color-from), 0 0 12px var(--glow-color-to);
+    }
 }
 
 html {

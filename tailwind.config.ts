@@ -97,11 +97,20 @@ const config = {
             transform: 'translateY(0)',
           },
         },
+        "glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 4px var(--glow-color-from), 0 0 6px var(--glow-color-to)"
+          },
+          "50%": {
+            boxShadow: "0 0 8px var(--glow-color-from), 0 0 12px var(--glow-color-to)"
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
+        'glow': 'glow 4s linear infinite',
       },
     },
   },
