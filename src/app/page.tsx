@@ -191,7 +191,7 @@ export default function Home() {
                         key={index}
                         variants={itemVariants}
                     >
-                        <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 transition-all duration-300 overflow-hidden">
+                        <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 overflow-hidden">
                             <div className={cn("relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
                                 <motion.div 
                                     whileHover={{ scale: 1.2, rotate: -10 }}
@@ -253,7 +253,7 @@ export default function Home() {
                   variants={itemVariants}
                 >
                 <Card
-                  className="flex h-full flex-col justify-between border-primary/20 bg-card transition-all duration-300"
+                  className="flex h-full flex-col justify-between border-primary/20 bg-card"
                 >
                    <CardHeader>
                       <div className="flex items-center justify-between">
