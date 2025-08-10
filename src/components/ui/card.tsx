@@ -13,7 +13,7 @@ const Card = React.forwardRef<
         ref={ref}
         style={gradientStyle as React.CSSProperties}
         className={cn(
-          "relative rounded-lg border bg-card text-card-foreground shadow-sm before:content-[''] before:absolute before:-z-10 before:inset-0 before:p-px before:rounded-lg before:bg-gradient-to-left-bottom before:from-[--glow-color-from] before:via-[--glow-color-mid] before:to-[--glow-color-to] before:animate-glow",
+          "relative rounded-lg border bg-card text-card-foreground shadow-sm before:content-[''] before:absolute before:-z-10 before:inset-0 before:p-px before:rounded-lg before:bg-gradient-to-br before:from-[--glow-color-from] before:via-[--glow-color-mid] before:to-[--glow-color-to] before:animate-glow",
           className
         )}
         {...props}
