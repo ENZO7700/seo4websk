@@ -7,9 +7,6 @@ const nextConfig: NextConfig = {
     // We've fixed all build errors, so we can remove this.
     // ignoreBuildErrors: true, 
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: [
       {

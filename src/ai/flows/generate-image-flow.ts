@@ -31,7 +31,6 @@ const generateImageFlow = ai.defineFlow(
     outputSchema: GenerateImageOutputSchema,
   },
   async (input) => {
-    console.log(`Generating image for prompt: ${input.prompt}`);
     const { media } = await ai.generate({
       model: 'googleai/gemini-2.0-flash-preview-image-generation',
       prompt: `A high-quality, photorealistic image for a professional technology and marketing website: ${input.prompt}`,
@@ -44,7 +43,6 @@ const generateImageFlow = ai.defineFlow(
       throw new Error('Image generation failed to produce an output.');
     }
     
-    console.log('Image generated successfully.');
     return { imageDataUri: media.url };
   }
 );
