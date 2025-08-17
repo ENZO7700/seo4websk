@@ -45,10 +45,10 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
+            enableSystem={false}
             disableTransitionOnChange
-            themes={['light', 'dark', 'system', 'seo4web']}
+            themes={['light', 'seo4web']}
           >
             <Header />
             <div className="relative">{children}</div>
