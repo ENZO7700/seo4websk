@@ -29,9 +29,8 @@ import {
   Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { HeroSection } from "@/components/layout/hero-section";
-import type { MouseEvent } from 'react';
 
 const features = [
   {
@@ -149,19 +148,10 @@ const itemVariants = {
 
 
 export default function Home() {
-   const mouseX = useMotionValue(0);
-   const mouseY = useMotionValue(0);
-
-   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-       const { left, top } = currentTarget.getBoundingClientRect();
-       mouseX.set(clientX - left);
-       mouseY.set(clientY - top);
-   }
-   
   return (
     <>
-      <main className="overflow-x-hidden" onMouseMove={handleMouseMove}>
-        <HeroSection mouseX={mouseX} mouseY={mouseY} />
+      <main className="overflow-x-hidden">
+        <HeroSection />
 
         <section id="features" className="bg-muted/50 py-20 px-4 sm:py-32">
           <div className="container mx-auto">
@@ -191,7 +181,7 @@ export default function Home() {
                         key={index}
                         variants={itemVariants}
                     >
-                        <Card className="group relative h-full rounded-xl bg-card p-6 border-border/20 overflow-hidden">
+                        <Card className="h-full rounded-xl bg-card p-6 border-border/20 overflow-hidden">
                             <div className={cn("relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg", feature.gradient)}>
                                 <motion.div 
                                     whileHover={{ scale: 1.2, rotate: -10 }}

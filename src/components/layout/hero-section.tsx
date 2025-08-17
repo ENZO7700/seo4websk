@@ -1,13 +1,11 @@
 
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Search, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
-import FloatingAstronaut from '@/components/ui/floating-astronaut';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,6 +13,7 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
@@ -60,70 +59,31 @@ const animatedCharVariants = {
     },
 };
 
-interface HeroSectionProps {
-    mouseX: MotionValue,
-    mouseY: MotionValue,
-}
+const heroText = "seo4web";
 
-
-export function HeroSection({ mouseX, mouseY }: HeroSectionProps) {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ['end end', 'end start'],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.8]);
-  
-  // Scroll-based transforms
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-  const yGrid = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
-
-  // Mouse-based transforms for 4D effect
-  const rotateX = useTransform(mouseY, [0, 500], [10, -10]);
-  const rotateY = useTransform(mouseX, [0, 500], [-10, 10]);
-  
-  const textTransformX = useTransform(mouseX, [0, 500], [-15, 15]);
-  const textTransformY = useTransform(mouseY, [0, 500], [-10, 10]);
-
-  const gridTransformX = useTransform(mouseX, [0, 500], [20, -20]);
-  const gridTransformY = useTransform(mouseY, [0, 500], [20, -20]);
-
-
-  const heroText = "seo4web";
-
+export function HeroSection() {
   return (
-    <motion.section
+    <section
       id="hero"
-      ref={targetRef}
-      style={{ opacity, perspective: '1000px' }}
-      className="relative flex h-screen flex-col items-center justify-center px-4 text-center"
+      className="relative flex h-screen flex-col items-center justify-center px-4 text-center overflow-hidden"
     >
-      <motion.div
-        style={{ y: yGrid, scale, x: gridTransformX, y: gridTransformY, rotateX, rotateY }}
-        className="absolute inset-0 -z-20"
-      >
-        <GridPattern
-          width={40}
-          height={40}
-          x={-1}
-          y={-1}
-          className="[mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"
-        />
-      </motion.div>
-
-      <FloatingAstronaut scrollYProgress={scrollYProgress} mouseX={mouseX} mouseY={mouseY} />
+      <GridPattern
+        width={40}
+        height={40}
+        x={-1}
+        y={-1}
+        className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"
+      />
 
       <motion.div
-        style={{ y, scale, x: textTransformX, y: textTransformY, rotateX, rotateY }}
         className="relative z-10 flex flex-col items-center"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
       >
         <motion.div
           className="group flex cursor-pointer items-center justify-center gap-4"
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
+          variants={itemVariants}
         >
             <motion.h1
                 variants={animatedTextVariants}
@@ -133,14 +93,10 @@ export function HeroSection({ mouseX, mouseY }: HeroSectionProps) {
                     <motion.span key={i} variants={animatedCharVariants}>{char}</motion.span>
                 ))}
             </motion.h1>
-          <motion.div variants={itemVariants}>
             <Search className="h-10 w-10 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent md:h-16 md:w-16" />
-          </motion.div>
         </motion.div>
         <motion.p
           className="mt-4 max-w-2xl text-balance text-lg text-foreground/80 md:text-xl"
-          initial="hidden"
-          animate="visible"
           variants={itemVariants}
         >
           Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú
@@ -148,8 +104,6 @@ export function HeroSection({ mouseX, mouseY }: HeroSectionProps) {
         </motion.p>
         <motion.div
           className="mt-8 flex flex-wrap justify-center gap-4"
-          initial="hidden"
-          animate="visible"
           variants={containerVariants}
         >
           <motion.div variants={itemVariants}>
@@ -167,6 +121,6 @@ export function HeroSection({ mouseX, mouseY }: HeroSectionProps) {
           </motion.div>
         </motion.div>
       </motion.div>
-    </motion.section>
+    </section>
   );
 }
