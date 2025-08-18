@@ -59,10 +59,10 @@ export function HeroSection() {
       >
         <motion.div
           variants={itemVariants}
-          className="mb-6 rounded-full bg-gradient-to-r from-venus-from to-venus-to p-1"
+          className="mb-6 rounded-full p-1 bg-grad-venus"
         >
           <div className="rounded-full bg-galaxy px-4 py-1.5">
-            <p className="text-sm font-medium tracking-wide text-transparent bg-gradient-to-r from-venus-from to-venus-to bg-clip-text">
+            <p className="text-sm font-medium tracking-wide text-transparent bg-grad-venus bg-clip-text">
               Váš Partner pre Digitálny Rast
             </p>
           </div>
@@ -91,7 +91,7 @@ export function HeroSection() {
               <Link href="/seo-audit-akcia">
                 Nechaj si urobiť audit
                 <ArrowRight className="ml-2" />
-              </a >
+              </Link>
             </Button>
           </motion.div>
           <motion.div variants={itemVariants}>
