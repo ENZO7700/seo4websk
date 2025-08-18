@@ -91,7 +91,7 @@ const itemVariants = {
   },
 };
 
-export default function ResourcesPage() {
+export default function BlogPage() {
     const [activeTag, setActiveTag] = useState('Všetky');
 
     const filteredArticles = activeTag === 'Všetky' 
@@ -103,7 +103,7 @@ export default function ResourcesPage() {
             <header className="bg-galaxy py-20 sm:py-24">
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                        Zdroje, Návody a Prípadové Štúdie
+                        Blog, Návody a Prípadové Štúdie
                     </h1>
                     <p className="mt-4 mx-auto max-w-3xl text-lg text-rocket text-balance">
                         Vedomosti sú kľúčom k úspechu. Ponorte sa do našich článkov a získajte cenné informácie zo sveta SEO, PWA a digitálneho marketingu.
@@ -119,7 +119,10 @@ export default function ResourcesPage() {
                             variant={activeTag === tag ? 'default' : 'outline'}
                             onClick={() => setActiveTag(tag)}
                             className={cn(
-                                activeTag !== tag && 'border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light'
+                                'transition-all',
+                                activeTag === tag 
+                                ? 'bg-sky text-light' 
+                                : 'border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light hover:border-aurora/50'
                             )}
                         >
                             {tag}
@@ -129,19 +132,21 @@ export default function ResourcesPage() {
 
                 <motion.div 
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    key={activeTag}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                 >
                     {filteredArticles.map((article, index) => (
-                        <motion.div key={index} variants={itemVariants}>
-                             <Card className="flex flex-col overflow-hidden h-full bg-galaxy border-spaceship text-light transition-transform duration-300 hover:-translate-y-2 hover:border-aurora/50">
+                        <motion.div key={article.title + index} variants={itemVariants}>
+                             <Card className="flex flex-col overflow-hidden h-full bg-galaxy border-spaceship text-light transition-transform duration-300 hover:-translate-y-2 hover:border-aurora/50 group">
                                 <CardContent className="p-0">
                                 <Link href={article.href} className="aspect-video block w-full overflow-hidden relative">
                                     <Image 
                                         src={article.image}
                                         alt={`Ilustračný obrázok pre článok ${article.title}`}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                                         data-ai-hint={article.imageHint}
                                     />

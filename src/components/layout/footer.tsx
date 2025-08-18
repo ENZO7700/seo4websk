@@ -5,7 +5,7 @@ import { Github, Twitter, Linkedin, Facebook, Instagram, Phone, Mail, MapPin } f
 import { cn } from "@/lib/utils";
 
 const footerLinks = [
-    { href: "/zdroje", label: "Zdroje" },
+    { href: "/blog", label: "Blog" },
     { href: "/seo-audit-akcia", label: "Akcia: SEO Audit" },
     { href: "/partnersky-program", label: "Partnerský program" },
     { href: "/contact", label: "Kontakt" },

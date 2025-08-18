@@ -21,7 +21,7 @@ const baseMainNavLinks = [
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
-    { href: "/zdroje", label: "Zdroje" },
+    { href: "/blog", label: "Blog" },
 ];
 
 const resourcesLinks = [
