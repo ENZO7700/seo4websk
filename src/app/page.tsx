@@ -127,8 +127,8 @@ export default function HomePage() {
             animate="visible"
           >
             <motion.h1
-              className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl font-headline text-light"
-              style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.4), 0 0 20px rgba(149, 113, 247, 0.4)' }}
+              className="text-4xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl font-headline"
+              style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.7), 0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(149, 113, 247, 0.4)' }}
               variants={itemVariants}
             >
               Viditeľnosť, ktorá predáva
