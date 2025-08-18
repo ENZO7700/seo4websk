@@ -226,6 +226,28 @@ function KpiCard({ title, value, change, changeType, icon }: KpiCardProps) {
   )
 }
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "anticipate",
+      },
+    },
+  };
+
 function DashboardPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [kpiData, setKpiData] = useState<GenerateKpiDataOutput | null>(null);
@@ -356,94 +378,123 @@ function DashboardPage() {
             </Alert>
         )}
         
-        <section id="kpi-cards" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.section 
+            id="kpi-cards" 
+            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+        >
           {isLoading || !kpiData ? (
             Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-[126px]" />)
           ) : (
-            kpiCards.map((kpi, index) => <KpiCard key={index} {...kpi} />)
+            kpiCards.map((kpi, index) => <motion.div variants={itemVariants} key={index}><KpiCard {...kpi} /></motion.div>)
           )}
-        </section>
+        </motion.section>
         
-        <section id="main-grid" className="grid gap-4 lg:grid-cols-3">
-           <Card className="lg:col-span-2">
-                <CardHeader>
-                    <CardTitle>Najvýkonnejšie Stránky</CardTitle>
-                    <CardDescription>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                     {isLoading ? <Skeleton className="h-[240px]" /> : (
-                        <div className="overflow-x-auto">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Stránka</TableHead>
-                                    <TableHead>Zobrazenia</TableHead>
-                                    <TableHead>Miera Konverzie</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {topPagesData.map((page, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell className="font-medium text-primary hover:underline cursor-pointer">{page.page}</TableCell>
-                                        <TableCell>{formatNumber(page.views)}</TableCell>
-                                        <TableCell>{page.conversion}</TableCell>
+        <motion.section 
+            id="main-grid" 
+            className="grid gap-4 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+        >
+           <motion.div className="lg:col-span-2" variants={itemVariants}>
+            <Card>
+                    <CardHeader>
+                        <CardTitle>Najvýkonnejšie Stránky</CardTitle>
+                        <CardDescription>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        {isLoading ? <Skeleton className="h-[240px]" /> : (
+                            <div className="overflow-x-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Stránka</TableHead>
+                                        <TableHead>Zobrazenia</TableHead>
+                                        <TableHead>Miera Konverzie</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                        </div>
-                    )}
-                </CardContent>
-           </Card>
-           <Card>
-             <CardHeader>
-                <CardTitle>Rozdelenie Zariadení</CardTitle>
-                 <CardDescription>Návštevnosť podľa typu zariadenia.</CardDescription>
-             </CardHeader>
-             <CardContent className="flex items-center justify-center pt-6">
-                {isLoading ? <Skeleton className="h-[250px] w-full" /> : memoizedDeviceChart}
-             </CardContent>
-           </Card>
-        </section>
-
-         <section id="secondary-grid" className="grid gap-4 lg:grid-cols-3">
-             <Card className="lg:col-span-2">
+                                </TableHeader>
+                                <TableBody>
+                                    {topPagesData.map((page, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell className="font-medium text-primary hover:underline cursor-pointer">{page.page}</TableCell>
+                                            <TableCell>{formatNumber(page.views)}</TableCell>
+                                            <TableCell>{page.conversion}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            </div>
+                        )}
+                    </CardContent>
+            </Card>
+           </motion.div>
+           <motion.div variants={itemVariants}>
+            <Card>
                 <CardHeader>
-                    <CardTitle>Výkonnosť Kľúčových Slov</CardTitle>
-                    <CardDescription>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
+                    <CardTitle>Rozdelenie Zariadení</CardTitle>
+                    <CardDescription>Návštevnosť podľa typu zariadenia.</CardDescription>
                 </CardHeader>
-                 <CardContent>
-                     {isLoading ? <Skeleton className="h-[260px]" /> : (
-                        <div className="overflow-x-auto">
-                         <Table>
-                             <TableHeader>
-                                 <TableRow>
-                                     <TableHead>Kľúčové Slovo</TableHead>
-                                     <TableHead>Aktuálna Pozícia</TableHead>
-                                     <TableHead>Zmena (30 dní)</TableHead>
-                                 </TableRow>
-                             </TableHeader>
-                             <TableBody>
-                                 {keywordData.map((kw, index) => (
-                                     <TableRow key={index}>
-                                         <TableCell className="font-medium">{kw.keyword}</TableCell>
-                                         <TableCell className="font-bold text-lg">{kw.position}</TableCell>
-                                         <TableCell>
-                                             <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-green-500' : kw.change < 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
-                                                 {kw.change > 0 ? <TrendingUp size={16} /> : kw.change < 0 ? <TrendingDown size={16} /> : <ArrowRight size={16} />}
-                                                 <span>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
-                                             </div>
-                                         </TableCell>
-                                     </TableRow>
-                                 ))}
-                             </TableBody>
-                         </Table>
-                         </div>
-                    )}
-                 </CardContent>
-             </Card>
-             <HeadlineAnalyzerWidget />
-         </section>
+                <CardContent className="flex items-center justify-center pt-6">
+                    {isLoading ? <Skeleton className="h-[250px] w-full" /> : memoizedDeviceChart}
+                </CardContent>
+            </Card>
+           </motion.div>
+        </motion.section>
+
+         <motion.section 
+            id="secondary-grid" 
+            className="grid gap-4 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+        >
+             <motion.div className="lg:col-span-2" variants={itemVariants}>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Výkonnosť Kľúčových Slov</CardTitle>
+                        <CardDescription>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        {isLoading ? <Skeleton className="h-[260px]" /> : (
+                            <div className="overflow-x-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Kľúčové Slovo</TableHead>
+                                        <TableHead>Aktuálna Pozícia</TableHead>
+                                        <TableHead>Zmena (30 dní)</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {keywordData.map((kw, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell className="font-medium">{kw.keyword}</TableCell>
+                                            <TableCell className="font-bold text-lg">{kw.position}</TableCell>
+                                            <TableCell>
+                                                <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-green-500' : kw.change < 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
+                                                    {kw.change > 0 ? <TrendingUp size={16} /> : kw.change < 0 ? <TrendingDown size={16} /> : <ArrowRight size={16} />}
+                                                    <span>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
+            </motion.div>
+            <motion.div variants={itemVariants}>
+                <HeadlineAnalyzerWidget />
+            </motion.div>
+         </motion.section>
 
         <section id="contact-messages">
           <Card>
