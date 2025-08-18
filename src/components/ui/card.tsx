@@ -1,25 +1,20 @@
 import * as React from "react"
-import { useTimeBasedGradient } from "@/hooks/use-time-based-gradient";
+
 import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-    const gradientStyle = useTimeBasedGradient();
-    
-    return (
-      <div
-        ref={ref}
-        style={gradientStyle as React.CSSProperties}
-        className={cn(
-          "relative rounded-xl border bg-card text-card-foreground shadow-sm before:content-[''] before:absolute before:-z-10 before:inset-0 before:p-px before:rounded-xl before:bg-gradient-to-left-bottom before:from-[--glow-color-from] before:via-[--glow-color-mid] before:to-[--glow-color-to] before:animate-glow",
-          className
-        )}
-        {...props}
-      />
-    )
-})
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+))
 Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<
@@ -35,12 +30,15 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
-  HTMLHeadingElement,
+  HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn("text-2xl font-semibold leading-none tracking-tight", className)}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className
+    )}
     {...props}
   />
 ))
