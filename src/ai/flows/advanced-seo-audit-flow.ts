@@ -114,7 +114,17 @@ async function analyzePage(url: string): Promise<PageData> {
             og: Object.fromEntries($('meta[property^="og:"]').map((_, el) => [$(el).attr('property')!, $(el).attr('content')!]).get()),
             twitter: Object.fromEntries($('meta[name^="twitter:"]').map((_, el) => [$(el).attr('name')!, $(el).attr('content')!]).get()),
             jsonLdTypes: $('script[type="application/ld+json"]').map((_, el) => {
-                try { return JSON.parse($(el).html()!)['@type'] } catch { return 'ParseError' }
+                try {
+                    const parsed = JSON.parse($(el).html()!);
+                    // Handle both single string and array of strings for @type
+                    const type = parsed['@type'];
+                    if (Array.isArray(type)) {
+                        return type.join(', ');
+                    }
+                    return type;
+                } catch {
+                    return 'ParseError';
+                }
             }).get(),
             hasManifest: !!$('link[rel="manifest"]').length,
             hasServiceWorker: !!serviceWorkerScript,
@@ -171,11 +181,11 @@ List the top 10 most impactful and easy-to-implement fixes. For each, briefly st
 
 ## Fix plan
 Organize the identified issues into a 3-wave plan.
-### Vlna 1: Quick Wins (Low Effort, High Impact)
+### Vlna 1: Rýchle víťazstvá (Nízka náročnosť, vysoký dopad)
 List the fixes that can be done quickly and will bring immediate benefits.
-### Vlna 2: High Impact Fixes (Medium Effort, High Impact)
+### Vlna 2: Opravy s vysokým dopadom (Stredná náročnosť, vysoký dopad)
 List more involved fixes that are crucial for long-term success.
-### Vlna 3: Long-term & Foundational (High Effort)
+### Vlna 3: Dlhodobé a základné (Vysoká náročnosť)
 List foundational improvements that require more planning and resources.
 
 ## Code Snippets
@@ -266,29 +276,34 @@ const advancedSeoAuditFlow = ai.defineFlow(
     try {
         const robotsRes = await fetch(new URL('/robots.txt', url).toString());
         if (robotsRes.ok) {
-            // This is a simplified parser. A real one would be more robust.
             const robotsTxt = await robotsRes.text();
             if (robotsTxt.toLowerCase().includes('disallow: /')) {
-                 throw new Error("Crawling is disallowed by robots.txt (Disallow: /). Cannot perform audit.");
+                 // Do not throw an error, just proceed with the single URL. The AI will see the crawl was disallowed.
+                 console.warn("Crawling is disallowed by robots.txt (Disallow: /). Auditing only the main URL.");
+            } else {
+                 // Find 2 more links from the homepage only if crawling is allowed
+                const homeHtml = await (await fetch(url)).text();
+                const $ = cheerio.load(homeHtml);
+                const internalLinks = new Set<string>();
+                $('a[href^="/"]').each((_, el) => {
+                    const href = $(el).attr('href');
+                    if (href && href.length > 1) {
+                        try {
+                           internalLinks.add(new URL(href, url).toString());
+                        } catch (e) {
+                            console.warn(`Could not construct a valid URL from href: ${href}`);
+                        }
+                    }
+                });
+                linksToAudit = [url, ...Array.from(internalLinks).slice(0, 2)];
             }
+        } else {
+             // If robots.txt fetch fails, still proceed with the main URL
+             console.warn("Could not fetch robots.txt, proceeding with main URL only.");
         }
-        
-        // Find 2 more links from the homepage
-        const homeHtml = await (await fetch(url)).text();
-        const $ = cheerio.load(homeHtml);
-        const internalLinks = new Set<string>();
-        $('a[href^="/"]').each((_, el) => {
-            const href = $(el).attr('href');
-            if (href && href.length > 1) {
-                internalLinks.add(new URL(href, url).toString());
-            }
-        });
-        
-        linksToAudit = [url, ...Array.from(internalLinks).slice(0, 2)];
-
     } catch (e) {
-        // Ignore errors for now, just audit the main URL
-        console.error("Could not fetch robots.txt or find internal links", e);
+        // Ignore errors, just audit the main URL
+        console.error("An error occurred while fetching initial data, proceeding with main URL only.", e);
     }
     
     // 2. Analyze pages in parallel
