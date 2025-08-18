@@ -105,7 +105,7 @@ export default function SeoAnalyzerPage() {
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl bg-card/50 backdrop-blur-lg">
+        <Card className="w-full max-w-2xl">
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <div className="relative">
