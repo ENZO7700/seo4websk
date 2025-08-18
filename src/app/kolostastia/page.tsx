@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -17,14 +16,14 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 const segments = [
-  { text: 'SEO Audit Zdarma', color: 'bg-blue-500', icon: <Star /> },
-  { text: '10% Zľava na Link Building', color: 'bg-green-500', icon: <Gift /> },
-  { text: 'Konzultácia Zadarmo', color: 'bg-yellow-500', icon: <Zap /> },
-  { text: 'Analýza Kľúčových Slov', color: 'bg-purple-500', icon: <Star /> },
-  { text: '5% Zľava na On-Page SEO', color: 'bg-indigo-500', icon: <Gift /> },
-  { text: 'Technická SEO Analýza', color: 'bg-pink-500', icon: <Zap /> },
-  { text: 'Bonusový Spätný Odkaz', color: 'bg-red-500', icon: <Star /> },
-  { text: 'Zľava na PWA', color: 'bg-teal-500', icon: <Gift /> },
+  { text: 'SEO Audit Zdarma', color: 'from-blue-500/70 to-blue-800/70', icon: <Star /> },
+  { text: '10% Zľava na Link Building', color: 'from-green-500/70 to-green-800/70', icon: <Gift /> },
+  { text: 'Konzultácia Zadarmo', color: 'from-yellow-500/70 to-yellow-800/70', icon: <Zap /> },
+  { text: 'Analýza Kľúčových Slov', color: 'from-purple-500/70 to-purple-800/70', icon: <Star /> },
+  { text: '5% Zľava na On-Page SEO', color: 'from-indigo-500/70 to-indigo-800/70', icon: <Gift /> },
+  { text: 'Technická SEO Analýza', color: 'from-pink-500/70 to-pink-800/70', icon: <Zap /> },
+  { text: 'Bonusový Spätný Odkaz', color: 'from-red-500/70 to-red-800/70', icon: <Star /> },
+  { text: 'Zľava na PWA', color: 'from-teal-500/70 to-teal-800/70', icon: <Gift /> },
 ];
 
 export default function WheelOfFortunePage() {
@@ -35,7 +34,6 @@ export default function WheelOfFortunePage() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // This ensures the component only renders on the client, preventing hydration mismatches.
     setIsClient(true);
   }, []);
 
@@ -44,122 +42,128 @@ export default function WheelOfFortunePage() {
     setIsSpinning(true);
     setResult(null);
 
-    // This logic is now safely on the client side
     const randomSegment = Math.floor(Math.random() * segments.length);
     const segmentAngle = 360 / segments.length;
-    // Add a bit of randomness to where it lands within the segment
-    const randomAngleWithinSegment = Math.random() * (segmentAngle - 10) + 5; 
+    const randomAngleWithinSegment = Math.random() * (segmentAngle * 0.8) + (segmentAngle * 0.1); 
     
-    // Add multiple full rotations for a better spinning effect
     const fullRotations = 10 * 360; 
     const targetRotation =
       fullRotations + (360 - (randomSegment * segmentAngle + randomAngleWithinSegment));
 
     setRotation(targetRotation);
 
-    // Wait for the animation to finish before showing the result
     setTimeout(() => {
       setIsSpinning(false);
       setResult(segments[randomSegment]);
       setIsModalOpen(true);
-    }, 8000); // This duration should match the CSS transition duration
+    }, 8000); 
   };
   
   if (!isClient) {
-    // Render nothing or a placeholder on the server
     return null;
   }
 
   return (
     <>
-      <main className="container mx-auto flex min-h-screen flex-col items-center justify-center px-4 py-24 sm:py-32 text-center overflow-hidden">
+      <main className="container mx-auto flex min-h-screen flex-col items-center justify-center px-4 py-24 sm:py-32 text-center overflow-hidden bg-space text-light">
         <div className="text-center mb-12">
-           <h1 className="text-4xl font-bold tracking-tighter md:text-6xl font-headline">
+           <h1 className="text-4xl font-bold tracking-tighter md:text-6xl font-headline text-light">
                 Koleso Šťastia
             </h1>
-            <p className="mt-4 mx-auto max-w-2xl text-lg text-foreground/80 text-balance">
+            <p className="mt-4 mx-auto max-w-2xl text-lg text-rocket text-balance">
                 Zatočte si a vyhrajte exkluzívne zľavy a bonusy na naše SEO služby. Skúste svoje šťastie ešte dnes!
             </p>
         </div>
 
-        <div className="relative flex flex-col items-center justify-center select-none">
-            {/* Pointer */}
-             <div className="absolute -top-4 z-20 h-8 w-8 drop-shadow-lg">
-                 <div style={{
-                    clipPath: 'polygon(50% 100%, 0 0, 100% 0)',
-                 }} className="h-8 w-8 bg-primary transform-gpu"></div>
+        <div className="relative flex flex-col items-center justify-center select-none w-full max-w-[500px]">
+            <div className="absolute -top-3 z-20 h-10 w-10 drop-shadow-lg">
+                 <div style={{ clipPath: 'polygon(50% 100%, 0 0, 100% 0)' }} 
+                      className="h-8 w-8 bg-aurora transform-gpu animate-bounce">
+                 </div>
             </div>
 
-            {/* Wheel */}
             <div
-                className="relative h-80 w-80 rounded-full border-8 border-primary/50 shadow-2xl transition-transform duration-[8000ms] ease-in-out"
+                className={cn(
+                    "relative h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full",
+                    "border-8 border-double border-spaceship bg-galaxy shadow-2xl shadow-sky/20",
+                    "transition-transform duration-[8000ms] ease-out"
+                )}
                 style={{ transform: `rotate(${rotation}deg)` }}
             >
                 <div className="absolute inset-0 h-full w-full rounded-full overflow-hidden">
                     {segments.map((segment, index) => {
                         const angle = (360 / segments.length) * index;
                         const skewY = 90 - (360 / segments.length);
-                        const segmentAngle = 360 / segments.length;
                         return (
                             <div
                                 key={index}
                                 className={cn(
-                                    "absolute h-1/2 w-1/2 origin-bottom-right",
+                                    "absolute h-1/2 w-1/2 origin-bottom-right bg-gradient-to-tr",
                                     segment.color
                                 )}
                                 style={{
                                     transform: `rotate(${angle}deg) skewY(-${skewY}deg)`,
+                                    borderLeft: '1px solid hsl(var(--spaceship) / 0.5)',
                                 }}
                             >
                                 <div 
-                                    className="flex flex-col items-center justify-center text-white text-xs font-bold text-center"
+                                    className="flex flex-col items-center justify-start text-white text-xs sm:text-sm font-bold text-center pt-4 sm:pt-6"
                                     style={{
-                                      transform: `skewY(${skewY}deg) rotate(${segmentAngle / 2}deg)`,
+                                      transform: `skewY(${skewY}deg) rotate(${ (360 / segments.length) / 2}deg) translateY(-50%)`,
                                       position: 'absolute',
-                                      top: '20px',
-                                      left: '20px',
-                                      textAlign: 'center',
-                                      width: '100px',
+                                      top: '50%',
+                                      left: '10%',
+                                      width: '80%',
                                       display: 'flex',
                                       flexDirection: 'column',
                                       alignItems: 'center',
                                       gap: '4px',
                                     }}
                                 >
-                                    {segment.icon}
-                                    <span className="block">{segment.text}</span>
+                                    <div className="h-6 w-6 sm:h-8 sm:w-8">{segment.icon}</div>
+                                    <span className="block max-w-[100px] leading-tight pt-1">{segment.text}</span>
                                 </div>
                             </div>
                         )
                     })}
                 </div>
+                 <div
+                    onClick={spinWheel}
+                    role="button"
+                    aria-label="Točiť kolesom"
+                    className="absolute z-10 flex items-center justify-center h-20 w-20 sm:h-28 sm:w-28 rounded-full bg-space border-4 border-sky text-aurora font-bold text-xl uppercase tracking-wider shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}
+                >
+                     {isSpinning ? '...' : 'Točiť'}
+                </div>
             </div>
             
-            {/* Spin Button */}
-            <button
+            <Button
                 onClick={spinWheel}
                 disabled={isSpinning}
-                className="absolute z-10 flex items-center justify-center h-24 w-24 rounded-full bg-background border-4 border-primary text-primary font-bold text-xl uppercase tracking-wider shadow-lg transition-transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                size="lg"
+                className="mt-12 bg-sky hover:bg-night-sky"
             >
-                {isSpinning ? '...' : 'Točiť'}
-            </button>
+                {isSpinning ? 'Veľa šťastia!' : 'Zatočiť Kolesom'}
+            </Button>
         </div>
-
       </main>
 
        {result && (
         <AlertDialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-            <AlertDialogContent>
+            <AlertDialogContent className="bg-galaxy border-spaceship text-light">
                 <AlertDialogHeader>
-                <AlertDialogTitle className="text-2xl text-center font-bold">Gratulujeme!</AlertDialogTitle>
-                <AlertDialogDescription className="text-center text-lg pt-4">
+                <AlertDialogTitle className="text-2xl text-center font-bold text-aurora flex items-center justify-center gap-2">
+                    <Gift /> Gratulujeme!
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-center text-lg pt-4 text-rocket">
                     Vytočili ste si:
-                    <span className="font-bold text-primary block mt-2 text-xl">{result.text}</span>
+                    <span className="font-bold text-light block mt-2 text-xl">{result.text}</span>
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="sm:justify-center">
-                    <Button variant="outline" onClick={() => setIsModalOpen(false)}>Zatočiť znova</Button>
-                     <Button asChild>
+                    <Button variant="outline" onClick={() => setIsModalOpen(false)} className="border-spaceship bg-space-grey hover:bg-space-grey/80">Zatočiť znova</Button>
+                     <Button asChild className="bg-sky hover:bg-night-sky">
                         <Link href="/contact">Uplatniť Výhru</Link>
                     </Button>
                 </AlertDialogFooter>
