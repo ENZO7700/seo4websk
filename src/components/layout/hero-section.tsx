@@ -1,25 +1,23 @@
-
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import styles from '@/styles/hero-section.module.css';
 import { cn } from '@/lib/utils';
 
-// SVG Components for layers to avoid extra requests and allow CSS manipulation
+// SVG Components for layers to allow CSS manipulation and animations
 const Layer1Nebula = () => (
-  <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className={styles.layer1Nebula}>
-    <defs>
-      <radialGradient id="nebulaGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-        <stop offset="0%" stopColor="hsl(var(--venus-from))" stopOpacity="0.6" />
-        <stop offset="50%" stopColor="hsl(var(--venus-to))" stopOpacity="0.2" />
-        <stop offset="100%" stopColor="hsl(var(--space))" stopOpacity="0" />
-      </radialGradient>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#nebulaGradient)" />
-  </svg>
+    <svg width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className={styles.layer1Nebula}>
+        <defs>
+            <radialGradient id="nebulaGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor="hsl(var(--venus-from))" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="hsl(var(--venus-to))" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="hsl(var(--space))" stopOpacity="0" />
+            </radialGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#nebulaGradient)" />
+    </svg>
 );
 
 const Layer2Aurora = () => (
@@ -72,13 +70,22 @@ const Layer3Planet2 = () => (
 
 const HeroSection = () => {
     const sceneRef = useRef<HTMLElement>(null);
-    const isReducedMotion = typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
     let animationFrameId: number;
 
-    const handlePointerMove = (e: PointerEvent) => {
-        if (isReducedMotion || !sceneRef.current) return;
+    const handlePointerMove = (e: MouseEvent | TouchEvent) => {
+        if (!sceneRef.current) return;
 
-        const { clientX, clientY } = e;
+        let clientX, clientY;
+        if (e instanceof MouseEvent) {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        } else if (e.touches && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            return;
+        }
+
         const { innerWidth, innerHeight } = window;
         const x = (clientX - innerWidth / 2) / (innerWidth / 2); // -1 to 1
         const y = (clientY - innerHeight / 2) / (innerHeight / 2); // -1 to 1
@@ -104,26 +111,22 @@ const HeroSection = () => {
         });
     };
     
-    const resetParallax = () => {
-         if (!sceneRef.current) return;
-         const layers = sceneRef.current.querySelectorAll<HTMLElement>('[data-depth]');
-         layers.forEach(layer => {
-            layer.style.transform = `translate3d(0,0,0) rotateX(0) rotateY(0)`;
-         });
-    }
-
     useEffect(() => {
+        const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         if (!isReducedMotion) {
-            window.addEventListener('pointermove', handlePointerMove);
+            window.addEventListener('mousemove', handlePointerMove);
+            window.addEventListener('touchmove', handlePointerMove);
         }
         
         return () => {
             if (!isReducedMotion) {
-                window.removeEventListener('pointermove', handlePointerMove);
+                window.removeEventListener('mousemove', handlePointerMove);
+                window.removeEventListener('touchmove', handlePointerMove);
                 cancelAnimationFrame(animationFrameId);
             }
         };
-    }, [isReducedMotion]);
+    }, []);
 
     return (
         <section
