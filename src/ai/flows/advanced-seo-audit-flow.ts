@@ -114,7 +114,7 @@ async function analyzePage(url: string): Promise<PageData> {
             og: Object.fromEntries($('meta[property^="og:"]').map((_, el) => [$(el).attr('property')!, $(el).attr('content')!]).get()),
             twitter: Object.fromEntries($('meta[name^="twitter:"]').map((_, el) => [$(el).attr('name')!, $(el).attr('content')!]).get()),
             jsonLdTypes: $('script[type="application/ld+json"]').map((_, el) => {
-                try { return JSON.parse($(el).html()!).'@type' } catch { return 'ParseError' }
+                try { return JSON.parse($(el).html()!)['@type'] } catch { return 'ParseError' }
             }).get(),
             hasManifest: !!$('link[rel="manifest"]').length,
             hasServiceWorker: !!serviceWorkerScript,
