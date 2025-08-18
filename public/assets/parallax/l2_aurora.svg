@@ -1,0 +1,13 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <filter id="aurora-glow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M-100,300 C 200,100 400,500 700,300 S 1000,100 1300,400" stroke="currentColor" stroke-width="80" fill="none" stroke-linecap="round" opacity="0.5" filter="url(#aurora-glow)"/>
+  <path d="M-100,500 C 300,700 500,300 800,500 S 1100,700 1300,600" stroke="currentColor" stroke-width="60" fill="none" stroke-linecap="round" opacity="0.7" filter="url(#aurora-glow)"/>
+</svg>

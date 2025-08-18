@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import Image from "next/image";
@@ -29,7 +30,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { HeroSection } from "@/components/layout/hero-section";
+import HeroSection from "@/components/layout/hero-section";
 
 const features = [
   {
@@ -95,7 +96,7 @@ const faqItems = [
     },
     {
         question: "Koľko stojí SEO optimalizácia na Slovensku?",
-        answer: "Cena SEO sa líši v závislosti od rozsahu projektu, konkurencie a cieľov. Menšie projekty môžu začať od 200 € mesačne, zatiaľ čo komplexné stratégie pre veľké e-shopy môžu stáť niekoľko tisíc eur. Pre transparentný prehľad našich cien si pozrite náš <a href='/pricing' class='text-sky underline'>cenník</a>, alebo nás kontaktujte pre cenovú ponuku na mieru."
+        answer: "Cena SEO sa líši v závislosti od rozsahu projektu, konkurencie a cieľov. Menšie projekty môžu začať od 200 € mesačne, zatiaľ čo komplexné stratégie pre veľké e-shopy môžu stáť niekoľko tisíc eur. Pre transparentný prehľad našich cien si pozrite náš <a href=\'/pricing\' class=\'text-sky underline\'>cenník</a>, alebo nás kontaktujte pre cenovú ponuku na mieru."
     }
 ];
 
@@ -228,7 +229,7 @@ export default function Home() {
                           </div>
                           <div className="flex">
                               {[...Array(5)].map((_, i) => (
-                                  <Star key={i} className="w-5 h-5 text-sun-from" fill="currentColor" />
+                                  <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
                               ))}
                           </div>
                       </div>
