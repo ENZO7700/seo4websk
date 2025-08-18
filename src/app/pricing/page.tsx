@@ -10,58 +10,204 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Check, Rocket, Star } from 'lucide-react';
+import { Check, Info, Minus, Rocket, Star } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from "@/components/ui/table"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 const seoTiers = [
-  {
-    name: 'Štart',
-    price: '199 €',
-    priceSuffix: '/mesiac',
-    description: 'Pre začínajúcich podnikateľov a malé blogy.',
-    features: [
-      'Analýza kľúčových slov (do 20)',
-      'Základný SEO audit',
-      'On-page optimalizácia (5 stránok)',
-      'Mesačný report',
-    ],
-    isPopular: false,
-    href: '/sluzby/seo-start',
-  },
-  {
-    name: 'Pro',
-    price: '449 €',
-    priceSuffix: '/mesiac',
-    description: 'Pre rastúce weby, ktoré chcú predbehnúť konkurenciu.',
-    features: [
-      'Všetko v balíku Štart',
-      'Pokročilá analýza kľúčových slov (do 100)',
-      'Technické SEO',
-      'Budovanie 5 spätných odkazov/mesiac',
-      'Google My Business optimalizácia',
-      'Prioritná podpora',
-    ],
-    isPopular: true,
-    href: '/sluzby/seo-expert',
-  },
-  {
-    name: 'Enterprise',
-    price: 'Na mieru',
-    priceSuffix: '',
-    description: 'Pre veľké firmy a najnáročnejších klientov.',
-    features: [
-      'Všetko v balíku Pro',
-      'Komplexná obsahová stratégia',
-      'Intenzívny link building (10+ odkazov)',
-      'Analýza a optimalizácia konverzií (CRO)',
-      'Dedikovaný SEO manažér',
-    ],
-    isPopular: false,
-    href: '/sluzby/seo-enterprise',
-  },
+    // Pre jednotlivcov a malé tímy
+    {
+        name: 'Štart',
+        price: '199 €',
+        priceSuffix: '/mesiac',
+        description: 'Pevné základy pre nové projekty.',
+        href: '/sluzby/seo-start',
+        category: 'Pre jednotlivcov a malé tímy',
+        features: {
+            "Analýza kľúčových slov": "do 20",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "5 stránok",
+            "Technické SEO": false,
+            "Budovanie spätných odkazov": false,
+            "Google Business Profile": false,
+            "Obsahová stratégia": false,
+            "Monitoring konkurencie": false,
+            "Analýza a optimalizácia konverzií (CRO)": false,
+            "Dedikovaný manažér": false,
+            "Mesačný report": true,
+            "Konzultácie": "email",
+        }
+    },
+    {
+        name: 'Rast',
+        price: '349 €',
+        priceSuffix: '/mesiac',
+        description: 'Pre tých, čo chcú predbehnúť konkurenciu.',
+        href: '/sluzby/seo-rast',
+        category: 'Pre jednotlivcov a malé tímy',
+        features: {
+            "Analýza kľúčových slov": "do 50",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "10 stránok",
+            "Technické SEO": true,
+            "Budovanie spätných odkazov": "3/mesiac",
+            "Google Business Profile": true,
+            "Obsahová stratégia": false,
+            "Monitoring konkurencie": false,
+            "Analýza a optimalizácia konverzií (CRO)": false,
+            "Dedikovaný manažér": false,
+            "Mesačný report": true,
+            "Konzultácie": "email",
+        }
+    },
+    // Pre rastúce firmy
+    {
+        name: 'Expert',
+        price: '449 €',
+        priceSuffix: '/mesiac',
+        isPopular: true,
+        description: 'Aktívne budovanie osobnej značky a autority.',
+        href: '/sluzby/seo-expert',
+        category: 'Pre rastúce firmy',
+        features: {
+            "Analýza kľúčových slov": "do 100",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "15 stránok",
+            "Technické SEO": true,
+            "Budovanie spätných odkazov": "5/mesiac",
+            "Google Business Profile": true,
+            "Obsahová stratégia": "Základná",
+            "Monitoring konkurencie": false,
+            "Analýza a optimalizácia konverzií (CRO)": false,
+            "Dedikovaný manažér": false,
+            "Mesačný report": "Pokročilý",
+            "Konzultácie": "1 hod/mesiac",
+        }
+    },
+    {
+        name: 'Líder',
+        price: '599 €',
+        priceSuffix: '/mesiac',
+        description: 'Cesta k dominancii vo vašom segmente.',
+        href: '/sluzby/seo-lider',
+        category: 'Pre rastúce firmy',
+        features: {
+            "Analýza kľúčových slov": "do 150",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "20 stránok",
+            "Technické SEO": true,
+            "Budovanie spätných odkazov": "7/mesiac",
+            "Google Business Profile": true,
+            "Obsahová stratégia": "Pokročilá",
+            "Monitoring konkurencie": true,
+            "Analýza a optimalizácia konverzií (CRO)": false,
+            "Dedikovaný manažér": false,
+            "Mesačný report": "Pokročilý",
+            "Konzultácie": "1 hod/mesiac",
+        }
+    },
+    // Pre lídrov na trhu
+    {
+        name: 'Business',
+        price: '899 €',
+        priceSuffix: '/mesiac',
+        description: 'Komplexný motor pre váš biznis rast.',
+        href: '/sluzby/seo-business',
+        category: 'Pre lídrov na trhu',
+        features: {
+            "Analýza kľúčových slov": "Neobmedzene",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "Priebežne",
+            "Technické SEO": true,
+            "Budovanie spätných odkazov": "10+/mesiac",
+            "Google Business Profile": true,
+            "Obsahová stratégia": "Komplexná",
+            "Monitoring konkurencie": true,
+            "Analýza a optimalizácia konverzií (CRO)": "Základná",
+            "Dedikovaný manažér": false,
+            "Mesačný report": "Biznis report",
+            "Konzultácie": "2 hod/mesiac",
+        }
+    },
+    {
+        name: 'Korporát',
+        price: '1499 €',
+        priceSuffix: '/mesiac',
+        description: 'Pre veľké e-shopy a firmy v konkurenčnom prostredí.',
+        href: '/sluzby/seo-korporat',
+        category: 'Pre lídrov na trhu',
+        features: {
+            "Analýza kľúčových slov": "Neobmedzene",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "Priebežne",
+            "Technické SEO": true,
+            "Budovanie spätných odkazov": "20+/mesiac (Digitálne PR)",
+            "Google Business Profile": true,
+            "Obsahová stratégia": "Komplexná + Tvorba",
+            "Monitoring konkurencie": true,
+            "Analýza a optimalizácia konverzií (CRO)": true,
+            "Dedikovaný manažér": false,
+            "Mesačný report": "Biznis report",
+            "Konzultácie": "Pravidelné porady",
+        }
+    },
+     {
+        name: 'Enterprise',
+        price: 'Na mieru',
+        priceSuffix: '',
+        description: 'Riešenie bez kompromisov pre najnáročnejších.',
+        href: '/sluzby/seo-enterprise',
+        category: 'Pre lídrov na trhu',
+        features: {
+            "Analýza kľúčových slov": "Medzinárodné",
+            "Základný SEO audit": true,
+            "On-page optimalizácia": "Priebežne",
+            "Technické SEO": true,
+            "Budovanie spätných odkazov": "Na mieru",
+            "Google Business Profile": true,
+            "Obsahová stratégia": "Medzinárodná",
+            "Monitoring konkurencie": true,
+            "Analýza a optimalizácia konverzií (CRO)": true,
+            "Dedikovaný manažér": true,
+            "Mesačný report": "Reporting pre Board",
+            "Konzultácie": "Plná integrácia",
+        }
+    },
 ];
+
+const featureRows = [
+    { key: "Analýza kľúčových slov", label: "Analýza kľúčových slov", tooltip: "Počet kľúčových slov, ktoré aktívne sledujeme a optimalizujeme." },
+    { key: "Základný SEO audit", label: "Základný SEO audit", tooltip: "Kompletná prvotná analýza technického stavu, obsahu a on-page faktorov." },
+    { key: "On-page optimalizácia", label: "On-page optimalizácia", tooltip: "Optimalizácia titulkov, meta popisov, nadpisov a obsahu na stránkach." },
+    { key: "Technické SEO", label: "Technické SEO", tooltip: "Optimalizácia rýchlosti, štruktúrovaných dát, indexácie a ďalších technických aspektov." },
+    { key: "Budovanie spätných odkazov", label: "Budovanie spätných odkazov", tooltip: "Počet kvalitných spätných odkazov, ktoré pre vás mesačne získame." },
+    { key: "Google Business Profile", label: "Google Business Profile", tooltip: "Optimalizácia vášho profilu pre lokálne vyhľadávanie a Google Mapy." },
+    { key: "Obsahová stratégia", label: "Obsahová stratégia", tooltip: "Plánovanie a návrh tém a formátov obsahu pre prilákanie cieľovej skupiny." },
+    { key: "Monitoring konkurencie", label: "Monitoring konkurencie", tooltip: "Sledovanie online aktivít vašich hlavných konkurentov." },
+    { key: "Analýza a optimalizácia konverzií (CRO)", label: "Analýza a optimalizácia konverzií (CRO)", tooltip: "Zvyšovanie percenta návštevníkov, ktorí sa stanú zákazníkmi." },
+    { key: "Dedikovaný manažér", label: "Dedikovaný manažér", tooltip: "Pridelená kontaktná osoba pre váš projekt." },
+    { key: "Mesačný report", label: "Mesačný report", tooltip: "Pravidelný prehľad vykonaných prác a dosiahnutých výsledkov." },
+    { key: "Konzultácie", label: "Konzultácie", tooltip: "Čas, ktorý máte k dispozícii na konzultácie a strategické porady." },
+];
+
+const getTiersByCategory = (category: string) => seoTiers.filter(tier => tier.category === category);
+
 
 const pwaTiers = [
     {
@@ -133,7 +279,6 @@ const itemVariants = {
   },
 };
 
-
 const PricingTierCard = ({ tier }: { tier: any }) => (
   <div
     className={cn(
@@ -180,6 +325,82 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
   </div>
 );
 
+const PricingTableSection = ({ title, tiers }: { title: string, tiers: any[] }) => (
+    <div className="mb-16">
+        <h3 className="text-2xl md:text-3xl font-bold text-center mb-8 font-headline text-aurora">{title}</h3>
+        <Card className="bg-galaxy border-spaceship overflow-x-auto">
+            <Table>
+                <TableHeader>
+                    <TableRow className="border-b-spaceship hover:bg-galaxy">
+                        <TableHead className="w-1/4 sticky left-0 bg-galaxy">
+                            Funkcie
+                        </TableHead>
+                        {tiers.map(tier => (
+                            <TableHead key={tier.name} className="text-center w-1/5 min-w-[200px]">
+                                <p className="text-xl font-bold text-light">{tier.name}</p>
+                                <p className="text-xs text-rocket font-normal">{tier.description}</p>
+                            </TableHead>
+                        ))}
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {featureRows.map(feature => (
+                        <TableRow key={feature.key} className="border-b-spaceship hover:bg-space-grey/50">
+                            <TableCell className="font-semibold sticky left-0 bg-galaxy/95 backdrop-blur-sm">
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <span className="flex items-center gap-2 cursor-help">
+                                                {feature.label}
+                                                <Info className="h-4 w-4 text-rocket" />
+                                            </span>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="bg-space-grey text-light border-spaceship max-w-xs">
+                                            <p>{feature.tooltip}</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </TableCell>
+                            {tiers.map(tier => (
+                                <TableCell key={tier.name} className="text-center">
+                                    {tier.features[feature.key] === true && <Check className="h-6 w-6 text-aurora mx-auto" />}
+                                    {tier.features[feature.key] === false && <Minus className="h-6 w-6 text-rocket/50 mx-auto" />}
+                                    {typeof tier.features[feature.key] === 'string' && <span className="text-moon font-medium">{tier.features[feature.key]}</span>}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    ))}
+                    <TableRow className="border-b-0 hover:bg-galaxy">
+                         <TableCell className="font-semibold sticky left-0 bg-galaxy">
+                            Cena
+                         </TableCell>
+                         {tiers.map(tier => (
+                             <TableCell key={tier.name} className="text-center">
+                                 <div className="flex flex-col">
+                                    <span className="text-2xl font-bold text-light">{tier.price}</span>
+                                    {tier.priceSuffix && <span className="text-sm text-rocket">{tier.priceSuffix}</span>}
+                                 </div>
+                             </TableCell>
+                         ))}
+                    </TableRow>
+                     <TableRow className="border-b-0 hover:bg-galaxy">
+                         <TableCell className="sticky left-0 bg-galaxy"></TableCell>
+                         {tiers.map(tier => (
+                             <TableCell key={tier.name} className="text-center">
+                                <Button asChild className={cn("w-full", !tier.isPopular && "bg-space-grey border border-spaceship text-light hover:bg-spaceship")} size="sm">
+                                    <Link href={tier.href}>
+                                        {tier.price === 'Na mieru' ? 'Kontakt' : 'Zvoliť'}
+                                    </Link>
+                                </Button>
+                             </TableCell>
+                         ))}
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </Card>
+    </div>
+);
+
 
 export default function PricingPage() {
   return (
@@ -208,16 +429,14 @@ export default function PricingPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={containerVariants}
             >
-                <motion.h2 variants={itemVariants} className="mb-12 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
-                SEO Služby
+                <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+                 <span className="text-aurora">SEO</span> Služby
                 </motion.h2>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {seoTiers.map((tier) => (
-                        <motion.div key={tier.name} variants={itemVariants}>
-                            <PricingTierCard tier={tier} />
-                        </motion.div>
-                        ))}
-                </div>
+
+                <PricingTableSection title="Pre jednotlivcov a malé tímy" tiers={getTiersByCategory('Pre jednotlivcov a malé tímy')} />
+                <PricingTableSection title="Pre rastúce firmy" tiers={getTiersByCategory('Pre rastúce firmy')} />
+                <PricingTableSection title="Pre lídrov na trhu" tiers={getTiersByCategory('Pre lídrov na trhu')} />
+
             </motion.section>
 
             <motion.section 
@@ -228,8 +447,8 @@ export default function PricingPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={containerVariants}
             >
-                <motion.h2 variants={itemVariants} className="mb-12 text-center text-3xl font-bold tracking-tighter md:text-4xl font-headline">
-                Vývoj Progresívnych Webových Aplikácií (PWA)
+                <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+                 Vývoj <span className="text-aurora">PWA</span>
                 </motion.h2>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                     {pwaTiers.map((tier) => (
