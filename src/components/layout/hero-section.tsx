@@ -37,7 +37,8 @@ export function HeroSection() {
       id="hero"
       className={cn(
         "relative flex h-screen min-h-[700px] flex-col items-center justify-center px-4 text-center overflow-hidden",
-        "bg-space text-light" // Using new theme colors
+        "[--theme-color:var(--space)] text-light",
+        "bg-[--theme-color]"
       )}
     >
       <GridPattern
