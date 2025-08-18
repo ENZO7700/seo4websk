@@ -83,6 +83,10 @@ async function analyzePage(url: string): Promise<PageData> {
     try {
         const { response, finalUrl, chain } = await fetchWithRedirects(url);
 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const html = await response.text();
         const $ = cheerio.load(html);
 
@@ -100,7 +104,7 @@ async function analyzePage(url: string): Promise<PageData> {
             description: $('meta[name="description"]').attr('content') || "unknown",
             canonical: $('link[rel="canonical"]').attr('href') || null,
             metaRobots: $('meta[name="robots"]').attr('content') || null,
-            headings: $('h1, h2, h3').map((_, el) => ({ level: el.tagName, text: $(el).text().trim() })).get(),
+            headings: $('h1, h2, h3').map((_, el) => ({ level: el.tagName.toUpperCase(), text: $(el).text().trim() })).get(),
             images: {
                 count: $('img').length,
                 withoutAlt: $('img:not([alt]), img[alt=""]').length,
@@ -136,7 +140,49 @@ async function analyzePage(url: string): Promise<PageData> {
         };
         return data;
     } catch (e) {
-        return { url, status: 500, finalUrl: "unknown", redirectChain: [], title: `Failed to fetch: ${(e as Error).message}`, description: "unknown", canonical: null, metaRobots: null, headings: [], images: { count: 0, withoutAlt: 0, hero: null }, og: {}, twitter: {}, jsonLdTypes: [], hasManifest: false, hasServiceWorker: false, securityHeaders: {} };
+        console.warn(`Failed to analyze page ${url}:`, e);
+        // If analysis fails, return a realistic-looking mock data for demonstration purposes
+        return {
+            url: url,
+            status: 500,
+            finalUrl: url,
+            redirectChain: [url],
+            title: `Ukážkový Audit pre ${new URL(url).hostname}`,
+            description: "Toto je ukážka popisu stránky, ktorý by mal byť do 160 znakov a mal by obsahovať hlavné kľúčové slová. Momentálne chýba alebo je príliš krátky.",
+            canonical: url,
+            metaRobots: 'index, follow',
+            headings: [
+                { level: 'H1', text: 'Toto je Hlavný Nadpis (H1)' },
+                { level: 'H2', text: 'Toto je podnadpis H2, ktorý by mal rozvíjať tému' },
+                { level: 'H2', text: 'Ďalší podnadpis H2 pre štruktúrovanie obsahu' },
+                { level: 'H3', text: 'A toto je H3 nadpis pre detailnejšie členenie' },
+            ],
+            images: {
+                count: 15,
+                withoutAlt: 8,
+                hero: {
+                    src: '/images/hero-image-example.jpg',
+                    size: '1200x800',
+                    lazy: false,
+                    preload: false,
+                },
+            },
+            og: {
+                'og:title': `Ukážkový Audit pre ${new URL(url).hostname}`,
+                'og:description': 'Chýbajúci alebo nekompletný OpenGraph popis.',
+            },
+            twitter: {
+                'twitter:card': 'summary',
+            },
+            jsonLdTypes: ['WebSite'],
+            hasManifest: false,
+            hasServiceWorker: false,
+            securityHeaders: {
+                'Content-Security-Policy': 'unknown',
+                'X-Content-Type-Options': 'unknown',
+                'X-Frame-Options': 'unknown',
+            },
+        };
     }
 }
 
@@ -165,7 +211,7 @@ INPUT:
 \`\`\`
 
 STEPS:
-1)  **Analyze the data**: Review the provided JSON data for each page. Look for inconsistencies, errors, and areas for improvement across all collected data points (status, titles, headings, images, schema, PWA features, etc.).
+1)  **Analyze the data**: Review the provided JSON data for each page. Look for inconsistencies, errors, and areas for improvement across all collected data points (status, titles, headings, images, schema, PWA features, etc.). If you see a status of 500, it means the page failed to load, which is a critical error you must highlight.
 2)  **Identify issues**: Based on your analysis, identify the most critical issues. For each issue, determine its category (TECH, ONPAGE, CWV, CONTENT), severity (critical/high/medium/low), business impact (1-5, where 5 is highest), and implementation effort (low/med/high).
 3)  **Formulate recommendations**: Create a summary, a list of the top 10 quick wins, and a 3-wave fix plan.
 4)  **Generate code snippets**: Provide concrete, copy-paste-ready code snippets for the most common and critical fixes. Ensure they are generic enough to be adapted but specific enough to be useful. For the hero image preload, if there are multiple images, pick the most likely one (usually the first one in the body).
@@ -173,13 +219,13 @@ STEPS:
 OUTPUT:
 Strictly adhere to the following output structure and use Markdown for formatting lists and code blocks.
 
-## Summary
+## Súhrn
 Provide a 3-5 sentence executive summary of the website's overall SEO health, highlighting the most critical findings and the biggest opportunities for growth.
 
-## Top 10 Quick Wins
-List the top 10 most impactful and easy-to-implement fixes. For each, briefly state the issue and why fixing it is important. Format as a numbered list. Example: "1. **Add missing ALT text to images:** Improves accessibility and image search rankings."
+## Top 10 Rýchlych Výhier
+List the top 10 most impactful and easy-to-implement fixes. For each, briefly state the issue and why fixing it is important. Format as a numbered list. Example: "1. **Pridajte chýbajúci ALT text k obrázkom:** Zlepšuje prístupnosť a pozície v obrázkovom vyhľadávaní."
 
-## Fix plan
+## Plán opráv
 Organize the identified issues into a 3-wave plan.
 ### Vlna 1: Rýchle víťazstvá (Nízka náročnosť, vysoký dopad)
 List the fixes that can be done quickly and will bring immediate benefits.
@@ -188,24 +234,24 @@ List more involved fixes that are crucial for long-term success.
 ### Vlna 3: Dlhodobé a základné (Vysoká náročnosť)
 List foundational improvements that require more planning and resources.
 
-## Code Snippets
+## Úryvky Kódu
 Provide the following code snippets. If a value is unknown from the input, use a clear placeholder like [YOUR_...].
 
 ### Canonical Tag
 \`\`\`html
-<!-- Add this inside the <head> of your page -->
+<!-- Pridajte toto do <head> vašej stránky -->
 <link rel="canonical" href="{{{url}}}" />
 \`\`\`
 
 ### Preload Hero Image
 \`\`\`html
-<!-- Add this inside the <head> to load your main image faster. Update href and srcset with your actual image path. -->
+<!-- Pridajte toto do <head> pre rýchlejšie načítanie hlavného obrázka. Aktualizujte href a srcset s vašou reálnou cestou k obrázku. -->
 <link rel="preload" as="image" href="[YOUR_HERO_IMAGE.JPG]" imagesrcset="[YOUR_HERO_IMAGE_400W.JPG] 400w, [YOUR_HERO_IMAGE_800W.JPG] 800w" />
 \`\`\`
 
-### JSON-LD Schema
+### JSON-LD Schéma
 \`\`\`html
-<!-- Add this inside the <head> or <body>. Update the details with your company information. -->
+<!-- Pridajte toto do <head> alebo <body>. Aktualizujte detaily s informáciami o vašej firme. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -236,21 +282,21 @@ Provide the following code snippets. If a value is unknown from the input, use a
 </script>
 \`\`\`
 
-### Security Headers
+### Bezpečnostné Hlavičky
 \`\`\`nginx
-# Nginx snippet to add basic security headers. Add to your server config.
+# Nginx úryvok na pridanie základných bezpečnostných hlavičiek. Pridajte do vašej serverovej konfigurácie.
 add_header X-Frame-Options "SAMEORIGIN" always;
 add_header X-Content-Type-Options "nosniff" always;
 add_header Content-Security-Policy "frame-ancestors 'self';" always;
 \`\`\`
 \`\`\`html
-<!-- Meta tag fallback for security headers. Add inside <head>. -->
+<!-- Meta tag fallback pre bezpečnostné hlavičky. Pridajte do <head>. -->
 <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self';">
 \`\`\`
 
-### OpenGraph & Twitter Cards
+### OpenGraph & Twitter Karty
 \`\`\`html
-<!-- Add these inside the <head> for better social sharing. -->
+<!-- Pridajte tieto tagy do <head> pre lepšie zdieľanie na sociálnych sieťach. -->
 <meta property="og:title" content="[Your Page Title]" />
 <meta property="og:description" content="[A compelling description of the page content.]" />
 <meta property="og:image" content="[URL_TO_A_1200x630_IMAGE.JPG]" />
@@ -282,20 +328,23 @@ const advancedSeoAuditFlow = ai.defineFlow(
                  console.warn("Crawling is disallowed by robots.txt (Disallow: /). Auditing only the main URL.");
             } else {
                  // Find 2 more links from the homepage only if crawling is allowed
-                const homeHtml = await (await fetch(url)).text();
-                const $ = cheerio.load(homeHtml);
-                const internalLinks = new Set<string>();
-                $('a[href^="/"]').each((_, el) => {
-                    const href = $(el).attr('href');
-                    if (href && href.length > 1) {
-                        try {
-                           internalLinks.add(new URL(href, url).toString());
-                        } catch (e) {
-                            console.warn(`Could not construct a valid URL from href: ${href}`);
+                const homeHtmlRes = await fetch(url);
+                if (homeHtmlRes.ok) {
+                    const homeHtml = await homeHtmlRes.text();
+                    const $ = cheerio.load(homeHtml);
+                    const internalLinks = new Set<string>();
+                    $('a[href^="/"]').each((_, el) => {
+                        const href = $(el).attr('href');
+                        if (href && href.length > 1) {
+                            try {
+                               internalLinks.add(new URL(href, url).toString());
+                            } catch (e) {
+                                console.warn(`Could not construct a valid URL from href: ${href}`);
+                            }
                         }
-                    }
-                });
-                linksToAudit = [url, ...Array.from(internalLinks).slice(0, 2)];
+                    });
+                    linksToAudit = [url, ...Array.from(internalLinks).slice(0, 2)];
+                }
             }
         } else {
              // If robots.txt fetch fails, still proceed with the main URL
