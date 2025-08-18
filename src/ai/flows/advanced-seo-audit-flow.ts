@@ -80,110 +80,64 @@ async function fetchWithRedirects(url: string, redirectChain: string[] = []): Pr
 
 
 async function analyzePage(url: string): Promise<PageData> {
-    try {
-        const { response, finalUrl, chain } = await fetchWithRedirects(url);
+    const { response, finalUrl, chain } = await fetchWithRedirects(url);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const html = await response.text();
-        const $ = cheerio.load(html);
-
-        const heroImgEl = $('body img').first();
-
-        // Check for Service Worker registration
-        const serviceWorkerScript = $('script').filter((_, el) => $(el).text().includes('serviceWorker.register')).text();
-        
-        const data: PageData = {
-            url,
-            status: response.status,
-            finalUrl,
-            redirectChain: chain,
-            title: $('title').text() || "unknown",
-            description: $('meta[name="description"]').attr('content') || "unknown",
-            canonical: $('link[rel="canonical"]').attr('href') || null,
-            metaRobots: $('meta[name="robots"]').attr('content') || null,
-            headings: $('h1, h2, h3').map((_, el) => ({ level: el.tagName.toUpperCase(), text: $(el).text().trim() })).get(),
-            images: {
-                count: $('img').length,
-                withoutAlt: $('img:not([alt]), img[alt=""]').length,
-                hero: heroImgEl.length ? {
-                    src: heroImgEl.attr('src') || null,
-                    size: `${heroImgEl.attr('width') || 'unknown'}x${heroImgEl.attr('height') || 'unknown'}`,
-                    lazy: heroImgEl.attr('loading') === 'lazy',
-                    preload: !!$(`link[rel="preload"][href="${heroImgEl.attr('src')}"]`).length,
-                } : null,
-            },
-            og: Object.fromEntries($('meta[property^="og:"]').map((_, el) => [$(el).attr('property')!, $(el).attr('content')!]).get()),
-            twitter: Object.fromEntries($('meta[name^="twitter:"]').map((_, el) => [$(el).attr('name')!, $(el).attr('content')!]).get()),
-            jsonLdTypes: $('script[type="application/ld+json"]').map((_, el) => {
-                try {
-                    const parsed = JSON.parse($(el).html()!);
-                    // Handle both single string and array of strings for @type
-                    const type = parsed['@type'];
-                    if (Array.isArray(type)) {
-                        return type.join(', ');
-                    }
-                    return type;
-                } catch {
-                    return 'ParseError';
-                }
-            }).get(),
-            hasManifest: !!$('link[rel="manifest"]').length,
-            hasServiceWorker: !!serviceWorkerScript,
-            securityHeaders: {
-                'Content-Security-Policy': response.headers.get('Content-Security-Policy') || "unknown",
-                'X-Content-Type-Options': response.headers.get('X-Content-Type-Options') || "unknown",
-                'X-Frame-Options': response.headers.get('X-Frame-Options') || "unknown",
-            },
-        };
-        return data;
-    } catch (e) {
-        console.warn(`Failed to analyze page ${url}:`, e);
-        // If analysis fails, return a realistic-looking mock data for demonstration purposes
-        return {
-            url: url,
-            status: 500,
-            finalUrl: url,
-            redirectChain: [url],
-            title: `Ukážkový Audit pre ${new URL(url).hostname}`,
-            description: "Toto je ukážka popisu stránky, ktorý by mal byť do 160 znakov a mal by obsahovať hlavné kľúčové slová. Momentálne chýba alebo je príliš krátky.",
-            canonical: url,
-            metaRobots: 'index, follow',
-            headings: [
-                { level: 'H1', text: 'Toto je Hlavný Nadpis (H1)' },
-                { level: 'H2', text: 'Toto je podnadpis H2, ktorý by mal rozvíjať tému' },
-                { level: 'H2', text: 'Ďalší podnadpis H2 pre štruktúrovanie obsahu' },
-                { level: 'H3', text: 'A toto je H3 nadpis pre detailnejšie členenie' },
-            ],
-            images: {
-                count: 15,
-                withoutAlt: 8,
-                hero: {
-                    src: '/images/hero-image-example.jpg',
-                    size: '1200x800',
-                    lazy: false,
-                    preload: false,
-                },
-            },
-            og: {
-                'og:title': `Ukážkový Audit pre ${new URL(url).hostname}`,
-                'og:description': 'Chýbajúci alebo nekompletný OpenGraph popis.',
-            },
-            twitter: {
-                'twitter:card': 'summary',
-            },
-            jsonLdTypes: ['WebSite'],
-            hasManifest: false,
-            hasServiceWorker: false,
-            securityHeaders: {
-                'Content-Security-Policy': 'unknown',
-                'X-Content-Type-Options': 'unknown',
-                'X-Frame-Options': 'unknown',
-            },
-        };
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    const heroImgEl = $('body img').first();
+
+    // Check for Service Worker registration
+    const serviceWorkerScript = $('script').filter((_, el) => $(el).text().includes('serviceWorker.register')).text();
+    
+    const data: PageData = {
+        url,
+        status: response.status,
+        finalUrl,
+        redirectChain: chain,
+        title: $('title').text() || "unknown",
+        description: $('meta[name="description"]').attr('content') || "unknown",
+        canonical: $('link[rel="canonical"]').attr('href') || null,
+        metaRobots: $('meta[name="robots"]').attr('content') || null,
+        headings: $('h1, h2, h3').map((_, el) => ({ level: el.tagName.toUpperCase(), text: $(el).text().trim() })).get(),
+        images: {
+            count: $('img').length,
+            withoutAlt: $('img:not([alt]), img[alt=""]').length,
+            hero: heroImgEl.length ? {
+                src: heroImgEl.attr('src') || null,
+                size: `${heroImgEl.attr('width') || 'unknown'}x${heroImgEl.attr('height') || 'unknown'}`,
+                lazy: heroImgEl.attr('loading') === 'lazy',
+                preload: !!$(`link[rel="preload"][href="${heroImgEl.attr('src')}"]`).length,
+            } : null,
+        },
+        og: Object.fromEntries($('meta[property^="og:"]').map((_, el) => [$(el).attr('property')!, $(el).attr('content')!]).get()),
+        twitter: Object.fromEntries($('meta[name^="twitter:"]').map((_, el) => [$(el).attr('name')!, $(el).attr('content')!]).get()),
+        jsonLdTypes: $('script[type="application/ld+json"]').map((_, el) => {
+            try {
+                const parsed = JSON.parse($(el).html()!);
+                // Handle both single string and array of strings for @type
+                const type = parsed['@type'];
+                if (Array.isArray(type)) {
+                    return type.join(', ');
+                }
+                return type;
+            } catch {
+                return 'ParseError';
+            }
+        }).get(),
+        hasManifest: !!$('link[rel="manifest"]').length,
+        hasServiceWorker: !!serviceWorkerScript,
+        securityHeaders: {
+            'Content-Security-Policy': response.headers.get('Content-Security-Policy') || "unknown",
+            'X-Content-Type-Options': response.headers.get('X-Content-Type-Options') || "unknown",
+            'X-Frame-Options': response.headers.get('X-Frame-Options') || "unknown",
+        },
+    };
+    return data;
 }
 
 
@@ -368,5 +322,3 @@ const advancedSeoAuditFlow = ai.defineFlow(
     return output;
   }
 );
-
-    
