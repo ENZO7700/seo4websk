@@ -19,7 +19,6 @@ const baseMainNavLinks = [
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
-    { href: "/blog", label: "Blog" },
 ];
 
 const resourcesLinks = [
@@ -80,9 +79,17 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <Link
+                href="/blog"
+                className={cn(
+                  "text-foreground/70 transition-colors hover:text-foreground"
+                )}
+              >
+                Blog
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
-                Blog
+                Zdroje
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -149,10 +156,19 @@ export function Header() {
                                     {link.label}
                                     </Link>
                                ))}
+                                <Link
+                                    href="/blog"
+                                    className={cn(
+                                        "text-foreground/80 transition-colors hover:text-foreground block"
+                                    )}
+                                    onClick={() => setIsSheetOpen(false)}
+                                    >
+                                    Blog
+                                </Link>
                                 <div>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-foreground/80 transition-colors hover:text-foreground focus:outline-none">
-                                            Blog
+                                            Zdroje
                                             <ChevronDown className="h-5 w-5" />
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent>
@@ -187,6 +203,7 @@ export function Header() {
             </div>
           </div>
         </div>
+      </div>
     </header>
   );
 }
