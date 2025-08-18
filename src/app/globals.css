@@ -79,37 +79,51 @@
   }
 
   .seo4web {
-    --background: 222 84% 4%; /* --space: #030C1A; */
-    --foreground: 225 25% 94%; /* --light: #F3F5F8; */
-
-    --card: 224 64% 11%; /* --galaxy: #0B182B; */
+    --background: 222 84% 4%;
+    --foreground: 225 25% 94%;
+    --card: 224 64% 11%;
     --card-foreground: 225 25% 94%;
- 
     --popover: 222 84% 4%;
     --popover-foreground: 225 25% 94%;
- 
-    /* Brand */
-    --primary: 214 93% 57%; /* --sky: #1D74F6; */
+    --primary: 214 93% 57%;
     --primary-foreground: 225 25% 94%;
- 
-    --secondary: 223 39% 33%; /* --spaceship: #384A66; */
+    --secondary: 223 39% 33%;
     --secondary-foreground: 225 25% 94%;
- 
     --muted: 223 39% 33%;
-    --muted-foreground: 223 21% 54%; /* --rocket: #6B7D99; */
- 
-    --accent: 149 71% 58%; /* --aurora: #38E08C; */
+    --muted-foreground: 223 21% 54%;
+    --accent: 149 71% 58%;
     --accent-foreground: 222 84% 4%;
- 
-    --destructive: 0 100% 66%; /* --mars: #FF5050; */
+    --destructive: 0 100% 66%;
     --destructive-foreground: 225 25% 94%;
-
-    --border: 223 39% 33%; /* --spaceship: #384A66; */
-    --input: 226 35% 15%; /* --space-grey: #121F39; */
-    --ring: 149 71% 58%; /* --aurora: #38E08C; */
- 
+    --border: 223 39% 33%;
+    --input: 226 35% 15%;
+    --ring: 149 71% 58%;
     --radius: 0.75rem;
 
+    /* Custom theme colors */
+    --sky: 214 93% 57%;
+    --night-sky: 214 93% 47%;
+    --aurora: 149 71% 58%;
+    --mars: 0 100% 66%;
+    --venus-from: 350 100% 62%;
+    --venus-to: 45 85% 58%;
+    --sun-from: 45 85% 58%;
+    --sun-to: 35 90% 65%;
+    --space: 222 84% 4%;
+    --galaxy: 224 64% 11%;
+    --space-grey: 226 35% 15%;
+    --spaceship: 223 39% 33%;
+    --rocket: 223 21% 54%;
+    --spacesuit: 225 15% 74%;
+    --smoke: 225 15% 74%;
+    --moon: 225 15% 74%;
+    --light: 225 25% 94%;
+    
+    /* Gradients */
+    --grad-venus: linear-gradient(to right, hsl(var(--venus-from)), hsl(var(--venus-to)));
+    --grad-sun: linear-gradient(to right, hsl(var(--sun-from)), hsl(var(--sun-to)));
+
+    /* Chart colors for seo4web theme */
     --chart-1: 214 93% 57%;
     --chart-2: 149 71% 58%;
     --chart-3: 350 100% 62%;
