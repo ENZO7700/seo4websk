@@ -31,6 +31,28 @@ const auditFeatures = [
     },
 ]
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: "anticipate",
+    },
+  },
+};
+
 export default function SeoAuditPage() {
     return (
         <div className="bg-background text-foreground">
@@ -60,14 +82,17 @@ export default function SeoAuditPage() {
             <main className="container mx-auto py-16 px-4">
                 <section id="what-you-get" className="max-w-5xl mx-auto mb-20">
                      <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Čo Získate v Rámci Auditu?</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <motion.div 
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={containerVariants}
+                    >
                         {auditFeatures.map((feature, index) => (
                              <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.5 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                variants={itemVariants}
                              >
                                 <Card className="h-full">
                                     <CardHeader className="items-center text-center">
@@ -84,7 +109,7 @@ export default function SeoAuditPage() {
                                 </Card>
                             </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </section>
                 
                  <section id="process" className="grid items-center gap-12 md:grid-cols-2 mb-20">

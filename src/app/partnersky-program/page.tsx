@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, ArrowRight, Award, Users, DollarSign, Handshake } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const processSteps = [
     {
@@ -45,6 +46,28 @@ const commissionTiers = [
     },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: "anticipate",
+    },
+  },
+};
+
 
 export default function PartnerProgramPage() {
     return (
@@ -64,33 +87,47 @@ export default function PartnerProgramPage() {
             <main className="container mx-auto py-24 px-4">
                 <section id="how-it-works" className="max-w-5xl mx-auto mb-24">
                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Ako to funguje?</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={containerVariants}
+                    >
                         {processSteps.map((step) => (
-                            <div key={step.step} className="flex flex-col items-center">
+                            <motion.div key={step.step} className="flex flex-col items-center" variants={itemVariants}>
                                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground font-bold text-2xl mb-4">{step.step}</div>
                                 <h3 className="text-xl font-bold mb-2">{step.title}</h3>
                                 <p className="text-muted-foreground text-balance">{step.description}</p>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </section>
 
                  <section id="commissions" className="mb-24">
                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Štedré Provízie pre Vás</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={containerVariants}
+                    >
                         {commissionTiers.map((tier) => (
-                            <Card key={tier.name} className="flex flex-col items-center text-center p-6">
-                                <CardHeader className="items-center">
-                                    {tier.icon}
-                                    <CardTitle className="mt-4 text-2xl font-bold">{tier.name}</CardTitle>
-                                    <p className="text-3xl font-bold text-primary mt-2">{tier.commission}</p>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground">{tier.description}</p>
-                                </CardContent>
-                            </Card>
+                            <motion.div key={tier.name} variants={itemVariants}>
+                                <Card className="flex flex-col items-center text-center p-6 h-full">
+                                    <CardHeader className="items-center">
+                                        {tier.icon}
+                                        <CardTitle className="mt-4 text-2xl font-bold">{tier.name}</CardTitle>
+                                        <p className="text-3xl font-bold text-primary mt-2">{tier.commission}</p>
+                                    </CardHeader>
+                                    <CardContent className="flex-grow">
+                                        <p className="text-muted-foreground">{tier.description}</p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                  </section>
 
                  <section id="benefits" className="grid items-center gap-12 md:grid-cols-2 mb-20">
