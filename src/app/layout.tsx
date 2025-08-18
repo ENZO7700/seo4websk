@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch. Špecializujeme sa na analýzu kľúčových slov, on-page SEO, link building a technické SEO.",
   keywords: "SEO, optimalizácia pre vyhľadávače, SEO agentúra, link building, technické SEO, on-page SEO, seo4web, PWA",
   manifest: "/manifest.webmanifest",
-  themeColor: "#4338ca",
+  themeColor: "#1D74F6",
 };
 
 const fontBody = Inter({
@@ -48,7 +48,7 @@ export default function RootLayout({
             defaultTheme="light"
             enableSystem={false}
             disableTransitionOnChange
-            themes={['light', 'seo4web']}
+            themes={['light', 'dark', 'seo4web']}
           >
             <Header />
             <div className="relative">{children}</div>
