@@ -6,15 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose, SheetDescription } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 import { Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
-
 
 const baseMainNavLinks = [
     { href: "/#features", label: "SEO Služby" },
@@ -34,26 +32,6 @@ const resourcesLinks = [
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
 
-const navContainerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const navItemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      ease: "anticipate",
-      duration: 0.5,
-    },
-  },
-};
 
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -76,8 +54,6 @@ export function Header() {
       router.push('/');
     }
   };
-
-  const allLinks = [...mainNavLinks];
   
   return (
     <header
@@ -106,7 +82,7 @@ export function Header() {
             ))}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
-                Nástroje
+                Blog
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -150,7 +126,6 @@ export function Header() {
                                     <span className="font-headline">seo4web</span>
                                 </Link>
                             </SheetTitle>
-                            <SheetDescription className="sr-only">Hlavná navigácia pre mobilné zariadenia</SheetDescription>
                             <SheetClose asChild>
                                 <Button variant="ghost" size="icon">
                                     <X className="h-5 w-5" />
@@ -159,28 +134,38 @@ export function Header() {
                             </SheetClose>
                         </SheetHeader>
                        <div className="flex flex-col h-full py-6">
-                            <motion.nav 
+                            <nav 
                                 className="flex flex-col gap-6 text-lg font-medium"
-                                initial="hidden"
-                                animate="visible"
-                                variants={navContainerVariants}
                             >
-                               {allLinks.map((link) => (
-                                   !link.separator && 
-                                   <motion.div key={link.href} variants={navItemVariants}>
-                                       <Link
-                                        href={link.href!}
-                                        className={cn(
-                                          "text-foreground/80 transition-colors hover:text-foreground block",
-                                          link.isHot && 'text-primary font-bold'
-                                        )}
-                                        onClick={() => setIsSheetOpen(false)}
-                                        >
-                                        {link.label}
-                                        </Link>
-                                   </motion.div>
-                                ))}
-                            </motion.nav>
+                               {mainNavLinks.map((link) => (
+                                   <Link
+                                    key={link.href}
+                                    href={link.href!}
+                                    className={cn(
+                                        "text-foreground/80 transition-colors hover:text-foreground block"
+                                    )}
+                                    onClick={() => setIsSheetOpen(false)}
+                                    >
+                                    {link.label}
+                                    </Link>
+                               ))}
+                                <div>
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-foreground/80 transition-colors hover:text-foreground focus:outline-none">
+                                            Blog
+                                            <ChevronDown className="h-5 w-5" />
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                            {resourcesLinks.map((link, index) => (
+                                                link.separator ? <DropdownMenuSeparator key={`sep-${index}`} /> :
+                                                <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-primary font-bold focus:text-primary')}>
+                                                    <Link href={link.href} onClick={() => setIsSheetOpen(false)}>{link.label}</Link>
+                                                </DropdownMenuItem>
+                                            ))}
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+                            </nav>
                              <div className="mt-auto pt-8 space-y-4">
                                 {user ? (
                                     <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full">
@@ -202,7 +187,6 @@ export function Header() {
             </div>
           </div>
         </div>
-      </div>
     </header>
   );
 }
