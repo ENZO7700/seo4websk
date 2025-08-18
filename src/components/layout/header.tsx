@@ -21,6 +21,7 @@ const baseMainNavLinks = [
     { href: "/sluzby", label: "PWA Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
+    { href: "/zdroje", label: "Zdroje" },
 ];
 
 const resourcesLinks = [
@@ -76,7 +77,7 @@ export function Header() {
     }
   };
 
-  const allLinks = [...mainNavLinks, ...resourcesLinks];
+  const allLinks = [...mainNavLinks];
   
   return (
     <header
@@ -105,7 +106,7 @@ export function Header() {
             ))}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
-                Zdroje
+                Nástroje
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
