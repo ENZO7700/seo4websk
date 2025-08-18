@@ -114,8 +114,18 @@ async function analyzePage(url: string): Promise<PageData> {
                 preload: !!$(`link[rel="preload"][href="${heroImgEl.attr('src')}"]`).length,
             } : null,
         },
-        og: Object.fromEntries($('meta[property^="og:"]').map((_, el) => [$(el).attr('property')!, $(el).attr('content')!]).get()),
-        twitter: Object.fromEntries($('meta[name^="twitter:"]').map((_, el) => [$(el).attr('name')!, $(el).attr('content')!]).get()),
+        og: Object.fromEntries(
+            $('meta[property^="og:"]')
+              .filter((_, el) => $(el).attr('content'))
+              .map((_, el) => [$(el).attr('property')!, $(el).attr('content')!])
+              .get()
+          ),
+        twitter: Object.fromEntries(
+            $('meta[name^="twitter:"]')
+              .filter((_, el) => $(el).attr('content'))
+              .map((_, el) => [$(el).attr('name')!, $(el).attr('content')!])
+              .get()
+          ),
         jsonLdTypes: $('script[type="application/ld+json"]').map((_, el) => {
             try {
                 const parsed = JSON.parse($(el).html()!);
