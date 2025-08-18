@@ -138,7 +138,7 @@ export default function AnalyzerPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card className="bg-card/50 backdrop-blur-lg">
+                <Card>
                 <CardHeader>
                     <CardTitle className="text-xl font-semibold text-center">
                     Analýza dokončená

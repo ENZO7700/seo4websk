@@ -118,7 +118,7 @@ export default function ImageGeneratorPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card className="bg-card/50 backdrop-blur-lg overflow-hidden">
+                <Card className="overflow-hidden">
                 <CardHeader>
                     <CardTitle className="text-xl font-semibold text-center">
                     Váš obrázok je hotový!
