@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -139,7 +140,7 @@ const HeroSection = () => {
       </div>
       
       <div className={styles.layer} ref={layerRefs.l1} data-depth="0.2" aria-hidden="true">
-        <Image src="/assets/parallax/l1_nebula.svg" alt="" fill className={styles.layer1Nebula} />
+         <Image src="/assets/parallax/l1_nebula.svg" alt="" fill className={styles.layer1Nebula} />
       </div>
 
       <div className={styles.layer} ref={layerRefs.l2} data-depth="0.45" aria-hidden="true">
@@ -181,5 +182,3 @@ const HeroSection = () => {
 
 export default HeroSection;
 
-
-    
