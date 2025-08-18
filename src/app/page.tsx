@@ -25,7 +25,8 @@ import {
   ArrowRight,
   Sparkles,
   Users,
-  Star
+  Star,
+  FlaskConical
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -189,7 +190,39 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="testimonials" className="bg-space py-20 px-4 sm:py-32">
+         <section id="experiments" className="bg-space py-20 px-4 sm:py-32">
+            <div className="container mx-auto max-w-4xl text-center">
+                 <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={containerVariants}
+                >
+                    <motion.div variants={itemVariants} className="flex justify-center mb-4">
+                        <FlaskConical className="h-10 w-10 text-aurora" />
+                    </motion.div>
+                    <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-light">
+                        Navštívte Naše Laboratórium
+                    </motion.h2>
+                    <motion.p variants={itemVariants} className="mx-auto mt-4 max-w-2xl text-lg text-rocket text-balance">
+                        Objavte interaktívne vizuálne experimenty, kde spájame technológiu a umenie.
+                    </motion.p>
+                    <motion.div 
+                        variants={itemVariants}
+                        className="mt-8"
+                    >
+                        <Button asChild size="lg" variant="outline" className="border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light">
+                            <Link href="/experimenty">
+                                Preskúmať Experimenty
+                                <ArrowRight className="ml-2" />
+                            </Link>
+                        </Button>
+                    </motion.div>
+                </motion.div>
+            </div>
+        </section>
+
+        <section id="testimonials" className="bg-galaxy py-20 px-4 sm:py-32">
           <div className="container mx-auto">
             <motion.div 
               className="mb-12 text-center"
@@ -245,7 +278,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="faq" className="bg-galaxy py-20 px-4 sm:py-32">
+        <section id="faq" className="bg-space py-20 px-4 sm:py-32">
             <div className="container mx-auto max-w-4xl">
                 <div className="mb-12 text-center">
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-light">
@@ -265,7 +298,7 @@ export default function Home() {
             </div>
         </section>
 
-        <section id="about" className="bg-space py-20 px-4 sm:py-32">
+        <section id="about" className="bg-galaxy py-20 px-4 sm:py-32">
           <div className="container mx-auto grid items-center gap-12 md:grid-cols-2">
             <div>
               <Image
