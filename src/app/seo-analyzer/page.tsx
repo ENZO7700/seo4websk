@@ -169,9 +169,15 @@ export default function SeoAnalyzerPage() {
                                 <TabsTrigger value="plan"><Goal className="mr-2" />Plán Opráv</TabsTrigger>
                                 <TabsTrigger value="snippets"><Code className="mr-2" />Kód</TabsTrigger>
                             </TabsList>
-                            <TabsContent value="summary" className="prose dark:prose-invert max-w-none pt-4" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />')}}/>
-                            <TabsContent value="wins" className="prose dark:prose-invert max-w-none pt-4" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />')}}/>
-                            <TabsContent value="plan" className="prose dark:prose-invert max-w-none pt-4" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />')}}/>
+                            <TabsContent value="summary" className="pt-4">
+                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />') }} />
+                            </TabsContent>
+                             <TabsContent value="wins" className="pt-4">
+                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />') }} />
+                            </TabsContent>
+                             <TabsContent value="plan" className="pt-4">
+                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />') }} />
+                            </TabsContent>
                             <TabsContent value="snippets" className="pt-4">
                                 <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
                                 <CodeSnippet title="Preload Hero Image" code={analysisResult.snippets.preloadHero} lang="html" />
