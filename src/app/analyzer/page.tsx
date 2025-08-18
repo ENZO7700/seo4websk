@@ -55,7 +55,6 @@ export default function AnalyzerPage() {
           const audioResult = await generateAudio({ text: result.analysis });
           setAudioDataUri(audioResult.audioDataUri);
       } catch (audioErr) {
-          console.error("Audio generation failed:", audioErr);
           // Non-critical error, so we just log it and don't show a blocking error
           toast({
             variant: 'default',

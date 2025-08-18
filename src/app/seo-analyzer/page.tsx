@@ -69,7 +69,6 @@ export default function SeoAnalyzerPage() {
           const audioResult = await generateAudio({ text: result.analysis });
           setAudioDataUri(audioResult.audioDataUri);
       } catch (audioErr) {
-          console.error("Audio generation failed:", audioErr);
           toast({
             variant: 'default',
             title: 'Audio sa nepodarilo vygenerovať',
@@ -80,7 +79,6 @@ export default function SeoAnalyzerPage() {
       }
 
     } catch (err) {
-      console.error('Nepodarilo sa analyzovať SEO:', err);
       const errorMessage = err instanceof Error ? err.message : 'Vyskytol sa neznámy problém s AI. Skúste to prosím znova.';
       setError(errorMessage);
       toast({

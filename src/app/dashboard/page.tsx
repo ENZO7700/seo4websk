@@ -309,7 +309,6 @@ function DashboardPage() {
         }
 
       } catch (err) {
-        console.error('Error fetching data: ', err);
         setError('Nepodarilo sa načítať dáta pre dashboard.');
       } finally {
         setIsLoading(false);
