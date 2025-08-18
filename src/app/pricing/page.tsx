@@ -338,7 +338,7 @@ const PricingTableSection = ({ title, tiers }: { title: string, tiers: any[] }) 
                         {tiers.map(tier => (
                             <TableHead key={tier.name} className="text-center w-1/5 min-w-[200px]">
                                 <p className="text-xl font-bold text-light">{tier.name}</p>
-                                <p className="text-xs text-rocket font-normal">{tier.description}</p>
+                                <p className="text-xs text-rocket font-normal h-10">{tier.description}</p>
                             </TableHead>
                         ))}
                     </TableRow>
@@ -363,9 +363,9 @@ const PricingTableSection = ({ title, tiers }: { title: string, tiers: any[] }) 
                             </TableCell>
                             {tiers.map(tier => (
                                 <TableCell key={tier.name} className="text-center">
-                                    {tier.features[feature.key] === true && <Check className="h-6 w-6 text-aurora mx-auto" />}
-                                    {tier.features[feature.key] === false && <Minus className="h-6 w-6 text-rocket/50 mx-auto" />}
-                                    {typeof tier.features[feature.key] === 'string' && <span className="text-moon font-medium">{tier.features[feature.key]}</span>}
+                                    {tier.features[feature.key as keyof typeof tier.features] === true && <Check className="h-6 w-6 text-aurora mx-auto" />}
+                                    {tier.features[feature.key as keyof typeof tier.features] === false && <Minus className="h-6 w-6 text-rocket/50 mx-auto" />}
+                                    {typeof tier.features[feature.key as keyof typeof tier.features] === 'string' && <span className="text-moon font-medium">{tier.features[feature.key as keyof typeof tier.features]}</span>}
                                 </TableCell>
                             ))}
                         </TableRow>
@@ -386,7 +386,7 @@ const PricingTableSection = ({ title, tiers }: { title: string, tiers: any[] }) 
                      <TableRow className="border-b-0 hover:bg-galaxy">
                          <TableCell className="sticky left-0 bg-galaxy"></TableCell>
                          {tiers.map(tier => (
-                             <TableCell key={tier.name} className="text-center">
+                             <TableCell key={tier.name} className="text-center p-2">
                                 <Button asChild className={cn("w-full", !tier.isPopular && "bg-space-grey border border-spaceship text-light hover:bg-spaceship")} size="sm">
                                     <Link href={tier.href}>
                                         {tier.price === 'Na mieru' ? 'Kontakt' : 'Zvoliť'}
@@ -463,3 +463,5 @@ export default function PricingPage() {
     </div>
   );
 }
+
+    
