@@ -53,7 +53,7 @@ const itemVariants = {
   },
 };
 
-export default function SeoAuditAkciaPage() {
+export default function SeoAuditPage() {
     return (
         <div className="bg-background text-foreground">
              <header className="bg-gradient-to-br from-primary/10 via-background to-background py-20 sm:py-32">

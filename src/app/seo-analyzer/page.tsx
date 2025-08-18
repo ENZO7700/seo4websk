@@ -11,26 +11,32 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, Search, Wand2, AlertCircle, Ear } from 'lucide-react';
+import { Loader2, Search, Wand2, AlertCircle, FileText, ListChecks, Goal, Code } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
-  analyzeSeo,
-  AnalyzeSeoOutput,
-} from '@/ai/flows/analyze-seo-flow';
-import { generateAudio } from '@/ai/flows/generate-audio-flow';
-import { Progress } from '@/components/ui/progress';
+  advancedSeoAudit,
+  AdvancedSeoAuditOutput,
+} from '@/ai/flows/advanced-seo-audit-flow';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from 'framer-motion';
+
+const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang: string }) => (
+    <div className="mb-4">
+        <h4 className="font-semibold mb-2 text-foreground">{title}</h4>
+        <pre className="bg-muted p-4 rounded-md overflow-x-auto">
+            <code className={`language-${lang}`}>{code.trim()}</code>
+        </pre>
+    </div>
+);
 
 export default function SeoAnalyzerPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState('');
-  const [analysisResult, setAnalysisResult] = useState<AnalyzeSeoOutput | null>(
+  const [analysisResult, setAnalysisResult] = useState<AdvancedSeoAuditOutput | null>(
     null
   );
-  const [audioDataUri, setAudioDataUri] = useState<string | null>(null);
-  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
@@ -42,7 +48,6 @@ export default function SeoAnalyzerPage() {
       });
       return;
     }
-    // Basic URL validation
     try {
         new URL(url);
     } catch (_) {
@@ -56,28 +61,11 @@ export default function SeoAnalyzerPage() {
 
     setIsLoading(true);
     setAnalysisResult(null);
-    setAudioDataUri(null);
     setError(null);
 
     try {
-      const result = await analyzeSeo({ url });
+      const result = await advancedSeoAudit({ url });
       setAnalysisResult(result);
-      
-      // Once analysis is done, generate audio
-      setIsAudioLoading(true);
-      try {
-          const audioResult = await generateAudio({ text: result.analysis });
-          setAudioDataUri(audioResult.audioDataUri);
-      } catch (audioErr) {
-          toast({
-            variant: 'default',
-            title: 'Audio sa nepodarilo vygenerovať',
-            description: 'Analýza je dostupná v textovej podobe.',
-          });
-      } finally {
-        setIsAudioLoading(false);
-      }
-
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Vyskytol sa neznámy problém s AI. Skúste to prosím znova.';
       setError(errorMessage);
@@ -96,10 +84,10 @@ export default function SeoAnalyzerPage() {
       <div className="flex flex-col items-center justify-center space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-            Hĺbkový SEO Analyzátor
+            Pokročilý SEO Audit
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
-            Vykonajte hĺbkovú SEO analýzu vašej webovej stránky. Zistite, či sú vaše stránky optimalizované, a ak nie, získajte užitočné údaje.
+            Zadajte doménu a získajte hĺbkový audit hlavnej stránky a dvoch podstránok, vrátane konkrétnych odporúčaní a úryvkov kódu na opravu.
           </p>
         </div>
 
@@ -109,7 +97,7 @@ export default function SeoAnalyzerPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
-                  placeholder="Zadajte URL adresu webovej stránky, napr. https://google.com"
+                  placeholder="Zadajte URL adresu, napr. https://google.com"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   className="pl-10"
@@ -126,12 +114,12 @@ export default function SeoAnalyzerPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="animate-spin" />
-                    Analyzujem...
+                    Auditujem...
                   </>
                 ) : (
                   <>
                     <Wand2 />
-                    Analyzovať Stránku
+                    Spustiť Audit
                   </>
                 )}
               </Button>
@@ -139,11 +127,22 @@ export default function SeoAnalyzerPage() {
           </CardContent>
         </Card>
 
-        <div className="w-full max-w-2xl min-h-[150px]">
+        <div className="w-full max-w-4xl min-h-[250px]">
+          {isLoading && (
+              <motion.div 
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                >
+                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+                 <p className="text-muted-foreground">AI práve analyzuje váš web...</p>
+                 <p className="text-sm text-muted-foreground/80">(Môže to trvať aj minútu, analyzujem 3 stránky)</p>
+              </motion.div>
+           )}
           {error && (
              <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Chyba Analýzy</AlertTitle>
+                <AlertTitle>Chyba Auditu</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
@@ -154,70 +153,34 @@ export default function SeoAnalyzerPage() {
                 transition={{ duration: 0.5 }}
             >
                 <Card>
-                <CardHeader>
-                    <CardTitle className="text-xl font-semibold text-center">
-                    Výsledky SEO Analýzy
-                    </CardTitle>
-                    <CardDescription className="text-center truncate">
-                        Pre: {url}
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    <div>
-                    <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm font-medium text-muted-foreground">Celkové SEO Skóre</p>
-                        <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
-                    </div>
-                    <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
-                    </div>
-                    
-                    {(isAudioLoading || audioDataUri) && (
-                    <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
-                        {isAudioLoading ? (
-                        <div className='flex items-center gap-2 text-sm text-muted-foreground'>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            <span>Generujem audio...</span>
-                        </div>
-                        ) : audioDataUri ? (
-                            <div className="flex items-center gap-3 w-full">
-                            <Ear className="h-5 w-5 text-primary"/>
-                            <audio controls src={audioDataUri} className="w-full h-10">
-                                Váš prehliadač nepodporuje audio element.
-                            </audio>
-                            </div>
-                        ) : null}
-                    </div>
-                    )}
-
-                    <div className="space-y-4 text-left">
-                        <div>
-                            <h3 className="font-semibold text-lg mb-2">Titulok stránky</h3>
-                            <p className="text-muted-foreground p-3 bg-muted rounded-md">{analysisResult.title}</p>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold text-lg mb-2">Meta Popis</h3>
-                            <p className="text-muted-foreground p-3 bg-muted rounded-md">{analysisResult.description || "Žiadny meta popis nebol nájdený."}</p>
-                        </div>
-                        <div>
-                            <h3 className="font-semibold text-lg mb-2">Štruktúra Nadpisov</h3>
-                            <div className="p-3 bg-muted rounded-md space-y-2">
-                                {analysisResult.headings.length > 0 ? analysisResult.headings.map((h, i) => (
-                                    <div key={i} className="flex items-baseline">
-                                        <span className="font-bold text-primary w-8">{h.level}:</span>
-                                        <p className="text-muted-foreground">{h.text}</p>
-                                    </div>
-                                )) : <p className="text-muted-foreground">Žiadne nadpisy neboli nájdené.</p>}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                    className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
-                    dangerouslySetInnerHTML={{
-                        __html: analysisResult.analysis.replace(/\n/g, '<br />'),
-                    }}
-                    />
-                </CardContent>
+                    <CardHeader>
+                        <CardTitle className="text-xl font-semibold text-center">
+                        Výsledky SEO Auditu
+                        </CardTitle>
+                        <CardDescription className="text-center truncate">
+                            Pre: {url}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <Tabs defaultValue="summary" className="w-full">
+                            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+                                <TabsTrigger value="summary"><FileText className="mr-2" />Súhrn</TabsTrigger>
+                                <TabsTrigger value="wins"><ListChecks className="mr-2" />Top 10</TabsTrigger>
+                                <TabsTrigger value="plan"><Goal className="mr-2" />Plán Opráv</TabsTrigger>
+                                <TabsTrigger value="snippets"><Code className="mr-2" />Kód</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="summary" className="prose dark:prose-invert max-w-none pt-4" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />')}}/>
+                            <TabsContent value="wins" className="prose dark:prose-invert max-w-none pt-4" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />')}}/>
+                            <TabsContent value="plan" className="prose dark:prose-invert max-w-none pt-4" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />')}}/>
+                            <TabsContent value="snippets" className="pt-4">
+                                <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
+                                <CodeSnippet title="Preload Hero Image" code={analysisResult.snippets.preloadHero} lang="html" />
+                                <CodeSnippet title="JSON-LD (Organization & WebSite)" code={analysisResult.snippets.jsonLd} lang="json" />
+                                <CodeSnippet title="Security Headers (Nginx)" code={analysisResult.snippets.securityHeaders} lang="nginx" />
+                                <CodeSnippet title="OpenGraph & Twitter Cards" code={analysisResult.snippets.openGraph} lang="html" />
+                            </TabsContent>
+                        </Tabs>
+                    </CardContent>
                 </Card>
             </motion.div>
           )}
