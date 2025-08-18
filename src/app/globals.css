@@ -79,25 +79,25 @@
   }
 
   .seo4web {
-    --background: 222 84% 4%;
-    --foreground: 225 25% 94%;
-    --card: 224 64% 11%;
-    --card-foreground: 225 25% 94%;
-    --popover: 222 84% 4%;
-    --popover-foreground: 225 25% 94%;
-    --primary: 214 93% 57%;
-    --primary-foreground: 225 25% 94%;
-    --secondary: 223 39% 33%;
-    --secondary-foreground: 225 25% 94%;
-    --muted: 223 39% 33%;
-    --muted-foreground: 223 21% 54%;
-    --accent: 149 71% 58%;
-    --accent-foreground: 222 84% 4%;
-    --destructive: 0 100% 66%;
-    --destructive-foreground: 225 25% 94%;
-    --border: 223 39% 33%;
-    --input: 226 35% 15%;
-    --ring: 149 71% 58%;
+    --background: 222 84% 4%; /* space */
+    --foreground: 225 25% 94%; /* light */
+    --card: 224 64% 11%; /* galaxy */
+    --card-foreground: 225 25% 94%; /* light */
+    --popover: 222 84% 4%; /* space */
+    --popover-foreground: 225 25% 94%; /* light */
+    --primary: 214 93% 57%; /* sky */
+    --primary-foreground: 225 25% 94%; /* light */
+    --secondary: 223 39% 33%; /* spaceship */
+    --secondary-foreground: 225 25% 94%; /* light */
+    --muted: 226 35% 15%; /* space-grey */
+    --muted-foreground: 223 21% 54%; /* rocket */
+    --accent: 149 71% 58%; /* aurora */
+    --accent-foreground: 222 84% 4%; /* space */
+    --destructive: 0 100% 66%; /* mars */
+    --destructive-foreground: 225 25% 94%; /* light */
+    --border: 223 39% 33%; /* spaceship */
+    --input: 226 35% 15%; /* space-grey */
+    --ring: 149 71% 58%; /* aurora */
     --radius: 0.75rem;
 
     /* Custom theme colors */
@@ -134,7 +134,7 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
