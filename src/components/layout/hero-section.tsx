@@ -2,10 +2,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Search, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
+import { cn } from '@/lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -30,49 +31,24 @@ const itemVariants = {
   },
 };
 
-const animatedTextVariants = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: i * 0.1 },
-    }),
-};
-
-const animatedCharVariants = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 20,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-};
-
-const heroText = "seo4web";
-
 export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative flex h-screen flex-col items-center justify-center px-4 text-center overflow-hidden"
+      className={cn(
+        "relative flex h-screen min-h-[700px] flex-col items-center justify-center px-4 text-center overflow-hidden",
+        "bg-space text-light" // Using new theme colors
+      )}
     >
       <GridPattern
         width={40}
         height={40}
         x={-1}
         y={-1}
-        className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]"
+        className={cn(
+            "absolute inset-0 -z-10 h-full w-full",
+            "fill-galaxy/50 stroke-spaceship/30 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"
+        )}
       />
 
       <motion.div
@@ -82,41 +58,45 @@ export function HeroSection() {
         variants={containerVariants}
       >
         <motion.div
-          className="group flex cursor-pointer items-center justify-center gap-4"
           variants={itemVariants}
+          className="mb-6 rounded-full bg-gradient-to-r from-venus-from to-venus-to p-1"
         >
-            <motion.h1
-                variants={animatedTextVariants}
-                className="bg-gradient-to-br from-primary from-30% to-accent bg-clip-text text-5xl font-bold tracking-tighter text-transparent sm:text-6xl md:text-7xl font-headline"
-            >
-                {heroText.split("").map((char, i) => (
-                    <motion.span key={i} variants={animatedCharVariants}>{char}</motion.span>
-                ))}
-            </motion.h1>
-            <Search className="h-10 w-10 text-primary/40 transition-all duration-300 ease-in-out group-hover:scale-125 group-hover:-rotate-12 group-hover:text-accent md:h-16 md:w-16" />
+          <div className="rounded-full bg-galaxy px-4 py-1.5">
+            <p className="text-sm font-medium tracking-wide text-transparent bg-gradient-to-r from-venus-from to-venus-to bg-clip-text">
+              Váš Partner pre Digitálny Rast
+            </p>
+          </div>
         </motion.div>
+
+        <motion.h1
+          variants={itemVariants}
+          className="text-5xl font-bold tracking-tighter text-light sm:text-6xl md:text-7xl lg:text-8xl font-headline"
+        >
+          Viditeľnosť, ktorá predáva
+        </motion.h1>
+
         <motion.p
-          className="mt-4 max-w-2xl text-balance text-lg text-foreground/80 md:text-xl"
+          className="mt-6 max-w-3xl text-balance text-lg text-rocket md:text-xl"
           variants={itemVariants}
         >
-          Zvýšte svoje pozície vo vyhľadávačoch a získajte organickú
-          návštevnosť. Poskytujeme expertné SEO stratégie pre váš úspech.
+          Transformujeme vašu online prítomnosť na merateľné výsledky. S nami nebudete len videní – budete nezabudnuteľní.
         </motion.p>
+        
         <motion.div
-          className="mt-8 flex flex-wrap justify-center gap-4"
+          className="mt-10 flex flex-wrap justify-center gap-4"
           variants={containerVariants}
         >
           <motion.div variants={itemVariants}>
-            <Button size="lg" asChild>
-              <a href="#features">
-                Naše Služby
+            <Button size="lg" asChild className="bg-sky hover:bg-night-sky text-light">
+              <Link href="/seo-audit-akcia">
+                Nechaj si urobiť audit
                 <ArrowRight className="ml-2" />
-              </a>
+              </a >
             </Button>
           </motion.div>
           <motion.div variants={itemVariants}>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/contact">Bezplatná Konzultácia</Link>
+            <Button size="lg" variant="outline" asChild className="border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light">
+              <Link href="/pricing">Pozri cenník</Link>
             </Button>
           </motion.div>
         </motion.div>

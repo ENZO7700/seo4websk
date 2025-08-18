@@ -1,3 +1,4 @@
+
 import type { Config } from 'tailwindcss';
 
 const config = {
@@ -64,6 +65,28 @@ const config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        // seo4web theme colors
+        'sky': 'var(--sky)',
+        'night-sky': 'var(--night-sky)',
+        'aurora': 'var(--aurora)',
+        'mars': 'var(--mars)',
+        'venus-from': 'var(--venus-from)',
+        'venus-to': 'var(--venus-to)',
+        'sun-from': 'var(--sun-from)',
+        'sun-to': 'var(--sun-to)',
+        'space': 'var(--space)',
+        'galaxy': 'var(--galaxy)',
+        'space-grey': 'var(--space-grey)',
+        'spaceship': 'var(--spaceship)',
+        'rocket': 'var(--rocket)',
+        'spacesuit': 'var(--spacesuit)',
+        'smoke': 'var(--smoke)',
+        'moon': 'var(--moon)',
+        'light': 'var(--light)',
+      },
+      backgroundImage: {
+        'grad-venus': 'var(--grad-venus)',
+        'grad-sun': 'var(--grad-sun)',
       },
       borderRadius: {
         lg: "var(--radius)",
