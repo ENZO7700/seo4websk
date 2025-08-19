@@ -56,6 +56,7 @@ const nextConfig: NextConfig = {
   },
   serverActions: {
     bodySizeLimit: '2mb',
+    executionTimeout: 120,
   },
 };
 

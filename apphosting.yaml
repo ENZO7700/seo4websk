@@ -6,4 +6,3 @@ runConfig:
   # more instances in response to increased traffic.
   maxInstances: 10
   timeoutSeconds: 120
-

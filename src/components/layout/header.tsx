@@ -15,10 +15,10 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
 const baseMainNavLinks = [
-    { href: "/#features", label: "SEO Služby" },
-    { href: "/sluzby", label: "PWA Služby" },
-    { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/pricing", label: "Cenník" },
+    { href: "/sluzby", label: "Služby" },
+    { href: "/tahaky", label: "SEO Ťaháky" },
+    { href: "/blog", label: "Blog" },
 ];
 
 const resourcesLinks = [
@@ -78,14 +78,6 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <Link
-                href="/blog"
-                className={cn(
-                  "text-foreground/70 transition-colors hover:text-foreground"
-                )}
-              >
-                Blog
-            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
                 Zdroje
@@ -155,15 +147,6 @@ export function Header() {
                                     {link.label}
                                     </Link>
                                ))}
-                                <Link
-                                    href="/blog"
-                                    className={cn(
-                                        "text-foreground/80 transition-colors hover:text-foreground block"
-                                    )}
-                                    onClick={() => setIsSheetOpen(false)}
-                                    >
-                                    Blog
-                                </Link>
                                 <div>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-foreground/80 transition-colors hover:text-foreground focus:outline-none">
