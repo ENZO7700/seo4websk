@@ -10,16 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Check, Info, Minus, Rocket, Star } from 'lucide-react';
+import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
 
 
 const seoTiers = [
