@@ -112,6 +112,21 @@ const seoTiers = [
         ]
     },
      {
+        name: 'Dominancia',
+        price: '2499 €',
+        priceSuffix: '/mesiac',
+        description: 'Agresívna stratégia pre absolútne ovládnutie trhu.',
+        href: '/sluzby/seo-dominancia',
+        category: 'Pre lídrov na trhu',
+        features: [
+           "Všetko v balíku Korporát",
+           "Digitálne PR a link building (30+/mesiac)",
+           "Pokročilá analytika a reporting",
+           "Medzinárodné SEO (1 trh)",
+           "Dedikovaný senior konzultant",
+        ]
+    },
+    {
         name: 'Enterprise',
         price: 'Na mieru',
         priceSuffix: '',
@@ -119,7 +134,7 @@ const seoTiers = [
         href: '/sluzby/seo-enterprise',
         category: 'Pre lídrov na trhu',
         features: [
-           "Medzinárodné SEO",
+           "Medzinárodné SEO (viac trhov)",
            "Dedikovaný manažér a tím",
            "Integrácia s BI nástrojmi",
            "Reporting pre Board",
@@ -163,8 +178,8 @@ const pwaTiers = [
     },
     {
         name: 'PWA E-shop',
-        price: 'Na mieru',
-        priceSuffix: '',
+        price: 'od 4,999 €',
+        priceSuffix: 'jednorazovo',
         description: 'Plnohodnotný e-commerce systém s platobnou bránou a správou produktov.',
         features: [
             'Kompletný e-shop na mieru',
@@ -175,6 +190,21 @@ const pwaTiers = [
         ],
         isPopular: false,
         href: '/sluzby/ecommerce-pwa'
+    },
+    {
+        name: 'PWA Enterprise',
+        price: 'Na mieru',
+        priceSuffix: '',
+        description: 'Vysoko škálovateľné riešenie na mieru pre komplexné potreby a integrácie.',
+        features: [
+            'Riešenie na kľúč',
+            'Integrácie s ERP/CRM (API)',
+            'Pokročilá bezpečnosť a compliance',
+            'Dedikovaná podpora a SLA',
+            'Vysoká škálovateľnosť',
+        ],
+        isPopular: false,
+        href: '/sluzby/pwa-enterprise'
     },
 ]
 
@@ -250,7 +280,7 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
 const PricingCategorySection = ({ title, tiers }: { title: string, tiers: any[] }) => (
     <div className="mb-16">
         <motion.h3 variants={itemVariants} className="text-2xl md:text-3xl font-bold text-center mb-8 font-headline text-aurora">{title}</motion.h3>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {tiers.map((tier) => (
                 <PricingTierCard key={tier.name} tier={tier} />
             ))}
@@ -307,7 +337,7 @@ export default function PricingPage() {
                 <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
                  Vývoj <span className="text-aurora">PWA</span>
                 </motion.h2>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                     {pwaTiers.map((tier) => (
                         <PricingTierCard key={tier.name} tier={tier} />
                     ))}
@@ -318,3 +348,5 @@ export default function PricingPage() {
     </div>
   );
 }
+
+    
