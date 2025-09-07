@@ -20,7 +20,6 @@ export async function saveContactMessage(formData: ContactMessage): Promise<stri
     });
     return docRef.id;
   } catch (error) {
-    console.error('Error adding document: ', error);
     throw new Error('Could not save message.');
   }
 }

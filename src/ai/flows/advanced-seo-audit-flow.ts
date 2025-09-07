@@ -289,7 +289,6 @@ const advancedSeoAuditFlow = ai.defineFlow(
             const robotsTxt = await robotsRes.text();
             if (robotsTxt.toLowerCase().includes('disallow: /')) {
                  // Do not throw an error, just proceed with the single URL. The AI will see the crawl was disallowed.
-                 console.warn("Crawling is disallowed by robots.txt (Disallow: /). Auditing only the main URL.");
             } else {
                  // Find 2 more links from the homepage only if crawling is allowed
                 const homeHtmlRes = await fetch(url);
@@ -303,20 +302,16 @@ const advancedSeoAuditFlow = ai.defineFlow(
                             try {
                                internalLinks.add(new URL(href, url).toString());
                             } catch (e) {
-                                console.warn(`Could not construct a valid URL from href: ${href}`);
+                                // Ignore invalid hrefs
                             }
                         }
                     });
                     linksToAudit = [url, ...Array.from(internalLinks).slice(0, 2)];
                 }
             }
-        } else {
-             // If robots.txt fetch fails, still proceed with the main URL
-             console.warn("Could not fetch robots.txt, proceeding with main URL only.");
         }
     } catch (e) {
         // Ignore errors, just audit the main URL
-        console.error("An error occurred while fetching initial data, proceeding with main URL only.", e);
     }
     
     // 2. Analyze pages in parallel

@@ -28,7 +28,8 @@ if (isFirebaseConfigured() && typeof window !== 'undefined') {
     db = getFirestore(app);
     getAuth(app);
 } else {
-    if (process.env.NODE_ENV !== 'production') {
+    // This warning will only show in development, not in production.
+    if (process.env.NODE_ENV === 'development') {
         console.warn("Firebase configuration is incomplete or running on the server. Firebase client services will be disabled. Please check your .env file.");
     }
 }

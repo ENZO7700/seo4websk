@@ -37,7 +37,6 @@ const getFriendlyErrorMessage = (error: AuthError): string => {
         case 'auth/operation-not-allowed':
              return 'Tento spôsob prihlásenia nie je povolený. Kontaktujte podporu.';
         default:
-            console.error("Firebase Auth Error:", error.code, error.message);
             return 'Vyskytla sa neznáma chyba. Skúste to prosím neskôr.';
     }
 }
@@ -142,5 +141,3 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-    
