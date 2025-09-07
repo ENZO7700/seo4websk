@@ -68,7 +68,6 @@ export default function ContactPage() {
       
       form.reset();
     } catch (error) {
-      console.error("Nepodarilo sa odoslať správu:", error);
       toast({
         variant: "destructive",
         title: "Nastala chyba!",

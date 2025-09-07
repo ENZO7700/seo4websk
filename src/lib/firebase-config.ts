@@ -1,3 +1,4 @@
+
 import { initializeApp, getApps, getApp, FirebaseOptions } from "firebase/app";
 import { getFirestore, Firestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -27,11 +28,6 @@ if (isFirebaseConfigured() && typeof window !== 'undefined') {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     db = getFirestore(app);
     getAuth(app);
-} else {
-    // This warning will only show in development, not in production.
-    if (process.env.NODE_ENV === 'development') {
-        console.warn("Firebase configuration is incomplete or running on the server. Firebase client services will be disabled. Please check your .env file.");
-    }
 }
 
 export function isFirebaseConfigured() {

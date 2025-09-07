@@ -1,3 +1,4 @@
+
 'use server';
 
 import * as cheerio from 'cheerio';
@@ -25,7 +26,6 @@ async function getPageContent(url: string): Promise<string> {
         const text = await response.text();
         return text;
     } catch (error) {
-        console.error('Error fetching page content:', error);
         throw new Error('Could not retrieve content from the provided URL. It might be down or blocking requests.');
     }
 }
@@ -66,7 +66,6 @@ export async function getPageSeoData(url: string): Promise<PageSeoData> {
     return PageSeoData.parse(seoData);
 
   } catch (error) {
-    console.error('Error parsing page SEO data:', error);
     throw new Error('Could not parse SEO data from the provided URL.');
   }
 }
