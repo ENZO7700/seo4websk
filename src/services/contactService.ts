@@ -1,3 +1,4 @@
+
 'use server';
 
 import { db } from '@/lib/firebase-config';
@@ -23,3 +24,5 @@ export async function saveContactMessage(formData: ContactMessage): Promise<stri
     throw new Error('Could not save message.');
   }
 }
+
+    

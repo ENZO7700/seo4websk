@@ -69,3 +69,5 @@ export async function getPageSeoData(url: string): Promise<PageSeoData> {
     throw new Error('Could not parse SEO data from the provided URL.');
   }
 }
+
+    
