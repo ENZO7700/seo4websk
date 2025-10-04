@@ -8,20 +8,47 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Inter, Lexend_Deca } from 'next/font/google';
 import { AuthProvider } from "@/components/auth/auth-provider";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | seo4web',
-    default: 'seo4web - Expertné SEO služby pre rast vášho biznisu',
+    template: '%s | Seo4Web AI Suite',
+    default: 'Seo4Web AI Suite – SEO na autopilote s umelou inteligenciou',
   },
   description:
-    "seo4web ponúka komplexné SEO služby na zlepšenie viditeľnosti vašej webstránky a zvýšenie pozícií vo vyhľadávačoch. Špecializujeme sa na analýzu kľúčových slov, on-page SEO, link building a technické SEO.",
-  keywords: "SEO, optimalizácia pre vyhľadávače, SEO agentúra, link building, technické SEO, on-page SEO, seo4web, PWA",
-  manifest: "/manifest.webmanifest",  
+    "AI nástroje pre audit, copywriting a kľúčové slová. Vyskúšaj Seo4Web AI Suite na 7 dní zdarma a urýchli rast organiky.",
+  keywords: "SEO, AI, copywriting, audit, kľúčové slová, umelá inteligencia, marketing, seo4web",
+  manifest: "/manifest.webmanifest",
+  alternates: {
+    canonical: 'https://seo4web.sk/',
+    languages: {
+      'sk': 'https://seo4web.sk/',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://seo4web.sk/',
+    title: 'Seo4Web AI Suite – SEO na autopilote',
+    description: 'Audit, copywriting a kľúčové slová v jednom. 7 dní zdarma.',
+    images: [{
+      url: 'https://seo4web.sk/og-cover.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Seo4Web AI Suite'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Seo4Web AI Suite – SEO na autopilote',
+    description: 'AI, ktorá doručí výsledky v SERP.',
+    images: ['https://seo4web.sk/og-cover.jpg'],
+  },
 };
 
 export const viewport = {
-  themeColor: "#1D74F6",
+  themeColor: "#0a0a0a",
+  width: 'device-width',
+  initialScale: 1,
 };
 
 const fontBody = Inter({
@@ -43,7 +70,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="sk" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+        <Script id="json-ld-schema" type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": ["SoftwareApplication", "Organization"],
+              "name": "Seo4Web AI Suite",
+              "url": "https://seo4web.sk/",
+              "applicationCategory": "BusinessApplication",
+              "offers": {"@type":"Offer","price":"49","priceCurrency":"EUR"},
+              "publisher": {"@type":"Organization","name":"SEO4WEB.SK"},
+              "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"57"}
+            }
+          `}
+        </Script>
+      </head>
       <body className={cn("antialiased", fontBody.variable, fontHeadline.variable)}>
         <AuthProvider>
           <ThemeProvider

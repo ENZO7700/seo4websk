@@ -1,6 +1,14 @@
 
 import type {NextConfig} from 'next';
 
+const withPWA = require('next-pwa')({
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+    sw: 'sw.js',
+    disable: process.env.NODE_ENV === 'development'
+})
+
 const nextConfig: NextConfig = {
   /* config options here */
   typescript: {
@@ -26,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'img.freepik.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
@@ -36,7 +50,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://placehold.co https://img.freepik.com; font-src 'self'; connect-src 'self' https://*.googleapis.com; manifest-src 'self'; style-src-elem 'self' 'unsafe-inline'; frame-src 'self' https://*.google.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://placehold.co https://img.freepik.com https://i.pravatar.cc; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.googleapis.com; manifest-src 'self'; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; frame-src 'self' https://*.google.com;",
           },
           {
             key: 'X-Content-Type-Options',
@@ -56,4 +70,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);

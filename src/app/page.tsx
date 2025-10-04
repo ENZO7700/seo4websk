@@ -1,112 +1,181 @@
-
 'use client';
 
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Search, Code, ShoppingCart, Lightbulb, TrendingUp, BarChart, Users } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+  CardDescription,
+} from '@/components/ui/card';
+import { Check, ArrowRight, FileText, Image as ImageIcon, Search, ServerCog, Type } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
     },
-  },
 };
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.6,
-      ease: [0.6, 0.01, 0.05, 0.95],
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "anticipate",
+      },
     },
-  },
 };
 
-const services = [
-    {
-        icon: <Search className="h-8 w-8 text-aurora" />,
-        title: 'Komplexné SEO Služby',
-        description: 'Od technickej analýzy, cez on-page optimalizáciu až po budovanie autority. Zabezpečíme, aby vás zákazníci našli.',
-        href: '/pricing',
-    },
-    {
-        icon: <Code className="h-8 w-8 text-aurora" />,
-        title: 'Vývoj PWA Aplikácií',
-        description: 'Vytvárame moderné Progresívne Webové Aplikácie, ktoré sú rýchle, spoľahlivé a fungujú aj offline.',
-        href: '/sluzby',
-    },
-    {
-        icon: <ShoppingCart className="h-8 w-8 text-aurora" />,
-        title: 'E-commerce Riešenia',
-        description: 'Budujeme vysoko výkonné e-shopy na báze PWA, ktoré zvyšujú konverzie a poskytujú skvelý nákupný zážitok.',
-        href: '/sluzby/ecommerce-pwa',
-    },
-    {
-        icon: <Lightbulb className="h-8 w-8 text-aurora" />,
-        title: 'Digitálne Konzultácie',
-        description: 'Pomôžeme vám s digitálnou transformáciou a nastavením stratégie, ktorá prinesie merateľné výsledky.',
-        href: '/sluzby/digitalna-transformacia',
-    }
+const problemSolution = [
+  {
+    problem: 'Málo času na obsah',
+    solution: 'AI Copywriter',
+    kpi: '3–5 článkov/deň, Flesch > 60',
+    icon: <FileText className="h-8 w-8 text-aurora" />,
+  },
+  {
+    problem: 'Technická zložitosť',
+    solution: 'AI SEO Audit',
+    kpi: 'CWV > 90/95/90 do 2 týždňov',
+    icon: <ServerCog className="h-8 w-8 text-aurora" />,
+  },
+  {
+    problem: 'Slabá keyword stratégia',
+    solution: 'AI Keyword Research',
+    kpi: '+2× long‑tail zásah, interné linky',
+    icon: <Search className="h-8 w-8 text-aurora" />,
+  },
 ];
 
-const benefits = [
-    {
-        icon: <TrendingUp className="h-8 w-8 text-sky" />,
-        title: "Zameranie na Výsledky",
-        description: "Naše stratégie sú navrhnuté tak, aby prinášali merateľný rast – viac návštevnosti, viac dopytov, vyššie tržby."
-    },
-    {
-        icon: <BarChart className="h-8 w-8 text-sky" />,
-        title: "Dátovo Orientovaný Prístup",
-        description: "Každé naše rozhodnutie je podložené dátami a hĺbkovou analýzou. Hádanie prenechávame konkurencii."
-    },
-    {
-        icon: <Users className="h-8 w-8 text-sky" />,
-        title: "Partnerský Prístup",
-        description: "Sme predĺženou rukou vášho tímu. Úzko spolupracujeme, aby sme pochopili váš biznis a dosiahli spoločné ciele."
-    }
-]
+const features = [
+  {
+    name: 'AI SEO Audit',
+    desc: 'Hĺbková technika a obsah; návrhy opráv',
+    kpi: 'CWV > 90/95/90',
+    icon: <ServerCog className="h-6 w-6 text-sky" />,
+  },
+  {
+    name: 'AI Copywriter',
+    desc: 'Blogy, landingy, produkt opisy',
+    kpi: 'čas tvorby ↓ 80 %',
+    icon: <FileText className="h-6 w-6 text-sky" />,
+  },
+  {
+    name: 'Headline Analyzer',
+    desc: 'Testuje titulky, zvyšuje CTR',
+    kpi: '+2–5 p. b.',
+    icon: <Type className="h-6 w-6 text-sky" />,
+  },
+  {
+    name: 'Image Generator',
+    desc: 'Rýchle legálne vizuály',
+    kpi: '0 licenčných starostí',
+    icon: <ImageIcon className="h-6 w-6 text-sky" />,
+  },
+  {
+    name: 'Keyword Research',
+    desc: 'Clustre, calendar, interné odkazy',
+    kpi: 'stabilný rast organiky',
+    icon: <Search className="h-6 w-6 text-sky" />,
+  },
+];
 
-const featuredArticles = [
-    {
-        title: 'Kompletný sprievodca SEO pre začiatočníkov v roku 2024',
-        description: 'Rozumieme, že SEO môže byť na prvý pohľad zložité. Preto sme pripravili tohto komplexného sprievodcu, ktorý vás prevedie všetkými základmi.',
-        href: '/tahaky#on-page',
-        image: 'https://img.freepik.com/free-vector/search-engine-optimization-concept-illustration_114360-7579.jpg?w=400',
-        imageHint: 'seo startup rocket',
-    },
-    {
-        title: 'Prečo je vaša firma pripravená na Progresívnu Webovú Aplikáciu (PWA)?',
-        description: 'Objavte, ako môže PWA transformovať váš biznis, zvýšiť angažovanosť zákazníkov a poskytnúť vám konkurenčnú výhodu na trhu.',
-        href: '/sluzby/pwa-pre-male-podniky',
-        image: 'https://img.freepik.com/free-vector/app-development-concept-illustration_114360-5164.jpg?w=600',
-        imageHint: 'modern application on laptop',
-    },
-    {
-        title: 'Prípadová štúdia: Ako sme zdvojnásobili organickú návštevnosť pre e-shop',
-        description: 'Detailný pohľad na našu stratégiu, ktorá viedla k 100% nárastu organickej návštevnosti a 80% nárastu konverzií pre nášho klienta v priebehu 6 mesiacov.',
-        href: '/blog',
-        image: 'https://img.freepik.com/free-vector/data-analysis-complexity-concept-illustration_114360-8413.jpg?w=600',
-        imageHint: 'data analysis chart',
-    },
-]
+const testimonials = [
+  {
+    name: 'Michaela K.',
+    role: 'Freelancer copywriterka',
+    quote:
+      'S AI Copywriterom zvládnem o 4 projekty mesačne viac. Klienti milujú, že texty majú štruktúru aj zdroje.',
+    avatar: 'https://i.pravatar.cc/150?u=michaela'
+  },
+  {
+    name: 'Peter L.',
+    role: 'Majiteľ e‑shopu',
+    quote:
+      'Audit mi odhalil 12 kritických chýb. Po fixoch a content kalendári máme +38 % organickej návštevnosti.',
+    avatar: 'https://i.pravatar.cc/150?u=peter'
+  },
+  {
+    name: 'Zuzana P.',
+    role: 'Marketing manažérka',
+    quote:
+      'Board vidí jasné KPI – plán obsahu, SERP pohyby, CTR. Menej diskusií, viac čísel.',
+    avatar: 'https://i.pravatar.cc/150?u=zuzana'
+  },
+];
 
+const pricingTiers = [
+    {
+        plan: 'START',
+        price: 19,
+        period: 'mes.',
+        limits: ['2 audity', '10 vygenerovaných článkov/mes.', 'Základný keyword nástroj'],
+        for: 'Solo projekty a skúška',
+        isPopular: false,
+        cta: "Začať so START"
+    },
+    {
+        plan: 'PRO',
+        price: 49,
+        period: 'mes.',
+        limits: ['6 auditov', '40 článkov/mes.', 'Topic clustre', 'Headline analyzer'],
+        for: 'E‑shopy a menšie tímy',
+        badge: 'Najpopulárnejší',
+        isPopular: true,
+        cta: "Vyskúšať PRO na 7 dní"
+    },
+    {
+        plan: 'EXPERT',
+        price: 99,
+        period: 'mes.',
+        limits: ['Neobmedzené audity', '120 článkov/mes.', 'Content calendar', 'API exporty'],
+        for: 'Agentúry a rastové tímy',
+        isPopular: false,
+        cta: "Začať s EXPERT"
+    },
+    {
+        plan: 'ENTERPRISE',
+        price: 'Na mieru',
+        period: '',
+        limits: ['SSO & SLA', 'Multi‑brand podpora', 'VIP podpora', 'Dedikovaný account manager'],
+        for: 'Korporácie a multi‑brand',
+        isPopular: false,
+        cta: "Kontaktovať predaj"
+    },
+];
 
-export default function HomePage() {
+const faq = [
+    {"q":"Sú texty unikátne?","a":"Áno, generujeme originál a kontrolujeme duplicitu."},
+    {"q":"Podpora SK/CZ?","a":"Áno, vrátane lokálnych slovníkov."},
+    {"q":"Integrácia s CMS?","a":"Export pre WordPress, Shoptet, Shopify a CSV/MD."},
+    {"q":"GDPR?","a":"Dáta anonymizované, preferujeme EÚ infra."},
+    {"q":"Koľko článkov mesačne?","a":"Odporúčame 8–12 + 1 aktualizácia starého obsahu."},
+    {"q":"Bez stratégie?","a":"Keyword clustre a calendar v plánoch PRO+."},
+    {"q":"Meranie úspechu?","a":"CTR, pozície, konverzie, LCP/INP/CLS."},
+    {"q":"Mám agentúru – má to zmysel?","a":"Áno, urýchli produkciu a zlepší prehľad."}
+];
+
+export default function NewHomePage() {
   return (
     <div className="bg-space text-light">
-      <main>
-        {/* Hero Section */}
-        <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-space text-light">
+      {/* Hero Section */}
+      <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-space text-light">
           <div className="absolute inset-0 z-0 opacity-40">
             <div className="absolute inset-0 bg-galaxy" />
             <div className="absolute h-full w-full bg-[radial-gradient(circle_at_50%_50%,rgba(3,12,26,0)_0%,var(--space)_100%)]" />
@@ -127,21 +196,18 @@ export default function HomePage() {
             animate="visible"
           >
             <motion.h1
-              className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl font-headline text-light"
-              style={{ 
-                textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
-              }}
+              className="text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl font-headline text-light"
+              style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.7)' }}
               variants={itemVariants}
-            > 
-              Viditeľnosť, ktorá predáva
+            >
+              SEO, ktoré doručí čísla – nie výhovorky.
             </motion.h1>
 
             <motion.p
-              className="mt-6 max-w-2xl text-lg tracking-tight text-rocket text-balance"
+              className="mt-6 max-w-3xl text-lg tracking-tight text-rocket text-balance"
               variants={itemVariants}
             >
-              Transformujeme vašu online prítomnosť na merateľné výsledky. S nami
-              nebudete len videní – budete nezabudnuteľní.
+              Vytváraj obsah a opravuj technické chyby 10× rýchlejšie. Seo4Web AI Suite spája audit, copywriting, kľúčové slová a reporting do jedného panelu.
             </motion.p>
 
             <motion.div
@@ -149,20 +215,21 @@ export default function HomePage() {
               variants={itemVariants}
             >
               <Button asChild size="lg" className="w-full sm:w-auto bg-sky hover:bg-night-sky text-light shadow-lg shadow-sky/20">
-                <Link href="/seo-audit-akcia">
-                  <Sparkles className="mr-2" />
-                  Nechaj si urobiť audit
-                </Link>
+                <Link href="#pricing">Vyskúšať na 7 dní</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light">
-                <Link href="/pricing">
-                  Pozri cenník
-                  <ArrowRight className="ml-2" />
-                </Link>
+                <Link href="#features">Pozrieť živé demo</Link>
               </Button>
             </motion.div>
+             <motion.div className="mt-6 flex gap-4 justify-center text-sm text-rocket" variants={itemVariants}>
+              <span>7-dňová skúška</span><span>•</span>
+              <span>Zrušíš jedným klikom</span><span>•</span>
+              <span>Podpora v slovenčine</span>
+            </motion.div>
           </motion.div>
-          <style jsx global>{`
+      </section>
+
+       <style jsx global>{`
             @keyframes aurora-pulse {
               0% { transform: scale(0.8) translate(20%, -10%); opacity: 0.1; }
               50% { opacity: 0.25; }
@@ -173,170 +240,212 @@ export default function HomePage() {
               50% { opacity: 0.3; }
               100% { transform: scale(1.1) translate(10%, -5%); opacity: 0.15; }
             }
-          `}</style>
+        `}</style>
+        
+        {/* Problem -> Solution */}
+        <section id="problem-solution" className="py-20 sm:py-32 bg-galaxy">
+            <div className="container mx-auto px-4">
+                <motion.div
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
+                    {problemSolution.map((item, index) => (
+                        <motion.div key={index} variants={itemVariants} className="flex flex-col items-center">
+                            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-space shadow-lg mb-4">{item.icon}</div>
+                            <h3 className="text-xl font-bold text-light">{item.problem}</h3>
+                            <p className="text-rocket">→ {item.solution}</p>
+                            <p className="mt-1 text-sm font-semibold bg-aurora/10 text-aurora px-2 py-1 rounded-md">{item.kpi}</p>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
         </section>
 
-        {/* Services Section */}
-        <section id="services" className="py-20 sm:py-32 bg-galaxy">
+
+        {/* Features */}
+        <section id="features" className="py-20 sm:py-32 bg-space">
             <div className="container mx-auto px-4">
-                <motion.div 
+                 <motion.div 
                     className="text-center max-w-3xl mx-auto"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
                     variants={itemVariants}
                 >
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Naše Služby: Váš Digitálny Arzenál</h2>
+                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Váš All-in-One AI Panel</h2>
                     <p className="mt-4 text-lg text-rocket text-balance">
-                       Pokrývame celé spektrum digitálnych potrieb – od zviditeľnenia vo vyhľadávačoch až po vývoj špičkových webových aplikácií, ktoré vás odlíšia od konkurencie.
+                       Spojili sme všetky nástroje, ktoré potrebujete pre moderné SEO. Prestaňte prepínať medzi desiatkami tabov.
                     </p>
                 </motion.div>
-                <motion.div 
-                    className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={containerVariants}
+                <motion.div
+                     className="mt-16 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"
+                     initial="hidden"
+                     whileInView="visible"
+                     viewport={{ once: true, amount: 0.2 }}
+                     variants={containerVariants}
                 >
-                    {services.map((service, index) => (
+                    {features.map((feature, index) => (
                         <motion.div key={index} variants={itemVariants}>
-                             <Card className="flex flex-col h-full bg-space-grey border-spaceship text-light text-center p-6 transition-all duration-300 hover:-translate-y-2 hover:border-aurora/50">
-                                <CardHeader className="items-center p-0">
-                                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-galaxy shadow-lg">
-                                        {service.icon}
-                                    </div>
-                                    <CardTitle className="mt-6 text-xl font-bold">{service.title}</CardTitle>
-                                </CardHeader>
-                                <CardContent className="flex-grow p-0 pt-4">
-                                    <p className="text-rocket text-balance">{service.description}</p>
-                                </CardContent>
-                                <CardFooter className="p-0 pt-6">
-                                     <Button asChild variant="ghost" className="w-full text-aurora hover:bg-aurora/10 hover:text-aurora">
-                                        <Link href={service.href}>
-                                            Zistiť Viac
-                                            <ArrowRight className="ml-2 h-4 w-4"/>
-                                        </Link>
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-                        </motion.div>
-                    ))}
-                </motion.div>
-            </div>
-        </section>
-
-        {/* Why Us Section */}
-        <section id="why-us" className="py-20 sm:py-32 bg-space">
-             <div className="container mx-auto px-4">
-                 <motion.div 
-                    className="text-center max-w-3xl mx-auto"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                    variants={itemVariants}
-                >
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Prečo si Vybrať Nás?</h2>
-                    <p className="mt-4 text-lg text-rocket text-balance">
-                       Nie sme len ďalšia agentúra. Sme váš partner na ceste k digitálnemu úspechu. Naša filozofia je postavená na troch pevných pilieroch.
-                    </p>
-                </motion.div>
-                 <motion.div 
-                    className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={containerVariants}
-                >
-                    {benefits.map((benefit, index) => (
-                         <motion.div key={index} variants={itemVariants}>
-                            <div className="flex flex-col items-center text-center gap-4">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-galaxy shadow-lg">
-                                    {benefit.icon}
+                            <div className="flex items-start gap-4">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-galaxy flex-shrink-0">{feature.icon}</div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-light">{feature.name}</h3>
+                                    <p className="text-rocket text-balance">{feature.desc}</p>
+                                    <p className="mt-1 text-sm font-semibold text-aurora">{feature.kpi}</p>
                                 </div>
-                                <h3 className="text-2xl font-bold text-light">{benefit.title}</h3>
-                                <p className="text-rocket text-balance">{benefit.description}</p>
                             </div>
-                         </motion.div>
+                        </motion.div>
                     ))}
                 </motion.div>
-             </div>
+            </div>
         </section>
 
-
-        {/* Blog Section */}
-        <section id="blog" className="py-20 sm:py-32 bg-galaxy">
+        {/* Social Proof */}
+        <section id="social-proof" className="py-20 sm:py-32 bg-galaxy">
             <div className="container mx-auto px-4">
-                <motion.div 
+                <motion.div
+                    className="text-center"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    variants={itemVariants}
+                >
+                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Reálne výsledky pre reálnych ľudí</h2>
+                </motion.div>
+                <motion.div
+                    className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
+                    {testimonials.map((testimonial, index) => (
+                        <motion.div key={index} variants={itemVariants}>
+                            <Card className="h-full bg-space border-spaceship p-6">
+                                <CardContent className="p-0">
+                                    <p className="text-light text-lg italic text-balance">"{testimonial.quote}"</p>
+                                </CardContent>
+                                <CardFooter className="p-0 pt-6 mt-4 border-t border-spaceship">
+                                    <div className="flex items-center">
+                                        <img src={testimonial.avatar} alt={testimonial.name} className="h-12 w-12 rounded-full mr-4" />
+                                        <div>
+                                            <p className="font-bold text-light">{testimonial.name}</p>
+                                            <p className="text-rocket">{testimonial.role}</p>
+                                        </div>
+                                    </div>
+                                </CardFooter>
+                            </Card>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
+        </section>
+
+        {/* Pricing */}
+        <section id="pricing" className="py-20 sm:py-32 bg-space">
+            <div className="container mx-auto px-4">
+                <motion.div
+                    className="text-center max-w-3xl mx-auto"
+                     initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    variants={itemVariants}
+                >
+                     <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Férový cenník, ktorý dáva zmysel</h2>
+                     <p className="mt-4 text-lg text-rocket text-balance">
+                       Vyberte si plán, ktorý rastie s vami. Všetky plány zahŕňajú 7-dňovú skúšobnú verziu a možnosť zrušenia jedným klikom.
+                    </p>
+                </motion.div>
+                <motion.div
+                    className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
+                {pricingTiers.map((tier) => (
+                    <motion.div key={tier.plan} variants={itemVariants} className="flex">
+                    <Card
+                        className={cn(
+                        'flex flex-col w-full bg-galaxy border-spaceship text-light',
+                        tier.isPopular ? 'border-aurora/50' : ''
+                        )}
+                    >
+                        {tier.isPopular && (
+                            <div className="text-center py-1.5 px-4 bg-aurora text-space text-sm font-bold">
+                                {tier.badge}
+                            </div>
+                        )}
+                        <CardHeader className="text-center pt-8">
+                            <CardTitle className="text-2xl font-bold text-light">{tier.plan}</CardTitle>
+                            <CardDescription className="text-rocket">{tier.for}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow">
+                            <div className="text-center mb-6">
+                                <span className="text-4xl font-bold text-light">
+                                    {typeof tier.price === 'number' ? `${tier.price}€` : tier.price}
+                                </span>
+                                {tier.period && <span className="text-rocket"> / {tier.period}</span>}
+                            </div>
+                            <ul className="space-y-3">
+                                {tier.limits.map((limit) => (
+                                    <li key={limit} className="flex items-center gap-3 text-moon">
+                                        <Check className="h-5 w-5 text-aurora flex-shrink-0" />
+                                        <span>{limit}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                        <CardFooter className="mt-auto p-6">
+                            <Button size="lg" className={cn("w-full", tier.isPopular ? "bg-sky hover:bg-night-sky" : "bg-space-grey border border-spaceship hover:bg-spaceship")}>
+                                {tier.cta}
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                    </motion.div>
+                ))}
+                </motion.div>
+            </div>
+        </section>
+
+         {/* FAQ Section */}
+        <section id="faq" className="py-20 sm:py-32 bg-galaxy">
+            <div className="container mx-auto px-4 max-w-4xl">
+                 <motion.div 
                     className="text-center max-w-3xl mx-auto"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.5 }}
                     variants={itemVariants}
                 >
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Vedomosti, o Ktoré sa Delíme</h2>
-                    <p className="mt-4 text-lg text-rocket text-balance">
-                       Veríme, že vzdelávanie je kľúčom k úspechu. Prečítajte si naše najnovšie postrehy, analýzy a návody zo sveta SEO a moderného webu.
-                    </p>
+                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Často Kladené Otázky</h2>
                 </motion.div>
-                <motion.div 
-                    className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                 <motion.div
+                    className="mt-12"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
-                    variants={containerVariants}
-                >
-                    {featuredArticles.map((article, index) => (
-                        <motion.div key={article.title + index} variants={itemVariants}>
-                             <Card className="flex flex-col overflow-hidden h-full bg-space border-spaceship text-light transition-transform duration-300 hover:-translate-y-2 hover:border-aurora/50 group">
-                                <CardContent className="p-0">
-                                <Link href={article.href} className="aspect-video block w-full overflow-hidden relative">
-                                    <Image 
-                                        src={article.image}
-                                        alt={`Ilustračný obrázok pre článok ${article.title}`}
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                                        data-ai-hint={article.imageHint}
-                                    />
-                                </Link>
-                                </CardContent>
-                                <CardHeader>
-                                    <CardTitle className="text-xl font-bold text-light">
-                                        <Link href={article.href} className="hover:text-aurora transition-colors">{article.title}</Link>
-                                    </CardTitle>
-                                    <CardDescription className="pt-2 text-rocket text-balance">{article.description}</CardDescription>
-                                </CardHeader>
-                                <CardFooter className="mt-auto flex justify-between items-center">
-                                    <Button asChild variant="ghost" size="sm" className="text-aurora hover:bg-aurora/10 hover:text-aurora">
-                                        <Link href={article.href}>
-                                            Čítať viac
-                                            <ArrowRight className="ml-2 h-4 w-4"/>
-                                        </Link>
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-                        </motion.div>
-                    ))}
-                </motion.div>
-                 <motion.div 
-                    className="text-center mt-16"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.8 }}
                     variants={itemVariants}
                 >
-                     <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light">
-                        <Link href="/blog">
-                            Navštíviť Náš Blog
-                            <ArrowRight className="ml-2" />
-                        </Link>
-                    </Button>
-                 </motion.div>
+                    <Accordion type="single" collapsible className="w-full bg-space rounded-2xl p-4 border border-spaceship">
+                    {faq.map((item, index) => (
+                        <AccordionItem value={`item-${index+1}`} key={index} className="border-b-spaceship last:border-b-0">
+                            <AccordionTrigger className="text-lg text-left text-light hover:no-underline text-balance">{item.q}</AccordionTrigger>
+                            <AccordionContent>
+                                <p className="text-base text-rocket">{item.a}</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                    </Accordion>
+                </motion.div>
             </div>
         </section>
 
-        {/* CTA Section */}
-        <section id="cta" className="py-20 sm:py-32 bg-space">
+        {/* Final CTA */}
+        <section id="final-cta" className="py-20 sm:py-32 bg-space">
              <div className="container mx-auto px-4">
                  <motion.div 
                     className="bg-galaxy rounded-2xl p-8 md:p-16 text-center border border-spaceship"
@@ -345,19 +454,18 @@ export default function HomePage() {
                     viewport={{ once: true, amount: 0.5 }}
                     variants={itemVariants}
                 >
-                     <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Pripravení na Skutočný Rast?</h2>
+                     <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Získaj náskok, kým konkurencia spí.</h2>
                      <p className="mt-4 text-lg text-rocket text-balance max-w-2xl mx-auto">
-                         Prestaňte strácať čas a peniaze na stratégie, ktoré nefungujú. Poďme sa porozprávať o tom, ako môžeme vášmu biznisu pomôcť dosiahnuť merateľné výsledky.
+                        Spusti 7-dňovú skúšobnú verziu a uvidíš rozdiel do pár dní. Žiadne riziko, žiadne záväzky.
                      </p>
                       <Button asChild size="lg" className="mt-8 bg-sky hover:bg-night-sky text-light shadow-lg shadow-sky/20 h-12 text-base">
-                        <Link href="/contact">
-                          Získať Bezplatnú Konzultáciu
+                        <Link href="#pricing">
+                          Vyskúšať na 7 dní
                         </Link>
                       </Button>
                  </motion.div>
              </div>
         </section>
-      </main>
     </div>
   );
 }
