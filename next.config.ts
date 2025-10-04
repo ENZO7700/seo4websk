@@ -43,31 +43,6 @@ const nextConfig: NextConfig = {
       }
     ],
   },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://placehold.co https://img.freepik.com https://i.pravatar.cc; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.googleapis.com; manifest-src 'self'; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com; frame-src 'self' https://*.google.com;",
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default withPWA(nextConfig);
