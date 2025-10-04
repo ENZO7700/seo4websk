@@ -1,7 +1,7 @@
 
 import Link from "next/link";
 import { Seo4WebLogo } from "@/components/icons/logo";
-import { Github, Twitter, Linkedin, Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
+import { Github, Twitter, Linkedin, Facebook, Instagram, Phone, Mail, MapPin, BrainCircuit } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const footerLinks = [
@@ -21,8 +21,8 @@ export function Footer() {
   return (
     <footer id="contact" className="border-t border-spaceship bg-galaxy">
       <div className="container mx-auto py-12 px-4">
-        <div className="grid gap-12 md:grid-cols-4">
-            <div className="flex flex-col items-center text-center md:items-start md:text-left col-span-1">
+        <div className="grid gap-12 md:grid-cols-5">
+            <div className="flex flex-col items-center text-center md:items-start md:text-left col-span-1 md:col-span-2">
               <Link
                 href="/"
                 className="mb-4 flex items-center gap-2 text-lg font-bold"
@@ -54,6 +54,9 @@ export function Footer() {
                         {link.label}
                     </Link>
                 ))}
+                <Link href="/prompt-engineering" className="text-aurora transition-colors hover:text-aurora/80 text-sm flex items-center gap-2">
+                    <BrainCircuit className="h-4 w-4" /> Prompt Stratégia
+                </Link>
               </div>
             </div>
 
