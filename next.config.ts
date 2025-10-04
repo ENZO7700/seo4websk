@@ -30,14 +30,14 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
-        hostname: 'img.freepik.com',
+        protocol: 'https://img.freepik.com',
+        hostname: 'i.pravatar.cc',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'i.pravatar.cc',
+        hostname: 'img.freepik.com',
         port: '',
         pathname: '/**',
       }
