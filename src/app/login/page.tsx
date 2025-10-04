@@ -63,18 +63,18 @@ export default function LoginPage() {
   // This loader is for the case where the component is rendered while auth state is still being determined.
   if (loading && !error) {
     return (
-        <div className="flex justify-center items-center min-h-screen">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <div className="flex justify-center items-center min-h-screen bg-space">
+            <Loader2 className="h-12 w-12 animate-spin text-sky" />
         </div>
     );
   }
 
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32 flex items-center justify-center">
-      <Card className="w-full max-w-md bg-card/50 backdrop-blur-lg">
+      <Card className="w-full max-w-md bg-galaxy border-spaceship text-light">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tighter text-center font-headline">Vitajte Späť!</CardTitle>
-          <CardDescription className="text-center text-balance">
+          <CardDescription className="text-center text-balance text-rocket">
             Prihláste sa do svojho účtu pre prístup k dashboardu.
           </CardDescription>
         </CardHeader>
@@ -94,7 +94,7 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="vas.email@priklad.com" {...field} disabled={loading} />
+                      <Input type="email" placeholder="vas.email@priklad.com" {...field} disabled={loading} className="bg-space-grey border-spaceship focus:ring-aurora"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,13 +107,13 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Heslo</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} disabled={loading}/>
+                      <Input type="password" placeholder="••••••••" {...field} disabled={loading} className="bg-space-grey border-spaceship focus:ring-aurora"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" size="lg" disabled={loading}>
+              <Button type="submit" className="w-full bg-sky hover:bg-night-sky" size="lg" disabled={loading}>
                 {loading ? <Loader2 className="animate-spin" /> : 'Prihlásiť sa'}
               </Button>
             </form>
@@ -121,14 +121,14 @@ export default function LoginPage() {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
+              <span className="w-full border-t border-spaceship" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Alebo pokračujte s</span>
+              <span className="bg-galaxy px-2 text-rocket">Alebo pokračujte s</span>
             </div>
           </div>
 
-          <Button variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={loading}>
+          <Button variant="outline" className="w-full group bg-space-grey border-spaceship hover:bg-spaceship" onClick={handleGoogleSignIn} disabled={loading}>
             {loading ? <Loader2 className="animate-spin" /> : (
                 <>
                 <svg className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 126 21.2 173.4 58.2l-67.2 67.2c-24.3-23.6-56.6-38.3-92.2-38.3-70.5 0-128.8 57.3-128.8 128.8s58.3 128.8 128.8 128.8c78.8 0 112.3-52.8 115.8-78.8h-116v-91.2h212.3c2.6 12.2 4.4 25.1 4.4 39.3z"></path></svg>
@@ -137,9 +137,9 @@ export default function LoginPage() {
             )}
           </Button>
 
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-rocket">
             Nemáte ešte účet?{' '}
-            <Link href="/signup" className="underline hover:text-primary">
+            <Link href="/signup" className="underline hover:text-aurora">
               Zaregistrujte sa
             </Link>
           </p>

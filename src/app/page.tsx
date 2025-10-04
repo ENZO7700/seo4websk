@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -218,7 +219,7 @@ export default function NewHomePage() {
                 <Link href="#pricing">Vyskúšať na 7 dní</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light">
-                <Link href="#features">Pozrieť živé demo</Link>
+                <Link href="/dashboard">Pozrieť živé demo</Link>
               </Button>
             </motion.div>
              <motion.div className="mt-6 flex gap-4 justify-center text-sm text-rocket" variants={itemVariants}>
@@ -400,8 +401,10 @@ export default function NewHomePage() {
                             </ul>
                         </CardContent>
                         <CardFooter className="mt-auto p-6">
-                            <Button size="lg" className={cn("w-full", tier.isPopular ? "bg-sky hover:bg-night-sky" : "bg-space-grey border border-spaceship hover:bg-spaceship")}>
-                                {tier.cta}
+                            <Button size="lg" asChild className={cn("w-full", tier.isPopular ? "bg-sky hover:bg-night-sky" : "bg-space-grey border border-spaceship hover:bg-spaceship")}>
+                                <Link href="/signup">
+                                    {tier.cta}
+                                </Link>
                             </Button>
                         </CardFooter>
                     </Card>
@@ -469,3 +472,5 @@ export default function NewHomePage() {
     </div>
   );
 }
+
+    

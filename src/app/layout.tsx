@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://seo4web.sk/',
     languages: {
-      'sk': 'https://seo4web.sk/',
+      'sk-SK': 'https://seo4web.sk/',
     },
   },
   openGraph: {
@@ -74,7 +74,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
-        <Script id="json-ld-schema" type="application/ld+json">
+        <Script id="json-ld-schema" type="application/ld+json" strategy="afterInteractive">
           {`
             {
               "@context": "https://schema.org",
@@ -88,12 +88,21 @@ export default function RootLayout({
             }
           `}
         </Script>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></Script>
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXX');
+          `}
+        </Script>
       </head>
       <body className={cn("antialiased", fontBody.variable, fontHeadline.variable)}>
         <AuthProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="seo4web"
             enableSystem={false}
             disableTransitionOnChange
             themes={['light', 'dark', 'seo4web']}
@@ -108,3 +117,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

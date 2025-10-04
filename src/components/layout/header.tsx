@@ -15,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
 const baseMainNavLinks = [
-    { href: "/pricing", label: "Cenník" },
+    { href: "/#pricing", label: "Cenník" },
     { href: "/sluzby", label: "Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/blog", label: "Blog" },
@@ -33,7 +33,7 @@ const resourcesLinks = [
 
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading: authLoading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   
@@ -57,13 +57,13 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50",
-        "border-b border-border/50 bg-background/80 backdrop-blur-sm"
+        "border-b border-spaceship bg-galaxy/80 backdrop-blur-sm"
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-          <Seo4WebLogo className="h-7 w-7" />
-          <span className="font-headline">seo4web</span>
+          <Seo4WebLogo className="h-7 w-7 text-sky" />
+          <span className="font-headline text-light">seo4web</span>
         </Link>
         <div className="flex items-center gap-4">
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex flex-wrap">
@@ -72,21 +72,21 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-foreground/70 transition-colors hover:text-foreground"
+                  "text-rocket transition-colors hover:text-light"
                 )}
               >
                 {link.label}
               </Link>
             ))}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/70 transition-colors hover:text-foreground focus:outline-none">
+              <DropdownMenuTrigger className="flex items-center gap-1 text-rocket transition-colors hover:text-light focus:outline-none">
                 Zdroje
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {resourcesLinks.map((link, index) => (
                     link.separator ? <DropdownMenuSeparator key={`sep-${index}`} /> :
-                    <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-primary font-bold focus:text-primary')}>
+                    <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-aurora font-bold focus:text-aurora')}>
                         <Link href={link.href}>{link.label}</Link>
                     </DropdownMenuItem>
                 ))}
@@ -95,8 +95,8 @@ export function Header() {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-             {user ? (
-                <Button onClick={handleLogout} variant="outline" size="sm" className="hidden md:flex">
+             {authLoading ? null : user ? (
+                <Button onClick={handleLogout} variant="outline" size="sm" className="hidden md:flex bg-space-grey border-spaceship text-light hover:bg-spaceship">
                   <LogOut className="mr-2 h-4 w-4" />
                   Odhlásiť sa
                 </Button>
@@ -105,23 +105,23 @@ export function Header() {
                     <Link href="/login">Prihlásiť sa</Link>
                 </Button>
             )}
-             <Button asChild className="hidden lg:flex">
+             <Button asChild className="hidden lg:flex bg-sky hover:bg-night-sky">
               <Link href="/contact">Cenová Ponuka</Link>
             </Button>
             <div className="md:hidden">
                  <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                     <SheetTrigger asChild>
-                        <Button variant="outline" size="icon">
+                        <Button variant="outline" size="icon" className="bg-space-grey border-spaceship text-light hover:bg-spaceship">
                             <Menu className="h-5 w-5"/>
                             <span className="sr-only">Otvoriť menu</span>
                         </Button>
                     </SheetTrigger>
-                    <SheetContent side="right" className="flex flex-col">
-                        <SheetHeader className="border-b pb-4 flex-row justify-between items-center">
+                    <SheetContent side="right" className="flex flex-col bg-galaxy border-spaceship text-light">
+                        <SheetHeader className="border-b border-spaceship pb-4 flex-row justify-between items-center">
                             <SheetTitle>
                                <Link href="/" className="flex items-center gap-2 text-lg font-bold" onClick={() => setIsSheetOpen(false)}>
-                                    <Seo4WebLogo className="h-7 w-7" />
-                                    <span className="font-headline">seo4web</span>
+                                    <Seo4WebLogo className="h-7 w-7 text-sky" />
+                                    <span className="font-headline text-light">seo4web</span>
                                 </Link>
                             </SheetTitle>
                             <SheetClose asChild>
@@ -140,7 +140,7 @@ export function Header() {
                                     key={link.href}
                                     href={link.href!}
                                     className={cn(
-                                        "text-foreground/80 transition-colors hover:text-foreground block"
+                                        "text-moon transition-colors hover:text-light block"
                                     )}
                                     onClick={() => setIsSheetOpen(false)}
                                     >
@@ -149,14 +149,14 @@ export function Header() {
                                ))}
                                 <div>
                                     <DropdownMenu>
-                                        <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-foreground/80 transition-colors hover:text-foreground focus:outline-none">
+                                        <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-moon transition-colors hover:text-light focus:outline-none">
                                             Zdroje
                                             <ChevronDown className="h-5 w-5" />
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent>
                                             {resourcesLinks.map((link, index) => (
                                                 link.separator ? <DropdownMenuSeparator key={`sep-${index}`} /> :
-                                                <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-primary font-bold focus:text-primary')}>
+                                                <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-aurora font-bold focus:text-aurora')}>
                                                     <Link href={link.href} onClick={() => setIsSheetOpen(false)}>{link.label}</Link>
                                                 </DropdownMenuItem>
                                             ))}
@@ -165,8 +165,8 @@ export function Header() {
                                 </div>
                             </nav>
                              <div className="mt-auto pt-8 space-y-4">
-                                {user ? (
-                                    <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full">
+                                {authLoading ? null : user ? (
+                                    <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full bg-space-grey border border-spaceship">
                                         <LogOut className="mr-2" />
                                         Odhlásiť sa
                                     </Button>
@@ -175,7 +175,7 @@ export function Header() {
                                         <Link href="/login" onClick={() => setIsSheetOpen(false)}>Prihlásiť sa</Link>
                                     </Button>
                                 )}
-                                <Button asChild size="lg" className="w-full">
+                                <Button asChild size="lg" className="w-full bg-sky hover:bg-night-sky">
                                     <Link href="/contact" onClick={() => setIsSheetOpen(false)}>Získať Cenovú Ponuku</Link>
                                 </Button>
                             </div>
@@ -189,3 +189,5 @@ export function Header() {
     </header>
   );
 }
+
+    
