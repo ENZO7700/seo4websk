@@ -34,7 +34,7 @@ export function ThemeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("seo4web")}>
           <Palette className="mr-2 h-4 w-4" />
-          seo4web
+          Vesmírna (predvolená)
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
