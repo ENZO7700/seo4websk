@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -23,6 +22,7 @@ const baseMainNavLinks = [
 
 const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
+    { href: "/image-generator", label: "AI Generátor Obrázkov" },
     { separator: true },
     { href: "/seo-audit-akcia", label: "Akčná Ponuka: SEO Audit", isHot: true },
     { href: "/partnersky-program", label: "Partnerský program" },

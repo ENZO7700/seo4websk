@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { Github, Twitter, Linkedin, Facebook, Instagram, Phone, Mail, MapPin, BrainCircuit } from "lucide-react";
@@ -13,6 +12,7 @@ const footerLinks = [
 
 const toolLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
+    { href: "/image-generator", label: "AI Generátor Obrázkov" },
 ];
 
 export function Footer() {
