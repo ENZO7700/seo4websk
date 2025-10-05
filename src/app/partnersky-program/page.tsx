@@ -106,7 +106,7 @@ export default function PartnerProgramPage() {
                             Zarábajte odporúčaním našich špičkových SEO a PWA služieb. Spojme sily a rásťme spoločne.
                         </motion.p>
                         <motion.div variants={itemVariants}>
-                            <Button size="lg" asChild className="bg-sky hover:bg-night-sky text-light">
+                            <Button size="lg" asChild variant="cta">
                                 <Link href="/signup">Pripojiť sa k Programu</Link>
                             </Button>
                         </motion.div>
@@ -116,14 +116,17 @@ export default function PartnerProgramPage() {
 
             <main className="container mx-auto py-24 px-4">
 
-                <section id="why-join" className="max-w-5xl mx-auto mb-24">
+                <motion.section 
+                    id="why-join" 
+                    className="max-w-5xl mx-auto mb-24"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
                      <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-light">Prečo sa pridať?</h2>
-                     <motion.div 
+                     <div 
                         className="grid grid-cols-1 md:grid-cols-3 gap-8"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
-                        variants={containerVariants}
                      >
                         {benefits.map(benefit => (
                             <motion.div key={benefit.title} variants={itemVariants}>
@@ -136,17 +139,20 @@ export default function PartnerProgramPage() {
                                 </Card>
                             </motion.div>
                         ))}
-                     </motion.div>
-                </section>
+                     </div>
+                </motion.section>
 
-                <section id="how-it-works" className="max-w-5xl mx-auto mb-24">
+                <motion.section 
+                    id="how-it-works" 
+                    className="max-w-5xl mx-auto mb-24"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-light">Ako to funguje?</h2>
-                    <motion.div 
+                    <div 
                         className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
-                        variants={containerVariants}
                     >
                         {processSteps.map((step) => (
                             <motion.div key={step.step} className="flex flex-col items-center" variants={itemVariants}>
@@ -155,17 +161,20 @@ export default function PartnerProgramPage() {
                                 <p className="text-rocket text-balance">{step.description}</p>
                             </motion.div>
                         ))}
-                    </motion.div>
-                </section>
+                    </div>
+                </motion.section>
 
-                 <section id="commissions" className="mb-24">
+                 <motion.section 
+                    id="commissions" 
+                    className="mb-24"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-light">Štedré Provízie pre Vás</h2>
-                    <motion.div 
+                    <div 
                         className="grid grid-cols-1 md:grid-cols-3 gap-8"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
-                        variants={containerVariants}
                     >
                         {commissionTiers.map((tier) => (
                             <motion.div key={tier.name} variants={itemVariants}>
@@ -181,21 +190,28 @@ export default function PartnerProgramPage() {
                                 </Card>
                             </motion.div>
                         ))}
-                    </motion.div>
-                 </section>
+                    </div>
+                 </motion.section>
 
-                 <section id="cta-partner" className="bg-galaxy rounded-2xl p-12 text-center border border-spaceship">
+                 <motion.section 
+                    id="cta-partner" 
+                    className="bg-galaxy rounded-2xl p-12 text-center border border-spaceship"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
                      <h2 className="text-3xl font-bold mb-4 font-headline text-light">Pripravení začať zarábať?</h2>
                      <p className="text-lg text-rocket mb-8 max-w-2xl mx-auto text-balance">
                          Staňte sa súčasťou nášho úspechu. Registrácia je rýchla, jednoduchá a bezplatná.
                      </p>
-                      <Button size="lg" asChild className="bg-sky hover:bg-night-sky text-light">
+                      <Button size="lg" asChild variant="cta">
                         <Link href="/signup">
                             Stať sa Partnerom
                             <ArrowRight className="ml-2" />
                         </Link>
                     </Button>
-                 </section>
+                 </motion.section>
             </main>
         </div>
     );

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -8,8 +9,8 @@ import Link from 'next/link';
 
 export default function PwaVizitkaPage() {
     return (
-        <div className="bg-background text-foreground">
-             <header className="bg-primary/10 py-20 sm:py-32">
+        <div className="bg-background text-foreground flex flex-col items-center justify-center">
+             <header className="bg-primary/10 py-20 sm:py-32 w-full">
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">PWA Vizitka</h1>
                     <p className="text-xl max-w-3xl mx-auto text-foreground/80 mb-8 text-balance">
@@ -150,5 +151,3 @@ export default function PwaVizitkaPage() {
         </div>
     )
 }
-
-    
