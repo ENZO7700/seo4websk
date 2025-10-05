@@ -130,6 +130,48 @@
     --chart-4: 45 85% 58%;
     --chart-5: 260 85% 60%;
   }
+
+  .xedition {
+    --background: 20 14% 4%;
+    --foreground: 20 5% 94%;
+    --card: 20 14% 8%;
+    --card-foreground: 20 5% 94%;
+    --popover: 20 14% 4%;
+    --popover-foreground: 20 5% 94%;
+    --primary: 35 91% 55%;
+    --primary-foreground: 20 14% 4%;
+    --secondary: 15 84% 44%;
+    --secondary-foreground: 20 5% 94%;
+    --muted: 20 14% 12%;
+    --muted-foreground: 20 5% 65%;
+    --accent: 45 93% 52%;
+    --accent-foreground: 20 14% 4%;
+    --destructive: 0 100% 66%;
+    --destructive-foreground: 20 5% 94%;
+    --border: 20 14% 15%;
+    --input: 20 14% 12%;
+    --ring: 35 91% 55%;
+    --radius: 0.75rem;
+
+    /* Custom theme colors */
+    --sky: 35 91% 55%; 
+    --night-sky: 35 91% 45%; 
+    --aurora: 45 93% 52%;
+    --mars: 0 100% 66%;
+    --space: 20 14% 4%;
+    --galaxy: 20 14% 8%;
+    --space-grey: 20 14% 12%;
+    --spaceship: 20 14% 15%;
+    --rocket: 20 5% 65%;
+    --light: 20 5% 94%;
+
+    /* Chart colors for xedition theme */
+    --chart-1: 35 91% 55%;
+    --chart-2: 45 93% 52%;
+    --chart-3: 15 84% 44%;
+    --chart-4: 30 80% 65%;
+    --chart-5: 50 95% 55%;
+  }
 }
 
 @layer base {

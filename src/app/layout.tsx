@@ -119,7 +119,7 @@ export default function RootLayout({
             defaultTheme="seo4web"
             enableSystem={false}
             disableTransitionOnChange
-            themes={['light', 'dark', 'seo4web']}
+            themes={['light', 'dark', 'seo4web', 'xedition']}
           >
             <Header />
             <div className="relative">{children}</div>
