@@ -3,3 +3,4 @@
 import './flows/generate-reply-flow';
 import './flows/analyze-headline-flow';
 import './flows/generate-audio-flow';
+import './flows/generate-image-flow';

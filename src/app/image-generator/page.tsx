@@ -106,11 +106,15 @@ export default function ImageGeneratorPage() {
             </Alert>
           )}
            {isLoading && (
-              <div className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg">
+              <motion.div 
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                >
                  <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
                  <p className="text-muted-foreground">AI práve tvorí vaše majstrovské dielo...</p>
                  <p className="text-sm text-muted-foreground/80">(Môže to trvať aj minútu)</p>
-              </div>
+              </motion.div>
            )}
           {imageDataUri && (
             <motion.div
