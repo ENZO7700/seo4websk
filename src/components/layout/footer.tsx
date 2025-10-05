@@ -14,6 +14,7 @@ const toolLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov" },
     { href: "/meta-generator", label: "AI Generátor Meta Popisov" },
+    { href: "/seo-analyzer", label: "Pokročilý SEO Audit" },
 ];
 
 export function Footer() {
