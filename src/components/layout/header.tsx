@@ -25,6 +25,7 @@ const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov" },
     { href: "/seo-analyzer", label: "Pokročilý SEO Audit" },
+    { href: "/meta-generator", label: "AI Generátor Meta Popisov" },
     { separator: true },
     { href: "/seo-audit-akcia", label: "Akčná Ponuka: SEO Audit", isHot: true },
     { href: "/partnersky-program", label: "Partnerský program" },
