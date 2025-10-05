@@ -49,7 +49,17 @@ export default function SeoAnalyzerPage() {
       return;
     }
     try {
-        new URL(url);
+        // Simple regex to check for protocol and some domain characters
+        if (!/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(url)) {
+             throw new Error("Neplatný formát URL");
+        }
+        // Ensure it starts with http:// or https:// for the fetch to work
+        let fullUrl = url;
+        if (!/^https?:\/\//i.test(url)) {
+            fullUrl = 'https://' + url;
+        }
+        new URL(fullUrl); // This will throw if the URL is truly invalid
+        setUrl(fullUrl); // Update state with the corrected URL
     } catch (_) {
          toast({
             variant: 'destructive',
@@ -164,19 +174,19 @@ export default function SeoAnalyzerPage() {
                     <CardContent>
                         <Tabs defaultValue="summary" className="w-full">
                             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-space-grey border-spaceship">
-                                <TabsTrigger value="summary"><FileText className="mr-2" />Súhrn</TabsTrigger>
-                                <TabsTrigger value="wins"><ListChecks className="mr-2" />Top 10</TabsTrigger>
-                                <TabsTrigger value="plan"><Goal className="mr-2" />Plán Opráv</TabsTrigger>
-                                <TabsTrigger value="snippets"><Code className="mr-2" />Kód</TabsTrigger>
+                                <TabsTrigger value="summary"><FileText className="mr-2 h-4 w-4" />Súhrn</TabsTrigger>
+                                <TabsTrigger value="wins"><ListChecks className="mr-2 h-4 w-4" />Top 10</TabsTrigger>
+                                <TabsTrigger value="plan"><Goal className="mr-2 h-4 w-4" />Plán Opráv</TabsTrigger>
+                                <TabsTrigger value="snippets"><Code className="mr-2 h-4 w-4" />Kód</TabsTrigger>
                             </TabsList>
                             <TabsContent value="summary" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />') }} />
                             </TabsContent>
                              <TabsContent value="wins" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />') }} />
                             </TabsContent>
                              <TabsContent value="plan" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />') }} />
                             </TabsContent>
                             <TabsContent value="snippets" className="pt-6">
                                 <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
