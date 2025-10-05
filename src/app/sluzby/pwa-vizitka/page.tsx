@@ -22,7 +22,7 @@ export default function PwaVizitkaPage() {
                 </div>
             </header>
 
-            <main className="container mx-auto py-16 px-4">
+            <main className="container mx-auto py-16 px-4 flex flex-col items-center justify-center">
                <section className="grid items-center gap-12 md:grid-cols-2 mb-20">
                      <div>
                          <Image
