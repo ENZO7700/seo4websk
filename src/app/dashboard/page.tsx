@@ -248,7 +248,7 @@ const containerVariants = {
     },
   };
 
-function DashboardPage() {
+export default function DashboardPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [kpiData, setKpiData] = useState<GenerateKpiDataOutput | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -557,5 +557,3 @@ function DashboardPage() {
     </main>
   );
 }
-
-export default DashboardPage;
