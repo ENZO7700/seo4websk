@@ -38,11 +38,18 @@ export function Header() {
   const { toast } = useToast();
   
   const mainNavLinks = useMemo(() => {
-    const newLinks = [...baseMainNavLinks];
+    let links = [...baseMainNavLinks];
     if (user) {
-        newLinks.push({ href: "/dashboard", label: "Dashboard" });
+      // Find the index of the Blog link
+      const blogIndex = links.findIndex(link => link.href === "/blog");
+      // If Blog link exists, insert Dashboard before it. Otherwise, add to the end.
+      if (blogIndex !== -1) {
+        links.splice(blogIndex + 1, 0, { href: "/dashboard", label: "Dashboard" });
+      } else {
+        links.push({ href: "/dashboard", label: "Dashboard" });
+      }
     }
-    return newLinks;
+    return links;
   }, [user]);
 
   const handleLogout = async () => {
