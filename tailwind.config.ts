@@ -122,10 +122,10 @@ const config = {
         },
         "glow": {
           "0%, 100%": {
-            boxShadow: "0 0 4px var(--glow-color-from), 0 0 6px var(--glow-color-to)"
+            boxShadow: "0 0 5px var(--glow-color-from), 0 0 10px var(--glow-color-to)"
           },
           "50%": {
-            boxShadow: "0 0 8px var(--glow-color-from), 0 0 12px var(--glow-color-to)"
+            boxShadow: "0 0 10px var(--glow-color-from), 0 0 20px var(--glow-color-to)"
           }
         }
       },
