@@ -85,27 +85,27 @@ export default function AnalyzerPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             SEO Analyzátor Titulkov
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
             Získajte okamžitú spätnú väzbu na vaše titulky. Naša AI analyzuje
             váš titulok z pohľadu SEO a poskytne vám praktické návrhy na zlepšenie.
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <Textarea
                 placeholder="Zadajte váš titulok sem..."
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
-                className="min-h-[100px]"
+                className="min-h-[100px] bg-space-grey border-spaceship focus:ring-aurora"
                 aria-label="Textové pole pre zadanie titulku"
               />
               <Button
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                className="w-full"
+                className="w-full bg-sky hover:bg-night-sky"
               >
                 {isLoading ? (
                   <>
@@ -137,31 +137,31 @@ export default function AnalyzerPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card>
+                <Card className="bg-galaxy border-spaceship">
                 <CardHeader>
-                    <CardTitle className="text-xl font-semibold text-center">
+                    <CardTitle className="text-xl font-semibold text-center text-light">
                     Analýza dokončená
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div>
                     <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm font-medium text-muted-foreground">SEO Skóre</p>
-                        <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
+                        <p className="text-sm font-medium text-rocket">SEO Skóre</p>
+                        <p className="text-lg font-bold text-aurora">{analysisResult.score}/100</p>
                     </div>
                     <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
                     </div>
 
                     {(isAudioLoading || audioDataUri) && (
-                    <div className='flex items-center justify-center p-2 bg-muted rounded-md'>
+                    <div className='flex items-center justify-center p-2 bg-space-grey rounded-md'>
                         {isAudioLoading ? (
-                        <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                        <div className='flex items-center gap-2 text-sm text-rocket'>
                             <Loader2 className="h-4 w-4 animate-spin" />
                             <span>Generujem audio...</span>
                         </div>
                         ) : audioDataUri ? (
                             <div className="flex items-center gap-3 w-full">
-                            <Ear className="h-5 w-5 text-primary"/>
+                            <Ear className="h-5 w-5 text-aurora"/>
                             <audio controls src={audioDataUri} className="w-full h-10">
                                 Váš prehliadač nepodporuje audio element.
                             </audio>
@@ -171,7 +171,7 @@ export default function AnalyzerPage() {
                     )}
 
                     <div
-                    className="prose prose-sm dark:prose-invert text-left text-balance max-w-none"
+                    className="prose prose-sm dark:prose-invert text-left text-balance max-w-none text-light"
                     dangerouslySetInnerHTML={{
                         __html: analysisResult.analysis.replace(/\n/g, '<br />'),
                     }}

@@ -23,8 +23,8 @@ import { motion } from 'framer-motion';
 
 const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang: string }) => (
     <div className="mb-4">
-        <h4 className="font-semibold mb-2 text-foreground">{title}</h4>
-        <pre className="bg-muted p-4 rounded-md overflow-x-auto">
+        <h4 className="font-semibold mb-2 text-light">{title}</h4>
+        <pre className="bg-space-grey p-4 rounded-md overflow-x-auto text-sm text-moon">
             <code className={`language-${lang}`}>{code.trim()}</code>
         </pre>
     </div>
@@ -86,21 +86,21 @@ export default function SeoAnalyzerPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             Pokročilý SEO Audit
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
             Zadajte doménu a získajte hĺbkový audit hlavnej stránky a dvoch podstránok, vrátane konkrétnych odporúčaní a úryvkov kódu na opravu.
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-rocket" />
                 <Input
                   placeholder="Zadajte URL adresu, napr. https://google.com"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 bg-space-grey border-spaceship focus:ring-aurora"
                   aria-label="URL adresa webovej stránky"
                   onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
                 />
@@ -109,7 +109,7 @@ export default function SeoAnalyzerPage() {
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                className="w-full"
+                className="w-full bg-sky hover:bg-night-sky"
               >
                 {isLoading ? (
                   <>
@@ -130,13 +130,13 @@ export default function SeoAnalyzerPage() {
         <div className="w-full max-w-4xl min-h-[250px]">
           {isLoading && (
               <motion.div 
-                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg"
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 >
-                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
-                 <p className="text-muted-foreground">AI práve analyzuje váš web...</p>
-                 <p className="text-sm text-muted-foreground/80">(Môže to trvať aj minútu, analyzujem 3 stránky)</p>
+                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
+                 <p className="text-rocket">AI práve analyzuje váš web...</p>
+                 <p className="text-sm text-rocket/80">(Môže to trvať aj minútu, analyzujem 3 stránky)</p>
               </motion.div>
            )}
           {error && (
@@ -152,33 +152,33 @@ export default function SeoAnalyzerPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card>
+                <Card className="bg-galaxy border-spaceship">
                     <CardHeader>
-                        <CardTitle className="text-xl font-semibold text-center">
+                        <CardTitle className="text-xl font-semibold text-center text-light">
                         Výsledky SEO Auditu
                         </CardTitle>
-                        <CardDescription className="text-center truncate">
+                        <CardDescription className="text-center truncate text-rocket">
                             Pre: {url}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Tabs defaultValue="summary" className="w-full">
-                            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+                            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-space-grey border-spaceship">
                                 <TabsTrigger value="summary"><FileText className="mr-2" />Súhrn</TabsTrigger>
                                 <TabsTrigger value="wins"><ListChecks className="mr-2" />Top 10</TabsTrigger>
                                 <TabsTrigger value="plan"><Goal className="mr-2" />Plán Opráv</TabsTrigger>
                                 <TabsTrigger value="snippets"><Code className="mr-2" />Kód</TabsTrigger>
                             </TabsList>
-                            <TabsContent value="summary" className="pt-4">
-                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />') }} />
+                            <TabsContent value="summary" className="pt-6">
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />') }} />
                             </TabsContent>
-                             <TabsContent value="wins" className="pt-4">
-                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />') }} />
+                             <TabsContent value="wins" className="pt-6">
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />') }} />
                             </TabsContent>
-                             <TabsContent value="plan" className="pt-4">
-                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />') }} />
+                             <TabsContent value="plan" className="pt-6">
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />') }} />
                             </TabsContent>
-                            <TabsContent value="snippets" className="pt-4">
+                            <TabsContent value="snippets" className="pt-6">
                                 <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
                                 <CodeSnippet title="Preload Hero Image" code={analysisResult.snippets.preloadHero} lang="html" />
                                 <CodeSnippet title="JSON-LD (Organization & WebSite)" code={analysisResult.snippets.jsonLd} lang="json" />

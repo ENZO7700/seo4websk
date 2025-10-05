@@ -64,21 +64,21 @@ export default function ImageGeneratorPage() {
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <Textarea
                 placeholder="Napríklad: astronaut na surfe v kozme, digitálne umenie..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-[100px]"
+                className="min-h-[100px] bg-space-grey border-spaceship focus:ring-aurora"
                 aria-label="Textové pole pre zadanie popisu obrázku"
               />
               <Button
                 size="lg"
                 onClick={handleGenerate}
                 disabled={isLoading}
-                className="w-full"
+                className="w-full bg-sky hover:bg-night-sky"
               >
                 {isLoading ? (
                   <>
@@ -106,13 +106,13 @@ export default function ImageGeneratorPage() {
           )}
            {isLoading && (
               <motion.div 
-                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg"
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 >
-                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
-                 <p className="text-muted-foreground">AI práve tvorí vaše majstrovské dielo...</p>
-                 <p className="text-sm text-muted-foreground/80">(Môže to trvať aj minútu)</p>
+                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
+                 <p className="text-rocket">AI práve tvorí vaše majstrovské dielo...</p>
+                 <p className="text-sm text-rocket/80">(Môže to trvať aj minútu)</p>
               </motion.div>
            )}
           {imageDataUri && (
@@ -121,14 +121,14 @@ export default function ImageGeneratorPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden bg-galaxy border-spaceship">
                 <CardHeader>
-                    <CardTitle className="text-xl font-semibold text-center">
+                    <CardTitle className="text-xl font-semibold text-center text-light">
                     Váš obrázok je hotový!
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <div className="aspect-video relative w-full rounded-md overflow-hidden border">
+                    <div className="aspect-video relative w-full rounded-md overflow-hidden border border-spaceship">
                         <Image 
                             src={imageDataUri}
                             alt={prompt}
@@ -136,7 +136,7 @@ export default function ImageGeneratorPage() {
                             className="object-contain"
                         />
                     </div>
-                    <Button asChild size="lg" className="w-full">
+                    <Button asChild size="lg" className="w-full bg-sky hover:bg-night-sky">
                         <a href={imageDataUri} download={`ai-image-${Date.now()}.png`}>
                             <Download />
                             Stiahnuť Obrázok
@@ -147,9 +147,9 @@ export default function ImageGeneratorPage() {
             </motion.div>
           )}
           {!isLoading && !imageDataUri && !error && (
-            <div className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed bg-card/50 backdrop-blur-lg">
-               <ImageIcon className="h-16 w-16 text-muted-foreground/50 mb-4" />
-               <p className="text-muted-foreground">Tu sa zobrazí váš vygenerovaný obrázok.</p>
+            <div className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg">
+               <ImageIcon className="h-16 w-16 text-spaceship mb-4" />
+               <p className="text-rocket">Tu sa zobrazí váš vygenerovaný obrázok.</p>
             </div>
           )}
         </div>
