@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -14,7 +15,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
 const baseMainNavLinks = [
-    { href: "/#pricing", label: "Cenník" },
+    { href: "/pricing", label: "Cenník" },
     { href: "/sluzby", label: "Služby" },
     { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/blog", label: "Blog" },
@@ -23,6 +24,7 @@ const baseMainNavLinks = [
 const resourcesLinks = [
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov" },
+    { href: "/seo-analyzer", label: "Pokročilý SEO Audit" },
     { separator: true },
     { href: "/seo-audit-akcia", label: "Akčná Ponuka: SEO Audit", isHot: true },
     { href: "/partnersky-program", label: "Partnerský program" },

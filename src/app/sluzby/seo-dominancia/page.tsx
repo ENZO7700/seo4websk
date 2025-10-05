@@ -26,7 +26,7 @@ export default function SeoDominanciaPage() {
                <section className="grid items-center gap-12 md:grid-cols-2 mb-20">
                     <div>
                          <Image
-                            src="https://img.freepik.com/free-vector/business-leader-concept-illustration_114360-1 líder.jpg?w=600"
+                            src="https://img.freepik.com/free-vector/business-leader-concept-illustration_114360-12108.jpg?w=600"
                             alt="Šachový kráľ ako metafora pre dominanciu na trhu"
                             width={600}
                             height={600}
@@ -114,5 +114,3 @@ export default function SeoDominanciaPage() {
         </div>
     )
 }
-
-    
