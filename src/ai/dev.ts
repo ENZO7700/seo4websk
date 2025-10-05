@@ -6,3 +6,4 @@ import './flows/advanced-seo-audit-flow';
 import './flows/generate-kpi-data-flow';
 import './flows/generate-image-flow';
 import './flows/generate-audio-flow';
+import './flows/answer-seo-question-flow';
