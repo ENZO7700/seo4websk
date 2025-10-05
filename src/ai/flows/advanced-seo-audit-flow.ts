@@ -177,8 +177,8 @@ INPUT:
 STEPS:
 1)  **Analyze the data**: Review the provided JSON data for each page. Look for inconsistencies, errors, and areas for improvement across all collected data points (status, titles, headings, images, schema, PWA features, etc.). If you see a status of 500, it means the page failed to load, which is a critical error you must highlight.
 2)  **Identify issues**: Based on your analysis, identify the most critical issues. For each issue, determine its category (TECH, ONPAGE, CWV, CONTENT), severity (critical/high/medium/low), business impact (1-5, where 5 is highest), and implementation effort (low/med/high).
-3)  **Formulate recommendations**: Create a summary, a list of the top 10 quick wins, and a 3-wave fix plan.
-4)  **Generate code snippets**: Provide concrete, copy-paste-ready code snippets for the most common and critical fixes. Ensure they are generic enough to be adapted but specific enough to be useful. For the hero image preload, if there are multiple images, pick the most likely one (usually the first one in the body).
+3.  **Formulate recommendations**: Create a summary, a list of the top 10 quick wins, and a 3-wave fix plan.
+4.  **Generate code snippets**: Provide concrete, copy-paste-ready code snippets for the most common and critical fixes. Ensure they are generic enough to be adapted but specific enough to be useful. For the hero image preload, if there are multiple images, pick the most likely one (usually the first one in the body).
 
 OUTPUT:
 Strictly adhere to the following output structure and use Markdown for formatting lists and code blocks.
@@ -315,7 +315,7 @@ const advancedSeoAuditFlow = ai.defineFlow(
     }
     
     // 2. Analyze pages in parallel
-    const analysisPromises = linksToAudit.map(link => analyzePage(link));
+    const analysisPromises = linksToAudit.map(link => analyzePage(link).catch(e => e));
     const analyzedPages = await Promise.all(analysisPromises);
     
     // 3. Send data to the AI for analysis and recommendations

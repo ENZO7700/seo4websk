@@ -182,7 +182,7 @@ export default function SeoAnalyzerPage() {
                                 <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
                                 <CodeSnippet title="Preload Hero Image" code={analysisResult.snippets.preloadHero} lang="html" />
                                 <CodeSnippet title="JSON-LD (Organization & WebSite)" code={analysisResult.snippets.jsonLd} lang="json" />
-                                <CodeSnippet title="Security Headers (Nginx)" code={analysisResult.snippets.securityHeaders} lang="nginx" />
+                                <CodeSnippet title="Security Headers (Nginx & Meta)" code={analysisResult.snippets.securityHeaders} lang="nginx" />
                                 <CodeSnippet title="OpenGraph & Twitter Cards" code={analysisResult.snippets.openGraph} lang="html" />
                             </TabsContent>
                         </Tabs>
