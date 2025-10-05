@@ -59,7 +59,7 @@ export default function ImageGeneratorPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             AI Generátor Obrázkov
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-foreground/70 text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
             Popíšte svoju predstavu a naša umelá inteligencia pre vás vytvorí unikátny, fotorealistický obrázok.
           </p>
         </div>

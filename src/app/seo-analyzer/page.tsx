@@ -170,13 +170,13 @@ export default function SeoAnalyzerPage() {
                                 <TabsTrigger value="snippets"><Code className="mr-2" />Kód</TabsTrigger>
                             </TabsList>
                             <TabsContent value="summary" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\\n/g, '<br />') }} />
                             </TabsContent>
                              <TabsContent value="wins" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\\n/g, '<br />') }} />
                             </TabsContent>
                              <TabsContent value="plan" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\\n/g, '<br />') }} />
                             </TabsContent>
                             <TabsContent value="snippets" className="pt-6">
                                 <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
