@@ -8,7 +8,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Wand2, AlertCircle, Download, Image as ImageIcon } from 'lucide-react';
@@ -79,7 +78,8 @@ export default function ImageGeneratorPage() {
                 size="lg"
                 onClick={handleGenerate}
                 disabled={isLoading}
-                className="w-full bg-sky hover:bg-night-sky"
+                variant="cta"
+                className="w-full"
               >
                 {isLoading ? (
                   <>
@@ -137,7 +137,7 @@ export default function ImageGeneratorPage() {
                             className="object-contain"
                         />
                     </div>
-                    <Button asChild size="lg" className="w-full bg-sky hover:bg-night-sky">
+                    <Button asChild size="lg" className="w-full" variant="cta">
                         <a href={imageDataUri} download={`ai-image-${Date.now()}.png`}>
                             <Download />
                             Stiahnuť Obrázok

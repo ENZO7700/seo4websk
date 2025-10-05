@@ -10,15 +10,29 @@ import { Inter, Lexend_Deca } from 'next/font/google';
 import { AuthProvider } from "@/components/auth/auth-provider";
 import Script from "next/script";
 
+const APP_NAME = "Seo4Web AI Suite";
+const APP_DEFAULT_TITLE = "Seo4Web AI Suite – SEO na autopilote s umelou inteligenciou";
+const APP_TITLE_TEMPLATE = "%s | Seo4Web AI Suite";
+const APP_DESCRIPTION = "AI nástroje pre audit, copywriting a kľúčové slová. Vyskúšaj Seo4Web AI Suite na 7 dní zdarma a urýchli rast organiky.";
+
+
 export const metadata: Metadata = {
+  applicationName: APP_NAME,
   title: {
-    template: '%s | Seo4Web AI Suite',
-    default: 'Seo4Web AI Suite – SEO na autopilote s umelou inteligenciou',
+    default: APP_DEFAULT_TITLE,
+    template: APP_TITLE_TEMPLATE,
   },
-  description:
-    "AI nástroje pre audit, copywriting a kľúčové slová. Vyskúšaj Seo4Web AI Suite na 7 dní zdarma a urýchli rast organiky.",
-  keywords: "SEO, AI, copywriting, audit, kľúčové slová, umelá inteligencia, marketing, seo4web",
+  description: APP_DESCRIPTION,
   manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: APP_DEFAULT_TITLE,
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  keywords: "SEO, AI, copywriting, audit, kľúčové slová, umelá inteligencia, marketing, seo4web",
   alternates: {
     canonical: 'https://seo4web.sk/',
     languages: {
@@ -29,7 +43,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://seo4web.sk/',
     title: 'Seo4Web AI Suite – SEO na autopilote',
-    description: 'Audit, copywriting a kľúčové slová v jednom. 7 dní zdarma.',
+    description: 'AI, ktorá doručí výsledky v SERP.',
     images: [{
       url: 'https://seo4web.sk/og-cover.jpg',
       width: 1200,
@@ -46,7 +60,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#0d1117",
   width: 'device-width',
   initialScale: 1,
 };

@@ -215,7 +215,7 @@ export default function NewHomePage() {
               className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
               variants={itemVariants}
             >
-              <Button asChild size="lg" className="w-full sm:w-auto bg-sky hover:bg-night-sky text-light shadow-lg shadow-sky/20">
+              <Button asChild size="lg" className="w-full sm:w-auto" variant="cta">
                 <Link href="#pricing">Vyskúšať na 7 dní</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light">
@@ -401,7 +401,7 @@ export default function NewHomePage() {
                             </ul>
                         </CardContent>
                         <CardFooter className="mt-auto p-6">
-                            <Button size="lg" asChild className={cn("w-full", tier.isPopular ? "bg-sky hover:bg-night-sky" : "bg-space-grey border border-spaceship hover:bg-spaceship")}>
+                            <Button size="lg" asChild className="w-full" variant={tier.isPopular ? 'cta' : 'outline'}>
                                 <Link href="/signup">
                                     {tier.cta}
                                 </Link>
@@ -461,7 +461,7 @@ export default function NewHomePage() {
                      <p className="mt-4 text-lg text-rocket text-balance max-w-2xl mx-auto">
                         Spusti 7-dňovú skúšobnú verziu a uvidíš rozdiel do pár dní. Žiadne riziko, žiadne záväzky.
                      </p>
-                      <Button asChild size="lg" className="mt-8 bg-sky hover:bg-night-sky text-light shadow-lg shadow-sky/20 h-12 text-base">
+                      <Button asChild size="lg" className="mt-8 h-12 text-base" variant="cta">
                         <Link href="#pricing">
                           Vyskúšať na 7 dní
                         </Link>
@@ -472,5 +472,3 @@ export default function NewHomePage() {
     </div>
   );
 }
-
-    

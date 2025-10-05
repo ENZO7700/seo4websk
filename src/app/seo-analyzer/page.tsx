@@ -119,7 +119,8 @@ export default function SeoAnalyzerPage() {
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                className="w-full bg-sky hover:bg-night-sky"
+                variant="cta"
+                className="w-full"
               >
                 {isLoading ? (
                   <>

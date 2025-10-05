@@ -112,7 +112,7 @@ export function Header() {
                     <Link href="/login">Prihlásiť sa</Link>
                 </Button>
             )}
-             <Button asChild className="hidden lg:flex bg-sky hover:bg-night-sky">
+             <Button asChild className="hidden lg:flex" variant="cta">
               <Link href="/contact">Cenová Ponuka</Link>
             </Button>
             <div className="md:hidden">
@@ -182,7 +182,7 @@ export function Header() {
                                         <Link href="/login" onClick={() => setIsSheetOpen(false)}>Prihlásiť sa</Link>
                                     </Button>
                                 )}
-                                <Button asChild size="lg" className="w-full bg-sky hover:bg-night-sky">
+                                <Button asChild size="lg" className="w-full" variant="cta">
                                     <Link href="/contact" onClick={() => setIsSheetOpen(false)}>Získať Cenovú Ponuku</Link>
                                 </Button>
                             </div>

@@ -8,7 +8,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2, Wand2, AlertCircle, Ear } from 'lucide-react';
@@ -105,7 +104,8 @@ export default function AnalyzerPage() {
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                className="w-full bg-sky hover:bg-night-sky"
+                variant="cta"
+                className="w-full"
               >
                 {isLoading ? (
                   <>

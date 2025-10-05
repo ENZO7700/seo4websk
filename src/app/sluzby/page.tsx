@@ -238,7 +238,7 @@ export default function InteractiveServicesPage() {
                         <RefreshCw className="mr-2 h-4 w-4" />
                         Skúsiť znova
                     </Button>
-                    <Button asChild size="lg" className="w-full sm:w-auto bg-sky hover:bg-night-sky">
+                    <Button asChild size="lg" className="w-full sm:w-auto" variant="cta">
                          <Link href={recommendation?.href || '/contact'}>
                             {recommendation?.ctaText}
                             <ArrowRight className="ml-2 h-4 w-4" />
@@ -246,7 +246,7 @@ export default function InteractiveServicesPage() {
                     </Button>
                 </>
               ) : (
-                <Button size="lg" onClick={handleNext} disabled={isNextDisabled()} className="w-full sm:w-auto bg-sky hover:bg-night-sky">
+                <Button size="lg" onClick={handleNext} disabled={isNextDisabled()} className="w-full sm:w-auto" variant="cta">
                     Pokračovať
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
