@@ -16,7 +16,6 @@ import {
   analyzeHeadline,
   AnalyzeHeadlineOutput,
 } from '@/ai/flows/analyze-headline-flow';
-import { generateAudio } from '@/ai/flows/generate-audio-flow';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
@@ -27,8 +26,6 @@ export default function AnalyzerPage() {
   const [headline, setHeadline] = useState('');
   const [analysisResult, setAnalysisResult] =
     useState<AnalyzeHeadlineOutput | null>(null);
-  const [audioDataUri, setAudioDataUri] = useState<string | null>(null);
-  const [isAudioLoading, setIsAudioLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleAnalyze = async () => {
@@ -42,28 +39,10 @@ export default function AnalyzerPage() {
     }
     setIsLoading(true);
     setAnalysisResult(null);
-    setAudioDataUri(null);
     setError(null);
     try {
       const result = await analyzeHeadline({ headline });
       setAnalysisResult(result);
-      
-      // Once analysis is done, generate audio
-      setIsAudioLoading(true);
-      try {
-          const audioResult = await generateAudio({ text: result.analysis });
-          setAudioDataUri(audioResult.audioDataUri);
-      } catch (audioErr) {
-          // Non-critical error, so we just log it and don't show a blocking error
-          toast({
-            variant: 'default',
-            title: 'Audio sa nepodarilo vygenerovať',
-            description: 'Analýza je dostupná v textovej podobe.',
-          });
-      } finally {
-        setIsAudioLoading(false);
-      }
-
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Vyskytol sa neznámy problém s AI. Skúste to prosím znova.';
       setError(errorMessage);
@@ -124,6 +103,17 @@ export default function AnalyzerPage() {
         </Card>
 
         <div className="w-full max-w-2xl min-h-[150px]">
+          {isLoading && (
+              <motion.div 
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                >
+                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
+                 <p className="text-rocket">AI analyzuje a generuje audio...</p>
+                 <p className="text-sm text-rocket/80">(Môže to chvíľu trvať)</p>
+              </motion.div>
+          )}
           {error && (
              <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
@@ -152,21 +142,14 @@ export default function AnalyzerPage() {
                     <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
                     </div>
 
-                    {(isAudioLoading || audioDataUri) && (
+                    {analysisResult.audioDataUri && (
                     <div className='flex items-center justify-center p-2 bg-space-grey rounded-md'>
-                        {isAudioLoading ? (
-                        <div className='flex items-center gap-2 text-sm text-rocket'>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            <span>Generujem audio...</span>
+                        <div className="flex items-center gap-3 w-full">
+                        <Ear className="h-5 w-5 text-aurora"/>
+                        <audio controls src={analysisResult.audioDataUri} className="w-full h-10">
+                            Váš prehliadač nepodporuje audio element.
+                        </audio>
                         </div>
-                        ) : audioDataUri ? (
-                            <div className="flex items-center gap-3 w-full">
-                            <Ear className="h-5 w-5 text-aurora"/>
-                            <audio controls src={audioDataUri} className="w-full h-10">
-                                Váš prehliadač nepodporuje audio element.
-                            </audio>
-                            </div>
-                        ) : null}
                     </div>
                     )}
 
