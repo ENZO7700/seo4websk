@@ -18,6 +18,11 @@ const toolLinks = [
     { href: "/semantic-analyzer", label: "Sémantický Analyzátor" },
 ];
 
+const extraLinks = [
+    { href: "/prompt-engineering", label: "Prompt Stratégia", icon: <BrainCircuit className="h-4 w-4" /> },
+    { href: "/experimenty", label: "Experimenty", icon: <BrainCircuit className="h-4 w-4" /> },
+]
+
 export function Footer() {
   return (
     <footer id="contact" className="border-t border-spaceship bg-galaxy">
@@ -55,9 +60,11 @@ export function Footer() {
                         {link.label}
                     </Link>
                 ))}
-                <Link href="/prompt-engineering" className="text-aurora transition-colors hover:text-aurora/80 text-sm flex items-center gap-2">
-                    <BrainCircuit className="h-4 w-4" /> Prompt Stratégia
-                </Link>
+                {extraLinks.map((link) => (
+                    <Link key={link.href} href={link.href} className="text-aurora transition-colors hover:text-aurora/80 text-sm flex items-center gap-2">
+                        {link.icon} {link.label}
+                    </Link>
+                ))}
               </div>
             </div>
 
