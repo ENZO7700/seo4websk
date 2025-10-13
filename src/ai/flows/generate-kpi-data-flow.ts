@@ -25,7 +25,7 @@ const GenerateKpiDataOutputSchema = z.object({
   }),
   conversions: z.object({
     value: z.number().describe("Total number of conversions, e.g., 128."),
-    change: z.number().describe("Absolute change from the previous period, e.g., 15."),
+    change: z.number().describe("Absolute change from the previous period, eg., 15."),
   }),
 });
 export type GenerateKpiDataOutput = z.infer<typeof GenerateKpiDataOutputSchema>;

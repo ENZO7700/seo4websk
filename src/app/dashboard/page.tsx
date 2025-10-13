@@ -195,7 +195,7 @@ function HeadlineAnalyzerWidget() {
             <div
               className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2"
               dangerouslySetInnerHTML={{
-                __html: analysisResult.analysis.replace(/\\n/g, '<br />'),
+                __html: analysisResult.analysis.replace(/\n/g, '<br />'),
               }}
             />
           </motion.div>
@@ -343,7 +343,7 @@ export default function DashboardPage() {
 
   const kpiCards = kpiData ? [
     { title: 'Návštevnosť', value: formatNumber(kpiData.traffic.value), change: `${kpiData.traffic.change > 0 ? '+' : ''}${kpiData.traffic.change}%`, changeType: kpiData.traffic.change > 0 ? 'increase' : 'decrease', icon: <Users /> },
-    { title: 'Bounce Rate', value: `${kpiData.bounceRate.value.toFixed(1)}%`, change: `${kpiData.bounceRate.change > 0 ? '+' : ''}${kpiData.bounceRate.change.toFixed(1)}%`, changeType: kpiData.bounceRate.change > 0 ? 'decrease' : 'increase', icon: <Zap /> },
+    { title: 'Miera Odchodov', value: `${kpiData.bounceRate.value.toFixed(1)}%`, change: `${kpiData.bounceRate.change > 0 ? '+' : ''}${kpiData.bounceRate.change.toFixed(1)}%`, changeType: kpiData.bounceRate.change > 0 ? 'decrease' : 'increase', icon: <Zap /> },
     { title: 'Dĺžka Návštevy', value: `${kpiData.visitDuration.minutes}m ${kpiData.visitDuration.seconds}s`, change: `${kpiData.visitDuration.change > 0 ? '+' : ''}${Math.floor(kpiData.visitDuration.change / 60)}m ${kpiData.visitDuration.change % 60}s`, changeType: kpiData.visitDuration.change > 0 ? 'increase' : 'decrease', icon: <Clock /> },
     { title: 'Konverzie', value: formatNumber(kpiData.conversions.value), change: `${kpiData.conversions.change > 0 ? '+' : ''}${kpiData.conversions.change}`, changeType: kpiData.conversions.change > 0 ? 'increase' : 'decrease', icon: <CheckCircle /> },
   ] : [];
