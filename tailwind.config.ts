@@ -58,35 +58,22 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
-        },
         // seo4web theme colors
-        'sky': 'var(--sky)',
-        'night-sky': 'var(--night-sky)',
-        'aurora': 'var(--aurora)',
-        'mars': 'var(--mars)',
-        'venus-from': 'var(--venus-from)',
-        'venus-to': 'var(--venus-to)',
-        'sun-from': 'var(--sun-from)',
-        'sun-to': 'var(--sun-to)',
-        'space': 'var(--space)',
-        'galaxy': 'var(--galaxy)',
-        'space-grey': 'var(--space-grey)',
-        'spaceship': 'var(--spaceship)',
-        'rocket': 'var(--rocket)',
-        'spacesuit': 'var(--spacesuit)',
-        'smoke': 'var(--smoke)',
-        'moon': 'var(--moon)',
-        'light': 'var(--light)',
+        'sky': 'hsl(var(--sky))',
+        'night-sky': 'hsl(var(--night-sky))',
+        'aurora': 'hsl(var(--aurora))',
+        'mars': 'hsl(var(--mars))',
+        'space': 'hsl(var(--space))',
+        'galaxy': 'hsl(var(--galaxy))',
+        'space-grey': 'hsl(var(--space-grey))',
+        'spaceship': 'hsl(var(--spaceship))',
+        'rocket': 'hsl(var(--rocket))',
+        'moon': 'hsl(var(--moon))',
+        'light': 'hsl(var(--light))',
       },
       backgroundImage: {
-        'grad-venus': 'var(--grad-venus)',
-        'grad-sun': 'var(--grad-sun)',
+        'grad-venus': 'linear-gradient(to right, hsl(var(--venus-from)), hsl(var(--venus-to)))',
+        'grad-sun': 'linear-gradient(to right, hsl(var(--sun-from)), hsl(var(--sun-to)))',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -120,20 +107,11 @@ const config = {
             transform: 'translateY(0)',
           },
         },
-        "glow": {
-          "0%, 100%": {
-            boxShadow: "0 0 5px var(--glow-color-from), 0 0 10px var(--glow-color-to)"
-          },
-          "50%": {
-            boxShadow: "0 0 10px var(--glow-color-from), 0 0 20px var(--glow-color-to)"
-          }
-        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
-        'glow': 'glow 4s linear infinite',
       },
     },
   },

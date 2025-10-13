@@ -40,10 +40,6 @@
     --chart-3: 30 70% 50%;
     --chart-4: 210 70% 50%;
     --chart-5: 330 70% 50%;
-
-    /* Glow Colors */
-    --glow-color-from: hsl(var(--primary));
-    --glow-color-to: hsl(var(--accent));
   }
  
   .dark {
@@ -80,10 +76,6 @@
     --chart-3: 30 80% 65%;
     --chart-4: 210 80% 65%;
     --chart-5: 330 80% 65%;
-
-    /* Glow Colors */
-    --glow-color-from: hsl(var(--primary));
-    --glow-color-to: hsl(var(--ring));
   }
 
   .seo4web {
@@ -137,10 +129,6 @@
     --chart-3: 350 100% 62%;
     --chart-4: 45 85% 58%;
     --chart-5: 260 85% 60%;
-
-    /* Glow Colors */
-    --glow-color-from: hsl(var(--aurora));
-    --glow-color-to: hsl(var(--sky));
   }
 
   .xedition {
@@ -183,10 +171,6 @@
     --chart-3: 15 84% 44%;
     --chart-4: 30 80% 65%;
     --chart-5: 50 95% 55%;
-
-     /* Glow Colors */
-    --glow-color-from: hsl(var(--primary));
-    --glow-color-to: hsl(var(--destructive));
   }
 }
 
@@ -218,21 +202,6 @@
   .prose li {
       @apply my-1;
   }
-  .animate-glow {
-    animation: glow 4s ease-in-out infinite;
-  }
-}
-
-@keyframes glow {
-    0% {
-      box-shadow: 0 0 5px -2px hsl(var(--glow-color-from)), 0 0 10px -2px hsl(var(--glow-color-to));
-    }
-    50% {
-      box-shadow: 0 0 15px 0px hsl(var(--glow-color-from)), 0 0 25px 0px hsl(var(--glow-color-to));
-    }
-    100% {
-      box-shadow: 0 0 5px -2px hsl(var(--glow-color-from)), 0 0 10px -2px hsl(var(--glow-color-to));
-    }
 }
 
 

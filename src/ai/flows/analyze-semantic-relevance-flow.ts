@@ -39,7 +39,7 @@ const prompt = ai.definePrompt({
 3.  **Suggest improvements:** Identify key sub-topics, entities, or questions that are missing from the text and are essential for comprehensive coverage of the main topic. Return them as a list of 3-5 concrete suggestions. For example, if the main topic is 'how to choose running shoes', suggest topics like 'Types of pronation (pronation, supination)', 'Difference between trail and road shoes', 'Cushioning and its impact on joints'.
 4.  **Analyze sentiment:** Based on the text, determine its overall sentiment.
 
-Return the result exactly according to the defined Zod schema. The language of the output must be Slovak.`,
+Return the result exactly according to the defined Zod schema.`,
 });
 
 const analyzeSemanticRelevanceFlow = ai.defineFlow(
