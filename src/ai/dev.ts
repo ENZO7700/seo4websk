@@ -6,3 +6,4 @@ import './flows/answer-seo-question-flow';
 import './flows/generate-audio-flow';
 import './flows/generate-image-flow';
 import './flows/generate-meta-description-flow';
+import './flows/analyze-semantic-relevance-flow';
