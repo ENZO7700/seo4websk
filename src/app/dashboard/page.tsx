@@ -113,7 +113,7 @@ const generateRandomData = () => {
   return { topPagesData, keywordData, deviceData };
 };
 
-const COLORS = ['hsl(var(--primary))', 'hsl(var(--accent))', 'hsl(var(--secondary))'];
+const COLORS = ['hsl(var(--sky))', 'hsl(var(--aurora))', 'hsl(var(--spaceship))'];
 
 
 function HeadlineAnalyzerWidget() {
@@ -150,13 +150,13 @@ function HeadlineAnalyzerWidget() {
   };
 
   return (
-    <Card>
+    <Card className='bg-galaxy border-spaceship'>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-xl md:text-2xl">
-          <Wand2 />
+        <CardTitle className="flex items-center gap-2 text-xl md:text-2xl text-light">
+          <Wand2 className='text-aurora' />
           Rýchly Analyzátor Titulkov
         </CardTitle>
-        <CardDescription>
+        <CardDescription className='text-rocket'>
           Otestujte silu vašich nadpisov priamo tu.
         </CardDescription>
       </CardHeader>
@@ -166,9 +166,9 @@ function HeadlineAnalyzerWidget() {
             placeholder="Zadajte váš titulok sem..."
             value={headline}
             onChange={(e) => setHeadline(e.target.value)}
-            className="min-h-[80px]"
+            className="min-h-[80px] bg-space-grey border-spaceship text-light focus:ring-aurora"
           />
-          <Button onClick={handleAnalyze} disabled={isLoading}>
+          <Button onClick={handleAnalyze} disabled={isLoading} variant="cta">
             {isLoading ? (
               <Loader2 className="animate-spin" />
             ) : (
@@ -184,16 +184,16 @@ function HeadlineAnalyzerWidget() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex justify-between items-center">
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-sm font-medium text-rocket">
                 SEO Skóre
               </p>
-              <p className="text-lg font-bold text-primary">
+              <p className="text-lg font-bold text-aurora">
                 {analysisResult.score}/100
               </p>
             </div>
             <Progress value={analysisResult.score} />
             <div
-              className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2"
+              className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2 text-light"
               dangerouslySetInnerHTML={{
                 __html: analysisResult.analysis.replace(/\n/g, '<br />'),
               }}
@@ -208,16 +208,16 @@ function HeadlineAnalyzerWidget() {
 
 function KpiCard({ title, value, change, changeType, icon }: KpiCardProps) {
   const isIncrease = changeType === 'increase';
-  const changeColor = isIncrease ? 'text-green-500' : 'text-red-500';
+  const changeColor = isIncrease ? 'text-aurora' : 'text-mars';
 
   return (
-     <Card>
+     <Card className='bg-galaxy border-spaceship'>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="text-muted-foreground">{icon}</div>
+        <CardTitle className="text-sm font-medium text-light">{title}</CardTitle>
+        <div className="text-rocket">{icon}</div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+        <div className="text-2xl font-bold text-light">{value}</div>
         <p className={`text-xs ${changeColor}`}>
           {change} oproti minulému mesiacu
         </p>
@@ -330,12 +330,13 @@ export default function DashboardPage() {
           fill="#8884d8"
           dataKey="value"
           label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+          className='text-moon'
         >
           {deviceData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} />
+        <Tooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} cursor={{fill: 'hsla(var(--galaxy) / 0.5)'}} />
         <Legend iconType="circle" />
       </PieChart>
     </ResponsiveContainer>
@@ -351,7 +352,7 @@ export default function DashboardPage() {
   if (authLoading || !user) {
     return (
         <div className="flex justify-center items-center min-h-screen">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+            <Loader2 className="h-12 w-12 animate-spin text-sky" />
         </div>
     );
   }
@@ -361,10 +362,10 @@ export default function DashboardPage() {
     <main className="container mx-auto px-4 py-24 sm:py-32">
       <div className="space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-light">
             Hlavný Dashboard
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70 text-balance">
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-rocket text-balance">
             Váš komplexný prehľad kľúčových metrík, výkonnosti a aktivít.
           </p>
         </div>
@@ -401,28 +402,28 @@ export default function DashboardPage() {
             variants={containerVariants}
         >
            <motion.div className="lg:col-span-2" variants={itemVariants}>
-            <Card>
+            <Card className='bg-galaxy border-spaceship'>
                     <CardHeader>
-                        <CardTitle>Najvýkonnejšie Stránky</CardTitle>
-                        <CardDescription>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
+                        <CardTitle className='text-light'>Najvýkonnejšie Stránky</CardTitle>
+                        <CardDescription className='text-rocket'>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {isLoading ? <Skeleton className="h-[240px]" /> : (
                             <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Stránka</TableHead>
-                                        <TableHead>Zobrazenia</TableHead>
-                                        <TableHead>Miera Konverzie</TableHead>
+                                    <TableRow className='border-spaceship'>
+                                        <TableHead className='text-moon'>Stránka</TableHead>
+                                        <TableHead className='text-moon'>Zobrazenia</TableHead>
+                                        <TableHead className='text-moon'>Miera Konverzie</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {topPagesData.map((page, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell className="font-medium text-primary hover:underline cursor-pointer">{page.page}</TableCell>
-                                            <TableCell>{formatNumber(page.views)}</TableCell>
-                                            <TableCell>{page.conversion}</TableCell>
+                                        <TableRow key={index} className='border-spaceship'>
+                                            <TableCell className="font-medium text-sky hover:underline cursor-pointer">{page.page}</TableCell>
+                                            <TableCell className='text-light'>{formatNumber(page.views)}</TableCell>
+                                            <TableCell className='text-light'>{page.conversion}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -433,10 +434,10 @@ export default function DashboardPage() {
             </Card>
            </motion.div>
            <motion.div variants={itemVariants}>
-            <Card>
+            <Card className='bg-galaxy border-spaceship'>
                 <CardHeader>
-                    <CardTitle>Rozdelenie Zariadení</CardTitle>
-                    <CardDescription>Návštevnosť podľa typu zariadenia.</CardDescription>
+                    <CardTitle className='text-light'>Rozdelenie Zariadení</CardTitle>
+                    <CardDescription className='text-rocket'>Návštevnosť podľa typu zariadenia.</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-center pt-6">
                     {isLoading ? <Skeleton className="h-[250px] w-full" /> : memoizedDeviceChart}
@@ -454,31 +455,31 @@ export default function DashboardPage() {
             variants={containerVariants}
         >
              <motion.div className="lg:col-span-2" variants={itemVariants}>
-                <Card>
+                <Card className='bg-galaxy border-spaceship'>
                     <CardHeader>
-                        <CardTitle>Výkonnosť Kľúčových Slov</CardTitle>
-                        <CardDescription>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
+                        <CardTitle className='text-light'>Výkonnosť Kľúčových Slov</CardTitle>
+                        <CardDescription className='text-rocket'>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {isLoading ? <Skeleton className="h-[260px]" /> : (
                             <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Kľúčové Slovo</TableHead>
-                                        <TableHead>Aktuálna Pozícia</TableHead>
-                                        <TableHead>Zmena (30 dní)</TableHead>
+                                    <TableRow className='border-spaceship'>
+                                        <TableHead className='text-moon'>Kľúčové Slovo</TableHead>
+                                        <TableHead className='text-moon'>Aktuálna Pozícia</TableHead>
+                                        <TableHead className='text-moon'>Zmena (30 dní)</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {keywordData.map((kw, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell className="font-medium">{kw.keyword}</TableCell>
-                                            <TableCell className="font-bold text-lg">{kw.position}</TableCell>
+                                        <TableRow key={index} className='border-spaceship'>
+                                            <TableCell className="font-medium text-light">{kw.keyword}</TableCell>
+                                            <TableCell className="font-bold text-lg text-light">{kw.position}</TableCell>
                                             <TableCell>
-                                                <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-green-500' : kw.change < 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
+                                                <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-aurora' : kw.change < 0 ? 'text-mars' : 'text-rocket'}`}>
                                                     {kw.change > 0 ? <TrendingUp size={16} /> : kw.change < 0 ? <TrendingDown size={16} /> : <ArrowRight size={16} />}
-                                                    <span>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
+                                                    <span className='text-light'>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -496,10 +497,10 @@ export default function DashboardPage() {
          </motion.section>
 
         <section id="contact-messages">
-          <Card>
+          <Card className='bg-galaxy border-spaceship'>
             <CardHeader>
-              <CardTitle>Posledné Správy</CardTitle>
-              <CardDescription>
+              <CardTitle className='text-light'>Posledné Správy</CardTitle>
+              <CardDescription className='text-rocket'>
                 Prehľad 5 najnovších správ odoslaných cez kontaktný formulár.
               </CardDescription>
             </CardHeader>
@@ -507,10 +508,10 @@ export default function DashboardPage() {
               {isLoading ? (
                 <div className="space-y-4">
                    {!firebaseConfigured ? (
-                     <Alert variant="default">
+                     <Alert variant="default" className='bg-space-grey border-spaceship'>
                         <AlertCircle className="h-4 w-4" />
                         <AlertTitle>Konfigurácia Chýba</AlertTitle>
-                        <AlertDescription>
+                        <AlertDescription className='text-rocket'>
                             Pre zobrazenie správ je potrebné nakonfigurovať Firebase.
                         </AlertDescription>
                     </Alert>
@@ -526,29 +527,29 @@ export default function DashboardPage() {
                 <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow>
-                      <TableHead>Dátum</TableHead>
-                      <TableHead>Meno</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Správa</TableHead>
+                    <TableRow className='border-spaceship'>
+                      <TableHead className='text-moon'>Dátum</TableHead>
+                      <TableHead className='text-moon'>Meno</TableHead>
+                      <TableHead className='text-moon'>Email</TableHead>
+                      <TableHead className='text-moon'>Správa</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {messages.map((msg) => (
-                      <TableRow key={msg.id}>
-                        <TableCell className="font-medium">
+                      <TableRow key={msg.id} className='border-spaceship'>
+                        <TableCell className="font-medium text-light">
                           {msg.createdAt}
                         </TableCell>
-                        <TableCell>{msg.name}</TableCell>
-                        <TableCell>{msg.email}</TableCell>
-                        <TableCell className="truncate max-w-[200px]">{msg.message}</TableCell>
+                        <TableCell className='text-light'>{msg.name}</TableCell>
+                        <TableCell className='text-light'>{msg.email}</TableCell>
+                        <TableCell className="truncate max-w-[200px] text-light">{msg.message}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground text-center py-4">Zatiaľ žiadne správy.</p>
+                <p className="text-sm text-rocket text-center py-4">Zatiaľ žiadne správy.</p>
               )}
             </CardContent>
           </Card>
