@@ -41,7 +41,7 @@ const RippleSphere = () => {
     });
 
     // Use a different color for the seo4web theme for better contrast
-    const sphereColor = theme === 'seo4web' ? 'hsl(var(--aurora))' : color;
+    const sphereColor = theme === 'seo4web' ? 'hsl(var(--aurora))' : theme === 'xedition' ? 'hsl(var(--aurora))' : color;
 
     return (
         <Sphere ref={ref} args={[1, 64, 64]} >
