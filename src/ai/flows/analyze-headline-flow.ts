@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI flow to analyze an SEO headline and generate audio for the analysis.
@@ -51,6 +52,32 @@ export async function analyzeHeadline(input: AnalyzeHeadlineInput): Promise<Anal
   return analyzeHeadlineFlow(input);
 }
 
+const analyzeHeadlinePrompt = ai.definePrompt(
+  {
+      name: 'analyzeHeadlinePrompt',
+      input: { schema: AnalyzeHeadlineInputSchema },
+      output: { 
+          schema: z.object({
+            analysis: z.string(),
+            score: z.number().min(0).max(100),
+          })
+       },
+      prompt: `You are an expert SEO copywriter and analyst.
+Analyze the following headline for its SEO effectiveness: "{{{headline}}}"
+
+Provide a concise analysis covering:
+**Strengths**: What is good about it (e.g., clarity, keywords, emotional hook)?
+**Weaknesses**: What could be improved (e.g., too generic, unclear, lacking keywords)?
+**Suggestions**: Offer 1-2 concrete alternative headlines.
+
+Also, provide an overall SEO score from 0 to 100, where 100 is a perfect, highly-clickable, and keyword-rich headline.
+
+Format the analysis using markdown bullet points for each section.
+`,
+  }
+);
+
+
 const analyzeHeadlineFlow = ai.defineFlow(
   {
     name: 'analyzeHeadlineFlow',
@@ -58,40 +85,32 @@ const analyzeHeadlineFlow = ai.defineFlow(
     outputSchema: AnalyzeHeadlineOutputSchema,
   },
   async (input) => {
-    const llmResponse = await ai.generate({
-        prompt: `You are an expert SEO copywriter and analyst.
-Analyze the following headline for its SEO effectiveness: "{{{headline}}}"
+    
+    const [llmResponse, audioResponse] = await Promise.all([
+        analyzeHeadlinePrompt(input),
+        ai.generate({
+            model: 'googleai/gemini-2.5-flash-preview-tts',
+            config: {
+                responseModalities: ['AUDIO'],
+                speechConfig: {
+                    voiceConfig: {
+                        prebuiltVoiceConfig: { voiceName: 'Algenib' },
+                    },
+                },
+            },
+            prompt: `Tu si expert na SEO, ktorý práve analyzoval nadpis. Teraz stručne zhrň túto analýzu pre používateľa: ${input.headline}`,
+        })
+    ]);
 
-Provide a concise analysis covering:
-- Strengths: What is good about it (e.g., clarity, keywords, emotional hook)?
-- Weaknesses: What could be improved (e.g., too generic, unclear, lacking keywords)?
-- Suggestions: Offer 1-2 concrete alternative headlines.
-
-Also, provide an overall SEO score from 0 to 100, where 100 is a perfect, highly-clickable, and keyword-rich headline.
-
-Format the analysis using markdown bullet points.
-`,
-        input: input,
-        output: {
-            schema: z.object({
-                analysis: z.string(),
-                score: z.number().min(0).max(100),
-            })
-        },
-        config: {
-            responseModalities: ['TEXT', 'AUDIO']
-        }
-    });
-
-    const structuredOutput = llmResponse.output();
+    const structuredOutput = llmResponse.output;
     if (!structuredOutput) {
         throw new Error("Failed to get structured output from LLM.");
     }
     
     let audioDataUri: string | undefined = undefined;
-    if (llmResponse.media) {
+    if (audioResponse.media) {
         const audioBuffer = Buffer.from(
-          llmResponse.media.url.substring(llmResponse.media.url.indexOf(',') + 1),
+          audioResponse.media.url.substring(audioResponse.media.url.indexOf(',') + 1),
           'base64'
         );
         const wavBase64 = await toWav(audioBuffer);

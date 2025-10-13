@@ -156,7 +156,7 @@ export default function AnalyzerPage() {
                     <div
                     className="prose prose-sm dark:prose-invert text-left text-balance max-w-none text-light"
                     dangerouslySetInnerHTML={{
-                        __html: analysisResult.analysis.replace(/\n/g, '<br />'),
+                        __html: analysisResult.analysis.replace(/\* \*\*(.*?)\*\*:/g, '<h4>$1</h4>').replace(/\*/g, '<li>').replace(/<li>/g, '<ul><li>').replace(/<\/li>(\s*<ul><li>)/g, '</li><li>') + '</ul>'
                     }}
                     />
                 </CardContent>

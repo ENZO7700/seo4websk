@@ -21,16 +21,12 @@ import { useState } from "react";
 import { generateReply } from "@/ai/flows/generate-reply-flow";
 import { saveContactMessage } from "@/services/contactService";
 import { isFirebaseConfigured } from "@/lib/firebase-config";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useAuth } from "@/hooks/use-auth";
+import Link from "next/link";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Meno musí mať aspoň 2 znaky.",
-  }),
-  email: z.string().email({
-    message: "Prosím, zadajte platnú e-mailovú adresu.",
-  }),
   message: z.string().min(10, {
     message: "Správa musí mať aspoň 10 znakov.",
   }).max(500, {
@@ -38,28 +34,43 @@ const formSchema = z.object({
   }),
 });
 
+const anonymousFormSchema = formSchema.extend({
+    name: z.string().min(2, {
+        message: "Meno musí mať aspoň 2 znaky.",
+    }),
+    email: z.string().email({
+        message: "Prosím, zadajte platnú e-mailovú adresu.",
+    }),
+});
+
 export default function ContactPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user, loading: authLoading } = useAuth();
   const firebaseConfigured = isFirebaseConfigured();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
+  const currentFormSchema = user ? formSchema : anonymousFormSchema;
+
+  const form = useForm<z.infer<typeof currentFormSchema>>({
+    resolver: zodResolver(currentFormSchema),
+    defaultValues: user 
+        ? { message: "" }
+        : { name: "", email: "", message: "" },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof currentFormSchema>) {
     setIsSubmitting(true);
     try {
-      // First, save the message to Firestore
-      await saveContactMessage(values);
+      const contactData = {
+          name: user?.displayName || (values as any).name,
+          email: user?.email || (values as any).email,
+          message: values.message,
+          userId: user?.uid || null,
+      };
+
+      await saveContactMessage(contactData);
       
-      // Then, generate the AI reply
-      const result = await generateReply({ name: values.name });
+      const result = await generateReply({ name: contactData.name });
       
       toast({
         title: "Správa odoslaná!",
@@ -78,13 +89,21 @@ export default function ContactPage() {
     }
   }
 
+  if (authLoading) {
+    return (
+        <div className="flex justify-center items-center min-h-screen">
+            <Loader2 className="h-12 w-12 animate-spin text-sky" />
+        </div>
+    );
+  }
+
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
        <div className="flex justify-center">
-        <Card className="w-full max-w-2xl bg-card/50 backdrop-blur-lg">
+        <Card className="w-full max-w-2xl bg-galaxy border-spaceship text-light">
           <CardHeader>
             <CardTitle className="text-3xl font-bold tracking-tighter md:text-4xl font-headline text-center">Kontaktujte Nás</CardTitle>
-            <CardDescription className="text-center text-balance">
+            <CardDescription className="text-center text-balance text-rocket">
               Máte otázku alebo záujem o bezplatnú cenovú ponuku? Vyplňte formulár nižšie.
             </CardDescription>
           </CardHeader>
@@ -100,32 +119,36 @@ export default function ContactPage() {
             ) : (
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Meno</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Vaše Meno" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="vas.email@priklad.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  {!user && (
+                    <>
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Meno</FormLabel>
+                                <FormControl>
+                                <Input placeholder="Vaše Meno" {...field} className="bg-space-grey border-spaceship focus:ring-aurora"/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                <Input placeholder="vas.email@priklad.com" {...field} className="bg-space-grey border-spaceship focus:ring-aurora"/>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                            )}
+                        />
+                    </>
+                  )}
                   <FormField
                     control={form.control}
                     name="message"
@@ -135,7 +158,7 @@ export default function ContactPage() {
                         <FormControl>
                           <Textarea
                             placeholder="Povedzte nám o vašom projekte alebo položte otázku"
-                            className="resize-none"
+                            className="resize-none bg-space-grey border-spaceship focus:ring-aurora"
                             {...field}
                           />
                         </FormControl>
@@ -143,9 +166,21 @@ export default function ContactPage() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                    {isSubmitting ? "Odosielam..." : "Odoslať Správu"}
-                  </Button>
+                  {user ? (
+                     <Button type="submit" className="w-full bg-sky hover:bg-night-sky" size="lg" disabled={isSubmitting}>
+                        {isSubmitting ? "Odosielam..." : "Odoslať Správu"}
+                     </Button>
+                  ) : (
+                     <div className="text-center p-4 bg-space-grey rounded-lg border border-spaceship">
+                        <p className="text-rocket mb-2">Pre jednoduchšie odoslanie sa môžete prihlásiť.</p>
+                         <Button type="submit" className="w-full bg-sky hover:bg-night-sky mb-2" size="lg" disabled={isSubmitting}>
+                           {isSubmitting ? "Odosielam..." : "Odoslať ako hosť"}
+                         </Button>
+                         <Button asChild variant="outline" className="w-full bg-galaxy border-spaceship hover:bg-spaceship">
+                            <Link href="/login">Prihlásiť sa</Link>
+                         </Button>
+                     </div>
+                  )}
                 </form>
               </Form>
             )}
@@ -155,5 +190,3 @@ export default function ContactPage() {
     </main>
   );
 }
-
-    

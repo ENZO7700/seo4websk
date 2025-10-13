@@ -9,6 +9,7 @@ import {
   orderBy,
   query,
   limit,
+  where,
 } from 'firebase/firestore';
 import {
   PieChart,
@@ -192,6 +193,13 @@ function HeadlineAnalyzerWidget() {
               </p>
             </div>
             <Progress value={analysisResult.score} />
+            {analysisResult.audioDataUri && (
+                <div className='flex items-center justify-center p-2 bg-space-grey rounded-md mt-2'>
+                    <audio controls src={analysisResult.audioDataUri} className="w-full h-10">
+                        Váš prehliadač nepodporuje audio element.
+                    </audio>
+                </div>
+            )}
             <div
               className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2 text-light"
               dangerouslySetInnerHTML={{
@@ -266,7 +274,12 @@ export default function DashboardPage() {
   }, [user, authLoading, router]);
 
   useEffect(() => {
-    if (!user) return; // Don't fetch data if user is not authenticated
+    if (!user || !firebaseConfigured) {
+        if (!authLoading) {
+            setIsLoading(false);
+        }
+        return;
+    };
 
     async function fetchData() {
       setIsLoading(true);
@@ -274,16 +287,14 @@ export default function DashboardPage() {
       try {
         const kpiPromise = generateKpiData();
         
-        let messagesPromise: Promise<any> = Promise.resolve(null);
-        if (firebaseConfigured) {
-          const messagesCollection = collection(db!, 'messages');
-          const q = query(
+        const messagesCollection = collection(db!, 'messages');
+        const q = query(
             messagesCollection,
+            where('userId', '==', user.uid),
             orderBy('createdAt', 'desc'),
             limit(5)
-          );
-          messagesPromise = getDocs(q);
-        }
+        );
+        const messagesPromise = getDocs(q);
         
         const [kpiResult, messagesSnapshot] = await Promise.all([
             kpiPromise,
@@ -316,7 +327,7 @@ export default function DashboardPage() {
     }
 
     fetchData();
-  }, [user, firebaseConfigured]);
+  }, [user, authLoading, firebaseConfigured]);
   
   const memoizedDeviceChart = useMemo(() => (
     <ResponsiveContainer width="100%" height={250}>
@@ -363,10 +374,10 @@ export default function DashboardPage() {
       <div className="space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-light">
-            Hlavný Dashboard
+            Môj Dashboard
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-rocket text-balance">
-            Váš komplexný prehľad kľúčových metrík, výkonnosti a aktivít.
+            Váš osobný prehľad kľúčových metrík, výkonnosti a aktivít.
           </p>
         </div>
 
@@ -499,29 +510,17 @@ export default function DashboardPage() {
         <section id="contact-messages">
           <Card className='bg-galaxy border-spaceship'>
             <CardHeader>
-              <CardTitle className='text-light'>Posledné Správy</CardTitle>
+              <CardTitle className='text-light'>Moje Posledné Správy</CardTitle>
               <CardDescription className='text-rocket'>
-                Prehľad 5 najnovších správ odoslaných cez kontaktný formulár.
+                Prehľad 5 najnovších správ, ktoré ste odoslali cez kontaktný formulár.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {isLoading ? (
+              {isLoading && firebaseConfigured ? (
                 <div className="space-y-4">
-                   {!firebaseConfigured ? (
-                     <Alert variant="default" className='bg-space-grey border-spaceship'>
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertTitle>Konfigurácia Chýba</AlertTitle>
-                        <AlertDescription className='text-rocket'>
-                            Pre zobrazenie správ je potrebné nakonfigurovať Firebase.
-                        </AlertDescription>
-                    </Alert>
-                   ) : (
-                    <>
-                      <Skeleton className="h-12 w-full" />
-                      <Skeleton className="h-12 w-full" />
-                      <Skeleton className="h-12 w-full" />
-                    </>
-                   )}
+                    <Skeleton className="h-12 w-full" />
+                    <Skeleton className="h-12 w-full" />
+                    <Skeleton className="h-12 w-full" />
                 </div>
               ) : messages.length > 0 ? (
                 <div className="overflow-x-auto">
@@ -549,7 +548,19 @@ export default function DashboardPage() {
                 </Table>
                 </div>
               ) : (
-                <p className="text-sm text-rocket text-center py-4">Zatiaľ žiadne správy.</p>
+                 <div className="text-center py-4">
+                    {!firebaseConfigured ? (
+                        <Alert variant="default" className='bg-space-grey border-spaceship text-left'>
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertTitle>Konfigurácia Chýba</AlertTitle>
+                            <AlertDescription className='text-rocket'>
+                                Pre zobrazenie správ je potrebné nakonfigurovať Firebase.
+                            </AlertDescription>
+                        </Alert>
+                    ) : (
+                         <p className="text-sm text-rocket">Zatiaľ ste neodoslali žiadne správy.</p>
+                    )}
+                </div>
               )}
             </CardContent>
           </Card>

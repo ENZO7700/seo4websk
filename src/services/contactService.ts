@@ -8,6 +8,7 @@ interface ContactMessage {
   name: string;
   email: string;
   message: string;
+  userId?: string | null;
 }
 
 export async function saveContactMessage(formData: ContactMessage): Promise<string> {
@@ -24,5 +25,3 @@ export async function saveContactMessage(formData: ContactMessage): Promise<stri
     throw new Error('Could not save message.');
   }
 }
-
-    
