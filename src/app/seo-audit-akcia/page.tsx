@@ -8,10 +8,7 @@ import { Check, ArrowRight, Search, Link2, Cog, BarChart } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
-// @ts-ignore
-import * as random from 'maath/random/dist/maath-random.esm';
+import { SpaceBackground } from '@/components/ui/space-background';
 
 const auditFeatures = [
     {
@@ -58,46 +55,10 @@ const itemVariants = {
   },
 };
 
-const CodeParticles = () => {
-  const ref = useRef<any>();
-  const count = 500;
-  const chars = ['</>', '{}', '=>', '()', '||', '&&', 'CSS', 'JS', 'HTML', 'SEO', 'PWA'];
-
-  const positions = useMemo(() => {
-    return new Float32Array(random.inSphere(new Float32Array(count * 3), { radius: 2 }));
-  }, []);
-
-  useFrame((state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
-    }
-  });
-
-  return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
-        <PointMaterial
-          transparent
-          color="#2563eb"
-          size={0.03}
-          sizeAttenuation={true}
-          depthWrite={false}
-        />
-      </Points>
-    </group>
-  );
-};
-
-
 export default function SeoAuditAkciaPage() {
     return (
         <div className="bg-space text-light relative">
-            <div className="absolute inset-0 z-0">
-                 <Canvas camera={{ position: [0, 0, 1] }}>
-                    <CodeParticles />
-                </Canvas>
-            </div>
+            <SpaceBackground />
              <div className="relative z-10">
                 <header className="bg-galaxy/50 backdrop-blur-sm py-20 sm:py-32">
                     <div className="container mx-auto px-4 text-center">
