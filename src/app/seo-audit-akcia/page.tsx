@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef, useMemo } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, ArrowRight, Search, Link2, Cog, BarChart } from 'lucide-react';
@@ -168,7 +168,7 @@ export default function SeoAuditAkciaPage() {
                                 </li>
                             </ul>
                         </motion.div>
-                    </section>
+                    </motion.section>
 
                     <motion.section 
                         id="cta" 
@@ -188,7 +188,7 @@ export default function SeoAuditAkciaPage() {
                                 <ArrowRight className="ml-2" />
                             </Link>
                         </Button>
-                    </section>
+                    </motion.section>
                 </main>
              </div>
         </div>
