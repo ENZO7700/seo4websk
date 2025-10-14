@@ -24,6 +24,7 @@ const seoTiers = [
         priceSuffix: '/mesiac',
         description: 'Pevné základy pre nové projekty.',
         href: '/sluzby/seo-start',
+        planId: 'start',
         category: 'Pre jednotlivcov a malé tímy',
         features: [
             "Analýza kľúčových slov (do 20)",
@@ -39,6 +40,7 @@ const seoTiers = [
         priceSuffix: '/mesiac',
         description: 'Pre tých, čo chcú predbehnúť konkurenciu.',
         href: '/sluzby/seo-rast',
+        planId: 'rast',
         category: 'Pre jednotlivcov a malé tímy',
         features: [
             "Analýza kľúčových slov (do 50)",
@@ -56,6 +58,7 @@ const seoTiers = [
         isPopular: true,
         description: 'Aktívne budovanie osobnej značky a autority.',
         href: '/sluzby/seo-expert',
+        planId: 'expert',
         category: 'Pre rastúce firmy',
         features: [
             "Všetko v balíku Rast",
@@ -71,6 +74,7 @@ const seoTiers = [
         priceSuffix: '/mesiac',
         description: 'Cesta k dominancii vo vašom segmente.',
         href: '/sluzby/seo-lider',
+        planId: 'lider',
         category: 'Pre rastúce firmy',
         features: [
             "Všetko v balíku Expert",
@@ -87,6 +91,7 @@ const seoTiers = [
         priceSuffix: '/mesiac',
         description: 'Komplexný motor pre váš biznis rast.',
         href: '/sluzby/seo-business',
+        planId: 'business',
         category: 'Pre lídrov na trhu',
         features: [
             "Všetko v balíku Líder",
@@ -102,6 +107,7 @@ const seoTiers = [
         priceSuffix: '/mesiac',
         description: 'Pre veľké e-shopy a firmy v konkurenčnom prostredí.',
         href: '/sluzby/seo-korporat',
+        planId: 'korporat',
         category: 'Pre lídrov na trhu',
         features: [
             "Všetko v balíku Business",
@@ -117,6 +123,7 @@ const seoTiers = [
         priceSuffix: '/mesiac',
         description: 'Agresívna stratégia pre absolútne ovládnutie trhu.',
         href: '/sluzby/seo-dominancia',
+        planId: 'dominancia',
         category: 'Pre lídrov na trhu',
         features: [
            "Všetko v balíku Korporát",
@@ -132,6 +139,7 @@ const seoTiers = [
         priceSuffix: '',
         description: 'Riešenie bez kompromisov pre najnáročnejších.',
         href: '/sluzby/seo-enterprise',
+        planId: 'enterprise',
         category: 'Pre lídrov na trhu',
         features: [
            "Medzinárodné SEO (viac trhov)",
@@ -151,6 +159,7 @@ const pwaTiers = [
         price: 'od 999 €',
         priceSuffix: 'jednorazovo',
         description: 'Moderná online vizitka alebo portfólio postavené na PWA technológii.',
+        planId: 'pwa-vizitka',
         features: [
             'Do 5 podstránok',
             'Responzívny dizajn',
@@ -166,6 +175,7 @@ const pwaTiers = [
         price: 'od 2,499 €',
         priceSuffix: 'jednorazovo',
         description: 'Komplexné riešenie pre firmy vrátane blogu a marketingových nástrojov.',
+        planId: 'pwa-business',
         features: [
             'Neobmedzený počet stránok',
             'Blogovací systém (CMS)',
@@ -181,6 +191,7 @@ const pwaTiers = [
         price: 'od 4,999 €',
         priceSuffix: 'jednorazovo',
         description: 'Plnohodnotný e-commerce systém s platobnou bránou a správou produktov.',
+        planId: 'pwa-eshop',
         features: [
             'Kompletný e-shop na mieru',
             'Integrácia platobných brán',
@@ -196,6 +207,7 @@ const pwaTiers = [
         price: 'Na mieru',
         priceSuffix: '',
         description: 'Vysoko škálovateľné riešenie na mieru pre komplexné potreby a integrácie.',
+        planId: 'pwa-enterprise',
         features: [
             'Riešenie na kľúč',
             'Integrácie s ERP/CRM (API)',
@@ -268,8 +280,8 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
       </ul>
     </CardContent>
     <CardFooter className="p-0 pt-8 mt-auto">
-       <Button asChild className={cn("w-full", !tier.isPopular && "bg-space-grey border border-spaceship text-light hover:bg-spaceship")} size="lg">
-            <Link href={tier.href}>
+       <Button asChild className={cn("w-full", tier.isPopular ? "bg-sky hover:bg-night-sky" : "bg-space-grey border border-spaceship text-light hover:bg-spaceship")} size="lg">
+            <Link href={tier.price === 'Na mieru' ? '/contact' : `/signup?plan=${tier.planId}`}>
                 {tier.price === 'Na mieru' ? 'Kontaktujte nás' : 'Zvoliť balík'}
             </Link>
         </Button>

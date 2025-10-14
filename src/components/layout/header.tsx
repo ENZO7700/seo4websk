@@ -17,8 +17,8 @@ import { useToast } from "@/hooks/use-toast";
 const baseMainNavLinks = [
     { href: "/pricing", label: "Cenník" },
     { href: "/sluzby", label: "Služby" },
-    { href: "/tahaky", label: "SEO Ťaháky" },
     { href: "/blog", label: "Blog" },
+    { href: "/tahaky", label: "AI Nástroje" },
 ];
 
 const resourcesLinks = [
@@ -89,7 +89,7 @@ export function Header() {
             ))}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-rocket transition-colors hover:text-light focus:outline-none">
-                Zdroje
+                Viac
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -159,7 +159,7 @@ export function Header() {
                                 <div>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-moon transition-colors hover:text-light focus:outline-none">
-                                            Zdroje
+                                            Viac
                                             <ChevronDown className="h-5 w-5" />
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent>
@@ -198,5 +198,3 @@ export function Header() {
     </header>
   );
 }
-
-    

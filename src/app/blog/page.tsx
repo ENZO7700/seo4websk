@@ -17,8 +17,17 @@ const articles = [
         href: '/tahaky#on-page',
         image: 'https://img.freepik.com/free-vector/search-engine-optimization-concept-illustration_114360-7579.jpg?w=400',
         imageHint: 'seo startup rocket',
-        tags: ['SEO'],
-        date: '15. júl 2024',
+        tags: ['SEO', 'Návody'],
+        date: '22. júl 2024',
+    },
+    {
+        title: 'Ako napísať 10 SEO článkov za deň s pomocou AI',
+        description: 'Ukážeme vám, ako efektívne využiť AI nástroje na dramatické zrýchlenie tvorby obsahu bez straty kvality. Získajte praktické tipy a prompty.',
+        href: '#',
+        image: 'https://img.freepik.com/free-vector/artificial-intelligence-concept-illustration_114360-8646.jpg?w=600',
+        imageHint: 'ai writing content',
+        tags: ['AI', 'Copywriting'],
+        date: '20. júl 2024',
     },
     {
         title: 'Prečo je vaša firma pripravená na Progresívnu Webovú Aplikáciu (PWA)?',
@@ -26,8 +35,8 @@ const articles = [
         href: '/sluzby/pwa-pre-male-podniky',
         image: 'https://img.freepik.com/free-vector/app-development-concept-illustration_114360-5164.jpg?w=600',
         imageHint: 'modern application on laptop',
-        tags: ['PWA'],
-        date: '10. júl 2024',
+        tags: ['PWA', 'Technológie'],
+        date: '15. júl 2024',
     },
     {
         title: 'Prípadová štúdia: Ako sme zdvojnásobili organickú návštevnosť pre e-shop',
@@ -36,7 +45,7 @@ const articles = [
         image: 'https://img.freepik.com/free-vector/data-analysis-complexity-concept-illustration_114360-8413.jpg?w=600',
         imageHint: 'data analysis chart',
         tags: ['Prípadové štúdie', 'SEO'],
-        date: '1. júl 2024',
+        date: '10. júl 2024',
     },
     {
         title: '5 najčastejších chýb v technickom SEO, ktorým sa musíte vyhnúť',
@@ -45,7 +54,7 @@ const articles = [
         image: 'https://img.freepik.com/free-vector/website-troubleshooting-concept-illustration_114360-7605.jpg?w=600',
         imageHint: 'website technical error',
         tags: ['Technické SEO', 'SEO'],
-        date: '25. jún 2024',
+        date: '5. júl 2024',
     },
      {
         title: 'Budúcnosť e-commerce je tu: E-shopy postavené na PWA',
@@ -54,16 +63,7 @@ const articles = [
         image: 'https://img.freepik.com/free-vector/online-shopping-concept-illustration_114360-1084.jpg?w=600',
         imageHint: 'online shopping cart',
         tags: ['PWA', 'E-commerce'],
-        date: '18. jún 2024',
-    },
-    {
-        title: 'Ako správne merať úspešnosť vašej SEO stratégie?',
-        description: 'Pozície nie sú všetko. Naučte sa sledovať metriky, na ktorých skutočne záleží – od organických konverzií až po návratnosť investícií (ROI).',
-        href: '#',
-        image: 'https://img.freepik.com/free-vector/business-analytics-concept-illustration_114360-1587.jpg?w=600',
-        imageHint: 'business analytics dashboard',
-        tags: ['SEO', 'Analytika'],
-        date: '12. jún 2024',
+        date: '1. júl 2024',
     },
 ];
 

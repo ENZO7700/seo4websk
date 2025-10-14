@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,10 +32,13 @@ const formSchema = z.object({
   path: ['confirmPassword'],
 });
 
-export default function SignUpPage() {
+function SignUpForm() {
   const { toast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, signUpWithEmail, signInWithGoogle, loading, error } = useAuth();
+  
+  const plan = searchParams.get('plan');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,7 +83,7 @@ export default function SignUpPage() {
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tighter text-center font-headline">Vytvoriť Účet</CardTitle>
           <CardDescription className="text-center text-balance text-rocket">
-            Zaregistrujte sa a získajte prístup k exkluzívnym nástrojom.
+            {plan ? `Dokončite registráciu a začnite využívať balík ${plan.toUpperCase()}.` : 'Zaregistrujte sa a získajte prístup k exkluzívnym nástrojom.'}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -165,4 +168,12 @@ export default function SignUpPage() {
       </Card>
     </main>
   );
+}
+
+export default function SignUpPage() {
+    return (
+        <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><Loader2 className="h-12 w-12 animate-spin text-sky" /></div>}>
+            <SignUpForm />
+        </Suspense>
+    )
 }

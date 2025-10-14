@@ -12,6 +12,7 @@ const footerLinks = [
 ];
 
 const toolLinks = [
+    { href: "/tahaky", label: "AI Asistent" },
     { href: "/analyzer", label: "Headline Analyzátor" },
     { href: "/image-generator", label: "AI Generátor Obrázkov" },
     { href: "/meta-generator", label: "AI Generátor Meta Popisov" },
@@ -94,5 +95,3 @@ export function Footer() {
     </footer>
   );
 }
-
-    
