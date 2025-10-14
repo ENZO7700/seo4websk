@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {googleAI} from '@genkit-ai/google-genai';
 import wav from 'wav';
 
 
@@ -44,6 +45,7 @@ export type AnalyzeHeadlineInput = z.infer<typeof AnalyzeHeadlineInputSchema>;
 const AnalyzeHeadlineOutputSchema = z.object({
   analysis: z.string().describe("A concise analysis of the headline, including strengths, weaknesses, and suggestions for improvement. Use markdown for formatting, like lists."),
   score: z.number().min(0).max(100).describe("An overall SEO score for the headline, from 0 to 100."),
+  suggestions: z.array(z.string()).length(3).describe("An array of three alternative, SEO-optimized headline suggestions."),
   audioDataUri: z.string().url().optional().describe("The data URI of the generated audio for the analysis. Expected format: 'data:audio/wav;base64,<encoded_data>'."),
 });
 export type AnalyzeHeadlineOutput = z.infer<typeof AnalyzeHeadlineOutputSchema>;
@@ -60,6 +62,7 @@ const analyzeHeadlinePrompt = ai.definePrompt(
           schema: z.object({
             analysis: z.string(),
             score: z.number().min(0).max(100),
+            suggestions: z.array(z.string()).length(3),
           })
        },
       prompt: `You are an expert SEO copywriter and analyst.
@@ -68,11 +71,12 @@ Analyze the following headline for its SEO effectiveness: "{{{headline}}}"
 Provide a concise analysis covering:
 **Strengths**: What is good about it (e.g., clarity, keywords, emotional hook)?
 **Weaknesses**: What could be improved (e.g., too generic, unclear, lacking keywords)?
-**Suggestions**: Offer 1-2 concrete alternative headlines.
+**Suggestions**: Offer 3 concrete alternative headlines that are SEO-optimized and highly clickable.
 
 Also, provide an overall SEO score from 0 to 100, where 100 is a perfect, highly-clickable, and keyword-rich headline.
 
 Format the analysis using markdown bullet points for each section.
+The language of the output must be Slovak.
 `,
   }
 );
@@ -89,7 +93,7 @@ const analyzeHeadlineFlow = ai.defineFlow(
     const [llmResponse, audioResponse] = await Promise.all([
         analyzeHeadlinePrompt(input),
         ai.generate({
-            model: 'googleai/gemini-2.5-flash-preview-tts',
+            model: googleAI.model('gemini-2.5-flash-preview-tts'),
             config: {
                 responseModalities: ['AUDIO'],
                 speechConfig: {

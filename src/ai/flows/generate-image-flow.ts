@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI flow to generate an image based on a text prompt.
@@ -9,6 +10,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import {googleAI} from '@genkit-ai/google-genai';
 
 const GenerateImageInputSchema = z.object({
   prompt: z.string().describe('A descriptive prompt for the image to be generated.'),
@@ -32,11 +34,8 @@ const generateImageFlow = ai.defineFlow(
   },
   async (input) => {
     const { media } = await ai.generate({
-      model: 'googleai/gemini-pro-vision',
+      model: googleAI.model('imagen-4.0-fast-generate-001'),
       prompt: `A high-quality, photorealistic image for a professional technology and marketing website: ${input.prompt}`,
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'],
-      },
     });
 
     if (!media) {

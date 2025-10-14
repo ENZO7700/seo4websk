@@ -8,9 +8,10 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Wand2, AlertCircle, Ear } from 'lucide-react';
+import { Loader2, Wand2, AlertCircle, Ear, Copy, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
   analyzeHeadline,
@@ -19,6 +20,18 @@ import {
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { motion } from 'framer-motion';
+import { Separator } from '@/components/ui/separator';
+
+const ResultCard = ({ title, onCopy }: { title: string, onCopy: (text: string) => void }) => {
+    return (
+        <div className="p-3 bg-space-grey/50 rounded-lg border border-spaceship flex items-center justify-between gap-2">
+            <p className="text-light font-medium text-balance">{title}</p>
+            <Button variant="ghost" size="icon" onClick={() => onCopy(title)} aria-label="Skopírovať návrh">
+                <Copy className="h-5 w-5 text-aurora" />
+            </Button>
+        </div>
+    )
+}
 
 export default function AnalyzerPage() {
   const { toast } = useToast();
@@ -55,6 +68,14 @@ export default function AnalyzerPage() {
       setIsLoading(false);
     }
   };
+  
+  const handleCopy = (textToCopy: string) => {
+    navigator.clipboard.writeText(textToCopy);
+    toast({
+        title: "Titulok skopírovaný!",
+        description: "Môžete ho použiť vo svojom článku.",
+    });
+  };
 
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
@@ -64,8 +85,7 @@ export default function AnalyzerPage() {
             SEO Analyzátor Titulkov
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
-            Získajte okamžitú spätnú väzbu na vaše titulky. Naša AI analyzuje
-            váš titulok z pohľadu SEO a poskytne vám praktické návrhy na zlepšenie.
+            Získajte okamžitú spätnú väzbu. Naša AI analyzuje váš titulok, ohodnotí ho a navrhne lepšie, klikateľnejšie alternatívy.
           </p>
         </div>
 
@@ -132,11 +152,12 @@ export default function AnalyzerPage() {
                     <CardTitle className="text-xl font-semibold text-center text-light">
                     Analýza dokončená
                     </CardTitle>
+                     <CardDescription className="text-center text-rocket">Pre titulok: "{headline}"</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
                     <div>
                     <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm font-medium text-rocket">SEO Skóre</p>
+                        <p className="text-sm font-medium text-rocket">Celkové SEO Skóre</p>
                         <p className="text-lg font-bold text-aurora">{analysisResult.score}/100</p>
                     </div>
                     <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
@@ -146,19 +167,34 @@ export default function AnalyzerPage() {
                     <div className='flex items-center justify-center p-2 bg-space-grey rounded-md'>
                         <div className="flex items-center gap-3 w-full">
                         <Ear className="h-5 w-5 text-aurora"/>
+                        <p className="text-sm text-moon font-medium">Stručné audio zhrnutie:</p>
                         <audio controls src={analysisResult.audioDataUri} className="w-full h-10">
                             Váš prehliadač nepodporuje audio element.
                         </audio>
                         </div>
                     </div>
                     )}
-
-                    <div
-                    className="prose prose-sm dark:prose-invert text-left text-balance max-w-none text-light"
-                    dangerouslySetInnerHTML={{
-                        __html: analysisResult.analysis.replace(/\* \*\*(.*?)\*\*:/g, '<h4>$1</h4>').replace(/\*/g, '<li>').replace(/<li>/g, '<ul><li>').replace(/<\/li>(\s*<ul><li>)/g, '</li><li>') + '</ul>'
-                    }}
+                    
+                    <Separator />
+                    
+                     <div
+                        className="prose prose-sm dark:prose-invert text-left text-balance max-w-none text-light"
+                        dangerouslySetInnerHTML={{ __html: analysisResult.analysis.replace(/(\*\*.*?\*\*)/g, '<h4>$1</h4>').replace(/\*/g, '<li>') }}
                     />
+                    
+                    <Separator />
+                    
+                    <div>
+                        <h4 className="font-semibold text-light mb-3 flex items-center gap-2">
+                            <Sparkles className="text-aurora"/>
+                            Navrhované Alternatívy
+                        </h4>
+                        <div className="space-y-2">
+                            {analysisResult.suggestions.map((suggestion, index) => (
+                                <ResultCard key={index} title={suggestion} onCopy={handleCopy}/>
+                            ))}
+                        </div>
+                    </div>
                 </CardContent>
                 </Card>
             </motion.div>
