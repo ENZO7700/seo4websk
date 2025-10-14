@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -23,11 +22,11 @@ const articles = [
     {
         title: 'Ako napísať 10 SEO článkov za deň s pomocou AI',
         description: 'Ukážeme vám, ako efektívne využiť AI nástroje na dramatické zrýchlenie tvorby obsahu bez straty kvality. Získajte praktické tipy a prompty.',
-        href: '#',
+        href: '/blog/ako-pisat-seo-clanky-s-ai',
         image: 'https://img.freepik.com/free-vector/artificial-intelligence-concept-illustration_114360-8646.jpg?w=600',
         imageHint: 'ai writing content',
         tags: ['AI', 'Copywriting'],
-        date: '20. júl 2024',
+        date: '25. júl 2024',
     },
     {
         title: 'Prečo je vaša firma pripravená na Progresívnu Webovú Aplikáciu (PWA)?',
@@ -94,8 +93,8 @@ const itemVariants = {
 export default function BlogPage() {
     const [activeTag, setActiveTag] = useState('Všetky');
 
-    const filteredArticles = activeTag === 'Všetky' 
-        ? articles 
+    const filteredArticles = activeTag === 'Všetky'
+        ? articles
         : articles.filter(article => article.tags.includes(activeTag));
 
     return (
@@ -114,14 +113,14 @@ export default function BlogPage() {
             <main className="container mx-auto px-4 py-16 sm:py-24">
                 <div className="flex flex-wrap justify-center gap-2 mb-12">
                     {allTags.map(tag => (
-                        <Button 
-                            key={tag} 
+                        <Button
+                            key={tag}
                             variant={activeTag === tag ? 'default' : 'outline'}
                             onClick={() => setActiveTag(tag)}
                             className={cn(
                                 'transition-all',
-                                activeTag === tag 
-                                ? 'bg-sky text-light' 
+                                activeTag === tag
+                                ? 'bg-sky text-light'
                                 : 'border-spaceship bg-galaxy/50 text-light hover:bg-space-grey hover:text-light hover:border-aurora/50'
                             )}
                         >
@@ -130,7 +129,7 @@ export default function BlogPage() {
                     ))}
                 </div>
 
-                <motion.div 
+                <motion.div
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     key={activeTag}
                     variants={containerVariants}
@@ -142,7 +141,7 @@ export default function BlogPage() {
                              <Card className="flex flex-col overflow-hidden h-full bg-galaxy border-spaceship text-light transition-transform duration-300 hover:-translate-y-2 hover:border-aurora/50 group">
                                 <CardContent className="p-0">
                                 <Link href={article.href} className="aspect-video block w-full overflow-hidden relative">
-                                    <Image 
+                                    <Image
                                         src={article.image}
                                         alt={`Ilustračný obrázok pre článok ${article.title}`}
                                         fill
@@ -178,7 +177,7 @@ export default function BlogPage() {
                 </motion.div>
 
                  {filteredArticles.length === 0 && (
-                    <motion.div 
+                    <motion.div
                         className="text-center py-16"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
