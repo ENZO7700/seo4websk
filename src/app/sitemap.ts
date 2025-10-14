@@ -1,6 +1,5 @@
-
 import { MetadataRoute } from 'next'
- 
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://seo4web.sk';
 
@@ -91,10 +90,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const blogPosts = [
-    // TODO: Dynamically generate these from a CMS or local files
+    {
+      url: `${baseUrl}/blog/ako-pisat-seo-clanky-s-ai`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
   ];
 
   return [...staticPages, ...blogPosts];
 }
-
-    

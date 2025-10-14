@@ -131,7 +131,7 @@ INŠTRUKCIE:
 
                         <h3>Krok 4: Editácia a pridanie ľudského dotyku</h3>
                         <p>Toto je krok, kde sa z dobrého obsahu stáva skvelý. Prečítajte si vygenerovaný text, opravte prípadné nezrovnalosti, doplňte vlastné skúsenosti, príklady alebo príbehy. AI je skvelá v spracovaní faktov, ale ľudský dotyk a emócia sú nenahraditeľné.</p>
-                        
+
                         <h3>Krok 5: Finálna SEO optimalizácia</h3>
                         <p>Na záver si nechajte text skontrolovať a navrhnúť finálne úpravy.</p>
                          <PromptCard
