@@ -96,6 +96,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+     {
+      url: `${baseUrl}/blog/preco-je-pwa-buducnost-webu`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/pripadova-studia-zdvojnasobenie-organiky`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/5-chyb-v-technickom-seo`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
   ];
 
   return [...staticPages, ...blogPosts];
