@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { generateReply } from "@/ai/flows/generate-reply-flow";
 import { saveContactMessage } from "@/services/contactService";
 import { isFirebaseConfigured } from "@/lib/firebase-config";
@@ -43,6 +43,7 @@ const anonymousFormSchema = formSchema.extend({
     }),
 });
 
+
 export default function ContactPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,19 +51,25 @@ export default function ContactPage() {
   const firebaseConfigured = isFirebaseConfigured();
 
   const currentFormSchema = user ? formSchema : anonymousFormSchema;
-
+  
   const form = useForm<z.infer<typeof currentFormSchema>>({
     resolver: zodResolver(currentFormSchema),
     defaultValues: user 
         ? { message: "" }
         : { name: "", email: "", message: "" },
   });
+  
+  useEffect(() => {
+    // Reset form with new default values when user logs in or out
+    form.reset(user ? { message: "" } : { name: "", email: "", message: "" });
+  }, [user, form]);
+
 
   async function onSubmit(values: z.infer<typeof currentFormSchema>) {
     setIsSubmitting(true);
     try {
       const contactData = {
-          name: user?.displayName || (values as any).name,
+          name: user?.displayName || (values as any).name || 'Anonym',
           email: user?.email || (values as any).email,
           message: values.message,
           userId: user?.uid || null,
@@ -172,12 +179,12 @@ export default function ContactPage() {
                      </Button>
                   ) : (
                      <div className="text-center p-4 bg-space-grey rounded-lg border border-spaceship">
-                        <p className="text-rocket mb-2">Pre jednoduchšie odoslanie sa môžete prihlásiť.</p>
-                         <Button type="submit" className="w-full bg-sky hover:bg-night-sky mb-2" size="lg" disabled={isSubmitting}>
-                           {isSubmitting ? "Odosielam..." : "Odoslať ako hosť"}
-                         </Button>
-                         <Button asChild variant="outline" className="w-full bg-galaxy border-spaceship hover:bg-spaceship">
+                        <p className="text-rocket mb-4">Pre jednoduchšie odoslanie a zobrazenie histórie správ v dashborde sa môžete prihlásiť.</p>
+                         <Button asChild variant="outline" className="w-full bg-galaxy border-spaceship hover:bg-spaceship mb-2">
                             <Link href="/login">Prihlásiť sa</Link>
+                         </Button>
+                         <Button type="submit" className="w-full bg-sky hover:bg-night-sky" size="lg" disabled={isSubmitting}>
+                           {isSubmitting ? "Odosielam..." : "Odoslať ako hosť"}
                          </Button>
                      </div>
                   )}

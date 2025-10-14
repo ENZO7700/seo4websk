@@ -1,12 +1,17 @@
 
 'use client';
 
+import React, { useRef, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, ArrowRight, Search, Link2, Cog, BarChart } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Points, PointMaterial } from '@react-three/drei';
+// @ts-ignore
+import * as random from 'maath/random/dist/maath-random.esm';
 
 const auditFeatures = [
     {
@@ -53,139 +58,178 @@ const itemVariants = {
   },
 };
 
+const CodeParticles = () => {
+  const ref = useRef<any>();
+  const count = 500;
+  const chars = ['</>', '{}', '=>', '()', '||', '&&', 'CSS', 'JS', 'HTML', 'SEO', 'PWA'];
+
+  const positions = useMemo(() => {
+    return new Float32Array(random.inSphere(new Float32Array(count * 3), { radius: 2 }));
+  }, []);
+
+  useFrame((state, delta) => {
+    if (ref.current) {
+      ref.current.rotation.x -= delta / 10;
+      ref.current.rotation.y -= delta / 15;
+    }
+  });
+
+  return (
+    <group rotation={[0, 0, Math.PI / 4]}>
+      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+        <PointMaterial
+          transparent
+          color="#2563eb"
+          size={0.03}
+          sizeAttenuation={true}
+          depthWrite={false}
+        />
+      </Points>
+    </group>
+  );
+};
+
+
 export default function SeoAuditAkciaPage() {
     return (
-        <div className="bg-space text-light">
-             <header className="bg-galaxy py-20 sm:py-32">
-                <div className="container mx-auto px-4 text-center">
-                    <motion.div
+        <div className="bg-space text-light relative">
+            <div className="absolute inset-0 z-0">
+                 <Canvas camera={{ position: [0, 0, 1] }}>
+                    <CodeParticles />
+                </Canvas>
+            </div>
+             <div className="relative z-10">
+                <header className="bg-galaxy/50 backdrop-blur-sm py-20 sm:py-32">
+                    <div className="container mx-auto px-4 text-center">
+                        <motion.div
+                            initial="hidden"
+                            animate="visible"
+                            variants={containerVariants}
+                        >
+                            <motion.p variants={itemVariants} className="mb-2 text-lg font-semibold text-aurora">Časovo Obmedzená Ponuka</motion.p>
+                            <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-light font-headline">Hĺbkový SEO Audit</motion.h1>
+                            <motion.div variants={itemVariants} className="inline-flex items-baseline justify-center gap-2 md:gap-4">
+                                <span className="text-3xl md:text-5xl font-bold text-rocket line-through">249 €</span>
+                                <span className="text-5xl md:text-7xl font-bold text-aurora">99 €</span>
+                            </motion.div>
+                            <motion.p variants={itemVariants} className="text-lg md:text-xl max-w-3xl mx-auto text-rocket my-8 text-balance">
+                                Získajte kompletný prehľad o zdraví vášho webu a konkrétny akčný plán na zlepšenie pozícií vo vyhľadávačoch.
+                            </motion.p>
+                            <motion.div variants={itemVariants}>
+                                <Button size="lg" asChild className="h-12 md:h-14 text-lg" variant="cta">
+                                    <Link href="/contact?subject=Objednavka SEO auditu">Objednať Audit za 99 €</Link>
+                                </Button>
+                            </motion.div>
+                        </motion.div>
+                    </div>
+                </header>
+
+                <main className="container mx-auto py-16 px-4">
+                    <motion.section 
+                        id="what-you-get" 
+                        className="max-w-5xl mx-auto mb-20"
                         initial="hidden"
-                        animate="visible"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
                         variants={containerVariants}
                     >
-                        <motion.p variants={itemVariants} className="mb-2 text-lg font-semibold text-aurora">Časovo Obmedzená Ponuka</motion.p>
-                        <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-light font-headline">Hĺbkový SEO Audit</motion.h1>
-                        <motion.div variants={itemVariants} className="inline-flex items-baseline justify-center gap-2 md:gap-4">
-                             <span className="text-3xl md:text-5xl font-bold text-rocket line-through">249 €</span>
-                             <span className="text-5xl md:text-7xl font-bold text-aurora">99 €</span>
-                        </motion.div>
-                        <motion.p variants={itemVariants} className="text-lg md:text-xl max-w-3xl mx-auto text-rocket my-8 text-balance">
-                            Získajte kompletný prehľad o zdraví vášho webu a konkrétny akčný plán na zlepšenie pozícií vo vyhľadávačoch.
-                        </motion.p>
-                        <motion.div variants={itemVariants}>
-                            <Button size="lg" asChild className="h-12 md:h-14 text-lg" variant="cta">
-                                <Link href="/contact?subject=Objednavka SEO auditu">Objednať Audit za 99 €</Link>
-                            </Button>
-                        </motion.div>
-                    </motion.div>
-                </div>
-            </header>
-
-            <main className="container mx-auto py-16 px-4">
-                <motion.section 
-                    id="what-you-get" 
-                    className="max-w-5xl mx-auto mb-20"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={containerVariants}
-                >
-                     <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Čo Získate v Rámci Auditu?</motion.h2>
-                    <div 
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                        <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline">Čo Získate v Rámci Auditu?</motion.h2>
+                        <div 
+                            className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                        >
+                            {auditFeatures.map((feature, index) => (
+                                <motion.div
+                                    key={index}
+                                    variants={itemVariants}
+                                >
+                                    <Card className="h-full bg-galaxy/70 backdrop-blur-md border-spaceship text-center">
+                                        <CardHeader className="items-center">
+                                            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-space shadow-lg">
+                                                {feature.icon}
+                                            </div>
+                                            <CardTitle className="mt-4 text-xl font-semibold text-light">
+                                                {feature.title}
+                                            </CardTitle>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-rocket text-balance">{feature.description}</p>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
+                    
+                    <motion.section 
+                        id="process" 
+                        className="grid items-center gap-12 md:grid-cols-2 mb-20"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={containerVariants}
                     >
-                        {auditFeatures.map((feature, index) => (
-                             <motion.div
-                                key={index}
-                                variants={itemVariants}
-                             >
-                                <Card className="h-full bg-galaxy border-spaceship text-center">
-                                    <CardHeader className="items-center">
-                                        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-space shadow-lg">
-                                            {feature.icon}
-                                        </div>
-                                        <CardTitle className="mt-4 text-xl font-semibold text-light">
-                                            {feature.title}
-                                        </CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-rocket text-balance">{feature.description}</p>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.section>
-                
-                 <motion.section 
-                    id="process" 
-                    className="grid items-center gap-12 md:grid-cols-2 mb-20"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={containerVariants}
-                 >
-                    <motion.div variants={itemVariants}>
-                         <Image
-                            src="https://img.freepik.com/free-vector/seo-analytics-teamwork-concept-illustration_114360-9398.jpg?w=600"
-                            alt="Detailný report zo SEO auditu zobrazený na laptope"
-                            width={600}
-                            height={600}
-                            className="rounded-lg shadow-2xl shadow-sky/10"
-                            data-ai-hint="seo audit report"
-                        />
-                    </motion.div>
-                    <motion.div variants={itemVariants}>
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline text-light">Výstup, Ktorému Budete Rozumieť</h2>
-                        <p className="text-lg text-rocket mb-6 text-balance">
-                            Naším cieľom nie je zahltiť vás technickým žargónom. Dostanete prehľadný report s konkrétnymi, prioritizovanými odporúčaniami, ktoré môžete okamžite začať implementovať.
-                        </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-bold text-light">Zhrnutie pre Manažment</h3>
-                                    <p className="text-rocket">Stručný prehľad najdôležitejších zistení a odporúčaní.</p>
-                                </div>
-                            </li>
-                             <li className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-bold text-light">Detailný Akčný Plán</h3>
-                                    <p className="text-rocket">Krok-za-krokom návod na opravu nájdených chýb, zoradený podľa priority.</p>
-                                </div>
-                            </li>
-                             <li className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
-                                <div>
-                                    <h3 className="font-bold text-light">30-minútová Konzultácia</h3>
-                                    <p className="text-rocket">Po doručení auditu si spolu prejdeme výsledky a zodpovieme všetky vaše otázky.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </motion.div>
-                 </motion.section>
+                        <motion.div variants={itemVariants}>
+                            <Image
+                                src="https://img.freepik.com/free-vector/seo-analytics-teamwork-concept-illustration_114360-9398.jpg?w=600"
+                                alt="Detailný report zo SEO auditu zobrazený na laptope"
+                                width={600}
+                                height={600}
+                                className="rounded-lg shadow-2xl shadow-sky/10"
+                                data-ai-hint="seo audit report"
+                            />
+                        </motion.div>
+                        <motion.div variants={itemVariants}>
+                            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline text-light">Výstup, Ktorému Budete Rozumieť</h2>
+                            <p className="text-lg text-rocket mb-6 text-balance">
+                                Naším cieľom nie je zahltiť vás technickým žargónom. Dostanete prehľadný report s konkrétnymi, prioritizovanými odporúčaniami, ktoré môžete okamžite začať implementovať.
+                            </p>
+                            <ul className="space-y-4">
+                                <li className="flex items-start gap-3">
+                                    <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                    <div>
+                                        <h3 className="font-bold text-light">Zhrnutie pre Manažment</h3>
+                                        <p className="text-rocket">Stručný prehľad najdôležitejších zistení a odporúčaní.</p>
+                                    </div>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                    <div>
+                                        <h3 className="font-bold text-light">Detailný Akčný Plán</h3>
+                                        <p className="text-rocket">Krok-za-krokom návod na opravu nájdených chýb, zoradený podľa priority.</p>
+                                    </div>
+                                </li>
+                                <li className="flex items-start gap-3">
+                                    <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                    <div>
+                                        <h3 className="font-bold text-light">30-minútová Konzultácia</h3>
+                                        <p className="text-rocket">Po doručení auditu si spolu prejdeme výsledky a zodpovieme všetky vaše otázky.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </motion.div>
+                    </section>
 
-                 <motion.section 
-                    id="cta" 
-                    className="bg-galaxy rounded-2xl border border-spaceship p-8 md:p-12 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                >
-                     <h2 className="text-2xl md:text-3xl font-bold mb-4 font-headline text-light">Nečakajte, Kým Vás Predbehne Konkurencia</h2>
-                     <p className="text-lg text-rocket mb-8 max-w-2xl mx-auto text-balance">
-                         Táto špeciálna cena platí len na obmedzený čas. Investujte do budúcnosti vášho webu ešte dnes.
-                     </p>
-                      <Button size="lg" asChild className="h-12 text-lg" variant="cta">
-                        <Link href="/contact?subject=Objednavka SEO auditu">
-                            Áno, Chcem SEO Audit za 99 €
-                            <ArrowRight className="ml-2" />
-                        </Link>
-                    </Button>
-                 </motion.section>
-            </main>
+                    <motion.section 
+                        id="cta" 
+                        className="bg-galaxy/70 backdrop-blur-md rounded-2xl border border-spaceship p-8 md:p-12 text-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <h2 className="text-2xl md:text-3xl font-bold mb-4 font-headline text-light">Nečakajte, Kým Vás Predbehne Konkurencia</h2>
+                        <p className="text-lg text-rocket mb-8 max-w-2xl mx-auto text-balance">
+                            Táto špeciálna cena platí len na obmedzený čas. Investujte do budúcnosti vášho webu ešte dnes.
+                        </p>
+                        <Button size="lg" asChild className="h-12 text-lg" variant="cta">
+                            <Link href="/contact?subject=Objednavka SEO auditu">
+                                Áno, Chcem SEO Audit za 99 €
+                                <ArrowRight className="ml-2" />
+                            </Link>
+                        </Button>
+                    </section>
+                </main>
+             </div>
         </div>
     )
 }
