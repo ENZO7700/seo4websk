@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
@@ -114,7 +113,7 @@ const generateRandomData = () => {
   return { topPagesData, keywordData, deviceData };
 };
 
-const COLORS = ['hsl(var(--sky))', 'hsl(var(--aurora))', 'hsl(var(--spaceship))'];
+const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))'];
 
 
 function HeadlineAnalyzerWidget() {
@@ -151,13 +150,13 @@ function HeadlineAnalyzerWidget() {
   };
 
   return (
-    <Card className='bg-galaxy border-spaceship'>
+    <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-xl md:text-2xl text-light">
-          <Wand2 className='text-aurora' />
+        <CardTitle className="flex items-center gap-2 text-xl md:text-2xl text-foreground">
+          <Wand2 className='text-primary' />
           Rýchly Analyzátor Titulkov
         </CardTitle>
-        <CardDescription className='text-rocket'>
+        <CardDescription className='text-muted-foreground'>
           Otestujte silu vašich nadpisov priamo tu.
         </CardDescription>
       </CardHeader>
@@ -167,9 +166,9 @@ function HeadlineAnalyzerWidget() {
             placeholder="Zadajte váš titulok sem..."
             value={headline}
             onChange={(e) => setHeadline(e.target.value)}
-            className="min-h-[80px] bg-space-grey border-spaceship text-light focus:ring-aurora"
+            className="min-h-[80px] bg-background text-foreground"
           />
-          <Button onClick={handleAnalyze} disabled={isLoading} variant="cta">
+          <Button onClick={handleAnalyze} disabled={isLoading} variant="default">
             {isLoading ? (
               <Loader2 className="animate-spin" />
             ) : (
@@ -185,23 +184,23 @@ function HeadlineAnalyzerWidget() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex justify-between items-center">
-              <p className="text-sm font-medium text-rocket">
+              <p className="text-sm font-medium text-muted-foreground">
                 SEO Skóre
               </p>
-              <p className="text-lg font-bold text-aurora">
+              <p className="text-lg font-bold text-primary">
                 {analysisResult.score}/100
               </p>
             </div>
             <Progress value={analysisResult.score} />
             {analysisResult.audioDataUri && (
-                <div className='flex items-center justify-center p-2 bg-space-grey rounded-md mt-2'>
+                <div className='flex items-center justify-center p-2 bg-muted/50 rounded-md mt-2'>
                     <audio controls src={analysisResult.audioDataUri} className="w-full h-10">
                         Váš prehliadač nepodporuje audio element.
                     </audio>
                 </div>
             )}
             <div
-              className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2 text-light"
+              className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2 text-foreground"
               dangerouslySetInnerHTML={{
                 __html: analysisResult.analysis.replace(/\n/g, '<br />'),
               }}
@@ -216,16 +215,16 @@ function HeadlineAnalyzerWidget() {
 
 function KpiCard({ title, value, change, changeType, icon }: KpiCardProps) {
   const isIncrease = changeType === 'increase';
-  const changeColor = isIncrease ? 'text-aurora' : 'text-mars';
+  const changeColor = isIncrease ? 'text-green-500' : 'text-red-500';
 
   return (
-     <Card className='bg-galaxy border-spaceship'>
+     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-light">{title}</CardTitle>
-        <div className="text-rocket">{icon}</div>
+        <CardTitle className="text-sm font-medium text-foreground">{title}</CardTitle>
+        <div className="text-muted-foreground">{icon}</div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-light">{value}</div>
+        <div className="text-2xl font-bold text-foreground">{value}</div>
         <p className={`text-xs ${changeColor}`}>
           {change} oproti minulému mesiacu
         </p>
@@ -341,13 +340,13 @@ export default function DashboardPage() {
           fill="#8884d8"
           dataKey="value"
           label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-          className='text-moon'
+          className='text-muted-foreground'
         >
           {deviceData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} cursor={{fill: 'hsla(var(--galaxy) / 0.5)'}} />
+        <Tooltip content={<ChartTooltipContent nameKey="name" hideIndicator />} cursor={{fill: 'hsla(var(--muted))'}} />
         <Legend iconType="circle" />
       </PieChart>
     </ResponsiveContainer>
@@ -363,7 +362,7 @@ export default function DashboardPage() {
   if (authLoading || !user) {
     return (
         <div className="flex justify-center items-center min-h-screen">
-            <Loader2 className="h-12 w-12 animate-spin text-sky" />
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
         </div>
     );
   }
@@ -373,10 +372,10 @@ export default function DashboardPage() {
     <main className="container mx-auto px-4 py-24 sm:py-32">
       <div className="space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-light">
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-foreground">
             Môj Dashboard
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-rocket text-balance">
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground text-balance">
             Váš osobný prehľad kľúčových metrík, výkonnosti a aktivít.
           </p>
         </div>
@@ -413,28 +412,28 @@ export default function DashboardPage() {
             variants={containerVariants}
         >
            <motion.div className="lg:col-span-2" variants={itemVariants}>
-            <Card className='bg-galaxy border-spaceship'>
+            <Card>
                     <CardHeader>
-                        <CardTitle className='text-light'>Najvýkonnejšie Stránky</CardTitle>
-                        <CardDescription className='text-rocket'>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
+                        <CardTitle className='text-foreground'>Najvýkonnejšie Stránky</CardTitle>
+                        <CardDescription className='text-muted-foreground'>Top 5 stránok podľa počtu zobrazení za posledných 30 dní.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {isLoading ? <Skeleton className="h-[240px]" /> : (
                             <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
-                                    <TableRow className='border-spaceship'>
-                                        <TableHead className='text-moon'>Stránka</TableHead>
-                                        <TableHead className='text-moon'>Zobrazenia</TableHead>
-                                        <TableHead className='text-moon'>Miera Konverzie</TableHead>
+                                    <TableRow>
+                                        <TableHead className='text-muted-foreground'>Stránka</TableHead>
+                                        <TableHead className='text-muted-foreground'>Zobrazenia</TableHead>
+                                        <TableHead className='text-muted-foreground'>Miera Konverzie</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {topPagesData.map((page, index) => (
-                                        <TableRow key={index} className='border-spaceship'>
-                                            <TableCell className="font-medium text-sky hover:underline cursor-pointer">{page.page}</TableCell>
-                                            <TableCell className='text-light'>{formatNumber(page.views)}</TableCell>
-                                            <TableCell className='text-light'>{page.conversion}</TableCell>
+                                        <TableRow key={index}>
+                                            <TableCell className="font-medium text-primary hover:underline cursor-pointer">{page.page}</TableCell>
+                                            <TableCell className='text-foreground'>{formatNumber(page.views)}</TableCell>
+                                            <TableCell className='text-foreground'>{page.conversion}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -445,10 +444,10 @@ export default function DashboardPage() {
             </Card>
            </motion.div>
            <motion.div variants={itemVariants}>
-            <Card className='bg-galaxy border-spaceship'>
+            <Card>
                 <CardHeader>
-                    <CardTitle className='text-light'>Rozdelenie Zariadení</CardTitle>
-                    <CardDescription className='text-rocket'>Návštevnosť podľa typu zariadenia.</CardDescription>
+                    <CardTitle className='text-foreground'>Rozdelenie Zariadení</CardTitle>
+                    <CardDescription className='text-muted-foreground'>Návštevnosť podľa typu zariadenia.</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-center pt-6">
                     {isLoading ? <Skeleton className="h-[250px] w-full" /> : memoizedDeviceChart}
@@ -466,31 +465,31 @@ export default function DashboardPage() {
             variants={containerVariants}
         >
              <motion.div className="lg:col-span-2" variants={itemVariants}>
-                <Card className='bg-galaxy border-spaceship'>
+                <Card>
                     <CardHeader>
-                        <CardTitle className='text-light'>Výkonnosť Kľúčových Slov</CardTitle>
-                        <CardDescription className='text-rocket'>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
+                        <CardTitle className='text-foreground'>Výkonnosť Kľúčových Slov</CardTitle>
+                        <CardDescription className='text-muted-foreground'>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {isLoading ? <Skeleton className="h-[260px]" /> : (
                             <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
-                                    <TableRow className='border-spaceship'>
-                                        <TableHead className='text-moon'>Kľúčové Slovo</TableHead>
-                                        <TableHead className='text-moon'>Aktuálna Pozícia</TableHead>
-                                        <TableHead className='text-moon'>Zmena (30 dní)</TableHead>
+                                    <TableRow>
+                                        <TableHead className='text-muted-foreground'>Kľúčové Slovo</TableHead>
+                                        <TableHead className='text-muted-foreground'>Aktuálna Pozícia</TableHead>
+                                        <TableHead className='text-muted-foreground'>Zmena (30 dní)</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {keywordData.map((kw, index) => (
-                                        <TableRow key={index} className='border-spaceship'>
-                                            <TableCell className="font-medium text-light">{kw.keyword}</TableCell>
-                                            <TableCell className="font-bold text-lg text-light">{kw.position}</TableCell>
+                                        <TableRow key={index}>
+                                            <TableCell className="font-medium text-foreground">{kw.keyword}</TableCell>
+                                            <TableCell className="font-bold text-lg text-foreground">{kw.position}</TableCell>
                                             <TableCell>
-                                                <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-aurora' : kw.change < 0 ? 'text-mars' : 'text-rocket'}`}>
+                                                <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-green-500' : kw.change < 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
                                                     {kw.change > 0 ? <TrendingUp size={16} /> : kw.change < 0 ? <TrendingDown size={16} /> : <ArrowRight size={16} />}
-                                                    <span className='text-light'>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
+                                                    <span className='text-foreground'>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -508,10 +507,10 @@ export default function DashboardPage() {
          </motion.section>
 
         <section id="contact-messages">
-          <Card className='bg-galaxy border-spaceship'>
+          <Card>
             <CardHeader>
-              <CardTitle className='text-light'>Moje Posledné Správy</CardTitle>
-              <CardDescription className='text-rocket'>
+              <CardTitle className='text-foreground'>Moje Posledné Správy</CardTitle>
+              <CardDescription className='text-muted-foreground'>
                 Prehľad 5 najnovších správ, ktoré ste odoslali cez kontaktný formulár.
               </CardDescription>
             </CardHeader>
@@ -526,22 +525,22 @@ export default function DashboardPage() {
                 <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
-                    <TableRow className='border-spaceship'>
-                      <TableHead className='text-moon'>Dátum</TableHead>
-                      <TableHead className='text-moon'>Meno</TableHead>
-                      <TableHead className='text-moon'>Email</TableHead>
-                      <TableHead className='text-moon'>Správa</TableHead>
+                    <TableRow>
+                      <TableHead className='text-muted-foreground'>Dátum</TableHead>
+                      <TableHead className='text-muted-foreground'>Meno</TableHead>
+                      <TableHead className='text-muted-foreground'>Email</TableHead>
+                      <TableHead className='text-muted-foreground'>Správa</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {messages.map((msg) => (
-                      <TableRow key={msg.id} className='border-spaceship'>
-                        <TableCell className="font-medium text-light">
+                      <TableRow key={msg.id}>
+                        <TableCell className="font-medium text-foreground">
                           {msg.createdAt}
                         </TableCell>
-                        <TableCell className='text-light'>{msg.name}</TableCell>
-                        <TableCell className='text-light'>{msg.email}</TableCell>
-                        <TableCell className="truncate max-w-[200px] text-light">{msg.message}</TableCell>
+                        <TableCell className='text-foreground'>{msg.name}</TableCell>
+                        <TableCell className='text-foreground'>{msg.email}</TableCell>
+                        <TableCell className="truncate max-w-[200px] text-foreground">{msg.message}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -550,15 +549,15 @@ export default function DashboardPage() {
               ) : (
                  <div className="text-center py-4">
                     {!firebaseConfigured ? (
-                        <Alert variant="default" className='bg-space-grey border-spaceship text-left'>
+                        <Alert variant="default" className='bg-muted/50 text-left'>
                             <AlertCircle className="h-4 w-4" />
                             <AlertTitle>Konfigurácia Chýba</AlertTitle>
-                            <AlertDescription className='text-rocket'>
+                            <AlertDescription className='text-muted-foreground'>
                                 Pre zobrazenie správ je potrebné nakonfigurovať Firebase.
                             </AlertDescription>
                         </Alert>
                     ) : (
-                         <p className="text-sm text-rocket">Zatiaľ ste neodoslali žiadne správy.</p>
+                         <p className="text-sm text-muted-foreground">Zatiaľ ste neodoslali žiadne správy.</p>
                     )}
                 </div>
               )}

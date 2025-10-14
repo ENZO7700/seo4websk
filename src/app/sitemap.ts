@@ -87,6 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/sluzby/pwa-vizitka`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/sluzby/pwa-business`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/sluzby/pwa-enterprise`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/seo-audit-akcia`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
   ];
 
   const blogPosts = [

@@ -1,4 +1,3 @@
-
 import type { Config } from 'tailwindcss';
 
 const config = {
@@ -107,11 +106,16 @@ const config = {
             transform: 'translateY(0)',
           },
         },
+        'glow': {
+            '0%, 100%': { 'box-shadow': '0 0 5px -5px hsl(var(--primary)), 0 0 10px -5px hsl(var(--primary)), 0 0 15px -5px hsl(var(--primary))' },
+            '50%': { 'box-shadow': '0 0 10px -5px hsl(var(--primary)), 0 0 20px -5px hsl(var(--primary)), 0 0 40px -5px hsl(var(--primary))' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
+        'glow': 'glow 8s ease-in-out infinite',
       },
     },
   },

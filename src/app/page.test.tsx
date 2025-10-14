@@ -7,7 +7,7 @@ describe('Home', () => {
     render(<Home />)
  
     const heading = screen.getByRole('heading', {
-      name: /seo4web/i,
+      name: /seo, ktoré doručí čísla/i,
       level: 1
     })
  

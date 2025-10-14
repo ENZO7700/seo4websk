@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -17,6 +16,7 @@ import { Slider } from '@/components/ui/slider';
 import { ArrowRight, Bot, CheckCircle, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 type Step = 'goal' | 'stage' | 'budget' | 'result';
 
@@ -128,21 +128,22 @@ export default function InteractiveServicesPage() {
   }
   
   const renderStep = () => {
+      const radioItemClasses = "flex items-center gap-3 p-4 rounded-lg bg-muted/50 border border-input cursor-pointer hover:border-primary/50 has-[:checked]:border-primary"
       switch(step) {
           case 'goal':
               return (
                    <motion.div key="goal" initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }}>
-                        <h3 className="font-semibold text-lg md:text-xl text-light mb-4">1/3: Aký je váš hlavný cieľ?</h3>
+                        <h3 className="font-semibold text-lg md:text-xl text-foreground mb-4">1/3: Aký je váš hlavný cieľ?</h3>
                         <RadioGroup value={answers.goal} onValueChange={(value) => setAnswers({...answers, goal: value})} className="space-y-3">
-                            <Label htmlFor="goal-traffic" className="flex items-center gap-3 p-4 rounded-lg bg-space-grey border border-spaceship cursor-pointer hover:border-aurora/50 has-[:checked]:border-aurora">
+                            <Label htmlFor="goal-traffic" className={cn(radioItemClasses)}>
                                 <RadioGroupItem value="zvysit navstevnost" id="goal-traffic" />
                                 Zvýšiť organickú návštevnosť a získať viac zákazníkov.
                             </Label>
-                             <Label htmlFor="goal-conversion" className="flex items-center gap-3 p-4 rounded-lg bg-space-grey border border-spaceship cursor-pointer hover:border-aurora/50 has-[:checked]:border-aurora">
+                             <Label htmlFor="goal-conversion" className={cn(radioItemClasses)}>
                                 <RadioGroupItem value="zlepsit konverzie" id="goal-conversion" />
                                 Zlepšiť používateľský zážitok a konverzie (PWA).
                             </Label>
-                             <Label htmlFor="goal-brand" className="flex items-center gap-3 p-4 rounded-lg bg-space-grey border border-spaceship cursor-pointer hover:border-aurora/50 has-[:checked]:border-aurora">
+                             <Label htmlFor="goal-brand" className={cn(radioItemClasses)}>
                                 <RadioGroupItem value="budovat znacku" id="goal-brand" />
                                 Budovať značku a stať sa autoritou vo svojom odbore.
                             </Label>
@@ -152,17 +153,17 @@ export default function InteractiveServicesPage() {
           case 'stage':
                return (
                    <motion.div key="stage" initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }}>
-                        <h3 className="font-semibold text-lg md:text-xl text-light mb-4">2/3: V akej fáze je váš projekt?</h3>
+                        <h3 className="font-semibold text-lg md:text-xl text-foreground mb-4">2/3: V akej fáze je váš projekt?</h3>
                         <RadioGroup value={answers.stage} onValueChange={(value) => setAnswers({...answers, stage: value})} className="space-y-3">
-                            <Label htmlFor="stage-start" className="flex items-center gap-3 p-4 rounded-lg bg-space-grey border border-spaceship cursor-pointer hover:border-aurora/50 has-[:checked]:border-aurora">
+                            <Label htmlFor="stage-start" className={cn(radioItemClasses)}>
                                 <RadioGroupItem value="zaciatok" id="stage-start" />
                                 Ešte len začínam alebo mám úplne nový web.
                             </Label>
-                            <Label htmlFor="stage-stagnate" className="flex items-center gap-3 p-4 rounded-lg bg-space-grey border border-spaceship cursor-pointer hover:border-aurora/50 has-[:checked]:border-aurora">
+                            <Label htmlFor="stage-stagnate" className={cn(radioItemClasses)}>
                                 <RadioGroupItem value="stagnacia" id="stage-stagnate" />
                                 Mám web, ale návštevnosť stagnuje alebo klesá.
                             </Label>
-                             <Label htmlFor="stage-leader" className="flex items-center gap-3 p-4 rounded-lg bg-space-grey border border-spaceship cursor-pointer hover:border-aurora/50 has-[:checked]:border-aurora">
+                             <Label htmlFor="stage-leader" className={cn(radioItemClasses)}>
                                 <RadioGroupItem value="leader" id="stage-leader" />
                                 Som jeden z lídrov na trhu a chcem si udržať pozíciu.
                             </Label>
@@ -172,9 +173,9 @@ export default function InteractiveServicesPage() {
           case 'budget':
                return (
                     <motion.div key="budget" initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }}>
-                        <h3 className="font-semibold text-lg md:text-xl text-light mb-4">3/3: Aký je váš odhadovaný mesačný marketingový rozpočet?</h3>
-                        <div className="flex flex-col items-center p-6 bg-space-grey rounded-lg">
-                           <p className="text-4xl font-bold text-aurora mb-4">{answers.budget} €</p>
+                        <h3 className="font-semibold text-lg md:text-xl text-foreground mb-4">3/3: Aký je váš odhadovaný mesačný marketingový rozpočet?</h3>
+                        <div className="flex flex-col items-center p-6 bg-muted/50 rounded-lg">
+                           <p className="text-4xl font-bold text-primary mb-4">{answers.budget} €</p>
                            <Slider 
                                 value={[answers.budget]} 
                                 onValueChange={([value]) => setAnswers({...answers, budget: value})}
@@ -182,7 +183,7 @@ export default function InteractiveServicesPage() {
                                 step={50}
                                 className="w-full"
                            />
-                           <p className="text-sm text-rocket mt-2">Posuňte pre úpravu</p>
+                           <p className="text-sm text-muted-foreground mt-2">Posuňte pre úpravu</p>
                         </div>
                     </motion.div>
                )
@@ -190,12 +191,12 @@ export default function InteractiveServicesPage() {
                return (
                     <motion.div key="result" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
                         <div className="flex justify-center mb-4">
-                          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-aurora/10">
-                            <CheckCircle className="h-10 w-10 text-aurora" />
+                          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                            <CheckCircle className="h-10 w-10 text-primary" />
                           </div>
                         </div>
-                        <h3 className="font-bold text-2xl text-light mb-2">{recommendation?.title}</h3>
-                        <p className="text-rocket max-w-xl mx-auto text-balance">{recommendation?.description}</p>
+                        <h3 className="font-bold text-2xl text-foreground mb-2">{recommendation?.title}</h3>
+                        <p className="text-muted-foreground max-w-xl mx-auto text-balance">{recommendation?.description}</p>
                     </motion.div>
                )
       }
@@ -203,14 +204,14 @@ export default function InteractiveServicesPage() {
 
 
   return (
-    <div className="bg-space text-light">
-      <header className="bg-galaxy py-20 sm:py-24">
+    <div className="bg-background text-foreground">
+      <header className="bg-card py-20 sm:py-24">
         <div className="container mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline text-light">
+            <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline text-foreground">
               Nájdite si službu na mieru
             </h1>
-            <p className="mt-4 max-w-2xl mx-auto text-lg text-rocket text-balance">
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground text-balance">
               Neviete, kde začať? Odpovedzte na 3 rýchle otázky a naša AI vám odporučí najvhodnejší balík pre váš biznis.
             </p>
           </motion.div>
@@ -218,13 +219,13 @@ export default function InteractiveServicesPage() {
       </header>
       <main className="container mx-auto px-4 py-16 sm:py-24">
         <div className="flex justify-center">
-          <Card className="w-full max-w-2xl bg-galaxy border-spaceship text-light">
+          <Card className="w-full max-w-2xl">
             <CardHeader className="text-center">
               <div className="flex justify-center mb-2">
-                <Bot className="h-8 w-8 text-sky" />
+                <Bot className="h-8 w-8 text-primary" />
               </div>
               <CardTitle className="text-2xl font-bold font-headline">Interaktívny poradca</CardTitle>
-              <CardDescription className="text-rocket">Pomôžem vám nájsť to pravé riešenie.</CardDescription>
+              <CardDescription>Pomôžem vám nájsť to pravé riešenie.</CardDescription>
             </CardHeader>
             <CardContent className="min-h-[250px] flex items-center justify-center">
                 <AnimatePresence mode="wait">
@@ -234,11 +235,11 @@ export default function InteractiveServicesPage() {
             <CardFooter className="flex flex-col sm:flex-row justify-end gap-4">
               {step === 'result' ? (
                 <>
-                    <Button variant="ghost" onClick={handleReset} className="w-full sm:w-auto text-moon hover:text-light">
+                    <Button variant="ghost" onClick={handleReset} className="w-full sm:w-auto text-muted-foreground hover:text-foreground">
                         <RefreshCw className="mr-2 h-4 w-4" />
                         Skúsiť znova
                     </Button>
-                    <Button asChild size="lg" className="w-full sm:w-auto" variant="cta">
+                    <Button asChild size="lg" className="w-full sm:w-auto" variant="default">
                          <Link href={recommendation?.href || '/contact'}>
                             {recommendation?.ctaText}
                             <ArrowRight className="ml-2 h-4 w-4" />
@@ -246,7 +247,7 @@ export default function InteractiveServicesPage() {
                     </Button>
                 </>
               ) : (
-                <Button size="lg" onClick={handleNext} disabled={isNextDisabled()} className="w-full sm:w-auto" variant="cta">
+                <Button size="lg" onClick={handleNext} disabled={isNextDisabled()} className="w-full sm:w-auto" variant="default">
                     Pokračovať
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

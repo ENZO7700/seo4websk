@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -12,7 +11,7 @@ const RippleSphere = () => {
     const { theme } = useTheme();
     const ref = useRef<THREE.Mesh>(null!);
     const { color, wireframe, roughness, metalness, speed, amplitude } = useControls({
-        color: '#673ab7',
+        color: '#ff7700',
         wireframe: false,
         roughness: { value: 0.1, min: 0, max: 1 },
         metalness: { value: 0.9, min: 0, max: 1 },
@@ -40,14 +39,20 @@ const RippleSphere = () => {
         }
     });
 
-    // Use a different color for the seo4web theme for better contrast
-    const sphereColor = theme === 'seo4web' ? 'hsl(var(--aurora))' : theme === 'xedition' ? 'hsl(var(--aurora))' : color;
+    // Use a different color for the themes for better contrast
+    let sphereColor = color;
+    if (theme === 'seo4web') {
+        sphereColor = 'hsl(var(--aurora))';
+    } else if (theme === 'xedition') {
+        sphereColor = 'hsl(var(--primary))';
+    }
+
 
     return (
-        <Sphere ref={ref} args={[1, 64, 64]} >
-            <meshStandardMaterial 
-                color={sphereColor} 
-                wireframe={wireframe} 
+        <Sphere ref={ref} args={[1, 128, 128]} >
+            <meshStandardMaterial
+                color={sphereColor}
+                wireframe={wireframe}
                 roughness={roughness}
                 metalness={metalness}
             />
@@ -60,8 +65,8 @@ export default function ExperimentsPage() {
   return (
     <div className="w-full h-screen bg-background">
         <Canvas camera={{ position: [0, 0, 2.5] }}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} intensity={1} />
+            <ambientLight intensity={1.5} />
+            <pointLight position={[10, 10, 10]} intensity={2} />
             <RippleSphere />
             <OrbitControls enableZoom={false} />
         </Canvas>

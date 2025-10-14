@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -246,41 +245,43 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
   <motion.div
     variants={itemVariants}
     className={cn(
-        "relative flex h-full flex-col rounded-2xl p-8 border",
-        tier.isPopular ? "border-aurora/50 bg-space-grey" : "border-spaceship bg-galaxy"
+        "relative flex h-full flex-col rounded-2xl p-8",
+        tier.isPopular ? "border border-primary/50 bg-card" : "border border-border bg-card"
     )}
     >
     {tier.isPopular && (
         <div className="absolute top-0 -translate-y-1/2 w-full flex justify-center">
-            <div className="rounded-full px-4 py-1.5 text-sm font-semibold text-space bg-aurora">
+            <div className="rounded-full px-4 py-1.5 text-sm font-semibold text-primary-foreground bg-primary">
                 Najobľúbenejší
             </div>
         </div>
     )}
     <CardHeader className="p-0">
-      <CardTitle className="flex items-center gap-2 text-2xl font-bold text-light">
-        {tier.name}
-      </CardTitle>
-      <CardDescription className="text-rocket pt-2 text-base h-12 text-balance">{tier.description}</CardDescription>
+      <Link href={tier.href} className="group">
+        <CardTitle className="flex items-center gap-2 text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
+          {tier.name}
+        </CardTitle>
+        <CardDescription className="pt-2 text-base h-12 text-balance">{tier.description}</CardDescription>
+      </Link>
     </CardHeader>
     <CardContent className="flex-grow space-y-6 p-0 pt-8">
       <div className="flex items-baseline">
-        <span className="text-4xl font-bold text-light">{tier.price}</span>
+        <span className="text-4xl font-bold text-foreground">{tier.price}</span>
         {tier.priceSuffix && (
-          <span className="ml-2 text-rocket">{tier.priceSuffix}</span>
+          <span className="ml-2 text-muted-foreground">{tier.priceSuffix}</span>
         )}
       </div>
       <ul className="space-y-3">
         {tier.features.map((feature: string) => (
           <li key={feature} className="flex items-start gap-3">
-            <Check className="h-5 w-5 text-aurora flex-shrink-0 mt-1" />
-            <span className="text-moon text-balance">{feature}</span>
+            <Check className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+            <span className="text-muted-foreground text-balance">{feature}</span>
           </li>
         ))}
       </ul>
     </CardContent>
     <CardFooter className="p-0 pt-8 mt-auto">
-       <Button asChild className={cn("w-full", tier.isPopular ? "bg-sky hover:bg-night-sky" : "bg-space-grey border border-spaceship text-light hover:bg-spaceship")} size="lg">
+       <Button asChild className={cn("w-full")} variant={tier.isPopular ? "default" : "outline"} size="lg">
             <Link href={tier.price === 'Na mieru' ? '/contact' : `/signup?plan=${tier.planId}`}>
                 {tier.price === 'Na mieru' ? 'Kontaktujte nás' : 'Zvoliť balík'}
             </Link>
@@ -291,7 +292,7 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
 
 const PricingCategorySection = ({ title, tiers }: { title: string, tiers: any[] }) => (
     <div className="mb-16">
-        <motion.h3 variants={itemVariants} className="text-2xl md:text-3xl font-bold text-center mb-8 font-headline text-aurora">{title}</motion.h3>
+        <motion.h3 variants={itemVariants} className="text-2xl md:text-3xl font-bold text-center mb-8 font-headline text-primary">{title}</motion.h3>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {tiers.map((tier) => (
                 <PricingTierCard key={tier.name} tier={tier} />
@@ -303,7 +304,7 @@ const PricingCategorySection = ({ title, tiers }: { title: string, tiers: any[] 
 
 export default function PricingPage() {
   return (
-    <div className="bg-space text-light">
+    <div className="bg-background text-foreground">
       <main className="container mx-auto px-4 py-24 sm:py-32">
         <div className="flex flex-col items-center justify-center space-y-8">
             <motion.div 
@@ -312,10 +313,10 @@ export default function PricingPage() {
                 animate="visible"
                 variants={containerVariants}
             >
-            <motion.h1 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-light">
+            <motion.h1 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-foreground">
                 Transparentný cenník, merateľné výsledky
             </motion.h1>
-            <motion.p variants={itemVariants} className="mt-4 max-w-2xl text-lg text-rocket text-balance">
+            <motion.p variants={itemVariants} className="mt-4 max-w-2xl text-lg text-muted-foreground text-balance">
                 Vyberte si balík, ktorý najlepšie vyhovuje vašim cieľom. Investujte do rastu, ktorý uvidíte v číslach. Žiadne skryté poplatky.
             </motion.p>
             </motion.div>
@@ -329,7 +330,7 @@ export default function PricingPage() {
                 variants={containerVariants}
             >
                 <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                 <span className="text-aurora">SEO</span> Služby
+                 <span className="text-primary">SEO</span> Služby
                 </motion.h2>
 
                 <PricingCategorySection title="Pre jednotlivcov a malé tímy" tiers={getTiersByCategory('Pre jednotlivcov a malé tímy')} />
@@ -347,7 +348,7 @@ export default function PricingPage() {
                 variants={containerVariants}
             >
                 <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                 Vývoj <span className="text-aurora">PWA</span>
+                 Vývoj <span className="text-primary">PWA</span>
                 </motion.h2>
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                     {pwaTiers.map((tier) => (

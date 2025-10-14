@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -38,7 +37,7 @@ export function ThemeToggle() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("xedition")}>
           <Flame className="mr-2 h-4 w-4" />
-          xedition
+          X-Edition
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

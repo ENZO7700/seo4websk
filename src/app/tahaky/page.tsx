@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -106,14 +105,14 @@ export default function TahakyPage() {
 
 
   return (
-    <div className="bg-space text-light">
-      <header className="bg-galaxy py-16 sm:py-24">
+    <div className="bg-background text-foreground">
+      <header className="bg-card py-16 sm:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tighter md:text-6xl font-headline">
               Znalostná Databáza a SEO Ťaháky
             </h1>
-            <p className="mt-4 mx-auto max-w-3xl text-lg text-rocket text-balance">
+            <p className="mt-4 mx-auto max-w-3xl text-lg text-muted-foreground text-balance">
               Spýtajte sa našej AI na čokoľvek zo sveta SEO alebo si prejdite naše osvedčené tipy a stratégie, ktoré vám pomôžu dostať sa na vrchol.
             </p>
           </div>
@@ -123,13 +122,13 @@ export default function TahakyPage() {
       <main className="container mx-auto px-4 py-16 sm:py-24">
         <div className="max-w-4xl mx-auto">
           
-          <Card className="mb-12 bg-galaxy border-spaceship">
+          <Card className="mb-12">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-2xl font-bold text-light font-headline">
-                    <Wand2 className="text-sky"/>
+                <CardTitle className="flex items-center gap-2 text-2xl font-bold text-foreground font-headline">
+                    <Wand2 className="text-primary"/>
                     Spýtajte sa našej AI
                 </CardTitle>
-                <CardDescription className="text-rocket">
+                <CardDescription className="text-muted-foreground">
                     Položte otázku v prirodzenom jazyku a AI vám odpovie na základe našej znalostnej databázy.
                 </CardDescription>
             </CardHeader>
@@ -141,32 +140,32 @@ export default function TahakyPage() {
                         value={question}
                         onChange={(e) => setQuestion(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleAsk()}
-                        className="bg-space-grey border-spaceship text-light focus:ring-aurora"
+                        className="bg-background text-foreground"
                     />
-                    <Button onClick={handleAsk} disabled={isLoading} className="bg-sky hover:bg-night-sky">
+                    <Button onClick={handleAsk} disabled={isLoading} variant="default">
                         {isLoading ? <Loader2 className="animate-spin" /> : <Search />}
                         <span className="ml-2">Hľadať Odpoveď</span>
                     </Button>
                 </div>
                  {isLoading && (
-                    <div className="mt-6 flex justify-center items-center gap-2 text-moon">
+                    <div className="mt-6 flex justify-center items-center gap-2 text-muted-foreground">
                         <Loader2 className="animate-spin h-5 w-5" />
                         <span>AI hľadá najlepšiu odpoveď...</span>
                     </div>
                  )}
                  {result && (
                     <motion.div 
-                        className="mt-6 p-6 bg-space-grey/50 rounded-lg border border-spaceship"
+                        className="mt-6 p-6 bg-muted/50 rounded-lg border"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        <h3 className="flex items-center gap-2 font-bold text-lg text-aurora mb-2">
+                        <h3 className="flex items-center gap-2 font-bold text-lg text-primary mb-2">
                             <Sparkles className="h-5 w-5" />
                             Odpoveď od AI:
                         </h3>
-                        <div className="prose prose-lg dark:prose-invert text-light" dangerouslySetInnerHTML={{ __html: result.answer.replace(/\n/g, '<br />') }} />
+                        <div className="prose prose-lg dark:prose-invert text-foreground" dangerouslySetInnerHTML={{ __html: result.answer.replace(/\n/g, '<br />') }} />
                          {result.source && (
-                            <p className="text-sm text-rocket mt-4 pt-4 border-t border-spaceship">
+                            <p className="text-sm text-muted-foreground mt-4 pt-4 border-t">
                                 <strong>Zdroj:</strong> {result.source}
                             </p>
                         )}
@@ -179,20 +178,20 @@ export default function TahakyPage() {
           <Accordion
             type="single"
             collapsible
-            className="w-full bg-galaxy rounded-2xl p-4 border border-spaceship"
+            className="w-full bg-card rounded-2xl p-4 border"
           >
             {faqItems.map((item, index) => (
               <AccordionItem
                 value={`item-${index + 1}`}
                 key={index}
-                className="border-b-spaceship last:border-b-0"
+                className="border-b last:border-b-0"
               >
-                <AccordionTrigger className="text-lg text-left text-light hover:no-underline text-balance">
+                <AccordionTrigger className="text-lg text-left text-foreground hover:no-underline text-balance">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div
-                    className="prose prose-lg dark:prose-invert text-base text-rocket"
+                    className="prose prose-lg dark:prose-invert text-base text-muted-foreground"
                     dangerouslySetInnerHTML={{ __html: item.answer }}
                   />
                 </AccordionContent>
