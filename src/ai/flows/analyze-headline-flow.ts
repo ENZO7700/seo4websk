@@ -60,9 +60,9 @@ const analyzeHeadlinePrompt = ai.definePrompt(
       input: { schema: AnalyzeHeadlineInputSchema },
       output: { 
           schema: z.object({
-            analysis: z.string(),
-            score: z.number().min(0).max(100),
-            suggestions: z.array(z.string()).length(3),
+            analysis: z.string().describe("A concise analysis of the headline, including strengths, weaknesses. Use markdown for formatting, like lists."),
+            score: z.number().min(0).max(100).describe("An overall SEO score for the headline, from 0 to 100."),
+            suggestions: z.array(z.string()).length(3).describe("An array of three alternative, SEO-optimized headline suggestions."),
           })
        },
       prompt: `You are an expert SEO copywriter and analyst.
@@ -71,9 +71,10 @@ Analyze the following headline for its SEO effectiveness: "{{{headline}}}"
 Provide a concise analysis covering:
 **Strengths**: What is good about it (e.g., clarity, keywords, emotional hook)?
 **Weaknesses**: What could be improved (e.g., too generic, unclear, lacking keywords)?
-**Suggestions**: Offer 3 concrete alternative headlines that are SEO-optimized and highly clickable.
 
 Also, provide an overall SEO score from 0 to 100, where 100 is a perfect, highly-clickable, and keyword-rich headline.
+
+Finally, offer exactly 3 concrete alternative headlines that are SEO-optimized and highly clickable.
 
 Format the analysis using markdown bullet points for each section.
 The language of the output must be Slovak.
