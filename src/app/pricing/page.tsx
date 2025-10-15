@@ -136,13 +136,27 @@ const InteractiveCalculator = () => {
 
     const totalPrice = useMemo(() => {
         let price = 0;
+        let priceText = "";
+
         if (services.seo) {
             price += seoKeywords * 3 + seoBacklinks * 30;
         }
         if (services.pwa) {
             price += pwaType === 1 ? 999 : 2499;
         }
-        return price;
+
+        if(services.seo && services.pwa) {
+            const seoPrice = seoKeywords * 3 + seoBacklinks * 30;
+            const pwaPrice = pwaType === 1 ? 999 : 2499;
+            priceText = `${pwaPrice} € jednorazovo + ${seoPrice} € / mesiac`;
+        } else if (services.seo) {
+            priceText = `${price} € / mesiac`;
+        } else if (services.pwa) {
+            priceText = `od ${price} € jednorazovo`;
+        }
+
+
+        return { price, text: priceText };
     }, [services, seoKeywords, seoBacklinks, pwaType]);
 
     return (
@@ -228,8 +242,9 @@ const InteractiveCalculator = () => {
                             <CardTitle className="text-center">Odhadovaná Cena</CardTitle>
                         </CardHeader>
                         <CardContent className="text-center">
-                            <p className="text-5xl font-bold text-primary">{totalPrice} €</p>
-                            <p className="text-muted-foreground">{services.seo ? "mesačne" : "jednorazovo"}</p>
+                            <p className="text-3xl md:text-5xl font-bold text-primary min-h-[64px] flex items-center justify-center">
+                                {totalPrice.text || 'Vyberte službu'}
+                            </p>
                         </CardContent>
                         <CardFooter className="flex-col gap-2">
                              <Button asChild className="w-full" size="lg">
@@ -352,3 +367,5 @@ export default function PricingPage() {
     </div>
   );
 }
+
+    

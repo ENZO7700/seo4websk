@@ -23,9 +23,6 @@ Použi React hook `useState` na spravovanie nasledujúcich stavov:
 2.  `seoKeywords`: Číslo reprezentujúce počet kľúčových slov pre SEO (predvolene napr. 50).
 3.  `seoBacklinks`: Číslo reprezentujúce počet spätných odkazov za mesiac (predvolene napr. 5).
 4.  `pwaType`: Číslo (alebo string) reprezentujúce typ PWA (napr. 1 pre 'Vizitka', 2 pre 'Business').
-5.  `totalPrice`: Vypočítaná celková cena.
-
----
 
 ### **3. Interaktívne Prvky a Logika Výpočtu**
 
@@ -52,16 +49,14 @@ Použi React hook `useState` na spravovanie nasledujúcich stavov:
 *   Aktívne zvolená možnosť bude vizuálne odlíšená (napr. hrubším rámčekom a inou farbou pozadia).
 
 **D. Logika Výpočtu Ceny:**
-*   Použi `useMemo` na výpočet `totalPrice`, aby sa cena prepočítala len vtedy, keď sa zmení niektorá zo závislostí (`services`, `seoKeywords`, `seoBacklinks`, `pwaType`).
+*   Použi `useMemo` na výpočet celkovej ceny, aby sa cena prepočítala len vtedy, keď sa zmení niektorá zo závislostí (`services`, `seoKeywords`, `seoBacklinks`, `pwaType`).
 *   **Vzorec:**
-    *   Základná cena = 0.
     *   Ak je `services.seo` aktívne, pripočítaj: `(seoKeywords * 3) + (seoBacklinks * 30)`. Toto bude **mesačná** platba.
     *   Ak je `services.pwa` aktívne, pripočítaj: `999` (ak `pwaType` je 'Vizitka') alebo `2499` (ak `pwaType` je 'Business'). Toto bude **jednorazová** platba.
-    *   **Dôležité:** Zobrazený text pod cenou sa musí meniť. Ak je zvolené len SEO, text je "/ mesiac". Ak je zvolené len PWA, text je "jednorazovo". Ak sú zvolené obe, text by mal byť napr. "jednorazovo + mesačne".
+    *   **Zobrazenie:** Ak je zvolené len SEO, zobraz text `X € / mesiac`. Ak je zvolené len PWA, zobraz `od X € jednorazovo`. Ak sú zvolené obe, skombinuj to, napr. `X € jednorazovo + Y € / mesiac`.
 
 **E. Súhrnná Karta Ceny:**
-*   Zobrazuj `totalPrice` sformátovanú ako mena (npr. "1 259 €").
-*   Zobrazuj správny text pod cenou (mesačne/jednorazovo).
+*   Zobrazuj vypočítanú cenu alebo kombinovaný text.
 *   Obsahuje hlavné CTA tlačidlo "Chcem Ponuku na Mieru", ktoré odkazuje na `/contact`.
 
 ---
@@ -69,3 +64,5 @@ Použi React hook `useState` na spravovanie nasledujúcich stavov:
 ### **4. Výstup**
 
 Vygeneruj kompletný, funkčný a vizuálne pekný JSX kód pre komponent `InteractiveCalculator`, ktorý bude obsahovať všetku vyššie popísanú logiku a štruktúru. Kód musí byť pripravený na skopírovanie a vloženie do Next.js projektu.
+
+    
