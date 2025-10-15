@@ -84,26 +84,26 @@ export default function AnalyzerPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             SEO Analyzátor Titulkov
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground text-balance">
             Získajte okamžitú spätnú väzbu. Naša AI analyzuje váš titulok, ohodnotí ho a navrhne lepšie, klikateľnejšie alternatívy.
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
+        <Card className="w-full max-w-2xl">
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <Textarea
                 placeholder="Zadajte váš titulok sem..."
                 value={headline}
                 onChange={(e) => setHeadline(e.target.value)}
-                className="min-h-[100px] bg-space-grey border-spaceship focus:ring-aurora"
+                className="min-h-[100px]"
                 aria-label="Textové pole pre zadanie titulku"
               />
               <Button
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                variant="cta"
+                variant="default"
                 className="w-full"
               >
                 {isLoading ? (
@@ -125,13 +125,13 @@ export default function AnalyzerPage() {
         <div className="w-full max-w-2xl min-h-[150px]">
           {isLoading && (
               <motion.div 
-                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-border bg-card/50 backdrop-blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 >
-                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
-                 <p className="text-rocket">AI analyzuje a generuje audio...</p>
-                 <p className="text-sm text-rocket/80">(Môže to chvíľu trvať)</p>
+                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+                 <p className="text-muted-foreground">AI analyzuje a generuje audio...</p>
+                 <p className="text-sm text-muted-foreground/80">(Môže to chvíľu trvať)</p>
               </motion.div>
           )}
           {error && (
@@ -147,27 +147,27 @@ export default function AnalyzerPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card className="bg-galaxy border-spaceship">
+                <Card>
                 <CardHeader>
-                    <CardTitle className="text-xl font-semibold text-center text-light">
+                    <CardTitle className="text-xl font-semibold text-center text-foreground">
                     Analýza dokončená
                     </CardTitle>
-                     <CardDescription className="text-center text-rocket">Pre titulok: "{headline}"</CardDescription>
+                     <CardDescription className="text-center text-muted-foreground">Pre titulok: "{headline}"</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div>
                     <div className="flex justify-between items-center mb-2">
-                        <p className="text-sm font-medium text-rocket">Celkové SEO Skóre</p>
-                        <p className="text-lg font-bold text-aurora">{analysisResult.score}/100</p>
+                        <p className="text-sm font-medium text-muted-foreground">Celkové SEO Skóre</p>
+                        <p className="text-lg font-bold text-primary">{analysisResult.score}/100</p>
                     </div>
                     <Progress value={analysisResult.score} aria-label={`SEO skóre: ${analysisResult.score} zo 100`} />
                     </div>
 
                     {analysisResult.audioDataUri && (
-                    <div className='flex items-center justify-center p-2 bg-space-grey rounded-md'>
+                    <div className='flex items-center justify-center p-2 bg-muted/50 rounded-md'>
                         <div className="flex items-center gap-3 w-full">
-                        <Ear className="h-5 w-5 text-aurora"/>
-                        <p className="text-sm text-moon font-medium">Stručné audio zhrnutie:</p>
+                        <Ear className="h-5 w-5 text-primary"/>
+                        <p className="text-sm text-muted-foreground font-medium">Stručné audio zhrnutie:</p>
                         <audio controls src={analysisResult.audioDataUri} className="w-full h-10">
                             Váš prehliadač nepodporuje audio element.
                         </audio>
@@ -178,15 +178,15 @@ export default function AnalyzerPage() {
                     <Separator />
                     
                      <div
-                        className="prose prose-sm dark:prose-invert text-left text-balance max-w-none text-light"
+                        className="prose prose-sm dark:prose-invert text-left text-balance max-w-none text-foreground"
                         dangerouslySetInnerHTML={{ __html: analysisResult.analysis.replace(/(\*\*.*?\*\*)/g, '<h4>$1</h4>').replace(/\*/g, '<li>') }}
                     />
                     
                     <Separator />
                     
                     <div>
-                        <h4 className="font-semibold text-light mb-3 flex items-center gap-2">
-                            <Sparkles className="text-aurora"/>
+                        <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                            <Sparkles className="text-primary"/>
                             Navrhované Alternatívy
                         </h4>
                         <div className="space-y-2">

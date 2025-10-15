@@ -202,7 +202,7 @@ function HeadlineAnalyzerWidget() {
             <div
               className="prose prose-sm dark:prose-invert text-left text-balance max-w-none pt-2 text-foreground"
               dangerouslySetInnerHTML={{
-                __html: analysisResult.analysis.replace(/\n/g, '<br />'),
+                __html: analysisResult.analysis.replace(/(\*\*.*?\*\*)/g, '<h4>$1</h4>').replace(/\*/g, '<li>'),
               }}
             />
           </motion.div>
