@@ -65,6 +65,10 @@ import {
     generateKpiData,
     GenerateKpiDataOutput,
 } from '@/ai/flows/generate-kpi-data-flow';
+import {
+    generateKeywordData,
+    GenerateKeywordDataOutput,
+} from '@/ai/flows/generate-keyword-data-flow';
 import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
@@ -97,21 +101,13 @@ const generateRandomData = () => {
     { page: '/contact', views: Math.floor(Math.random() * 150) + 150, conversion: `${(Math.random() * 20 + 15).toFixed(1)}%` },
   ];
 
-  const keywordData = [
-    { keyword: 'seo optimalizacia', position: Math.floor(Math.random() * 3) + 1, change: Math.floor(Math.random() * 5) - 2 },
-    { keyword: 'pwa aplikacie', position: Math.floor(Math.random() * 5) + 3, change: Math.floor(Math.random() * 5) - 2 },
-    { keyword: 'cena seo', position: Math.floor(Math.random() * 7) + 5, change: Math.floor(Math.random() * 5) - 2 },
-    { keyword: 'seo analyza', position: Math.floor(Math.random() * 10) + 8, change: Math.floor(Math.random() * 5) - 2 },
-    { keyword: 'link building slovensko', position: Math.floor(Math.random() * 10) + 10, change: Math.floor(Math.random() * 5) - 2 },
-  ];
-
   const deviceData = [
       { name: 'Desktop', value: Math.floor(Math.random() * 200) + 300, icon: Monitor },
       { name: 'Mobil', value: Math.floor(Math.random() * 200) + 250, icon: Smartphone },
       { name: 'Tablet', value: Math.floor(Math.random() * 100) + 50, icon: Tablet },
   ];
   
-  return { topPagesData, keywordData, deviceData };
+  return { topPagesData, deviceData };
 };
 
 const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))'];
@@ -259,13 +255,14 @@ const containerVariants = {
 export default function DashboardPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [kpiData, setKpiData] = useState<GenerateKpiDataOutput | null>(null);
+  const [keywordData, setKeywordData] = useState<GenerateKeywordDataOutput | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const firebaseConfigured = isFirebaseConfigured();
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  const { topPagesData, keywordData, deviceData } = useMemo(() => generateRandomData(), []);
+  const { topPagesData, deviceData } = useMemo(() => generateRandomData(), []);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -286,6 +283,7 @@ export default function DashboardPage() {
       setError(null);
       try {
         const kpiPromise = generateKpiData();
+        const keywordPromise = generateKeywordData();
         
         const messagesCollection = collection(db!, 'messages');
         const q = query(
@@ -296,12 +294,14 @@ export default function DashboardPage() {
         );
         const messagesPromise = getDocs(q);
         
-        const [kpiResult, messagesSnapshot] = await Promise.all([
+        const [kpiResult, keywordResult, messagesSnapshot] = await Promise.all([
             kpiPromise,
+            keywordPromise,
             messagesPromise,
         ]);
 
         setKpiData(kpiResult);
+        setKeywordData(keywordResult);
         
         if (messagesSnapshot) {
             const messagesList = messagesSnapshot.docs.map((doc: any) => {
@@ -472,7 +472,7 @@ export default function DashboardPage() {
                         <CardDescription className='text-muted-foreground'>Aktuálne pozície a zmeny pre sledované kľúčové slová.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        {isLoading ? <Skeleton className="h-[260px]" /> : (
+                        {isLoading || !keywordData ? <Skeleton className="h-[260px]" /> : (
                             <div className="overflow-x-auto">
                             <Table>
                                 <TableHeader>
@@ -483,7 +483,7 @@ export default function DashboardPage() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {keywordData.map((kw, index) => (
+                                    {keywordData.keywords.map((kw, index) => (
                                         <TableRow key={index}>
                                             <TableCell className="font-medium text-foreground">{kw.keyword}</TableCell>
                                             <TableCell className="font-bold text-lg text-foreground">{kw.position}</TableCell>
@@ -569,3 +569,5 @@ export default function DashboardPage() {
     </main>
   );
 }
+
+    
