@@ -64,5 +64,3 @@ Použi React hook `useState` na spravovanie nasledujúcich stavov:
 ### **4. Výstup**
 
 Vygeneruj kompletný, funkčný a vizuálne pekný JSX kód pre komponent `InteractiveCalculator`, ktorý bude obsahovať všetku vyššie popísanú logiku a štruktúru. Kód musí byť pripravený na skopírovanie a vloženie do Next.js projektu.
-
-    
