@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardDescription,
 } from '@/components/ui/card';
-import { Check, ArrowRight, FileText, Image as ImageIcon, Search, ServerCog, Type, Calculator, ArrowDown, Users, Truck } from 'lucide-react';
+import { Check, ArrowRight, FileText, Image as ImageIcon, Search, ServerCog, Type } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -21,10 +21,6 @@ import {
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { Slider } from '@/components/ui/slider';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -137,164 +133,49 @@ const faq = [
     {"q":"Mám vlastnú marketingovú agentúru, má pre mňa vaša platforma zmysel?","a":"Určite áno. Naša platforma môže slúžiť ako výkonný nástroj, ktorý zrýchli produkciu obsahu a auditov pre vašich klientov, čím zvýši efektivitu a ziskovosť vašej agentúry."}
 ];
 
-const MovingCalculator = () => {
-    const [propertyType, setPropertyType] = useState('garsonka');
-    const [workerCount, setWorkerCount] = useState(1);
-    const [distance, setDistance] = useState(10);
-    const [hours, setHours] = useState(2);
-
-    const calculation = useMemo(() => {
-        const propertyBasePrices: Record<string, number> = {
-            garsonka: 65,
-            '1-izbovy': 70,
-            '2-izbovy': 140,
-            '3-izbovy': 240,
-            '4-izbovy': 350,
-        };
-
-        const workerHourlyRates: Record<number, number> = {
-            1: 40,
-            2: 50,
-            3: 60, // Assuming 3 workers is custom, lets estimate 60
-        };
-
-        const basePrice = propertyType === 'dom' ? 0 : propertyBasePrices[propertyType] || 0;
-        const workerPrice = (workerHourlyRates[workerCount] || 0) * hours;
-        
-        let transportPrice = 0;
-        if (distance <= 30) {
-            transportPrice = 30;
-        } else {
-            transportPrice = distance * 0.8;
-        }
-
-        let total = basePrice + workerPrice + transportPrice;
-        const minimumCharge = 70;
-        
-        if(propertyType === 'dom') return { total: 'Na mieru', basePrice: 'Na mieru', workerPrice: workerPrice, transportPrice: transportPrice, hours, minimumCharge: 0, isCustom: true };
-
-        const finalTotal = Math.max(total, minimumCharge);
-
-        return {
-            total: finalTotal,
-            basePrice,
-            workerPrice,
-            transportPrice,
-            hours,
-            minimumCharge: finalTotal < minimumCharge ? `(uplatnená minimálna suma ${minimumCharge}€)` : '',
-            isCustom: false
-        };
-    }, [propertyType, workerCount, distance, hours]);
-
-    return (
-        <Card className="w-full bg-galaxy border-spaceship text-light">
-            <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-bold text-light flex items-center justify-center gap-2">
-                    <Calculator className="text-aurora" />
-                    Interaktívna Cenová Kalkulačka
-                </CardTitle>
-                <CardDescription className="text-rocket">Získajte okamžitý odhad ceny vášho sťahovania.</CardDescription>
-            </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-8 items-start">
-                <div className="space-y-6">
-                    <div>
-                        <Label className="font-semibold text-light">Typ nehnuteľnosti</Label>
-                        <Select onValueChange={setPropertyType} defaultValue={propertyType}>
-                            <SelectTrigger className="bg-space-grey border-spaceship focus:ring-aurora mt-2">
-                                <SelectValue placeholder="Vyberte typ" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="garsonka">Garsónka</SelectItem>
-                                <SelectItem value="1-izbovy">1. izbový byt</SelectItem>
-                                <SelectItem value="2-izbovy">2. izbový byt</SelectItem>
-                                <SelectItem value="3-izbovy">3. izbový byt</SelectItem>
-                                <SelectItem value="4-izbovy">4. izbový byt</SelectItem>
-                                <SelectItem value="dom">Rodinný dom</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div>
-                        <Label className="font-semibold text-light flex items-center gap-2"><Users />Počet pracovníkov</Label>
-                        <Slider
-                            value={[workerCount]}
-                            onValueChange={(value) => setWorkerCount(value[0])}
-                            min={1}
-                            max={3}
-                            step={1}
-                            className="mt-4"
-                        />
-                        <p className="text-center text-aurora font-bold mt-2">{workerCount} {workerCount === 1 ? 'pracovník' : 'pracovníci'}{workerCount === 3 ? ' (cena dohodou)' : ''}</p>
-                    </div>
-
-                     <div>
-                        <Label htmlFor="distance" className="font-semibold text-light flex items-center gap-2"><Truck />Vzdialenosť sťahovania (km)</Label>
-                        <Input
-                          id="distance"
-                          type="number"
-                          value={distance}
-                          onChange={(e) => setDistance(Math.max(0, parseInt(e.target.value) || 0))}
-                          className="bg-space-grey border-spaceship focus:ring-aurora mt-2"
-                        />
-                     </div>
-                      <div>
-                        <Label htmlFor="hours" className="font-semibold text-light">Odhadovaný čas sťahovania (hodiny)</Label>
-                        <Input
-                          id="hours"
-                          type="number"
-                          value={hours}
-                          onChange={(e) => setHours(Math.max(1, parseInt(e.target.value) || 1))}
-                          className="bg-space-grey border-spaceship focus:ring-aurora mt-2"
-                        />
-                     </div>
-                </div>
-
-                <div className="bg-space rounded-lg p-6 border border-spaceship space-y-4">
-                    <h3 className="text-xl font-bold text-center text-light border-b border-spaceship pb-2">Odhadovaná Cena</h3>
-                    {calculation.isCustom ? (
-                        <div className="text-center py-10">
-                            <p className="text-2xl font-bold text-aurora">Cenová Ponuka na Mieru</p>
-                            <p className="text-rocket mt-2 text-balance">Pre rodinné domy a zložitejšie sťahovania nás prosím kontaktujte pre individuálnu cenovú ponuku.</p>
-                             <Button asChild className="mt-4" variant="cta">
-                                <Link href="/contact">Kontaktovať</Link>
-                            </Button>
-                        </div>
-                    ) : (
-                    <>
-                        <div className="flex justify-between items-center">
-                            <span className="text-rocket">Základná sadzba (byt):</span>
-                            <span className="font-bold text-light">{calculation.basePrice} €</span>
-                        </div>
-                         <div className="flex justify-between items-center">
-                            <span className="text-rocket">Pracovníci ({calculation.hours} hod.):</span>
-                            <span className="font-bold text-light">{calculation.workerPrice} €</span>
-                        </div>
-                         <div className="flex justify-between items-center">
-                            <span className="text-rocket">Doprava:</span>
-                            <span className="font-bold text-light">{calculation.transportPrice.toFixed(2)} €</span>
-                        </div>
-                         <div className="border-t border-dashed border-spaceship my-2"></div>
-                         <div className="flex justify-between items-center text-2xl">
-                            <span className="font-bold text-aurora">Spolu:</span>
-                            <span className="font-extrabold text-aurora">{calculation.total.toFixed(2)} €</span>
-                        </div>
-                         {calculation.minimumCharge && (
-                             <p className="text-center text-xs text-rocket mt-2">{calculation.minimumCharge}</p>
-                         )}
-                         <p className="text-xs text-center text-rocket/70 mt-4">Toto je orientačná cena. Konečná suma sa môže líšiť v závislosti od zložitosti sťahovania. Ceny sú uvedené bez DPH. Minimálna suma výjazdu je 70 €.</p>
-                    </>
-                    )}
-                </div>
-            </CardContent>
-            <CardFooter>
-                 <Button asChild className="w-full" variant="cta" size="lg">
-                    <Link href="/contact">Nezáväzná Objednávka</Link>
-                </Button>
-            </CardFooter>
-        </Card>
-    );
-};
-
+const pricingTiers = [
+    {
+        name: 'ŠTART',
+        price: '19 €',
+        priceSuffix: '/mesiac',
+        description: 'Pre freelancerov a blogerov, ktorí chcú začať.',
+        features: [
+            "10 SEO auditov",
+            "25 generovaných článkov",
+            "Základná analýza kľúčových slov",
+            "Emailová podpora",
+        ],
+        isPopular: false,
+    },
+    {
+        name: 'PRO',
+        price: '49 €',
+        priceSuffix: '/mesiac',
+        description: 'Pre malé a stredné firmy s cieľom rásť.',
+        features: [
+            "Neobmedzené SEO audity",
+            "100 generovaných článkov",
+            "Pokročilá analýza kľúčových slov",
+            "Monitoring konkurencie",
+            "Prioritná podpora",
+        ],
+        isPopular: true,
+    },
+    {
+        name: 'EXPERT',
+        price: '99 €',
+        priceSuffix: '/mesiac',
+        description: 'Pre agentúry a veľké tímy.',
+        features: [
+            "Všetko v balíku PRO",
+            "Neobmedzené generovanie článkov",
+            "API prístup pre integrácie",
+            "Správa viacerých projektov",
+            "Dedikovaný account manažér",
+        ],
+        isPopular: false,
+    },
+];
 
 export default function NewHomePage() {
   return (
@@ -468,11 +349,61 @@ export default function NewHomePage() {
                 </motion.div>
             </div>
         </section>
-
-        {/* Pricing */}
+        
+        {/* Pricing Section */}
         <section id="pricing" className="py-20 sm:py-32 bg-space">
             <div className="container mx-auto px-4">
-                <MovingCalculator />
+                <motion.div
+                    className="text-center max-w-3xl mx-auto"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    variants={itemVariants}
+                >
+                    <h2 className="text-3xl font-bold tracking-tighter md:text-5xl font-headline text-light">Cenník, ktorý dáva zmysel</h2>
+                    <p className="mt-4 text-lg text-rocket text-balance">
+                        Vyberte si plán, ktorý rastie s vami. Žiadne zložité zmluvy, zrušenie jedným klikom.
+                    </p>
+                </motion.div>
+
+                <motion.div
+                    className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    variants={containerVariants}
+                >
+                    {pricingTiers.map((tier, index) => (
+                        <motion.div key={index} variants={itemVariants}>
+                            <Card className={cn("flex h-full flex-col", tier.isPopular ? "border-2 border-aurora bg-galaxy" : "bg-galaxy border-spaceship")}>
+                                {tier.isPopular && <div className="bg-aurora text-center text-sm font-bold text-space py-1">NAJLEPŠIA VOĽBA</div>}
+                                <CardHeader className="text-center">
+                                    <CardTitle className="text-2xl font-bold text-light">{tier.name}</CardTitle>
+                                    <CardDescription className="text-rocket">{tier.description}</CardDescription>
+                                </CardHeader>
+                                <CardContent className="flex flex-col flex-grow">
+                                    <div className="text-center my-4">
+                                        <span className="text-4xl font-extrabold text-light">{tier.price}</span>
+                                        <span className="text-rocket">{tier.priceSuffix}</span>
+                                    </div>
+                                    <ul className="space-y-4 text-sm text-moon flex-grow">
+                                        {tier.features.map((feature, i) => (
+                                            <li key={i} className="flex items-center gap-3">
+                                                <Check className="h-5 w-5 text-aurora" />
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button asChild className="w-full" variant={tier.isPopular ? "cta" : "outline"} size="lg">
+                                        <Link href={`/signup?plan=${tier.name.toLowerCase()}`}>Začať s balíkom {tier.name}</Link>
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </motion.div>
+                    ))}
+                </motion.div>
             </div>
         </section>
 
