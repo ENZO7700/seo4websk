@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -7,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Menu, X, ChevronDown, LogOut } from "lucide-react";
+import { Menu, X, ChevronDown, LogOut, Wand2 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
@@ -17,16 +18,18 @@ const baseMainNavLinks = [
     { href: "/pricing", label: "Cenník" },
     { href: "/sluzby", label: "Služby" },
     { href: "/blog", label: "Blog" },
-    { href: "/tahaky", label: "AI Nástroje" },
 ];
 
-const resourcesLinks = [
+const aiToolLinks = [
+    { href: "/tahaky", label: "AI Asistent / Ťaháky" },
     { href: "/analyzer", label: "Headline Analyzátor" },
-    { href: "/image-generator", label: "AI Generátor Obrázkov" },
     { href: "/seo-analyzer", label: "Pokročilý SEO Audit" },
-    { href: "/meta-generator", label: "AI Generátor Meta Popisov" },
+    { href: "/meta-generator", label: "Generátor Meta Popisov" },
     { href: "/semantic-analyzer", label: "Sémantický Analyzátor" },
-    { separator: true },
+    { href: "/image-generator", label: "Generátor Obrázkov" },
+];
+
+const moreLinks = [
     { href: "/seo-audit-akcia", label: "Akčná Ponuka: SEO Audit", isHot: true },
     { href: "/partnersky-program", label: "Partnerský program" },
 ];
@@ -89,14 +92,27 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+             <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground focus:outline-none">
+                <Wand2 className="h-4 w-4 text-primary" />
+                AI Nástroje
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {aiToolLinks.map((link) => (
+                    <DropdownMenuItem key={link.href} asChild>
+                        <Link href={link.href}>{link.label}</Link>
+                    </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground focus:outline-none">
                 Viac
                 <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                {resourcesLinks.map((link, index) => (
-                    link.separator ? <DropdownMenuSeparator key={`sep-${index}`} /> :
+                {moreLinks.map((link, index) => (
                     <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-aurora font-bold focus:text-aurora')}>
                         <Link href={link.href}>{link.label}</Link>
                     </DropdownMenuItem>
@@ -159,20 +175,34 @@ export function Header() {
                                     </Link>
                                ))}
                                 <div>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger className="flex items-center gap-1 w-full text-lg font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none">
-                                            Viac
-                                            <ChevronDown className="h-5 w-5" />
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            {resourcesLinks.map((link, index) => (
-                                                link.separator ? <DropdownMenuSeparator key={`sep-${index}`} /> :
-                                                <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-aurora font-bold focus:text-aurora')}>
-                                                    <Link href={link.href} onClick={() => setIsSheetOpen(false)}>{link.label}</Link>
-                                                </DropdownMenuItem>
-                                            ))}
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
+                                    <h3 className="text-lg font-medium text-muted-foreground flex items-center gap-2 mb-4"><Wand2 className="h-5 w-5 text-primary" /> AI Nástroje</h3>
+                                    <div className="flex flex-col gap-4 pl-4 border-l border-border">
+                                        {aiToolLinks.map((link) => (
+                                            <Link
+                                                key={link.href}
+                                                href={link.href}
+                                                className="text-muted-foreground transition-colors hover:text-foreground block"
+                                                onClick={() => setIsSheetOpen(false)}
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                     <h3 className="text-lg font-medium text-muted-foreground flex items-center gap-2 my-4">Viac</h3>
+                                     <div className="flex flex-col gap-4 pl-4 border-l border-border">
+                                        {moreLinks.map((link) => (
+                                            <Link
+                                                key={link.href}
+                                                href={link.href}
+                                                className={cn("transition-colors hover:text-foreground block", link.isHot ? "text-aurora font-bold" : "text-muted-foreground")}
+                                                onClick={() => setIsSheetOpen(false)}
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        ))}
+                                    </div>
                                 </div>
                             </nav>
                              <div className="mt-auto pt-8 space-y-4">
