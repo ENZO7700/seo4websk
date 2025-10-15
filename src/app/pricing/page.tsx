@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,14 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Check } from 'lucide-react';
+import { Check, Calculator, Wand2 } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-
+import { Slider } from '@/components/ui/slider';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 const seoTiers = [
-    // Pre jednotlivcov a malé tímy
     {
         name: 'Štart',
         price: '199 €',
@@ -49,7 +51,6 @@ const seoTiers = [
             "Mesačný report",
         ]
     },
-    // Pre rastúce firmy
     {
         name: 'Expert',
         price: '449 €',
@@ -67,90 +68,7 @@ const seoTiers = [
             "1 hod/mesiac konzultácie",
         ]
     },
-    {
-        name: 'Líder',
-        price: '599 €',
-        priceSuffix: '/mesiac',
-        description: 'Cesta k dominancii vo vašom segmente.',
-        href: '/sluzby/seo-lider',
-        planId: 'lider',
-        category: 'Pre rastúce firmy',
-        features: [
-            "Všetko v balíku Expert",
-            "Obsahová stratégia (Pokročilá)",
-            "Budovanie spätných odkazov (7/mesiac)",
-            "Analýza konverzií (CRO)",
-            "Prioritná podpora",
-        ]
-    },
-    // Pre lídrov na trhu
-    {
-        name: 'Business',
-        price: '899 €',
-        priceSuffix: '/mesiac',
-        description: 'Komplexný motor pre váš biznis rast.',
-        href: '/sluzby/seo-business',
-        planId: 'business',
-        category: 'Pre lídrov na trhu',
-        features: [
-            "Všetko v balíku Líder",
-            "Link building (10+/mesiac)",
-            "Komplexná obsahová stratégia",
-            "Biznis reportovanie",
-            "2 hod/mesiac konzultácie",
-        ]
-    },
-    {
-        name: 'Korporát',
-        price: '1499 €',
-        priceSuffix: '/mesiac',
-        description: 'Pre veľké e-shopy a firmy v konkurenčnom prostredí.',
-        href: '/sluzby/seo-korporat',
-        planId: 'korporat',
-        category: 'Pre lídrov na trhu',
-        features: [
-            "Všetko v balíku Business",
-            "Digitálne PR a link building (20+/mesiac)",
-            "Tvorba obsahu",
-            "Optimalizácia konverzií (CRO)",
-            "Pravidelné strategické porady",
-        ]
-    },
-     {
-        name: 'Dominancia',
-        price: '2499 €',
-        priceSuffix: '/mesiac',
-        description: 'Agresívna stratégia pre absolútne ovládnutie trhu.',
-        href: '/sluzby/seo-dominancia',
-        planId: 'dominancia',
-        category: 'Pre lídrov na trhu',
-        features: [
-           "Všetko v balíku Korporát",
-           "Digitálne PR a link building (30+/mesiac)",
-           "Pokročilá analytika a reporting",
-           "Medzinárodné SEO (1 trh)",
-           "Dedikovaný senior konzultant",
-        ]
-    },
-    {
-        name: 'Enterprise',
-        price: 'Na mieru',
-        priceSuffix: '',
-        description: 'Riešenie bez kompromisov pre najnáročnejších.',
-        href: '/sluzby/seo-enterprise',
-        planId: 'enterprise',
-        category: 'Pre lídrov na trhu',
-        features: [
-           "Medzinárodné SEO (viac trhov)",
-           "Dedikovaný manažér a tím",
-           "Integrácia s BI nástrojmi",
-           "Reporting pre Board",
-           "Plná integrácia a podpora",
-        ]
-    },
 ];
-
-const getTiersByCategory = (category: string) => seoTiers.filter(tier => tier.category === category);
 
 const pwaTiers = [
     {
@@ -185,39 +103,8 @@ const pwaTiers = [
         isPopular: true,
         href: '/sluzby/pwa-business'
     },
-    {
-        name: 'PWA E-shop',
-        price: 'od 4,999 €',
-        priceSuffix: 'jednorazovo',
-        description: 'Plnohodnotný e-commerce systém s platobnou bránou a správou produktov.',
-        planId: 'pwa-eshop',
-        features: [
-            'Kompletný e-shop na mieru',
-            'Integrácia platobných brán',
-            'Správa produktov a objednávok',
-            'Zákaznícke účty a personalizácia',
-            'Optimalizovaný nákupný košík',
-        ],
-        isPopular: false,
-        href: '/sluzby/ecommerce-pwa'
-    },
-    {
-        name: 'PWA Enterprise',
-        price: 'Na mieru',
-        priceSuffix: '',
-        description: 'Vysoko škálovateľné riešenie na mieru pre komplexné potreby a integrácie.',
-        planId: 'pwa-enterprise',
-        features: [
-            'Riešenie na kľúč',
-            'Integrácie s ERP/CRM (API)',
-            'Pokročilá bezpečnosť a compliance',
-            'Dedikovaná podpora a SLA',
-            'Vysoká škálovateľnosť',
-        ],
-        isPopular: false,
-        href: '/sluzby/pwa-enterprise'
-    },
-]
+];
+
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -240,6 +127,122 @@ const itemVariants = {
     },
   },
 };
+
+const InteractiveCalculator = () => {
+    const [services, setServices] = useState({ seo: true, pwa: false });
+    const [seoKeywords, setSeoKeywords] = useState(50);
+    const [seoBacklinks, setSeoBacklinks] = useState(5);
+    const [pwaType, setPwaType] = useState(1); // 1: Vizitka, 2: Business
+
+    const totalPrice = useMemo(() => {
+        let price = 0;
+        if (services.seo) {
+            price += seoKeywords * 3 + seoBacklinks * 30;
+        }
+        if (services.pwa) {
+            price += pwaType === 1 ? 999 : 2499;
+        }
+        return price;
+    }, [services, seoKeywords, seoBacklinks, pwaType]);
+
+    return (
+        <motion.div
+            className="w-full"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={containerVariants}
+        >
+            <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
+                <span className="text-primary flex items-center justify-center gap-4"><Calculator /> Interaktívna Kalkulačka</span>
+            </motion.h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <motion.div variants={itemVariants} className="lg:col-span-2 space-y-8">
+                     {/* Service Selection */}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>1. Vyberte si služby</CardTitle>
+                        </CardHeader>
+                        <CardContent className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox id="seo-service" checked={services.seo} onCheckedChange={(checked) => setServices(s => ({ ...s, seo: !!checked }))} />
+                                <Label htmlFor="seo-service" className="text-lg">Priebežné SEO</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <Checkbox id="pwa-service" checked={services.pwa} onCheckedChange={(checked) => setServices(s => ({ ...s, pwa: !!checked }))} />
+                                <Label htmlFor="pwa-service" className="text-lg">Vývoj PWA</Label>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    {/* SEO Options */}
+                    {services.seo && (
+                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>2. Nastavenie SEO</CardTitle>
+                                    <CardDescription>Upravte rozsah mesačných SEO prác.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-6">
+                                    <div>
+                                        <Label>Počet sledovaných kľúčových slov: <span className="font-bold text-primary">{seoKeywords}</span></Label>
+                                        <Slider value={[seoKeywords]} onValueChange={([val]) => setSeoKeywords(val)} max={200} step={10} />
+                                    </div>
+                                    <div>
+                                        <Label>Počet budovaných spätných odkazov mesačne: <span className="font-bold text-primary">{seoBacklinks}</span></Label>
+                                        <Slider value={[seoBacklinks]} onValueChange={([val]) => setSeoBacklinks(val)} max={20} step={1} />
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    )}
+
+                     {/* PWA Options */}
+                    {services.pwa && (
+                         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>3. Typ PWA Aplikácie</CardTitle>
+                                    <CardDescription>Zvoľte si typ aplikácie, ktorý najlepšie vyhovuje vašim potrebám.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                     <div onClick={() => setPwaType(1)} className={cn("p-4 rounded-lg border cursor-pointer", pwaType === 1 && "border-primary bg-primary/10")}>
+                                        <h4 className="font-bold">PWA Vizitka (od 999 €)</h4>
+                                        <p className="text-sm text-muted-foreground">Moderná online vizitka alebo portfólio.</p>
+                                     </div>
+                                     <div onClick={() => setPwaType(2)} className={cn("p-4 rounded-lg border cursor-pointer", pwaType === 2 && "border-primary bg-primary/10")}>
+                                        <h4 className="font-bold">PWA Business (od 2,499 €)</h4>
+                                        <p className="text-sm text-muted-foreground">Komplexné riešenie s blogom a marketingom.</p>
+                                     </div>
+                                </CardContent>
+                            </Card>
+                        </motion.div>
+                    )}
+                </motion.div>
+
+                {/* Price Summary */}
+                <motion.div variants={itemVariants} className="lg:sticky top-24 h-fit">
+                    <Card className="bg-card shadow-2xl shadow-primary/10">
+                        <CardHeader>
+                            <CardTitle className="text-center">Odhadovaná Cena</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-center">
+                            <p className="text-5xl font-bold text-primary">{totalPrice} €</p>
+                            <p className="text-muted-foreground">{services.seo ? "mesačne" : "jednorazovo"}</p>
+                        </CardContent>
+                        <CardFooter className="flex-col gap-2">
+                             <Button asChild className="w-full" size="lg">
+                                <Link href="/contact?subject=Cenova ponuka na mieru">Chcem Ponuku na Mieru</Link>
+                            </Button>
+                            <p className="text-xs text-muted-foreground text-center">Cena je orientačná a finálnu ponuku vám radi pripravíme na mieru.</p>
+                        </CardFooter>
+                    </Card>
+                </motion.div>
+            </div>
+        </motion.div>
+    )
+}
 
 const PricingTierCard = ({ tier }: { tier: any }) => (
   <motion.div
@@ -290,10 +293,10 @@ const PricingTierCard = ({ tier }: { tier: any }) => (
   </motion.div>
 );
 
-const PricingCategorySection = ({ title, tiers }: { title: string, tiers: any[] }) => (
+const PricingCategorySection = ({ title, tiers, id }: { title: string, tiers: any[], id: string }) => (
     <div className="mb-16">
-        <motion.h3 variants={itemVariants} className="text-2xl md:text-3xl font-bold text-center mb-8 font-headline text-primary">{title}</motion.h3>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <motion.h3 variants={itemVariants} id={id} className="text-2xl md:text-3xl font-bold text-center mb-12 font-headline text-primary scroll-mt-24">{title}</motion.h3>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {tiers.map((tier) => (
                 <PricingTierCard key={tier.name} tier={tier} />
             ))}
@@ -317,9 +320,11 @@ export default function PricingPage() {
                 Transparentný cenník, merateľné výsledky
             </motion.h1>
             <motion.p variants={itemVariants} className="mt-4 max-w-2xl text-lg text-muted-foreground text-balance">
-                Vyberte si balík, ktorý najlepšie vyhovuje vašim cieľom. Investujte do rastu, ktorý uvidíte v číslach. Žiadne skryté poplatky.
+                Vyberte si balík, ktorý najlepšie vyhovuje vašim cieľom, alebo si vyskladajte vlastný. Investujte do rastu, ktorý uvidíte v číslach.
             </motion.p>
             </motion.div>
+
+            <InteractiveCalculator />
             
             <motion.section 
                 id="seo-services" 
@@ -329,14 +334,7 @@ export default function PricingPage() {
                 viewport={{ once: true, amount: 0.1 }}
                 variants={containerVariants}
             >
-                <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                 <span className="text-primary">SEO</span> Služby
-                </motion.h2>
-
-                <PricingCategorySection title="Pre jednotlivcov a malé tímy" tiers={getTiersByCategory('Pre jednotlivcov a malé tímy')} />
-                <PricingCategorySection title="Pre rastúce firmy" tiers={getTiersByCategory('Pre rastúce firmy')} />
-                <PricingCategorySection title="Pre lídrov na trhu" tiers={getTiersByCategory('Pre lídrov na trhu')} />
-
+                <PricingCategorySection title="Balíky SEO služieb" tiers={seoTiers} id="seo-packages" />
             </motion.section>
 
             <motion.section 
@@ -347,14 +345,7 @@ export default function PricingPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={containerVariants}
             >
-                <motion.h2 variants={itemVariants} className="mb-12 text-center text-4xl font-bold tracking-tighter md:text-5xl font-headline">
-                 Vývoj <span className="text-primary">PWA</span>
-                </motion.h2>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                    {pwaTiers.map((tier) => (
-                        <PricingTierCard key={tier.name} tier={tier} />
-                    ))}
-                </div>
+                <PricingCategorySection title="Vývoj PWA" tiers={pwaTiers} id="pwa-packages" />
             </motion.section>
         </div>
       </main>
