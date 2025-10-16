@@ -488,8 +488,8 @@ export default function DashboardPage() {
                                             <TableCell className="font-medium text-foreground">{kw.keyword}</TableCell>
                                             <TableCell className="font-bold text-lg text-foreground">{kw.position}</TableCell>
                                             <TableCell>
-                                                <div className={`flex items-center gap-1 ${kw.change > 0 ? 'text-green-500' : kw.change < 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
-                                                    {kw.change > 0 ? <TrendingUp size={16} /> : kw.change < 0 ? <TrendingDown size={16} /> : <ArrowRight size={16} />}
+                                                <div className={`flex items-center gap-1 ${kw.change < 0 ? 'text-green-500' : kw.change > 0 ? 'text-red-500' : 'text-muted-foreground'}`}>
+                                                    {kw.change < 0 ? <TrendingUp size={16} /> : kw.change > 0 ? <TrendingDown size={16} /> : <ArrowRight size={16} />}
                                                     <span className='text-foreground'>{kw.change !== 0 ? Math.abs(kw.change) : '-'}</span>
                                                 </div>
                                             </TableCell>
@@ -569,5 +569,3 @@ export default function DashboardPage() {
     </main>
   );
 }
-
-    

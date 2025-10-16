@@ -21,14 +21,25 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from 'framer-motion';
 
-const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang: string }) => (
-    <div className="mb-4">
-        <h4 className="font-semibold mb-2 text-light">{title}</h4>
-        <pre className="bg-space-grey p-4 rounded-md overflow-x-auto text-sm text-moon">
-            <code className={`language-${lang}`}>{code.trim()}</code>
-        </pre>
-    </div>
-);
+const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang: string }) => {
+    const { toast } = useToast();
+    const handleCopy = () => {
+        navigator.clipboard.writeText(code);
+        toast({ title: "Kód skopírovaný!" });
+    };
+
+    return (
+        <div className="mb-4">
+            <div className="flex justify-between items-center mb-2">
+                 <h4 className="font-semibold text-light">{title}</h4>
+                 <Button variant="ghost" size="sm" onClick={handleCopy}>Kopírovať</Button>
+            </div>
+            <pre className="bg-space-grey p-4 rounded-md overflow-x-auto text-sm text-moon">
+                <code className={`language-${lang}`}>{code.trim()}</code>
+            </pre>
+        </div>
+    );
+};
 
 export default function SeoAnalyzerPage() {
   const { toast } = useToast();
@@ -48,18 +59,14 @@ export default function SeoAnalyzerPage() {
       });
       return;
     }
+    
+    let fullUrl = url;
+    if (!/^https?:\/\//i.test(url)) {
+        fullUrl = 'https://' + url;
+    }
+
     try {
-        // Simple regex to check for protocol and some domain characters
-        if (!/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(url)) {
-             throw new Error("Neplatný formát URL");
-        }
-        // Ensure it starts with http:// or https:// for the fetch to work
-        let fullUrl = url;
-        if (!/^https?:\/\//i.test(url)) {
-            fullUrl = 'https://' + url;
-        }
-        new URL(fullUrl); // This will throw if the URL is truly invalid
-        setUrl(fullUrl); // Update state with the corrected URL
+        new URL(fullUrl); 
     } catch (_) {
          toast({
             variant: 'destructive',
@@ -74,7 +81,7 @@ export default function SeoAnalyzerPage() {
     setError(null);
 
     try {
-      const result = await advancedSeoAudit({ url });
+      const result = await advancedSeoAudit({ url: fullUrl });
       setAnalysisResult(result);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Vyskytol sa neznámy problém s AI. Skúste to prosím znova.';
@@ -181,16 +188,16 @@ export default function SeoAnalyzerPage() {
                                 <TabsTrigger value="snippets"><Code className="mr-2 h-4 w-4" />Kód</TabsTrigger>
                             </TabsList>
                             <TabsContent value="summary" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/(\*\*|### |## |# )/g, '').replace(/\n/g, '<br />') }} />
                             </TabsContent>
                              <TabsContent value="wins" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/(\*\*|### |## |# )/g, '').replace(/\n/g, '<br />') }} />
                             </TabsContent>
                              <TabsContent value="plan" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/(\*\*|## |# )/g, '').replace(/\n/g, '<br />') }} />
                             </TabsContent>
                             <TabsContent value="snippets" className="pt-6">
-                                <CodeSnippet title="Canonical" code={analysisResult.snippets.canonical} lang="html" />
+                                <CodeSnippet title="Canonical Tag" code={analysisResult.snippets.canonical} lang="html" />
                                 <CodeSnippet title="Preload Hero Image" code={analysisResult.snippets.preloadHero} lang="html" />
                                 <CodeSnippet title="JSON-LD (Organization & WebSite)" code={analysisResult.snippets.jsonLd} lang="json" />
                                 <CodeSnippet title="Security Headers (Nginx & Meta)" code={analysisResult.snippets.securityHeaders} lang="nginx" />

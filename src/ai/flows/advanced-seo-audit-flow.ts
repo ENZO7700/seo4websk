@@ -164,7 +164,7 @@ const prompt = ai.definePrompt({
   input: { schema: z.object({ url: z.string(), analyzedPages: z.any() }) },
   output: { schema: AdvancedSeoAuditOutputSchema },
   prompt: `
-ROLE: You are a senior SEO technical analyst and a pragmatic implementer. Your tone is helpful, expert, and direct.
+ROLE: You are a senior SEO technical analyst and a pragmatic implementer. Your tone is helpful, expert, and direct. The output must be in Slovak.
 
 GOAL: Conduct a "light" SEO audit of the provided domain data. The data includes the main page and up to 2 subpages. Analyze the provided data to identify key issues and opportunities.
 
@@ -183,37 +183,37 @@ STEPS:
 OUTPUT:
 Strictly adhere to the following output structure and use Markdown for formatting lists and code blocks.
 
-## Súhrn
+### Súhrn
 Provide a 3-5 sentence executive summary of the website's overall SEO health, highlighting the most critical findings and the biggest opportunities for growth.
 
-## Top 10 Rýchlych Výhier
+### Top 10 Rýchlych Výhier
 List the top 10 most impactful and easy-to-implement fixes. For each, briefly state the issue and why fixing it is important. Format as a numbered list. Example: "1. **Pridajte chýbajúci ALT text k obrázkom:** Zlepšuje prístupnosť a pozície v obrázkovom vyhľadávaní."
 
-## Plán opráv
+### Plán opráv
 Organize the identified issues into a 3-wave plan.
-### Vlna 1: Rýchle víťazstvá (Nízka náročnosť, vysoký dopad)
+#### Vlna 1: Rýchle víťazstvá (Nízka náročnosť, vysoký dopad)
 List the fixes that can be done quickly and will bring immediate benefits.
-### Vlna 2: Opravy s vysokým dopadom (Stredná náročnosť, vysoký dopad)
+#### Vlna 2: Opravy s vysokým dopadom (Stredná náročnosť, vysoký dopad)
 List more involved fixes that are crucial for long-term success.
-### Vlna 3: Dlhodobé a základné (Vysoká náročnosť)
+#### Vlna 3: Dlhodobé a základné (Vysoká náročnosť)
 List foundational improvements that require more planning and resources.
 
-## Úryvky Kódu
+### Úryvky Kódu
 Provide the following code snippets. If a value is unknown from the input, use a clear placeholder like [YOUR_...].
 
-### Canonical Tag
+#### Canonical Tag
 \`\`\`html
 <!-- Pridajte toto do <head> vašej stránky -->
 <link rel="canonical" href="{{{url}}}" />
 \`\`\`
 
-### Preload Hero Image
+#### Preload Hero Image
 \`\`\`html
 <!-- Pridajte toto do <head> pre rýchlejšie načítanie hlavného obrázka. Aktualizujte href a srcset s vašou reálnou cestou k obrázku. -->
 <link rel="preload" as="image" href="[YOUR_HERO_IMAGE.JPG]" imagesrcset="[YOUR_HERO_IMAGE_400W.JPG] 400w, [YOUR_HERO_IMAGE_800W.JPG] 800w" />
 \`\`\`
 
-### JSON-LD Schéma
+#### JSON-LD Schéma
 \`\`\`html
 <!-- Pridajte toto do <head> alebo <body>. Aktualizujte detaily s informáciami o vašej firme. -->
 <script type="application/ld+json">
@@ -246,7 +246,7 @@ Provide the following code snippets. If a value is unknown from the input, use a
 </script>
 \`\`\`
 
-### Bezpečnostné Hlavičky
+#### Bezpečnostné Hlavičky
 \`\`\`nginx
 # Nginx úryvok na pridanie základných bezpečnostných hlavičiek. Pridajte do vašej serverovej konfigurácie.
 add_header X-Frame-Options "SAMEORIGIN" always;
@@ -258,7 +258,7 @@ add_header Content-Security-Policy "frame-ancestors 'self';" always;
 <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self';">
 \`\`\`
 
-### OpenGraph & Twitter Karty
+#### OpenGraph & Twitter Karty
 \`\`\`html
 <!-- Pridajte tieto tagy do <head> pre lepšie zdieľanie na sociálnych sieťach. -->
 <meta property="og:title" content="[Your Page Title]" />
