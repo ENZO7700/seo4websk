@@ -41,6 +41,16 @@ const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang:
     );
 };
 
+const renderMarkdown = (text: string) => {
+    // Basic markdown to HTML conversion
+    return text
+        .replace(/### (.*?)\n/g, '<h3 class="text-xl font-bold mt-4 mb-2 text-aurora">$1</h3>') // h3
+        .replace(/\n/g, '<br />') // newlines
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // bold
+        .replace(/\* ([^*]+)/g, '<li class="list-disc ml-4">$1</li>') // list items
+        .replace(/(\d+)\. /g, '<br/><strong>$1. </strong>'); // numbered list
+}
+
 export default function SeoAnalyzerPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -188,13 +198,13 @@ export default function SeoAnalyzerPage() {
                                 <TabsTrigger value="snippets"><Code className="mr-2 h-4 w-4" />Kód</TabsTrigger>
                             </TabsList>
                             <TabsContent value="summary" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.summary.replace(/(\*\*|### |## |# )/g, '').replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.summary) }} />
                             </TabsContent>
                              <TabsContent value="wins" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.top10QuickWins.replace(/(\*\*|### |## |# )/g, '').replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.top10QuickWins) }} />
                             </TabsContent>
                              <TabsContent value="plan" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: analysisResult.fixPlan.replace(/### (.*?)\n/g, '<h3>$1</h3>').replace(/(\*\*|## |# )/g, '').replace(/\n/g, '<br />') }} />
+                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.fixPlan) }} />
                             </TabsContent>
                             <TabsContent value="snippets" className="pt-6">
                                 <CodeSnippet title="Canonical Tag" code={analysisResult.snippets.canonical} lang="html" />
