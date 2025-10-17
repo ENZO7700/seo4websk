@@ -109,8 +109,8 @@ export default function PwaEnterprisePage() {
                     <ol className="relative border-l border-spaceship">                  
                         <li className="mb-10 ml-6">            
                             <span className="absolute flex items-center justify-center w-8 h-8 bg-sky/10 rounded-full -left-4 ring-8 ring-space text-sky font-bold">1</span>
-                            <h3 className="flex items-center mb-1 text-lg font-semibold text-light">Strategické Partnerstvo</h3>
-                            <p className="mb-4 text-base font-normal text-rocket">Začíname sériou hĺbkových workshopov, aby sme sa stali predĺženou rukou vášho tímu a plne pochopili vaše biznisové a technické požiadavky.</p>
+                            <h3 className="flex items-center mb-1 text-lg font-semibold text-light">Strategické partnerstvo</h3>
+                            <p className="mb-4 text-base font-normal text-rocket">Stávame sa vaším výskumným a vývojovým oddelením pre digitálny rast. Neustále analyzujeme trh, testujeme nové hypotézy a hľadáme inovatívne cesty k úspechu.</p>
                         </li>
                         <li className="mb-10 ml-6">
                             <span className="absolute flex items-center justify-center w-8 h-8 bg-sky/10 rounded-full -left-4 ring-8 ring-space text-sky font-bold">2</span>

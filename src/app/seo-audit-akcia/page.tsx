@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useMemo } from 'react';
@@ -227,7 +228,7 @@ export default function SeoAuditAkciaPage() {
                                 <ArrowRight className="ml-2" />
                             </Link>
                         </Button>
-                    </motion.section>
+                    </section>
                 </main>
              </div>
         </div>
