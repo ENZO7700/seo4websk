@@ -43,13 +43,21 @@ const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang:
 
 const renderMarkdown = (text: string) => {
     // Basic markdown to HTML conversion
-    return text
-        .replace(/### (.*?)\n/g, '<h3 class="text-xl font-bold mt-4 mb-2 text-aurora">$1</h3>') // h3
-        .replace(/\n/g, '<br />') // newlines
-        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>') // bold
-        .replace(/\* ([^*]+)/g, '<li class="list-disc ml-4">$1</li>') // list items
-        .replace(/(\d+)\. /g, '<br/><strong>$1. </strong>'); // numbered list
-}
+    let html = text
+        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mt-6 mb-2 text-aurora">$1</h3>')
+        .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold mt-4 mb-1 text-sky">$1</h4>')
+        .replace(/^\*\* (.*$)/gim, '<p class="font-bold text-light mt-2">$1</p>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`([^`]+)`/g, '<code class="bg-space-grey text-aurora px-1 py-0.5 rounded text-sm">$1</code>')
+        .replace(/^\s*[\-\*] (.*$)/gim, '<li class="list-disc ml-5 text-rocket text-balance">$1</li>')
+        .replace(/^\s*\d+\. (.*$)/gim, '<li class="list-decimal ml-5 text-rocket text-balance">$1</li>');
+
+    // Wrap list items in <ul> or <ol>
+    html = html.replace(/<li class="list-disc.*?<\/li>(?!\s*<li class="list-disc)/gs, '<ul>$&</ul>');
+    html = html.replace(/<li class="list-decimal.*?<\/li>(?!\s*<li class="list-decimal)/gs, '<ol>$&</ol>');
+
+    return html.replace(/\n/g, '<br />').replace(/<br \/>\s*<br \/>/g, '<br />');
+};
 
 export default function SeoAnalyzerPage() {
   const { toast } = useToast();
@@ -201,10 +209,10 @@ export default function SeoAnalyzerPage() {
                                 <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.summary) }} />
                             </TabsContent>
                              <TabsContent value="wins" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.top10QuickWins) }} />
+                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.top10QuickWins) }} />
                             </TabsContent>
                              <TabsContent value="plan" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.fixPlan) }} />
+                                <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.fixPlan) }} />
                             </TabsContent>
                             <TabsContent value="snippets" className="pt-6">
                                 <CodeSnippet title="Canonical Tag" code={analysisResult.snippets.canonical} lang="html" />
@@ -223,3 +231,5 @@ export default function SeoAnalyzerPage() {
     </main>
   );
 }
+
+    

@@ -159,14 +159,18 @@ export async function advancedSeoAudit(input: AdvancedSeoAuditInput): Promise<Ad
   return advancedSeoAuditFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'advancedSeoAuditPrompt',
+const analysisPrompt = ai.definePrompt({
+  name: 'advancedSeoAnalysisPrompt',
   input: { schema: z.object({ url: z.string(), analyzedPages: z.any() }) },
-  output: { schema: AdvancedSeoAuditOutputSchema },
+  output: { schema: z.object({
+        summary: AdvancedSeoAuditOutputSchema.shape.summary,
+        top10QuickWins: AdvancedSeoAuditOutputSchema.shape.top10QuickWins,
+        fixPlan: AdvancedSeoAuditOutputSchema.shape.fixPlan,
+    }) },
   prompt: `
-ROLE: You are a senior SEO technical analyst and a pragmatic implementer. Your tone is helpful, expert, and direct. The output must be in Slovak.
+ROLE: You are a senior SEO technical analyst. Your tone is helpful, expert, and direct. The output must be in Slovak.
 
-GOAL: Conduct a "light" SEO audit of the provided domain data. The data includes the main page and up to 2 subpages. Analyze the provided data to identify key issues and opportunities.
+GOAL: Analyze the provided JSON data from a website crawl and generate a strategic audit report.
 
 INPUT:
 - Root URL: {{{url}}}
@@ -175,13 +179,13 @@ INPUT:
 \`\`\`
 
 STEPS:
-1.  **Analyze the data**: Review the provided JSON data for each page. Look for inconsistencies, errors, and areas for improvement across all collected data points (status, titles, headings, images, schema, PWA features, etc.). If you see a status of 500, it means the page failed to load, which is a critical error you must highlight.
-2.  **Identify issues**: Based on your analysis, identify the most critical issues.
-3.  **Formulate recommendations**: Create a summary, a list of the top 10 quick wins, and a 3-wave fix plan. The entire output must be in Slovak.
-4.  **Generate code snippets**: Provide concrete, copy-paste-ready code snippets for the most common and critical fixes. Ensure they are generic enough to be adapted but specific enough to be useful. For the hero image preload, if there are multiple images, pick the most likely one (usually the first one in the body).
+1.  **Analyze**: Review the JSON. Look for errors (e.g., status 500), inconsistencies (e.g., different titles), and opportunities (e.g., missing ALT texts, no schema).
+2.  **Summarize**: Write a 3-5 sentence executive summary of the site's SEO health.
+3.  **Prioritize**: Create a list of the "Top 10 Rýchlych Výhier". These should be actionable, high-impact, low-effort fixes.
+4.  **Plan**: Formulate a 3-wave "Plán Opráv" (Rýchle víťazstvá, Opravy s vysokým dopadom, Dlhodobé a základné).
 
 OUTPUT FORMAT:
-Strictly adhere to the following output format. Use Markdown for formatting.
+Strictly adhere to the following output format. Use Markdown for formatting. The entire output must be in Slovak.
 
 ### Súhrn
 [3-5 sentence executive summary of the website's overall SEO health in Slovak]
@@ -196,12 +200,10 @@ Strictly adhere to the following output format. Use Markdown for formatting.
 [List of high-impact fixes in Slovak]
 #### Vlna 3: Dlhodobé a základné (Vysoká náročnosť)
 [List of foundational improvements in Slovak]
-
-[GENERATE THE CODE SNIPPETS SECTION AS DEFINED BELOW, BUT DO NOT INCLUDE THE HEADING 'Úryvky Kódu' IN THE FINAL OUTPUT FOR THE 'fixPlan' FIELD]
 `,
 });
 
-const generateSnippetsPrompt = ai.definePrompt({
+const snippetsPrompt = ai.definePrompt({
     name: 'generateSeoCodeSnippetsPrompt',
     input: { schema: z.object({ url: z.string() })},
     output: { schema: AdvancedSeoAuditOutputSchema.shape.snippets },
@@ -234,10 +236,8 @@ const advancedSeoAuditFlow = ai.defineFlow(
         const robotsRes = await fetch(new URL('/robots.txt', url).toString());
         if (robotsRes.ok) {
             const robotsTxt = await robotsRes.text();
-            if (robotsTxt.toLowerCase().includes('disallow: /')) {
-                 // Do not throw an error, just proceed with the single URL. The AI will see the crawl was disallowed.
-            } else {
-                 // Find 2 more links from the homepage only if crawling is allowed
+            // Find more links from homepage only if crawling is not disallowed for the entire site
+            if (!robotsTxt.toLowerCase().includes('disallow: /')) {
                 const homeHtmlRes = await fetch(url);
                 if (homeHtmlRes.ok) {
                     const homeHtml = await homeHtmlRes.text();
@@ -267,8 +267,8 @@ const advancedSeoAuditFlow = ai.defineFlow(
     
     // 3. Send data to the AI for analysis and generate snippets in parallel
     const [analysisResponse, snippetsResponse] = await Promise.all([
-        prompt({ url, analyzedPages }),
-        generateSnippetsPrompt({ url })
+        analysisPrompt({ url, analyzedPages }),
+        snippetsPrompt({ url })
     ]);
     
     const analysisOutput = analysisResponse.output;
@@ -287,3 +287,5 @@ const advancedSeoAuditFlow = ai.defineFlow(
     };
   }
 );
+
+    
