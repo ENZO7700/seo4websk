@@ -90,8 +90,9 @@ export default function TahakyPage() {
     setIsLoading(true);
     setResult(null);
     try {
-        const fullContext = faqItems.map(item => `Sekcia: ${item.question}\nObsah: ${item.answer.replace(/<[^>]+>/g, ' ')}`).join('\n\n');
-        const searchResult = await answerSeoQuestion({ question, context: fullContext });
+        // V budúcnosti bude tento flow napojený na RAG (Retrieval-Augmented Generation)
+        // a nebude potrebovať manuálne posielanie kontextu.
+        const searchResult = await answerSeoQuestion({ question });
         setResult(searchResult);
     } catch (error) {
         toast({

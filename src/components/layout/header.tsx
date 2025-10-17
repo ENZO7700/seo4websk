@@ -8,11 +8,13 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { Menu, X, ChevronDown, LogOut, Wand2 } from "lucide-react";
+import { Menu, X, ChevronDown, LogOut, Wand2, User } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 
 const baseMainNavLinks = [
     { href: "/pricing", label: "Cenník" },
@@ -44,9 +46,7 @@ export function Header() {
   const mainNavLinks = useMemo(() => {
     let links = [...baseMainNavLinks];
     if (user) {
-      // Find the index of the Blog link
       const blogIndex = links.findIndex(link => link.href === "/blog");
-      // If Blog link exists, insert Dashboard before it. Otherwise, add to the end.
       if (blogIndex !== -1) {
         links.splice(blogIndex + 1, 0, { href: "/dashboard", label: "Dashboard" });
       } else {
@@ -123,10 +123,29 @@ export function Header() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
              {authLoading ? null : user ? (
-                <Button onClick={handleLogout} variant="outline" size="sm" className="hidden md:flex">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Odhlásiť sa
-                </Button>
+                 <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                            <Avatar className="h-8 w-8">
+                                <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? user.email ?? ''} />
+                                <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+                            </Avatar>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56" align="end" forceMount>
+                        <DropdownMenuItem asChild>
+                            <Link href="/profil">
+                                <User className="mr-2 h-4 w-4" />
+                                <span>Profil</span>
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={handleLogout}>
+                            <LogOut className="mr-2 h-4 w-4" />
+                            <span>Odhlásiť sa</span>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             ) : (
                 <Button asChild className="hidden md:flex" variant="ghost">
                     <Link href="/login">Prihlásiť sa</Link>
@@ -207,10 +226,18 @@ export function Header() {
                             </nav>
                              <div className="mt-auto pt-8 space-y-4">
                                 {authLoading ? null : user ? (
-                                    <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full" variant="outline">
-                                        <LogOut className="mr-2" />
-                                        Odhlásiť sa
-                                    </Button>
+                                    <>
+                                        <Button asChild size="lg" className="w-full" variant="secondary">
+                                            <Link href="/profil" onClick={() => setIsSheetOpen(false)}>
+                                                <User className="mr-2" />
+                                                Môj Profil
+                                            </Link>
+                                        </Button>
+                                        <Button onClick={() => { handleLogout(); setIsSheetOpen(false); }} size="lg" className="w-full" variant="outline">
+                                            <LogOut className="mr-2" />
+                                            Odhlásiť sa
+                                        </Button>
+                                    </>
                                 ) : (
                                      <Button asChild size="lg" className="w-full" variant="ghost">
                                         <Link href="/login" onClick={() => setIsSheetOpen(false)}>Prihlásiť sa</Link>
