@@ -40,9 +40,10 @@ export default function LoginPage() {
   
   useEffect(() => {
     if (user) {
+      toast({ title: 'Už ste prihlásený.' });
       router.push('/dashboard');
     }
-  }, [user, router]);
+  }, [user, router, toast]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const success = await signInWithEmail(values.email, values.password);
@@ -109,6 +110,11 @@ export default function LoginPage() {
                     <FormControl>
                       <Input type="password" placeholder="••••••••" {...field} disabled={loading} className="bg-space-grey border-spaceship focus:ring-aurora"/>
                     </FormControl>
+                     <div className="text-right">
+                        <Link href="/reset-password" passHref>
+                          <span className="text-xs text-rocket hover:text-aurora cursor-pointer">Zabudli ste heslo?</span>
+                        </Link>
+                      </div>
                     <FormMessage />
                   </FormItem>
                 )}

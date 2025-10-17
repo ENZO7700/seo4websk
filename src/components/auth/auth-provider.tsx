@@ -11,9 +11,13 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile,
+  updatePassword,
+  sendPasswordResetEmail,
   AuthError,
 } from 'firebase/auth';
-import { app, db, isFirebaseConfigured } from '@/lib/firebase-config';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { app, isFirebaseConfigured } from '@/lib/firebase-config';
 import { AuthContextType } from '@/hooks/use-auth';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,8 +40,10 @@ const getFriendlyErrorMessage = (error: AuthError): string => {
             return 'Bol otvorený ďalší proces prihlásenia. Dokončite ho prosím.';
         case 'auth/operation-not-allowed':
              return 'Tento spôsob prihlásenia nie je povolený. Kontaktujte podporu.';
+        case 'auth/requires-recent-login':
+             return 'Táto operácia vyžaduje nedávne prihlásenie. Pre pokračovanie sa prosím odhláste a znova prihláste.';
         default:
-            return 'Vyskytla sa neznáma chyba. Skúste to prosím neskôr.';
+            return `Vyskytla sa neznáma chyba. (${error.code})`;
     }
 }
 
@@ -137,7 +143,74 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const value = { user, loading, error, signUpWithEmail, signInWithEmail, signInWithGoogle, signOut };
+  const updateUserInfo = async ({ displayName, photoFile }: { displayName?: string; photoFile?: File }): Promise<boolean> => {
+    const auth = getAuth(app);
+    if (!auth.currentUser) {
+        setError("Používateľ nie je prihlásený.");
+        return false;
+    }
+    setError(null);
+    try {
+        let photoURL = auth.currentUser.photoURL;
+        if (photoFile) {
+            const storage = getStorage(app);
+            const storageRef = ref(storage, `avatars/${auth.currentUser.uid}/${photoFile.name}`);
+            const snapshot = await uploadBytes(storageRef, photoFile);
+            photoURL = await getDownloadURL(snapshot.ref);
+        }
+
+        await updateProfile(auth.currentUser, {
+            displayName: displayName ?? auth.currentUser.displayName,
+            photoURL: photoURL
+        });
+
+        // Manually update the user state to reflect changes immediately
+        setUser(auth.currentUser);
+
+        return true;
+    } catch (e: any) {
+        setError(getFriendlyErrorMessage(e));
+        return false;
+    }
+  };
+
+  const updateUserPassword = async (newPassword: string): Promise<boolean> => {
+    const auth = getAuth(app);
+    if (!auth.currentUser) {
+        setError("Používateľ nie je prihlásený.");
+        return false;
+    }
+    setError(null);
+    try {
+        await updatePassword(auth.currentUser, newPassword);
+        return true;
+    } catch (e: any) {
+        setError(getFriendlyErrorMessage(e));
+        return false;
+    }
+  };
+  
+  const resetPassword = async (email: string): Promise<boolean> => {
+     if (!isFirebaseConfigured()) {
+        setError("Firebase nie je nakonfigurovaný.");
+        return false;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+        const auth = getAuth(app);
+        await sendPasswordResetEmail(auth, email);
+        return true;
+    } catch(e: any) {
+        setError(getFriendlyErrorMessage(e));
+        return false;
+    } finally {
+        setLoading(false);
+    }
+  }
+
+
+  const value = { user, loading, error, signUpWithEmail, signInWithEmail, signInWithGoogle, signOut, updateUserInfo, updateUserPassword, resetPassword };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

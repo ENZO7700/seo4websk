@@ -13,6 +13,9 @@ export interface AuthContextType {
   signInWithEmail: (email: string, password: string) => Promise<boolean>;
   signInWithGoogle: () => Promise<boolean>;
   signOut: () => Promise<boolean>;
+  updateUserInfo: ({ displayName, photoFile }: { displayName?: string, photoFile?: File }) => Promise<boolean>;
+  updateUserPassword: (newPassword: string) => Promise<boolean>;
+  resetPassword: (email: string) => Promise<boolean>;
 }
 
 export const useAuth = (): AuthContextType => {
