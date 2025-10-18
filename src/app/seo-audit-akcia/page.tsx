@@ -21,7 +21,7 @@ const CodeParticles = () => {
 
   const positions = useMemo(() => {
     return new Float32Array(random.inSphere(new Float32Array(count * 3), { radius: 2.5 }));
-  }, []);
+  }, [count]);
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -232,5 +232,5 @@ export default function SeoAuditAkciaPage() {
                 </main>
              </div>
         </div>
-    )
+    );
 }
