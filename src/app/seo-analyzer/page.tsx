@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -31,10 +30,10 @@ const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang:
     return (
         <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
-                 <h4 className="font-semibold text-light">{title}</h4>
+                 <h4 className="font-semibold text-foreground">{title}</h4>
                  <Button variant="ghost" size="sm" onClick={handleCopy}>Kopírovať</Button>
             </div>
-            <pre className="bg-space-grey p-4 rounded-md overflow-x-auto text-sm text-moon">
+            <pre className="bg-muted/50 p-4 rounded-md overflow-x-auto text-sm text-muted-foreground">
                 <code className={`language-${lang}`}>{code.trim()}</code>
             </pre>
         </div>
@@ -44,13 +43,13 @@ const CodeSnippet = ({ title, code, lang }: { title: string, code: string, lang:
 const renderMarkdown = (text: string) => {
     // Basic markdown to HTML conversion
     let html = text
-        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mt-6 mb-2 text-aurora">$1</h3>')
-        .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold mt-4 mb-1 text-sky">$1</h4>')
-        .replace(/^\*\* (.*$)/gim, '<p class="font-bold text-light mt-2">$1</p>')
+        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mt-6 mb-2 text-primary">$1</h3>')
+        .replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold mt-4 mb-1 text-primary/80">$1</h4>')
+        .replace(/^\*\* (.*$)/gim, '<p class="font-bold text-foreground mt-2">$1</p>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/`([^`]+)`/g, '<code class="bg-space-grey text-aurora px-1 py-0.5 rounded text-sm">$1</code>')
-        .replace(/^\s*[\-\*] (.*$)/gim, '<li class="list-disc ml-5 text-rocket text-balance">$1</li>')
-        .replace(/^\s*\d+\. (.*$)/gim, '<li class="list-decimal ml-5 text-rocket text-balance">$1</li>');
+        .replace(/`([^`]+)`/g, '<code class="bg-muted/50 text-primary px-1 py-0.5 rounded text-sm">$1</code>')
+        .replace(/^\s*[\-\*] (.*$)/gim, '<li class="list-disc ml-5 text-muted-foreground text-balance">$1</li>')
+        .replace(/^\s*\d+\. (.*$)/gim, '<li class="list-decimal ml-5 text-muted-foreground text-balance">$1</li>');
 
     // Wrap list items in <ul> or <ol>
     html = html.replace(/<li class="list-disc.*?<\/li>(?!\s*<li class="list-disc)/gs, '<ul>$&</ul>');
@@ -121,21 +120,21 @@ export default function SeoAnalyzerPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             Pokročilý SEO Audit
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground text-balance">
             Zadajte doménu a získajte hĺbkový audit hlavnej stránky a dvoch podstránok, vrátane konkrétnych odporúčaní a úryvkov kódu na opravu.
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
+        <Card className="w-full max-w-2xl">
           <CardContent className="pt-6">
             <div className="grid w-full gap-2">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-rocket" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
                   placeholder="Zadajte URL adresu, napr. https://google.com"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
-                  className="pl-10 bg-space-grey border-spaceship focus:ring-aurora"
+                  className="pl-10"
                   aria-label="URL adresa webovej stránky"
                   onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
                 />
@@ -144,7 +143,7 @@ export default function SeoAnalyzerPage() {
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                variant="cta"
+                variant="default"
                 className="w-full"
               >
                 {isLoading ? (
@@ -166,13 +165,13 @@ export default function SeoAnalyzerPage() {
         <div className="w-full max-w-4xl min-h-[250px]">
           {isLoading && (
               <motion.div 
-                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-border bg-card/50 backdrop-blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 >
-                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
-                 <p className="text-rocket">AI práve analyzuje váš web...</p>
-                 <p className="text-sm text-rocket/80">(Môže to trvať aj minútu, analyzujem 3 stránky)</p>
+                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+                 <p className="text-muted-foreground">AI práve analyzuje váš web...</p>
+                 <p className="text-sm text-muted-foreground/80">(Môže to trvať aj minútu, analyzujem 3 stránky)</p>
               </motion.div>
            )}
           {error && (
@@ -188,25 +187,25 @@ export default function SeoAnalyzerPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card className="bg-galaxy border-spaceship">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="text-xl font-semibold text-center text-light">
+                        <CardTitle className="text-xl font-semibold text-center text-foreground">
                         Výsledky SEO Auditu
                         </CardTitle>
-                        <CardDescription className="text-center truncate text-rocket">
+                        <CardDescription className="text-center truncate text-muted-foreground">
                             Pre: {url}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <Tabs defaultValue="summary" className="w-full">
-                            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 bg-space-grey border-spaceship">
+                            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                                 <TabsTrigger value="summary"><FileText className="mr-2 h-4 w-4" />Súhrn</TabsTrigger>
                                 <TabsTrigger value="wins"><ListChecks className="mr-2 h-4 w-4" />Top 10</TabsTrigger>
                                 <TabsTrigger value="plan"><Goal className="mr-2 h-4 w-4" />Plán Opráv</TabsTrigger>
                                 <TabsTrigger value="snippets"><Code className="mr-2 h-4 w-4" />Kód</TabsTrigger>
                             </TabsList>
                             <TabsContent value="summary" className="pt-6">
-                                <div className="prose dark:prose-invert max-w-none text-light" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.summary) }} />
+                                <div className="prose dark:prose-invert max-w-none text-foreground" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.summary) }} />
                             </TabsContent>
                              <TabsContent value="wins" className="pt-6">
                                 <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: renderMarkdown(analysisResult.top10QuickWins) }} />
@@ -231,5 +230,3 @@ export default function SeoAnalyzerPage() {
     </main>
   );
 }
-
-    

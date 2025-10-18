@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -68,10 +67,8 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50",
-        "border-b border-transparent",
+        "border-b",
         "bg-background/80 backdrop-blur-sm",
-        "seo4web:bg-galaxy/80 seo4web:border-spaceship",
-        "xedition:bg-background/30 xedition:border-white/10"
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -113,7 +110,7 @@ export function Header() {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {moreLinks.map((link, index) => (
-                    <DropdownMenuItem key={link.href} asChild className={cn(link.isHot && 'text-aurora font-bold focus:text-aurora')}>
+                    <DropdownMenuItem key={link.href} asChild>
                         <Link href={link.href}>{link.label}</Link>
                     </DropdownMenuItem>
                 ))}
@@ -215,7 +212,7 @@ export function Header() {
                                             <Link
                                                 key={link.href}
                                                 href={link.href}
-                                                className={cn("transition-colors hover:text-foreground block", link.isHot ? "text-aurora font-bold" : "text-muted-foreground")}
+                                                className={cn("transition-colors hover:text-foreground block", link.isHot ? "text-primary font-bold" : "text-muted-foreground")}
                                                 onClick={() => setIsSheetOpen(false)}
                                             >
                                                 {link.label}

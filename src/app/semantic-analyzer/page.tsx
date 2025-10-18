@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -28,42 +27,42 @@ const ResultDisplay = ({ result }: { result: AnalyzeSemanticRelevanceOutput }) =
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
   >
-    <Card className="bg-galaxy border-spaceship">
+    <Card>
       <CardHeader>
-        <CardTitle className="text-xl font-semibold text-center text-light flex items-center justify-center gap-2">
-          <Sparkles className="text-aurora" />
+        <CardTitle className="text-xl font-semibold text-center text-foreground flex items-center justify-center gap-2">
+          <Sparkles className="text-primary" />
           Výsledky Analýzy
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <div>
           <div className="flex justify-between items-center mb-2">
-            <p className="text-sm font-medium text-rocket">Skóre Sémantickej Relevancie</p>
-            <p className="text-lg font-bold text-aurora">{result.relevanceScore}/100</p>
+            <p className="text-sm font-medium text-muted-foreground">Skóre Sémantickej Relevancie</p>
+            <p className="text-lg font-bold text-primary">{result.relevanceScore}/100</p>
           </div>
           <Progress value={result.relevanceScore} aria-label={`Sémantické skóre: ${result.relevanceScore} zo 100`} />
         </div>
 
         <div>
-            <h4 className="font-semibold text-light mb-2">Stručné Zhodnotenie:</h4>
-            <p className="text-rocket text-balance">{result.analysis}</p>
+            <h4 className="font-semibold text-foreground mb-2">Stručné Zhodnotenie:</h4>
+            <p className="text-muted-foreground text-balance">{result.analysis}</p>
         </div>
         
          <div>
-            <h4 className="font-semibold text-light mb-2">Odporúčané Témy na Doplnenie:</h4>
+            <h4 className="font-semibold text-foreground mb-2">Odporúčané Témy na Doplnenie:</h4>
             <ul className="space-y-2">
                 {result.suggestedTopics.map((topic, index) => (
-                    <li key={index} className="flex items-start gap-2 p-2 bg-space-grey/50 rounded-md">
-                       <Check className="h-5 w-5 text-aurora mt-0.5 flex-shrink-0"/>
-                       <span className="text-moon">{topic}</span>
+                    <li key={index} className="flex items-start gap-2 p-2 bg-muted/50 rounded-md">
+                       <Check className="h-5 w-5 text-primary mt-0.5 flex-shrink-0"/>
+                       <span className="text-muted-foreground">{topic}</span>
                     </li>
                 ))}
             </ul>
         </div>
         
         <div>
-            <h4 className="font-semibold text-light mb-2">Celkový Sentiment Textu:</h4>
-            <p className="font-bold text-sky">{result.overallSentiment}</p>
+            <h4 className="font-semibold text-foreground mb-2">Celkový Sentiment Textu:</h4>
+            <p className="font-bold text-primary">{result.overallSentiment}</p>
         </div>
 
       </CardContent>
@@ -116,34 +115,34 @@ export default function SemanticAnalyzerPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             AI Analyzátor Sémantickej Relevancie
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground text-balance">
             Zistite, ako dobre váš text pokrýva tému, a získajte návrhy na jeho vylepšenie, aby ste dominovali vo výsledkoch vyhľadávania.
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
+        <Card className="w-full max-w-2xl">
             <CardHeader>
-                <CardTitle className="text-xl font-semibold text-center text-light">Zadajte vstupy pre analýzu</CardTitle>
+                <CardTitle className="text-xl font-semibold text-center text-foreground">Zadajte vstupy pre analýzu</CardTitle>
             </CardHeader>
           <CardContent className="space-y-4">
              <div className="grid w-full gap-2">
                 <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-rocket" />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
                         placeholder="Hlavné kľúčové slovo alebo téma"
                         value={mainKeyword}
                         onChange={(e) => setMainKeyword(e.target.value)}
-                        className="pl-10 bg-space-grey border-spaceship focus:ring-aurora"
+                        className="pl-10"
                         aria-label="Hlavné kľúčové slovo alebo téma"
                     />
                 </div>
                 <div className="relative">
-                     <FileText className="absolute left-3 top-3 h-5 w-5 text-rocket" />
+                     <FileText className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                      <Textarea
                         placeholder="Vložte sem celý text vášho článku..."
                         value={articleText}
                         onChange={(e) => setArticleText(e.target.value)}
-                        className="pl-10 bg-space-grey border-spaceship focus:ring-aurora min-h-[200px]"
+                        className="pl-10 min-h-[200px]"
                         aria-label="Text článku"
                     />
                 </div>
@@ -152,7 +151,7 @@ export default function SemanticAnalyzerPage() {
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                variant="cta"
+                variant="default"
                 className="w-full"
               >
                 {isLoading ? (
@@ -173,13 +172,13 @@ export default function SemanticAnalyzerPage() {
         <div className="w-full max-w-2xl min-h-[300px]">
            {isLoading && (
               <motion.div 
-                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-border bg-card/50 backdrop-blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 >
-                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
-                 <p className="text-rocket">AI číta a analyzuje váš text...</p>
-                 <p className="text-sm text-rocket/80">(Môže to chvíľu trvať)</p>
+                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+                 <p className="text-muted-foreground">AI číta a analyzuje váš text...</p>
+                 <p className="text-sm text-muted-foreground/80">(Môže to chvíľu trvať)</p>
               </motion.div>
            )}
           {error && (

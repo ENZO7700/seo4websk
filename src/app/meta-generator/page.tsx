@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -22,10 +21,10 @@ import { motion } from 'framer-motion';
 
 const ResultCard = ({ description, onCopy }: { description: string, onCopy: (text: string) => void }) => {
     return (
-        <div className="p-4 bg-space-grey/50 rounded-lg border border-spaceship flex items-center justify-between gap-4">
-            <p className="text-light text-balance">{description}</p>
+        <div className="p-4 bg-muted/50 rounded-lg border flex items-center justify-between gap-4">
+            <p className="text-foreground text-balance">{description}</p>
             <Button variant="ghost" size="icon" onClick={() => onCopy(description)} aria-label="Skopírovať popis">
-                <Copy className="h-5 w-5 text-aurora" />
+                <Copy className="h-5 w-5 text-primary" />
             </Button>
         </div>
     )
@@ -99,31 +98,31 @@ export default function MetaGeneratorPage() {
           <h1 className="text-4xl font-bold tracking-tighter md:text-5xl font-headline">
             AI Generátor Meta Popisov
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-rocket text-balance">
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground text-balance">
             Zadajte URL a kľúčové slová a naša AI pre vás vytvorí 3 unikátne, SEO-friendly meta popisy, ktoré zaujmú vo výsledkoch vyhľadávania.
           </p>
         </div>
 
-        <Card className="w-full max-w-2xl bg-galaxy border-spaceship">
+        <Card className="w-full max-w-2xl">
           <CardContent className="pt-6 space-y-4">
              <div className="grid w-full gap-2">
                 <div className="relative">
-                    <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-rocket" />
+                    <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
                     placeholder="Zadajte URL adresu, napr. https://vasastranka.sk/sluzby"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="pl-10 bg-space-grey border-spaceship focus:ring-aurora"
+                    className="pl-10"
                     aria-label="URL adresa stránky"
                     />
                 </div>
                  <div className="relative">
-                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-rocket" />
+                    <Key className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
                     placeholder="Hlavné kľúčové slová, napr. SEO, marketing, PWA"
                     value={keywords}
                     onChange={(e) => setKeywords(e.target.value)}
-                    className="pl-10 bg-space-grey border-spaceship focus:ring-aurora"
+                    className="pl-10"
                     aria-label="Hlavné kľúčové slová"
                     />
                 </div>
@@ -132,7 +131,7 @@ export default function MetaGeneratorPage() {
                 size="lg"
                 onClick={handleAnalyze}
                 disabled={isLoading}
-                variant="cta"
+                variant="default"
                 className="w-full"
               >
                 {isLoading ? (
@@ -153,13 +152,13 @@ export default function MetaGeneratorPage() {
         <div className="w-full max-w-2xl min-h-[250px]">
           {isLoading && (
               <motion.div 
-                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-spaceship bg-galaxy/50 backdrop-blur-lg"
+                className="flex flex-col items-center justify-center h-64 rounded-lg border border-dashed border-border bg-card/50 backdrop-blur-lg"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 >
-                 <Loader2 className="h-12 w-12 animate-spin text-sky mb-4" />
-                 <p className="text-rocket">AI analyzuje obsah stránky a tvorí popisky...</p>
-                 <p className="text-sm text-rocket/80">(Môže to chvíľu trvať)</p>
+                 <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+                 <p className="text-muted-foreground">AI analyzuje obsah stránky a tvorí popisky...</p>
+                 <p className="text-sm text-muted-foreground/80">(Môže to chvíľu trvať)</p>
               </motion.div>
            )}
           {error && (
@@ -175,10 +174,10 @@ export default function MetaGeneratorPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Card className="bg-galaxy border-spaceship">
+                <Card>
                     <CardHeader>
-                        <CardTitle className="text-xl font-semibold text-center text-light flex items-center justify-center gap-2">
-                            <Sparkles className="text-aurora" />
+                        <CardTitle className="text-xl font-semibold text-center text-foreground flex items-center justify-center gap-2">
+                            <Sparkles className="text-primary" />
                             Vygenerované Meta Popisy
                         </CardTitle>
                     </CardHeader>

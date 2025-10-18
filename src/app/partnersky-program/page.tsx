@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -52,17 +51,17 @@ const commissionTiers = [
 
 const benefits = [
     {
-        icon: <DollarSign className="h-8 w-8 text-aurora" />,
+        icon: <DollarSign className="h-8 w-8 text-primary" />,
         title: "Štedré Provízie",
         description: "Ponúkame jedny z najlepších províznych sadzieb na trhu s možnosťou rastu."
     },
     {
-        icon: <Handshake className="h-8 w-8 text-aurora" />,
+        icon: <Handshake className="h-8 w-8 text-primary" />,
         title: "Partnerská Podpora",
         description: "Náš tím je tu pre vás, aby vám pomohol s akýmikoľvek otázkami a maximalizoval váš úspech."
     },
     {
-        icon: <PieChart className="h-8 w-8 text-aurora" />,
+        icon: <PieChart className="h-8 w-8 text-primary" />,
         title: "Prehľadné Štatistiky",
         description: "Získate prístup k partnerskému dashboardu, kde uvidíte kliknutia, konverzie a vaše zárobky v reálnom čase."
     }
@@ -93,20 +92,20 @@ const itemVariants = {
 
 export default function PartnerProgramPage() {
     return (
-        <div className="bg-space text-light">
-             <header className="bg-galaxy py-20 sm:py-32">
+        <div className="bg-background text-foreground">
+             <header className="bg-card py-20 sm:py-32">
                 <div className="container mx-auto px-4 text-center">
                      <motion.div
                         initial="hidden"
                         animate="visible"
                         variants={containerVariants}
                     >
-                        <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-bold mb-4 text-light font-headline">Staňte sa Našim Partnerom</motion.h1>
-                        <motion.p variants={itemVariants} className="text-xl max-w-3xl mx-auto text-rocket mb-8 text-balance">
+                        <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">Staňte sa Našim Partnerom</motion.h1>
+                        <motion.p variants={itemVariants} className="text-xl max-w-3xl mx-auto text-muted-foreground mb-8 text-balance">
                             Zarábajte odporúčaním našich špičkových SEO a PWA služieb. Spojme sily a rásťme spoločne.
                         </motion.p>
                         <motion.div variants={itemVariants}>
-                            <Button size="lg" asChild variant="cta">
+                            <Button size="lg" asChild variant="default">
                                 <Link href="/signup">Pripojiť sa k Programu</Link>
                             </Button>
                         </motion.div>
@@ -124,18 +123,18 @@ export default function PartnerProgramPage() {
                     viewport={{ once: true, amount: 0.2 }}
                     variants={containerVariants}
                 >
-                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-light">Prečo sa pridať?</h2>
+                     <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-foreground">Prečo sa pridať?</h2>
                      <div 
                         className="grid grid-cols-1 md:grid-cols-3 gap-8"
                      >
                         {benefits.map(benefit => (
                             <motion.div key={benefit.title} variants={itemVariants}>
-                                <Card className="bg-space-grey border-spaceship h-full p-6 text-center items-center flex flex-col">
-                                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-galaxy shadow-lg">
+                                <Card className="bg-muted/50 h-full p-6 text-center items-center flex flex-col">
+                                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-card shadow-lg">
                                         {benefit.icon}
                                     </div>
-                                    <h3 className="text-xl font-bold text-light mb-2">{benefit.title}</h3>
-                                    <p className="text-rocket text-balance">{benefit.description}</p>
+                                    <h3 className="text-xl font-bold text-foreground mb-2">{benefit.title}</h3>
+                                    <p className="text-muted-foreground text-balance">{benefit.description}</p>
                                 </Card>
                             </motion.div>
                         ))}
@@ -150,15 +149,15 @@ export default function PartnerProgramPage() {
                     viewport={{ once: true, amount: 0.2 }}
                     variants={containerVariants}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-light">Ako to funguje?</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-foreground">Ako to funguje?</h2>
                     <div 
                         className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
                     >
                         {processSteps.map((step) => (
                             <motion.div key={step.step} className="flex flex-col items-center" variants={itemVariants}>
-                                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-galaxy border-2 border-spaceship text-sky font-bold text-3xl mb-4">{step.step}</div>
-                                <h3 className="text-xl font-bold mb-2 text-light">{step.title}</h3>
-                                <p className="text-rocket text-balance">{step.description}</p>
+                                <div className="flex items-center justify-center h-20 w-20 rounded-full bg-card border-2 border-border text-primary font-bold text-3xl mb-4">{step.step}</div>
+                                <h3 className="text-xl font-bold mb-2 text-foreground">{step.title}</h3>
+                                <p className="text-muted-foreground text-balance">{step.description}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -172,20 +171,20 @@ export default function PartnerProgramPage() {
                     viewport={{ once: true, amount: 0.2 }}
                     variants={containerVariants}
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-light">Štedré Provízie pre Vás</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-headline text-foreground">Štedré Provízie pre Vás</h2>
                     <div 
                         className="grid grid-cols-1 md:grid-cols-3 gap-8"
                     >
                         {commissionTiers.map((tier) => (
                             <motion.div key={tier.name} variants={itemVariants}>
-                                <Card className={cn("flex flex-col items-center text-center p-6 h-full bg-galaxy text-light", tier.className)}>
+                                <Card className={cn("flex flex-col items-center text-center p-6 h-full bg-card", tier.className)}>
                                     <CardHeader className="items-center">
                                         {tier.icon}
-                                        <CardTitle className="mt-4 text-2xl font-bold text-light">{tier.name}</CardTitle>
-                                        <p className="text-4xl font-bold text-aurora mt-2">{tier.commission}</p>
+                                        <CardTitle className="mt-4 text-2xl font-bold text-foreground">{tier.name}</CardTitle>
+                                        <p className="text-4xl font-bold text-primary mt-2">{tier.commission}</p>
                                     </CardHeader>
                                     <CardContent className="flex-grow">
-                                        <p className="text-rocket">{tier.description}</p>
+                                        <p className="text-muted-foreground">{tier.description}</p>
                                     </CardContent>
                                 </Card>
                             </motion.div>
@@ -195,17 +194,17 @@ export default function PartnerProgramPage() {
 
                  <motion.section 
                     id="cta-partner" 
-                    className="bg-galaxy rounded-2xl p-12 text-center border border-spaceship"
+                    className="bg-card rounded-2xl p-12 text-center border"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                     <h2 className="text-3xl font-bold mb-4 font-headline text-light">Pripravení začať zarábať?</h2>
-                     <p className="text-lg text-rocket mb-8 max-w-2xl mx-auto text-balance">
+                     <h2 className="text-3xl font-bold mb-4 font-headline text-foreground">Pripravení začať zarábať?</h2>
+                     <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
                          Staňte sa súčasťou nášho úspechu. Registrácia je rýchla, jednoduchá a bezplatná.
                      </p>
-                      <Button size="lg" asChild variant="cta">
+                      <Button size="lg" asChild variant="default">
                         <Link href="/signup">
                             Stať sa Partnerom
                             <ArrowRight className="ml-2" />

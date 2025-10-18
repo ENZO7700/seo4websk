@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -49,10 +48,10 @@ export default function ResetPasswordPage() {
 
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32 flex items-center justify-center">
-      <Card className="w-full max-w-md bg-galaxy border-spaceship text-light">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-3xl font-bold tracking-tighter text-center font-headline">Obnoviť Heslo</CardTitle>
-          <CardDescription className="text-center text-balance text-rocket">
+          <CardDescription className="text-center text-balance text-muted-foreground">
             Zadajte svoj email a my vám pošleme odkaz na obnovu hesla.
           </CardDescription>
         </CardHeader>
@@ -85,13 +84,13 @@ export default function ResetPasswordPage() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="vas.email@priklad.com" {...field} disabled={loading} className="bg-space-grey border-spaceship focus:ring-aurora"/>
+                        <Input type="email" placeholder="vas.email@priklad.com" {...field} disabled={loading} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full bg-sky hover:bg-night-sky" size="lg" disabled={loading}>
+                <Button type="submit" className="w-full" size="lg" disabled={loading}>
                   {loading ? <Loader2 className="animate-spin" /> : 'Odoslať odkaz na obnovu'}
                 </Button>
               </form>

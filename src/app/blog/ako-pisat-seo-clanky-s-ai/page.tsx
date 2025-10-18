@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -17,16 +16,16 @@ const PromptCard = ({ title, description, prompt, id }: { title: string, descrip
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
         >
-            <Card className="bg-galaxy/50 border-spaceship my-8">
+            <Card className="bg-muted/30 border my-8">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-aurora">
+                    <CardTitle className="flex items-center gap-2 text-primary">
                         <Lightbulb />
                         {title}
                     </CardTitle>
-                    <p className="text-rocket">{description}</p>
+                    <p className="text-muted-foreground">{description}</p>
                 </CardHeader>
                 <CardContent>
-                    <pre className="bg-space/50 p-4 rounded-md overflow-x-auto text-sm text-light font-mono whitespace-pre-wrap">
+                    <pre className="bg-background/50 p-4 rounded-md overflow-x-auto text-sm text-foreground font-mono whitespace-pre-wrap">
                         {prompt.trim()}
                     </pre>
                 </CardContent>
@@ -37,8 +36,8 @@ const PromptCard = ({ title, description, prompt, id }: { title: string, descrip
 
 export default function AiSeoArticlePage() {
     return (
-        <div className="bg-space text-light">
-            <header className="relative bg-galaxy py-20 sm:py-32">
+        <div className="bg-background text-foreground">
+            <header className="relative bg-card py-20 sm:py-32">
                 <div className="absolute inset-0 z-0 opacity-20">
                     <Image
                         src="https://img.freepik.com/free-vector/artificial-intelligence-concept-illustration_114360-8646.jpg?w=1200"
@@ -46,7 +45,7 @@ export default function AiSeoArticlePage() {
                         fill
                         className="object-cover"
                     />
-                     <div className="absolute inset-0 bg-gradient-to-t from-space via-space/70 to-transparent" />
+                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
                 </div>
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <motion.div
@@ -54,9 +53,9 @@ export default function AiSeoArticlePage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                         <p className="text-aurora font-semibold">Copywriting & AI</p>
-                        <h1 className="text-4xl md:text-6xl font-bold my-4 text-light font-headline">Ako napísať 10 SEO článkov za deň s pomocou AI</h1>
-                        <p className="text-xl max-w-3xl mx-auto text-rocket mb-8 text-balance">
+                         <p className="text-primary font-semibold">Copywriting & AI</p>
+                        <h1 className="text-4xl md:text-6xl font-bold my-4 text-foreground font-headline">Ako napísať 10 SEO článkov za deň s pomocou AI</h1>
+                        <p className="text-xl max-w-3xl mx-auto text-muted-foreground mb-8 text-balance">
                            Praktický návod a sada promptov, ktoré vám pomôžu dramaticky zrýchliť tvorbu kvalitného obsahu a škálovať vaše SEO aktivity.
                         </p>
                     </motion.div>
@@ -65,17 +64,17 @@ export default function AiSeoArticlePage() {
 
             <main className="container mx-auto py-16 px-4">
                  <div className="max-w-4xl mx-auto">
-                    <div className="prose prose-lg dark:prose-invert text-light/90 max-w-none">
-                        <p className="lead text-xl text-rocket">
+                    <div className="prose prose-lg dark:prose-invert text-foreground/90 max-w-none">
+                        <p className="lead text-xl text-muted-foreground">
                             Tvorba obsahu je jedným z najväčších bottleneckov v SEO. Je časovo náročná, vyžaduje kreativitu a hĺbkový research. Čo ak by ste však mohli tento proces zrýchliť 10-násobne bez straty kvality? Ukážeme si, ako na to pomocou umelej inteligencie a správne formulovaných promptov.
                         </p>
 
-                        <h2 className="text-aurora">Základný princíp: AI ako partner, nie náhrada</h2>
+                        <h2 className="text-primary">Základný princíp: AI ako partner, nie náhrada</h2>
                         <p>
                            Kľúčom k úspechu nie je nechať AI napísať celý článok jedným klikom. Takýto obsah je často generický a bez hĺbky. Namiesto toho vnímajte AI ako svojho juniorného copywritera alebo výskumného asistenta. Vy ste stratég a editor, AI je exekutíva.
                         </p>
 
-                        <h2 className="text-aurora">5 krokov k super-rýchlemu článku</h2>
+                        <h2 className="text-primary">5 krokov k super-rýchlemu článku</h2>
 
                         <h3>Krok 1: Analýza kľúčového slova a SERPu</h3>
                         <p>Predtým, než napíšete čo i len slovo, musíte pochopiť, čo ľudia hľadajú a aký obsah Google preferuje. AI je v tomto geniálna.</p>
@@ -149,8 +148,8 @@ Mám finálny text článku s H1 nadpisom "[Váš H1 nadpis]".
                             `}
                         />
 
-                        <h2 className="text-aurora">Záver</h2>
-                        <p>S týmto procesom dokážete vytvoriť jeden kvalitný a SEO-optimalizovaný článok za menej ako hodinu. Pri troche praxe je reálne týmto spôsobom pripraviť 8-10 článkov za jeden pracovný deň. Kľúčom je systematický prístup a správne prompty. Vyskúšajte naše nástroje, ako je <Link href="/analyzer" className="text-sky hover:underline">Analyzátor titulkov</Link> alebo <Link href="/semantic-analyzer" className="text-sky hover:underline">Analyzátor sémantickej relevancie</Link>, ktoré vám tento proces ešte viac zjednodušia.</p>
+                        <h2 className="text-primary">Záver</h2>
+                        <p>S týmto procesom dokážete vytvoriť jeden kvalitný a SEO-optimalizovaný článok za menej ako hodinu. Pri troche praxe je reálne týmto spôsobom pripraviť 8-10 článkov za jeden pracovný deň. Kľúčom je systematický prístup a správne prompty. Vyskúšajte naše nástroje, ako je <Link href="/analyzer" className="text-primary/80 hover:underline">Analyzátor titulkov</Link> alebo <Link href="/semantic-analyzer" className="text-primary/80 hover:underline">Analyzátor sémantickej relevancie</Link>, ktoré vám tento proces ešte viac zjednodušia.</p>
 
                     </div>
                     <div className="mt-12 text-center">

@@ -115,10 +115,8 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="seo4web"
-            enableSystem={false}
-            disableTransitionOnChange
-            themes={['light', 'dark', 'seo4web', 'xedition']}
+            defaultTheme="dark"
+            themes={['light', 'dark']}
           >
             <Header />
             <div className="relative">{children}</div>

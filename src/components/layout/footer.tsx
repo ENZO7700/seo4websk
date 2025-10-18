@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import { Seo4WebLogo } from "@/components/icons/logo";
 import { Github, Twitter, Linkedin, Facebook, Instagram, Phone, Mail, MapPin, BrainCircuit } from "lucide-react";
@@ -29,8 +28,7 @@ export function Footer() {
   return (
     <footer id="contact" className={cn(
         "border-t",
-        "seo4web:bg-galaxy seo4web:border-spaceship",
-        "xedition:bg-background/30 xedition:border-white/10 xedition:backdrop-blur-xl"
+        "bg-card/50 backdrop-blur-xl"
         )}>
       <div className="container mx-auto py-12 px-4">
         <div className="grid gap-12 md:grid-cols-5">

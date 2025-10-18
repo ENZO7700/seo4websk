@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -45,21 +44,21 @@ const PromptCard = ({ title, description, prompt }: { title: string, description
     };
 
     return (
-        <Card className="bg-galaxy/50 border-spaceship">
+        <Card className="bg-muted/30 border">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-aurora">
+                <CardTitle className="flex items-center gap-2 text-primary">
                     <Lightbulb />
                     {title}
                 </CardTitle>
-                <CardDescription className="text-rocket">{description}</CardDescription>
+                <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardContent>
-                <pre className="bg-space/50 p-4 rounded-md overflow-x-auto text-sm text-light font-mono whitespace-pre-wrap">
+                <pre className="bg-background/50 p-4 rounded-md overflow-x-auto text-sm text-foreground font-mono whitespace-pre-wrap">
                     {prompt}
                 </pre>
             </CardContent>
             <CardFooter>
-                <Button variant="ghost" onClick={handleCopy} className="text-aurora hover:bg-aurora/10 hover:text-aurora">
+                <Button variant="ghost" onClick={handleCopy} className="text-primary hover:bg-primary/10 hover:text-primary">
                     <Copy className="mr-2" />
                     Skopírovať Prompt
                 </Button>
@@ -70,15 +69,15 @@ const PromptCard = ({ title, description, prompt }: { title: string, description
 
 export default function PromptEngineeringPage() {
     return (
-        <div className="bg-space text-light">
-             <header className="relative bg-galaxy py-20 sm:py-32 overflow-hidden">
+        <div className="bg-background text-foreground">
+             <header className="relative bg-card py-20 sm:py-32 overflow-hidden">
                  <div className="absolute inset-0 z-0 opacity-20">
                     <div 
-                    className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_at_50%_50%,var(--aurora),rgba(56,224,140,0)_60%)]"
+                    className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)),rgba(56,224,140,0)_60%)]"
                     style={{ animation: 'aurora-pulse 12s infinite alternate' }}
                     />
                     <div 
-                    className="absolute bottom-0 right-[-20%] top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_at_50%_50%,var(--sky),rgba(29,116,246,0)_60%)]"
+                    className="absolute bottom-0 right-[-20%] top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)),rgba(29,116,246,0)_60%)]"
                     style={{ animation: 'sky-pulse 15s infinite alternate' }}
                     />
                 </div>
@@ -88,12 +87,12 @@ export default function PromptEngineeringPage() {
                         animate="visible"
                         variants={containerVariants}
                     >
-                        <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-bold mb-4 text-light font-headline">Prompt Stratégia: Plán na 10 000 €/mesiac</motion.h1>
-                        <motion.p variants={itemVariants} className="text-xl max-w-3xl mx-auto text-rocket mb-8 text-balance">
+                        <motion.h1 variants={itemVariants} className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">Prompt Stratégia: Plán na 10 000 €/mesiac</motion.h1>
+                        <motion.p variants={itemVariants} className="text-xl max-w-3xl mx-auto text-muted-foreground mb-8 text-balance">
                            Toto je váš kompletný manuál, ako transformovať túto aplikáciu na prémiovú, AI-poháňanú SEO platformu a dosiahnuť finančný úspech.
                         </motion.p>
                         <motion.div variants={itemVariants}>
-                            <Button size="lg" asChild className="bg-sky hover:bg-night-sky text-light">
+                            <Button size="lg" asChild>
                                 <Link href="#phase-1">Začať Transformáciu</Link>
                             </Button>
                         </motion.div>
@@ -116,11 +115,11 @@ export default function PromptEngineeringPage() {
             <main className="container mx-auto py-24 px-4 space-y-24">
                 <section id="intro-strategy" className="grid md:grid-cols-2 gap-12 items-center">
                     <div className="text-center md:text-left">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline text-light">Nová Vízia: All-in-One AI SEO Platforma</h2>
-                        <p className="text-lg text-rocket mb-4 text-balance">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline text-foreground">Nová Vízia: All-in-One AI SEO Platforma</h2>
+                        <p className="text-lg text-muted-foreground mb-4 text-balance">
                            Našim cieľom je premeniť súčasnú webovú stránku na komplexný nástroj pre slovenských marketérov, podnikateľov a SEO špecialistov. Namiesto roztrúsených nástrojov vytvoríme jednotnú platformu, ktorá ponúkne všetko od auditu, cez analýzu, až po generovanie obsahu a obrázkov – všetko poháňané umelou inteligenciou.
                         </p>
-                        <p className="text-lg text-rocket text-balance">
+                        <p className="text-lg text-muted-foreground text-balance">
                            Tento plán je rozdelený do fáz, pričom každá fáza obsahuje konkrétne "prompty", ktoré môžete použiť na okamžité generovanie obsahu, kódu alebo stratégie pomocou AI.
                         </p>
                     </div>
@@ -131,15 +130,15 @@ export default function PromptEngineeringPage() {
 
                 <Accordion type="single" collapsible className="w-full space-y-8" defaultValue="item-1">
                     
-                    <AccordionItem value="item-1" id="phase-1" className="bg-galaxy/30 border-spaceship rounded-lg p-6">
-                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-aurora hover:no-underline">
+                    <AccordionItem value="item-1" id="phase-1" className="bg-card/50 border rounded-lg p-6">
+                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-primary hover:no-underline">
                             <div className="flex items-center gap-4">
-                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-aurora/10 text-aurora font-bold text-xl">1</span>
+                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-xl">1</span>
                                 Fáza 1: Dokonalá Landing Page
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-6">
-                            <p className="text-rocket mb-6 text-balance">Prvý dojem rozhoduje. Potrebujeme vytvoriť novú landing page, ktorá jasne komunikuje hodnotu našej novej AI platformy, buduje dôveru a konvertuje návštevníkov na platiacich zákazníkov. Táto stránka nahradí súčasnú homepage.</p>
+                            <p className="text-muted-foreground mb-6 text-balance">Prvý dojem rozhoduje. Potrebujeme vytvoriť novú landing page, ktorá jasne komunikuje hodnotu našej novej AI platformy, buduje dôveru a konvertuje návštevníkov na platiacich zákazníkov. Táto stránka nahradí súčasnú homepage.</p>
                             <PromptCard 
                                 title="Prompt na Generovanie Landing Page"
                                 description="Tento prompt vygeneruje kompletnú štruktúru a texty pre novú, vysoko-konverznú landing page."
@@ -189,15 +188,15 @@ TÓN KOMUNIKÁCIE: Profesionálny, ale prístupný a zrozumiteľný. Zameraný n
                         </AccordionContent>
                     </AccordionItem>
 
-                    <AccordionItem value="item-2" id="phase-2" className="bg-galaxy/30 border-spaceship rounded-lg p-6">
-                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-aurora hover:no-underline">
+                    <AccordionItem value="item-2" id="phase-2" className="bg-card/50 border rounded-lg p-6">
+                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-primary hover:no-underline">
                             <div className="flex items-center gap-4">
-                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-aurora/10 text-aurora font-bold text-xl">2</span>
+                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-xl">2</span>
                                 Fáza 2: Vylepšenie Sekcií
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-6">
-                            <p className="text-rocket mb-6 text-balance">Každú existujúcu sekciu premeníme z pasívnej informačnej stránky na interaktívny nástroj, ktorý vtiahne používateľa do deja a ukáže mu hodnotu našej platformy.</p>
+                            <p className="text-muted-foreground mb-6 text-balance">Každú existujúcu sekciu premeníme z pasívnej informačnej stránky na interaktívny nástroj, ktorý vtiahne používateľa do deja a ukáže mu hodnotu našej platformy.</p>
                             <div className="space-y-4">
                                 <PromptCard 
                                     title="Prompt pre /sluzby"
@@ -244,15 +243,15 @@ Vytvor Genkit flow v TypeScripte s názvom 'answerSeoQuestion'. Flow bude použ�
                         </AccordionContent>
                     </AccordionItem>
 
-                     <AccordionItem value="item-3" id="phase-3" className="bg-galaxy/30 border-spaceship rounded-lg p-6">
-                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-aurora hover:no-underline">
+                     <AccordionItem value="item-3" id="phase-3" className="bg-card/50 border rounded-lg p-6">
+                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-primary hover:no-underline">
                            <div className="flex items-center gap-4">
-                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-aurora/10 text-aurora font-bold text-xl">3</span>
+                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-xl">3</span>
                                 Fáza 3: Experimentálne Mini-Aplikácie
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-6">
-                            <p className="text-rocket mb-6 text-balance">Vytvoríme novú sekciu "Laboratórium", kde budeme postupne pridávať malé, užitočné AI nástroje. Tieto nástroje budú zadarmo, budú slúžiť ako "lead magnet" na prilákanie nových používateľov a zároveň nám pomôžu otestovať, o ktoré funkcie je najväčší záujem pre budúcu robustnú aplikáciu.</p>
+                            <p className="text-muted-foreground mb-6 text-balance">Vytvoríme novú sekciu "Laboratórium", kde budeme postupne pridávať malé, užitočné AI nástroje. Tieto nástroje budú zadarmo, budú slúžiť ako "lead magnet" na prilákanie nových používateľov a zároveň nám pomôžu otestovať, o ktoré funkcie je najväčší záujem pre budúcu robustnú aplikáciu.</p>
                              <div className="space-y-4">
                                 <PromptCard 
                                     title="Prompt pre 'Generátor Meta Popisov'"
@@ -294,15 +293,15 @@ GENKIT FLOW ('analyzeSemanticRelevanceFlow'):
                             </div>
                         </AccordionContent>
                     </AccordionItem>
-                     <AccordionItem value="item-4" id="phase-4" className="bg-galaxy/30 border-spaceship rounded-lg p-6">
-                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-aurora hover:no-underline">
+                     <AccordionItem value="item-4" id="phase-4" className="bg-card/50 border rounded-lg p-6">
+                        <AccordionTrigger className="text-2xl md:text-3xl font-headline text-primary hover:no-underline">
                              <div className="flex items-center gap-4">
-                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-aurora/10 text-aurora font-bold text-xl">4</span>
+                                <span className="flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary font-bold text-xl">4</span>
                                 Fáza 4: Marketing a Monetizácia
                             </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-6">
-                            <p className="text-rocket mb-6 text-balance">Skvelý produkt je len polovica úspechu. Potrebujeme solídny plán, ako ho dostať k správnym ľuďom a premeniť ho na ziskový biznis.</p>
+                            <p className="text-muted-foreground mb-6 text-balance">Skvelý produkt je len polovica úspechu. Potrebujeme solídny plán, ako ho dostať k správnym ľuďom a premeniť ho na ziskový biznis.</p>
                              <PromptCard 
                                     title="Prompt pre Marketingový a Monetizačný Plán"
                                     description="Tento prompt vygeneruje komplexnú stratégiu na uvedenie produktu na trh, získanie prvých 100 platiacich zákazníkov a dosiahnutie cieľa 10 000 € mesačne."

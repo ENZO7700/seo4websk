@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -37,8 +36,8 @@ const mistakes = [
 
 export default function TechnicalSeoMistakesPage() {
     return (
-        <div className="bg-space text-light">
-            <header className="relative bg-galaxy py-20 sm:py-32">
+        <div className="bg-background text-foreground">
+            <header className="relative bg-card py-20 sm:py-32">
                 <div className="absolute inset-0 z-0 opacity-20">
                     <Image
                         src="https://img.freepik.com/free-vector/website-troubleshooting-concept-illustration_114360-7605.jpg?w=1200"
@@ -46,7 +45,7 @@ export default function TechnicalSeoMistakesPage() {
                         fill
                         className="object-cover"
                     />
-                     <div className="absolute inset-0 bg-gradient-to-t from-space via-space/70 to-transparent" />
+                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
                 </div>
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <motion.div
@@ -54,9 +53,9 @@ export default function TechnicalSeoMistakesPage() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                         <p className="text-aurora font-semibold">Technické SEO</p>
-                        <h1 className="text-4xl md:text-6xl font-bold my-4 text-light font-headline">5 najčastejších chýb v technickom SEO (a ako ich opraviť)</h1>
-                        <p className="text-xl max-w-3xl mx-auto text-rocket mb-8 text-balance">
+                         <p className="text-primary font-semibold">Technické SEO</p>
+                        <h1 className="text-4xl md:text-6xl font-bold my-4 text-foreground font-headline">5 najčastejších chýb v technickom SEO (a ako ich opraviť)</h1>
+                        <p className="text-xl max-w-3xl mx-auto text-muted-foreground mb-8 text-balance">
                            Môžete mať najlepší obsah na svete, no ak váš web trpí technickými problémami, Google ho nikdy neocení. Pozrite sa na najčastejšie chyby, ktoré brzdia váš úspech.
                         </p>
                     </motion.div>
@@ -65,8 +64,8 @@ export default function TechnicalSeoMistakesPage() {
 
             <main className="container mx-auto py-16 px-4">
                  <div className="max-w-4xl mx-auto">
-                    <div className="prose prose-lg dark:prose-invert text-light/90 max-w-none">
-                        <p className="lead text-xl text-rocket">
+                    <div className="prose prose-lg dark:prose-invert text-foreground/90 max-w-none">
+                        <p className="lead text-xl text-muted-foreground">
                            Technické SEO je chrbtovou kosťou každej úspešnej webovej stránky. Je to súbor pravidiel a optimalizácií, ktoré zabezpečujú, aby bol váš web pre vyhľadávače rýchly, zrozumiteľný a ľahko dostupný. Ignorovanie týchto princípov je ako postaviť dom na zlých základoch. Pozrime sa na 5 najčastejších prešľapov.
                         </p>
                     </div>
@@ -80,13 +79,13 @@ export default function TechnicalSeoMistakesPage() {
                                 viewport={{ once: true, amount: 0.3 }}
                                 transition={{ duration: 0.5, delay: index * 0.1}}
                             >
-                                <div className="p-6 rounded-lg bg-galaxy/50 border border-spaceship">
-                                    <h3 className="flex items-center gap-3 text-2xl font-bold text-aurora mb-3">
+                                <div className="p-6 rounded-lg bg-card border">
+                                    <h3 className="flex items-center gap-3 text-2xl font-bold text-primary mb-3">
                                         <AlertTriangle />
                                         {mistake.title}
                                     </h3>
-                                    <p className="text-rocket mb-4 text-balance">{mistake.description}</p>
-                                    <Button asChild variant="link" className="p-0 text-sky hover:text-aurora">
+                                    <p className="text-muted-foreground mb-4 text-balance">{mistake.description}</p>
+                                    <Button asChild variant="link" className="p-0 text-primary/80 hover:text-primary">
                                         <Link href={mistake.solutionHref}>
                                             Ako na to? Pozrite si naše nástroje a ťaháky
                                             <ArrowLeft className="transform rotate-180 ml-2"/>
@@ -97,10 +96,10 @@ export default function TechnicalSeoMistakesPage() {
                         ))}
                     </div>
 
-                     <div className="prose prose-lg dark:prose-invert text-light/90 max-w-none">
-                         <h2 className="text-aurora">Záver</h2>
+                     <div className="prose prose-lg dark:prose-invert text-foreground/90 max-w-none">
+                         <h2 className="text-primary">Záver</h2>
                         <p>
-                           Technické SEO nie je jednorazová záležitosť, ale neustály proces. Pravidelným monitorovaním a odstraňovaním týchto chýb zabezpečíte, že váš web bude mať vždy pevné základy pre dosahovanie top pozícií. Ak si nie ste istí, v akom stave je váš web, využite našu <Link href="/seo-audit-akcia" className="text-sky hover:underline">akciovú ponuku na hĺbkový SEO audit</Link>.
+                           Technické SEO nie je jednorazová záležitosť, ale neustály proces. Pravidelným monitorovaním a odstraňovaním týchto chýb zabezpečíte, že váš web bude mať vždy pevné základy pre dosahovanie top pozícií. Ak si nie ste istí, v akom stave je váš web, využite našu <Link href="/seo-audit-akcia" className="text-primary/80 hover:underline">akciovú ponuku na hĺbkový SEO audit</Link>.
                         </p>
                      </div>
 

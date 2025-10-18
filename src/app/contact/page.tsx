@@ -1,4 +1,3 @@
-
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -99,7 +98,7 @@ export default function ContactPage() {
   if (authLoading) {
     return (
         <div className="flex justify-center items-center min-h-screen">
-            <Loader2 className="h-12 w-12 animate-spin text-sky" />
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
         </div>
     );
   }
@@ -107,10 +106,10 @@ export default function ContactPage() {
   return (
     <main className="container mx-auto px-4 py-24 sm:py-32">
        <div className="flex justify-center">
-        <Card className="w-full max-w-2xl bg-galaxy border-spaceship text-light">
+        <Card className="w-full max-w-2xl">
           <CardHeader>
             <CardTitle className="text-3xl font-bold tracking-tighter md:text-4xl font-headline text-center">Kontaktujte Nás</CardTitle>
-            <CardDescription className="text-center text-balance text-rocket">
+            <CardDescription className="text-center text-balance text-muted-foreground">
               Máte otázku alebo záujem o bezplatnú cenovú ponuku? Vyplňte formulár nižšie.
             </CardDescription>
           </CardHeader>
@@ -135,7 +134,7 @@ export default function ContactPage() {
                             <FormItem>
                                 <FormLabel>Meno</FormLabel>
                                 <FormControl>
-                                <Input placeholder="Vaše Meno" {...field} className="bg-space-grey border-spaceship focus:ring-aurora"/>
+                                <Input placeholder="Vaše Meno" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -148,7 +147,7 @@ export default function ContactPage() {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                <Input placeholder="vas.email@priklad.com" {...field} className="bg-space-grey border-spaceship focus:ring-aurora"/>
+                                <Input placeholder="vas.email@priklad.com" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -165,7 +164,7 @@ export default function ContactPage() {
                         <FormControl>
                           <Textarea
                             placeholder="Povedzte nám o vašom projekte alebo položte otázku"
-                            className="resize-none bg-space-grey border-spaceship focus:ring-aurora"
+                            className="resize-none"
                             {...field}
                           />
                         </FormControl>
@@ -174,16 +173,16 @@ export default function ContactPage() {
                     )}
                   />
                   {user ? (
-                     <Button type="submit" className="w-full bg-sky hover:bg-night-sky" size="lg" disabled={isSubmitting}>
+                     <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                         {isSubmitting ? "Odosielam..." : "Odoslať Správu"}
                      </Button>
                   ) : (
-                     <div className="text-center p-4 bg-space-grey rounded-lg border border-spaceship">
-                        <p className="text-rocket mb-4">Pre jednoduchšie odoslanie a zobrazenie histórie správ v dashborde sa môžete prihlásiť.</p>
-                         <Button asChild variant="outline" className="w-full bg-galaxy border-spaceship hover:bg-spaceship mb-2">
+                     <div className="text-center p-4 bg-muted/50 rounded-lg border">
+                        <p className="text-muted-foreground mb-4">Pre jednoduchšie odoslanie a zobrazenie histórie správ v dashborde sa môžete prihlásiť.</p>
+                         <Button asChild variant="outline" className="w-full mb-2">
                             <Link href="/login">Prihlásiť sa</Link>
                          </Button>
-                         <Button type="submit" className="w-full bg-sky hover:bg-night-sky" size="lg" disabled={isSubmitting}>
+                         <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                            {isSubmitting ? "Odosielam..." : "Odoslať ako hosť"}
                          </Button>
                      </div>
