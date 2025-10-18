@@ -10,7 +10,8 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { defineIndexer, defineRetriever, embed, retrieve } from '@genkit-ai/ai/retriever';
-import { streamolis, index } from '@genkit-ai/dot-prompt';
+import { index } from '@genkit-ai/ai/retriever';
+
 
 const TAHAKY_INDEX_NAME = 'seoTahakyIndex';
 
@@ -30,8 +31,7 @@ export async function answerSeoQuestion(input: AnswerSeoQuestionInput): Promise<
 }
 
 
-// Dummy context for now. This will be replaced by a real RAG index.
-const DUMMY_CONTEXT = `
+const SEO_TAHAKY_CONTEXT = `
 Sekcia: On-Page SEO: Optimalizácia priamo na stránke
 Obsah: On-Page SEO je základom všetkého. Sú to úpravy, ktoré máte plne pod kontrolou priamo na vašom webe. Optimalizácia titulkov (Title Tags): Každá stránka musí mať unikátny a výstižný titulok do 60 znakov, ktorý obsahuje hlavné kľúčové slovo. Meta popisy (Meta Descriptions): Pútavý popis do 160 znakov, ktorý láka na kliknutie. Hoci priamo neovplyvňuje pozície, má obrovský vplyv na mieru prekliku (CTR). Štruktúra nadpisov (H1, H2, H3): Používajte iba jeden H1 nadpis na stránke. Ostatné nadpisy (H2, H3...) používajte na logické členenie obsahu. Interné prelinkovanie: Odkazujte z nových článkov na staré a naopak. Pomáhate tým používateľom aj vyhľadávačom objavovať relevantný obsah. Optimalizácia obrázkov: Komprimujte obrázky a vždy vypĺňajte ALT texty. Pomáha to rýchlosti načítania a prístupnosti.
 
@@ -49,14 +49,15 @@ const seoTahakyIndexer = defineIndexer(
     {
         name: TAHAKY_INDEX_NAME,
         embedder: 'googleai/embedding-004',
-        client: 'dev',
     },
     async () => {
+        // This is a dummy indexing function. In a real app, you would fetch
+        // your knowledge base from a database or file system.
         await index({
             indexer: TAHAKY_INDEX_NAME,
             docs: [
                 {
-                    content: DUMMY_CONTEXT,
+                    content: SEO_TAHAKY_CONTEXT,
                     metadata: {
                         source: 'SEO Ťaháky',
                     }
@@ -65,6 +66,7 @@ const seoTahakyIndexer = defineIndexer(
         });
     }
 );
+
 
 const seoTahakyRetriever = defineRetriever(
     {
@@ -75,7 +77,10 @@ const seoTahakyRetriever = defineRetriever(
 
 const prompt = ai.definePrompt({
   name: 'answerSeoQuestionPrompt',
-  input: { schema: AnswerSeoQuestionInputSchema },
+  input: { schema: z.object({
+      question: z.string(),
+      docs: z.array(z.any())
+  }) },
   output: { schema: AnswerSeoQuestionOutputSchema },
   prompt: `
     You are a helpful SEO expert assistant. Your task is to answer the user's question based *only* on the provided context, which contains our SEO knowledge base.
@@ -105,10 +110,12 @@ const answerSeoQuestionFlow = ai.defineFlow(
     outputSchema: AnswerSeoQuestionOutputSchema,
   },
   async (input) => {
+     await seoTahakyIndexer();
+     
      const docs = await retrieve({
         retriever: seoTahakyRetriever,
         query: input.question,
-        options: { k: 3 },
+        options: { k: 1 },
     });
 
     const { output } = await prompt({ ...input, docs });
