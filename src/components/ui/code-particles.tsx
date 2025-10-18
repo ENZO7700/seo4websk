@@ -3,11 +3,11 @@
 
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
+import { Points, PointMaterial } from '@drei';
 // @ts-ignore
 import * as random from 'maath/random/dist/maath-random.esm';
 
-export const CodeParticles = () => {
+export function CodeParticles(props: any) {
   const ref = useRef<any>();
   const count = 5000;
 
@@ -24,7 +24,7 @@ export const CodeParticles = () => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <Points ref={ref} positions={positions} stride={3} frustumCulled={false} {...props}>
         <PointMaterial
           transparent
           color="hsl(var(--primary))"
