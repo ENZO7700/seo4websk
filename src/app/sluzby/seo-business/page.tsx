@@ -9,14 +9,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SeoBusinessPage() {
     return (
-        <div className="bg-space text-light">
-             <header className="bg-galaxy py-20 sm:py-32">
+        <div className="bg-background text-foreground">
+             <header className="bg-card py-20 sm:py-32">
                 <div className="container mx-auto px-4 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 text-light font-headline">SEO Balík: Business</h1>
-                    <p className="text-xl max-w-3xl mx-auto text-rocket mb-8 text-balance">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground font-headline">SEO Balík: Business</h1>
+                    <p className="text-xl max-w-3xl mx-auto text-muted-foreground mb-8 text-balance">
                         Strategické SEO pre malé a stredné firmy a e-shopy, ktoré chcú rásť, získavať nových zákazníkov a vidieť reálny dopad na tržby.
                     </p>
-                    <Button size="lg" asChild className="bg-sky hover:bg-night-sky">
+                    <Button size="lg" asChild>
                         <Link href="/signup?plan=business">Objednať Balík Business</Link>
                     </Button>
                 </div>
@@ -30,13 +30,13 @@ export default function SeoBusinessPage() {
                             alt="Tím analyzuje SEO dáta pre biznis"
                             width={600}
                             height={600}
-                            className="rounded-lg shadow-2xl shadow-sky/10 mx-auto"
+                            className="rounded-lg shadow-2xl shadow-primary/10 mx-auto"
                             data-ai-hint="seo business analytics"
                         />
                     </div>
                     <div>
                         <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">SEO ako Motor Vášho Podnikania</h2>
-                        <p className="text-lg text-rocket mb-6 text-balance">
+                        <p className="text-lg text-muted-foreground mb-6 text-balance">
                            Náš Business balík je navrhnutý pre firmy, ktoré vnímajú SEO ako kľúčovú súčasť svojej marketingovej stratégie a investíciu do dlhodobého rastu. Poskytujeme komplexný servis od hĺbkového auditu, cez návrh dlhodobej stratégie, až po mesačnú exekúciu a detailný reporting, ktorý vám ukáže reálny dopad na váš biznis – nielen v pozíciách, ale aj v dopytoch a tržbách.
                         </p>
                     </div>
@@ -44,57 +44,57 @@ export default function SeoBusinessPage() {
 
                 <section className="max-w-4xl mx-auto text-center mb-20">
                     <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Pre koho je balík Business?</h2>
-                    <p className="text-lg text-rocket text-balance">
+                    <p className="text-lg text-muted-foreground text-balance">
                         Tento balík je určený pre zabehnuté firmy a e-shopy, ktoré majú stabilný cash-flow a sú pripravené investovať do dlhodobého a udržateľného rastu. Ak hľadáte spoľahlivého partnera, ktorý vám pomôže systematicky zvyšovať organickú návštevnosť a generovať viac dopytov a objednávok, ste na správnom mieste. Ideálne pre firmy s tímom, ktorý je schopný implementovať naše odporúčania, alebo pre firmy hľadajúce komplexné zastrešenie SEO aktivít.
                     </p>
                 </section>
 
                  <section className="mb-20">
-                     <Card className="bg-galaxy border-spaceship">
+                     <Card className="bg-card border">
                         <CardHeader>
-                            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-light">Komplexné služby pre váš rast</CardTitle>
+                            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-foreground">Komplexné služby pre váš rast</CardTitle>
                         </CardHeader>
                         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg pt-6">
                             <div className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold text-light">Komplexný SEO audit a stratégia</h3>
-                                    <p className="text-sm text-rocket">Začíname hĺbkovou analýzou (technickou, obsahovou, konkurenčnou) a vytvorením dlhodobého plánu šitého na mieru vašim biznis cieľom.</p>
+                                    <h3 className="font-bold text-foreground">Komplexný SEO audit a stratégia</h3>
+                                    <p className="text-sm text-muted-foreground">Začíname hĺbkovou analýzou (technickou, obsahovou, konkurenčnou) a vytvorením dlhodobého plánu šitého na mieru vašim biznis cieľom.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold text-light">Priebežná on-page a technická optimalizácia</h3>
-                                    <p className="text-sm text-rocket">Neustále sledujeme a vylepšujeme váš web, aby bol v top kondícii a v súlade s najnovšími odporúčaniami vyhľadávačov.</p>
+                                    <h3 className="font-bold text-foreground">Priebežná on-page a technická optimalizácia</h3>
+                                    <p className="text-sm text-muted-foreground">Neustále sledujeme a vylepšujeme váš web, aby bol v top kondícii a v súlade s najnovšími odporúčaniami vyhľadávačov.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold text-light">Link building (10+ odkazov/mesiac)</h3>
-                                    <p className="text-sm text-rocket">Systematické a udržateľné budovanie silného a relevantného odkazového profilu, ktorý je základom dlhodobej autority.</p>
+                                    <h3 className="font-bold text-foreground">Link building (10+ odkazov/mesiac)</h3>
+                                    <p className="text-sm text-muted-foreground">Systematické a udržateľné budovanie silného a relevantného odkazového profilu, ktorý je základom dlhodobej autority.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold text-light">Pokročilý reporting a analytika</h3>
-                                    <p className="text-sm text-rocket">Dostávate prehľadné reporty, ktoré ukazujú nielen pozície a návštevnosť, ale aj dopad na vaše biznis ciele (konverzie, tržby).</p>
+                                    <h3 className="font-bold text-foreground">Pokročilý reporting a analytika</h3>
+                                    <p className="text-sm text-muted-foreground">Dostávate prehľadné reporty, ktoré ukazujú nielen pozície a návštevnosť, ale aj dopad na vaše biznis ciele (konverzie, tržby).</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold text-light">Konzultácie (2 hod/mesiac)</h3>
-                                    <p className="text-sm text-rocket">Pravidelné strategické stretnutia, kde preberieme výsledky, zodpovieme otázky a naplánujeme ďalšie kroky.</p>
+                                    <h3 className="font-bold text-foreground">Konzultácie (2 hod/mesiac)</h3>
+                                    <p className="text-sm text-muted-foreground">Pravidelné strategické stretnutia, kde preberieme výsledky, zodpovieme otázky a naplánujeme ďalšie kroky.</p>
                                 </div>
                             </div>
                              <div className="flex items-start gap-3">
-                                <Check className="h-6 w-6 text-aurora mt-1 flex-shrink-0" />
+                                <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                                 <div>
-                                    <h3 className="font-bold text-light">Cena</h3>
-                                    <p className="text-sm text-rocket font-bold text-lg">899 € / mesiac</p>
+                                    <h3 className="font-bold text-foreground">Cena</h3>
+                                    <p className="text-sm text-muted-foreground font-bold text-lg">899 € / mesiac</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -102,29 +102,29 @@ export default function SeoBusinessPage() {
                 </section>
                 
                 <section className="max-w-4xl mx-auto mb-20">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center font-headline text-light">Náš Proces Spolupráce</h2>
-                    <ol className="relative border-l border-spaceship">                  
+                    <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center font-headline text-foreground">Náš Proces Spolupráce</h2>
+                    <ol className="relative border-l border-border">                  
                         <li className="mb-10 ml-6">            
-                            <span className="absolute flex items-center justify-center w-8 h-8 bg-sky/10 rounded-full -left-4 ring-8 ring-space text-sky font-bold">1</span>
-                            <h3 className="flex items-center mb-1 text-lg font-semibold text-light">Strategické plánovanie a onboarding</h3>
-                            <p className="mb-4 text-base font-normal text-rocket">Na začiatku spolupráce definujeme presné KPI, nastavíme merania a vytvoríme detailný plán aktivít na prvé 3 mesiace.</p>
+                            <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full -left-4 ring-8 ring-background text-primary font-bold">1</span>
+                            <h3 className="flex items-center mb-1 text-lg font-semibold text-foreground">Strategické plánovanie a onboarding</h3>
+                            <p className="mb-4 text-base font-normal text-muted-foreground">Na začiatku spolupráce definujeme presné KPI, nastavíme merania a vytvoríme detailný plán aktivít na prvé 3 mesiace.</p>
                         </li>
                         <li className="mb-10 ml-6">
-                            <span className="absolute flex items-center justify-center w-8 h-8 bg-sky/10 rounded-full -left-4 ring-8 ring-space text-sky font-bold">2</span>
-                            <h3 className="mb-1 text-lg font-semibold text-light">Priebežná exekúcia a monitoring</h3>
-                            <p className="text-base font-normal text-rocket">Náš tím pracuje podľa plánu na všetkých aspektoch SEO a neustále monitoruje výkon a príležitosti na zlepšenie.</p>
+                            <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full -left-4 ring-8 ring-background text-primary font-bold">2</span>
+                            <h3 className="mb-1 text-lg font-semibold text-foreground">Priebežná exekúcia a monitoring</h3>
+                            <p className="text-base font-normal text-muted-foreground">Náš tím pracuje podľa plánu na všetkých aspektoch SEO a neustále monitoruje výkon a príležitosti na zlepšenie.</p>
                         </li>
                         <li className="ml-6">
-                            <span className="absolute flex items-center justify-center w-8 h-8 bg-sky/10 rounded-full -left-4 ring-8 ring-space text-sky font-bold">3</span>
-                            <h3 className="mb-1 text-lg font-semibold text-light">Pravidelné porady a reporting</h3>
-                            <p className="text-base font-normal text-rocket">Na mesačných poradách vyhodnocujeme výsledky oproti stanoveným cieľom a spoločne plánujeme ďalšie kroky pre maximalizáciu ROI.</p>
+                            <span className="absolute flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full -left-4 ring-8 ring-background text-primary font-bold">3</span>
+                            <h3 className="mb-1 text-lg font-semibold text-foreground">Pravidelné porady a reporting</h3>
+                            <p className="text-base font-normal text-muted-foreground">Na mesačných poradách vyhodnocujeme výsledky oproti stanoveným cieľom a spoločne plánujeme ďalšie kroky pre maximalizáciu ROI.</p>
                         </li>
                     </ol>
                 </section>
 
-                 <section id="cta" className="bg-galaxy rounded-lg p-12 text-center border border-spaceship">
-                     <h2 className="text-3xl font-bold mb-4 font-headline text-light">Pripravení investovať do udržateľného rastu?</h2>
-                      <Button size="lg" asChild className="bg-sky hover:bg-night-sky">
+                 <section id="cta" className="bg-card rounded-lg p-12 text-center border">
+                     <h2 className="text-3xl font-bold mb-4 font-headline text-foreground">Pripravení investovať do udržateľného rastu?</h2>
+                      <Button size="lg" asChild>
                         <Link href="/signup?plan=business">
                             Chcem Balík Business
                             <ArrowRight className="ml-2" />
