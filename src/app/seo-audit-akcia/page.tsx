@@ -1,14 +1,13 @@
 
 'use client';
 
-import React, { useRef, useMemo } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, ArrowRight, Search, Link2, Cog, BarChart } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 import { Canvas } from '@react-three/fiber';
 import { CodeParticles } from '@/components/ui/code-particles';
 
