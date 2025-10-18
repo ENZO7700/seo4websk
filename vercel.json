@@ -1,7 +1,7 @@
 
 {
   "functions": {
-    "src/ai/**/*.ts": {
+    "app/api/genkit/flows/[[...flow]]/route.ts": {
       "maxDuration": 120
     },
     "app/api/**/*.ts": {
@@ -9,5 +9,4 @@
     }
   }
 }
-
     
