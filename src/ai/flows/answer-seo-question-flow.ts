@@ -9,11 +9,13 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { defineIndexer, defineRetriever, embed, retrieve } from '@genkit-ai/ai/retriever';
+import { streamolis, index } from '@genkit-ai/dot-prompt';
+
+const TAHAKY_INDEX_NAME = 'seoTahakyIndex';
 
 const AnswerSeoQuestionInputSchema = z.object({
   question: z.string().describe('The user\'s question about SEO.'),
-  // Context will be provided by the RAG system in the future
-  // context: z.string().describe('The content of the SEO cheatsheets to use as a knowledge base.'),
 });
 export type AnswerSeoQuestionInput = z.infer<typeof AnswerSeoQuestionInputSchema>;
 
@@ -26,6 +28,7 @@ export type AnswerSeoQuestionOutput = z.infer<typeof AnswerSeoQuestionOutputSche
 export async function answerSeoQuestion(input: AnswerSeoQuestionInput): Promise<AnswerSeoQuestionOutput> {
   return answerSeoQuestionFlow(input);
 }
+
 
 // Dummy context for now. This will be replaced by a real RAG index.
 const DUMMY_CONTEXT = `
@@ -42,17 +45,46 @@ Sekcia: Lokálne SEO: Dominujte vo svojom meste
 Obsah: Ak máte kamennú prevádzku alebo pôsobíte v konkrétnom regióne, lokálne SEO je pre vás kľúčové. Google Business Profile: Vytvorte si a kompletne optimalizujte profil. Zbierajte recenzie, pridávajte fotky a pravidelne publikujte príspevky. Lokálne kľúčové slová: Optimalizujte na frázy ako "oprava mobilov Bratislava" alebo "reštaurácia v Trnave". Lokálne citácie (NAPs): Uistite sa, že vaše meno, adresa a telefónne číslo (Name, Address, Phone) sú konzistentné vo všetkých online registroch.
 `;
 
+const seoTahakyIndexer = defineIndexer(
+    {
+        name: TAHAKY_INDEX_NAME,
+        embedder: 'googleai/embedding-004',
+        client: 'dev',
+    },
+    async () => {
+        await index({
+            indexer: TAHAKY_INDEX_NAME,
+            docs: [
+                {
+                    content: DUMMY_CONTEXT,
+                    metadata: {
+                        source: 'SEO Ťaháky',
+                    }
+                }
+            ],
+        });
+    }
+);
+
+const seoTahakyRetriever = defineRetriever(
+    {
+        name: 'seo-tahaky-retriever',
+        indexer: TAHAKY_INDEX_NAME,
+    },
+);
 
 const prompt = ai.definePrompt({
   name: 'answerSeoQuestionPrompt',
-  input: { schema: z.object({ question: z.string(), context: z.string() }) },
+  input: { schema: AnswerSeoQuestionInputSchema },
   output: { schema: AnswerSeoQuestionOutputSchema },
   prompt: `
     You are a helpful SEO expert assistant. Your task is to answer the user's question based *only* on the provided context, which contains our SEO knowledge base.
 
     CONTEXT:
     ---
-    {{{context}}}
+    {{#each docs}}
+        {{content}}
+    {{/each}}
     ---
 
     USER'S QUESTION: "{{{question}}}"
@@ -73,9 +105,13 @@ const answerSeoQuestionFlow = ai.defineFlow(
     outputSchema: AnswerSeoQuestionOutputSchema,
   },
   async (input) => {
-    // In a real RAG implementation, this context would be dynamically retrieved from an index.
-    const context = DUMMY_CONTEXT;
-    const { output } = await prompt({ ...input, context });
+     const docs = await retrieve({
+        retriever: seoTahakyRetriever,
+        query: input.question,
+        options: { k: 3 },
+    });
+
+    const { output } = await prompt({ ...input, docs });
     return output!;
   }
 );
