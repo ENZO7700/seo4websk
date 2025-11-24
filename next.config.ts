@@ -9,11 +9,30 @@ const withPWA = require('next-pwa')({
     disable: process.env.NODE_ENV === 'development'
 })
 
+const securityHeaders = [
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin',
+  },
+];
+
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  typescript: {
-    // We've fixed all build errors, so we can remove this.
-    // ignoreBuildErrors: true, 
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ];
   },
   images: {
     remotePatterns: [

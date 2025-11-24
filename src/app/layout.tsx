@@ -87,29 +87,18 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
-        <Script id="json-ld-schema" type="application/ld+json" strategy="afterInteractive">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": ["SoftwareApplication", "Organization"],
-              "name": "Seo4Web AI Suite",
-              "url": "https://seo4web.sk/",
-              "applicationCategory": "BusinessApplication",
-              "offers": {"@type":"Offer","price":"49","priceCurrency":"EUR"},
-              "publisher": {"@type":"Organization","name":"SEO4WEB.SK"},
-              "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"57"}
-            }
-          `}
-        </Script>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></Script>
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXX');
-          `}
-        </Script>
+        <Script
+          id="ga4-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-XXXXXXX');
+            `,
+          }}
+        />
       </head>
       <body className={cn("antialiased", fontBody.variable, fontHeadline.variable)}>
         <AuthProvider>
@@ -124,6 +113,24 @@ export default function RootLayout({
             <Toaster />
           </ThemeProvider>
         </AuthProvider>
+        <Script
+          id="json-ld-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": ["SoftwareApplication", "Organization"],
+              "name": "Seo4Web AI Suite",
+              "url": "https://seo4web.sk/",
+              "applicationCategory": "BusinessApplication",
+              "offers": {"@type":"Offer","price":"49","priceCurrency":"EUR"},
+              "publisher": {"@type":"Organization","name":"SEO4WEB.SK"},
+              "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"57"}
+            })
+          }}
+          strategy="afterInteractive"
+        />
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX" strategy="afterInteractive"></Script>
       </body>
     </html>
   );
