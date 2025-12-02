@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,7 +10,7 @@ import {
   CardFooter,
   CardDescription,
 } from '@/components/ui/card';
-import { Check, ArrowRight, FileText, Image as ImageIcon, Search, ServerCog, Type } from 'lucide-react';
+import { Check, Search, FileText, ServerCog, Type, Image as ImageIcon } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
@@ -70,30 +70,42 @@ const features = [
     desc: 'Hĺbková technika a obsah; návrhy opráv',
     kpi: 'CWV > 90/95/90',
     icon: <ServerCog className="h-6 w-6 text-primary" />,
+    href: '/seo-analyzer',
   },
   {
     name: 'AI Copywriter',
     desc: 'Blogy, landingy, produkt opisy',
     kpi: 'čas tvorby ↓ 80 %',
     icon: <FileText className="h-6 w-6 text-primary" />,
+    href: '/semantic-analyzer',
   },
   {
     name: 'Headline Analyzer',
     desc: 'Testuje titulky, zvyšuje CTR',
     kpi: '+2–5 p. b.',
     icon: <Type className="h-6 w-6 text-primary" />,
+    href: '/analyzer',
   },
   {
     name: 'Image Generator',
     desc: 'Rýchle legálne vizuály',
     kpi: '0 licenčných starostí',
     icon: <ImageIcon className="h-6 w-6 text-primary" />,
+    href: '/image-generator',
   },
   {
     name: 'Keyword Research',
     desc: 'Clustre, calendar, interné odkazy',
     kpi: 'stabilný rast organiky',
     icon: <Search className="h-6 w-6 text-primary" />,
+    href: '/tahaky',
+  },
+   {
+    name: 'Meta Popisy',
+    desc: 'Generuje pútavé meta popisy',
+    kpi: 'Vyšší CTR',
+    icon: <FileText className="h-6 w-6 text-primary" />,
+    href: '/meta-generator',
   },
 ];
 
@@ -294,14 +306,16 @@ export default function NewHomePage() {
                 >
                     {features.map((feature, index) => (
                         <motion.div key={index} variants={itemVariants}>
-                            <div className="flex items-start gap-4">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-card flex-shrink-0 border">{feature.icon}</div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-foreground">{feature.name}</h3>
-                                    <p className="text-muted-foreground text-balance">{feature.desc}</p>
-                                    <p className="mt-1 text-sm font-semibold text-primary">{feature.kpi}</p>
+                             <Link href={feature.href} className="group">
+                                <div className="flex items-start gap-4">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-card flex-shrink-0 border group-hover:border-primary transition-colors">{feature.icon}</div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{feature.name}</h3>
+                                        <p className="text-muted-foreground text-balance">{feature.desc}</p>
+                                        <p className="mt-1 text-sm font-semibold text-primary">{feature.kpi}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </motion.div>
                     ))}
                 </motion.div>

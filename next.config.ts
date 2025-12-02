@@ -1,10 +1,10 @@
-
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const withPWA = require('next-pwa')({
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
 });
 
 const securityHeaders = [
@@ -21,7 +21,6 @@ const securityHeaders = [
     value: 'origin-when-cross-origin',
   },
 ];
-
 
 const nextConfig: NextConfig = {
   async headers() {
@@ -57,10 +56,9 @@ const nextConfig: NextConfig = {
         hostname: 'img.freepik.com',
         port: '',
         pathname: '/**',
-      }
+      },
     ],
   },
 };
 
-export default process.env.NODE_ENV === 'development' ? nextConfig : withPWA(nextConfig);
-    
+export default withPWA(nextConfig);
