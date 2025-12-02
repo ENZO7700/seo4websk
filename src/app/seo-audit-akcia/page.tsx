@@ -11,6 +11,16 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { CodeParticles } from '@/components/ui/code-particles';
 
+const SeoAuditBackground = () => {
+    return (
+        <div className="absolute inset-0 z-0">
+            <Canvas camera={{ position: [0, 0, 1] }}>
+                <CodeParticles />
+            </Canvas>
+        </div>
+    );
+};
+
 
 const auditFeatures = [
     {
@@ -60,11 +70,7 @@ const itemVariants = {
 export default function SeoAuditAkciaPage() {
     return (
         <div className="bg-background text-foreground relative">
-             <div className="absolute inset-0 z-0">
-                <Canvas camera={{ position: [0, 0, 1] }}>
-                    <CodeParticles />
-                </Canvas>
-            </div>
+             <SeoAuditBackground />
              <div className="relative z-10">
                 <header className="bg-background/50 backdrop-blur-sm py-20 sm:py-32">
                     <div className="container mx-auto px-4 text-center">
@@ -109,7 +115,7 @@ export default function SeoAuditAkciaPage() {
                                     key={index}
                                     variants={itemVariants}
                                 >
-                                    <Card className="h-full text-center">
+                                    <Card className="h-full text-center bg-background/50">
                                         <CardHeader className="items-center">
                                             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-lg">
                                                 {feature.icon}
@@ -178,7 +184,7 @@ export default function SeoAuditAkciaPage() {
 
                     <motion.section 
                         id="cta" 
-                        className="bg-card rounded-2xl border p-8 md:p-12 text-center"
+                        className="bg-card/50 rounded-2xl border p-8 md:p-12 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}

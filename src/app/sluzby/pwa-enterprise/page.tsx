@@ -26,10 +26,10 @@ export default function PwaEnterprisePage() {
                <section className="grid items-center gap-12 md:grid-cols-2 mb-20">
                     <div>
                          <Image
-                            src="https://img.freepik.com/free-vector/analytics-dashboard-concept-illustration_114360-7312.jpg?w=400"
+                            src="https://img.freepik.com/free-vector/code-typing-concept-illustration_114360-3805.jpg?w=600"
                             alt="Tím expertov plánuje enterprise PWA riešenie"
-                            width={400}
-                            height={400}
+                            width={600}
+                            height={600}
                             className="rounded-lg shadow-2xl shadow-primary/10 mx-auto"
                             data-ai-hint="enterprise solution planning"
                         />

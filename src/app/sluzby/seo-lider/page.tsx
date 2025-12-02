@@ -26,10 +26,10 @@ export default function SeoLiderPage() {
                <section className="grid items-center gap-12 md:grid-cols-2 mb-20">
                     <div>
                          <Image
-                            src="https://img.freepik.com/free-vector/link-building-concept-illustration_114360-3547.jpg?w=400"
+                            src="https://img.freepik.com/free-vector/link-building-concept-illustration_114360-3547.jpg?w=600"
                             alt="Ilustrácia budovania silnej siete odkazov"
-                            width={400}
-                            height={400}
+                            width={600}
+                            height={600}
                             className="rounded-lg shadow-2xl shadow-primary/10 mx-auto"
                             data-ai-hint="link building network"
                         />

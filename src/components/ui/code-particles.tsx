@@ -12,7 +12,7 @@ export function CodeParticles(props: any) {
   const count = 5000;
 
   const positions = useMemo(() => {
-    return new Float32Array(random.inSphere(new Float32Array(count * 3), { radius: 2.5 }));
+    return new Float32Array(random.inSphere(new Float32Array(count * 3), { radius: 1.5 }));
   }, [count]);
 
   useFrame((state, delta) => {
@@ -28,7 +28,7 @@ export function CodeParticles(props: any) {
         <PointMaterial
           transparent
           color="hsl(var(--primary))"
-          size={0.02}
+          size={0.015}
           sizeAttenuation={true}
           depthWrite={false}
         />
