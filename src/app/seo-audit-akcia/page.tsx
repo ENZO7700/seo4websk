@@ -15,7 +15,9 @@ const SeoAuditBackground = () => {
     return (
         <div className="absolute inset-0 z-0">
             <Canvas camera={{ position: [0, 0, 1] }}>
-                <CodeParticles />
+                <React.Suspense fallback={null}>
+                    <CodeParticles />
+                </React.Suspense>
             </Canvas>
         </div>
     );
@@ -200,7 +202,7 @@ export default function SeoAuditAkciaPage() {
                                 <ArrowRight className="ml-2" />
                             </Link>
                         </Button>
-                    </section>
+                    </motion.section>
                 </main>
              </div>
         </div>
