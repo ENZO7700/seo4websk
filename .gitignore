@@ -2,35 +2,36 @@
 
 # Dependencies
 /node_modules
-/.pnp
-.pnp.js
 
-# Testing
+# Next.js build output
+/.next
+/out
+
+# Production and local environment files
+.env
+.env*.local
+*.env
+
+# Test results
 /coverage
 
-# Next.js
-/.next/
-/out/
-
-# Production
-/build
-
-# Vercel
-.vercel
-
-# Misc
-.DS_Store
-*.pem
-
-# Logs
+# Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
-# Environment Variables - DO NOT COMMIT!
-.env
-.env.local
-.env.development.local
-.env.production.local
-.env.test.local
-*.env*
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# System files
+.DS_Store
+
+# Vercel
+.vercel
