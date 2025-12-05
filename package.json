@@ -85,6 +85,6 @@
   "overrides": {
     "glob": "^10.4.1",
     "rimraf": "^5.0.7",
-    "sourcemap-codec": "@jridgewell/sourcemap-codec@1.4.15"
+    "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@1.4.15"
   }
 }
