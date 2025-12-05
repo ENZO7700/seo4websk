@@ -21,6 +21,7 @@ import {
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -350,7 +351,7 @@ export default function NewHomePage() {
                                 </CardContent>
                                 <CardFooter className="p-0 pt-6 mt-4 border-t">
                                     <div className="flex items-center">
-                                        <img src={testimonial.avatar} alt={testimonial.name} className="h-12 w-12 rounded-full mr-4" />
+                                        <Image src={testimonial.avatar} alt={testimonial.name} width={48} height={48} className="h-12 w-12 rounded-full mr-4" />
                                         <div>
                                             <p className="font-bold text-foreground">{testimonial.name}</p>
                                             <p className="text-muted-foreground">{testimonial.role}</p>
