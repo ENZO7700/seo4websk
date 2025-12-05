@@ -51,19 +51,11 @@ Pre spustenie projektu na vašom lokálnom stroji postupujte podľa nasledujúci
     ```
 
 3.  **Nastavte premenné prostredia:**
-    Vytvorte súbor `.env` v koreňovom adresári projektu a vložte doň vaše Firebase a Genkit API kľúče. Súbor by mal vyzerať takto:
-    ```env
-    # Firebase Configuration
-    NEXT_PUBLIC_FIREBASE_API_KEY=AIza...
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
-    NEXT_PUBLIC_FIREBASE_APP_ID=...
-
-    # Google AI (Genkit) API Key
-    GEMINI_API_KEY=AIza...
+    Vytvorte súbor `.env` v koreňovom adresári projektu skopírovaním zo šablóny `.env.example` a vložte doň vaše Firebase a Genkit API kľúče.
+    ```bash
+    cp .env.example .env
     ```
+    Teraz otvorte súbor `.env` a vyplňte vaše tajné kľúče.
 
 4.  **Spustite vývojový server:**
     ```bash
@@ -73,7 +65,15 @@ Pre spustenie projektu na vašom lokálnom stroji postupujte podľa nasledujúci
 
 ## 📦 Nasadenie na Produkciu
 
-Projekt je optimalizovaný pre nasadenie na **Vercel** alebo na vlastný **VPS**. Podrobný návod na nasadenie na VPS nájdete v súbore `vps.md`.
+### Nasadenie na Vercel (Odporúčané)
+
+Projekt je optimalizovaný pre nasadenie na **Vercel**. Kliknite na tlačidlo nižšie pre jednoduché a rýchle nasadenie:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FENZO7700%2Fseo4websk&env=GEMINI_API_KEY,NEXT_PUBLIC_FIREBASE_API_KEY,NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,NEXT_PUBLIC_FIREBASE_PROJECT_ID,NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,NEXT_PUBLIC_FIREBASE_APP_ID&project-name=seo4web-ai-suite&repository-name=seo4web-ai-suite)
+
+### Nasadenie na VPS
+
+Podrobný návod na nasadenie na vlastný VPS nájdete v súbore `vps.md`.
 
 ---
 

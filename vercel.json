@@ -1,9 +1,13 @@
-
 {
+  "builds": [
+    {
+      "src": "next.config.ts",
+      "use": "@vercel/next"
+    }
+  ],
   "functions": {
     "app/api/genkit/**": {
       "maxDuration": 120
     }
   }
 }
-    
