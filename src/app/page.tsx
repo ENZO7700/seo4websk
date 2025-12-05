@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -117,21 +118,24 @@ const testimonials = [
     role: 'Freelancer copywriterka',
     quote:
       'S AI Copywriterom zvládnem o 4 projekty mesačne viac. Klienti milujú, že texty majú štruktúru aj zdroje.',
-    avatar: 'https://i.pravatar.cc/150?u=michaela'
+    avatar: 'https://i.pravatar.cc/150?u=michaela',
+    aiHint: 'professional woman portrait'
   },
   {
     name: 'Peter L.',
     role: 'Majiteľ e‑shopu',
     quote:
       'Audit mi odhalil 12 kritických chýb. Po fixoch a content kalendári máme +38 % organickej návštevnosti.',
-    avatar: 'https://i.pravatar.cc/150?u=peter'
+    avatar: 'https://i.pravatar.cc/150?u=peter',
+    aiHint: 'male entrepreneur portrait'
   },
   {
     name: 'Zuzana P.',
     role: 'Marketing manažérka',
     quote:
       'Board vidí jasné KPI – plán obsahu, SERP pohyby, CTR. Menej diskusií, viac čísel.',
-    avatar: 'https://i.pravatar.cc/150?u=zuzana'
+    avatar: 'https://i.pravatar.cc/150?u=zuzana',
+    aiHint: 'female manager portrait'
   },
 ];
 
@@ -351,7 +355,7 @@ export default function NewHomePage() {
                                 </CardContent>
                                 <CardFooter className="p-0 pt-6 mt-4 border-t">
                                     <div className="flex items-center">
-                                        <Image src={testimonial.avatar} alt={testimonial.name} width={48} height={48} className="h-12 w-12 rounded-full mr-4" />
+                                        <Image src={testimonial.avatar} alt={testimonial.name} width={48} height={48} className="h-12 w-12 rounded-full mr-4" data-ai-hint={testimonial.aiHint} />
                                         <div>
                                             <p className="font-bold text-foreground">{testimonial.name}</p>
                                             <p className="text-muted-foreground">{testimonial.role}</p>
