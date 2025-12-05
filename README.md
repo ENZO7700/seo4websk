@@ -78,3 +78,4 @@ Podrobný návod na nasadenie na vlastný VPS nájdete v súbore `vps.md`.
 ---
 
 Tento projekt vznikol v rámci **Firebase Studia**. Všetky úpravy a vylepšenia boli realizované v spolupráci s AI asistentom.
+# seo4websk
