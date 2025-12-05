@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/layout/header";
@@ -58,10 +58,11 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport = {
+export const viewport: Viewport = {
   themeColor: "#0d1117",
   width: 'device-width',
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 const fontBody = Inter({
